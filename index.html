@@ -1,0 +1,1216 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Global Muslim Charitable Foundation | Empowering Lives Through Faith & Stewardship</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .font-serif-heading { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Material 3 & Design Token Typography System */
+    .font-serif, .font-serif-heading {
+      font-family: 'Playfair Display', Georgia, serif !important;
+    }
+
+    h1, .text-headline-xl, .font-headline-xl {
+      font-size: 2.125rem !important; /* ~34px mobile */
+      line-height: 1.2 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 2.75rem !important; /* 44px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 3rem !important; /* 48px desktop */
+        line-height: 1.15 !important;
+      }
+    }
+
+    h2, .text-headline-lg, .font-headline-lg {
+      font-size: 1.625rem !important; /* 26px mobile */
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2rem !important; /* 32px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2.25rem !important; /* 36px desktop */
+        line-height: 1.2 !important;
+      }
+    }
+
+    h3, .text-headline-md, .font-headline-md {
+      font-size: 1.375rem !important; /* 22px mobile */
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 1024px) {
+      h3, .text-headline-md, .font-headline-md {
+        font-size: 1.75rem !important; /* 28px desktop */
+        line-height: 1.25 !important;
+      }
+    }
+
+    .text-headline-sm, .font-headline-sm {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-lg, .font-title-lg {
+      font-size: 1.25rem !important; /* 20px */
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-md, .font-title-md {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.625rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-sm, .font-title-sm {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-body-lg, .font-body-lg {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.75rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-md, .font-body-md {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-sm, .font-body-sm {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-label-lg, .font-label-lg {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+    }
+
+    .text-label-md, .font-label-md {
+      font-size: 0.75rem !important; /* 12px */
+      line-height: 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+    }
+
+    .text-label-sm, .font-label-sm {
+      font-size: 0.6875rem !important; /* 11px */
+      line-height: 0.875rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e6eeff",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e3f6",
+            "text-muted": "#4B5563",
+            "on-primary-container": "#bbffe9",
+            "on-tertiary-fixed": "#00201c",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed": "#97f4d9",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#fea619",
+            "on-surface": "#121c2a",
+            "surface": "#f8f9ff",
+            "oceanic-teal-deep": "#044E42",
+            "tertiary-container": "#3c786e",
+            "on-background": "#121c2a",
+            "secondary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#ffddb8",
+            "outline-variant": "#bdc9c4",
+            "on-primary-fixed": "#002019",
+            "primary-container": "#0D7C66",
+            "on-surface-variant": "#3e4945",
+            "outline": "#6e7a75",
+            "surface-dim": "#d0dbed",
+            "surface-variant": "#d9e3f6",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#95d2c6",
+            "surface-subtle-mint": "#EEF8F2",
+            "amber-vibrant": "#D97706",
+            "gold-accent": "#D4AF37",
+            "gold-warm": "#E5A93C",
+            "primary-fixed-dim": "#7bd7bd",
+            "emerald-dark": "#044E42",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-container": "#bffef1",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "on-primary-fixed-variant": "#005141",
+            "on-secondary": "#ffffff",
+            "background": "#f8f9ff",
+            "inverse-surface": "#27313f",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#0a5047",
+            "error-container": "#ffdad6",
+            "secondary": "#855300",
+            "surface-container-high": "#dee9fc",
+            "inverse-primary": "#7bd7bd",
+            "surface-clean": "#FFFFFF",
+            "error": "#ba1a1a",
+            "border-subtle": "#E5E7EB",
+            "tertiary": "#205f56",
+            "zakat-gold-light": "#FEF3C7",
+            "surface-tint": "#F8FAF9",
+            "primary": "#0D7C66",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#b1efe2"
+          },
+          
+          fontSize: {
+            'headline-xl': ['3rem', { lineHeight: '3.5rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-lg': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-md': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em', fontWeight: '600' }],
+            'headline-sm': ['1.375rem', { lineHeight: '1.875rem', fontWeight: '600' }],
+            'title-lg': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+            'title-md': ['1.125rem', { lineHeight: '1.625rem', fontWeight: '600' }],
+            'title-sm': ['1rem', { lineHeight: '1.5rem', fontWeight: '600' }],
+            'body-lg': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '400' }],
+            'body-md': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+            'body-sm': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+            'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.02em', fontWeight: '600' }],
+            'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.04em', fontWeight: '600' }],
+            'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.05em', fontWeight: '600' }]
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased">
+<!-- Fixed Header & Top Meta Banner -->
+<!-- Fixed Header & Top Meta Banner -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+<!-- International Meta Strip -->
+<div class="bg-emerald-dark text-on-primary py-1.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">call</span>
+<span>24/7 Helpline: <strong class="text-white">+880 1800-4673</strong></span>
+</div>
+<span class="hidden md:inline text-white/30">|</span>
+<div class="hidden md:flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">verified_user</span>
+<span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-1 hover:text-gold-warm transition-colors" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[15px]">calculate</span>
+<span>Zakat Calculator</span>
+</a>
+<div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded border border-white/10">
+<span class="material-symbols-outlined text-[13px] text-gold-warm">currency_exchange</span>
+<select class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+<option class="text-slate-900 bg-white" value="USD">USD ($)</option>
+<option class="text-slate-900 bg-white" value="GBP">GBP (£)</option>
+<option class="text-slate-900 bg-white" value="BDT">BDT (৳)</option>
+<option class="text-slate-900 bg-white" value="EUR">EUR (€)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="h-20 max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-11 h-11 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg text-emerald-dark tracking-tight leading-tight">Global Muslim Foundation</span>
+<span class="text-[11px] font-semibold text-text-muted uppercase tracking-wider">Charitable Relief &amp; Zakat Fund</span>
+</div>
+</a>
+</div>
+<nav class="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+<a class="px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold" href="index.html">Home</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="appeals.html">Appeals & Causes</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="zakat-calculator.html">Zakat Fund</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="impact.html">Impact & Reports</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="about.html">About Us</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="volunteer.html">Volunteer Portal</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span>Donate Now</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-colors" href="volunteer.html" title="Volunteer &amp; Donor Portal">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</a>
+<button id="mobile-menu-btn" type="button" class="xl:hidden w-10 h-10 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" aria-label="Toggle navigation menu">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-drawer" class="hidden xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle px-4 py-4 shadow-xl">
+<nav class="flex flex-col gap-1 text-sm font-semibold text-on-surface-variant">
+<a class="px-4 py-2.5 text-primary bg-surface-subtle-mint rounded-lg font-bold flex items-center justify-between" href="index.html"><span>Home</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="appeals.html"><span>Appeals & Causes</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="zakat-calculator.html"><span>Zakat Fund</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="impact.html"><span>Impact & Reports</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="about.html"><span>About Us</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="volunteer.html"><span>Volunteer Portal</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+</nav>
+</div>
+</header>
+<main class="w-full bg-surface pt-36">
+<!-- Top Announcement Pill Bar -->
+<div class="w-full bg-surface-subtle-mint border-b border-border-subtle py-2.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-primary">
+<div class="flex items-center gap-2 font-medium">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[12px] shadow-sm">
+<span class="material-symbols-outlined text-[13px]">emergency_home</span>
+</span>
+<span class=""><strong>Ramadan &amp; Emergency Appeal:</strong> 100% of your Zakat funds provide immediate warm meals and urgent pediatric healthcare for destitute children.</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-semibold">
+<span class="inline-flex items-center gap-1 text-emerald-dark">
+<span class="material-symbols-outlined text-[15px] text-amber-vibrant">verified</span>
+            Govt. Registered NGO No: NGO-AB-89423
+          </span>
+<a class="hidden sm:inline-flex items-center gap-1 text-primary hover:text-emerald-dark underline font-bold" href="zakat-calculator.html">
+            Instant Zakat Calculator →
+          </a>
+</div>
+</div>
+</div>
+<!-- Hero Section with Dual Column & Floating Interactive Donation Card -->
+<section class="relative w-full bg-gradient-to-b from-surface-subtle-mint/50 via-surface to-surface overflow-hidden py-12 lg:py-16">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Hero Narrative (7 Cols) -->
+<div class="lg:col-span-7 space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zakat-gold-light border border-amber-300 text-secondary text-xs font-bold tracking-wide">
+<span class="material-symbols-outlined text-[16px] text-amber-vibrant">shield_with_heart</span>
+<span class="">Trusted Global Humanitarian Relief &amp; Shariah Stewardship</span>
+</div>
+<h1 class="font-serif-heading text-4xl sm:text-5xl lg:text-[54px] font-bold text-on-surface tracking-tight leading-[1.15]">
+              Empowering Lives Through Faith, <span class="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">Compassion &amp; Stewardship</span>
+</h1>
+<p class="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+<strong>One Meal One Hope</strong> — Transforming vulnerable communities across Bangladesh and beyond with emergency nourishment, pediatric surgical care, and sustainable Zakat empowerment programs.
+            </p>
+<!-- Metric Value Badges -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+<div class="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
+<div class="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
+<span class="material-symbols-outlined text-[24px]">restaurant</span>
+</div>
+<div>
+<p class="text-lg font-bold text-on-surface">120,000+</p>
+<p class="text-xs text-text-muted font-medium">Nutritious Meals Served</p>
+</div>
+</div>
+<div class="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
+<div class="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
+<span class="material-symbols-outlined text-[24px]">medical_services</span>
+</div>
+<div>
+<p class="text-lg font-bold text-on-surface">8,400+</p>
+<p class="text-xs text-text-muted font-medium">Pediatric Surgeries &amp; Care</p>
+</div>
+</div>
+<div class="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
+<div class="p-2.5 rounded-xl bg-zakat-gold-light text-amber-700">
+<span class="material-symbols-outlined text-[24px]">balance</span>
+</div>
+<div>
+<p class="text-lg font-bold text-on-surface">100%</p>
+<p class="text-xs text-text-muted font-medium">Shariah Zakat Policy</p>
+</div>
+</div>
+</div>
+<!-- Primary Action Buttons -->
+<div class="flex flex-wrap items-center gap-3.5 pt-2">
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[20px] text-error">favorite</span>
+<span class="">Make an Immediate Donation</span>
+</a>
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-surface-clean hover:bg-surface-subtle-mint text-primary font-bold text-sm border border-primary/20 shadow-sm transition-all" href="appeals.html">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span class="">View Active Appeals &amp; Impact</span>
+</a>
+</div>
+<!-- Field Photo Strip Preview -->
+<div class="relative rounded-2xl overflow-hidden shadow-lg border border-border-subtle mt-4">
+<img alt="Community relief activity by foundation" class="w-full h-52 sm:h-64 object-cover object-center transform hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1VJsW0niheML_8rWPWfGpw8VESzbzEM0eoKmXFGu6p0uPYJAe4AQGFsrio-bE6mvBvhVL3xSsNjRmTOM7jzhU1-ucaohAG5uAgr7OM7SO4RIYR5VK5XBAwNSkuQ1pBr0GlJ69Ysoh527Ll7wNDB27w0urkTZaPk7J7YFWC6APWO5yEH-fVzWfuUbgXeD-pMC5agxHOVj2k_acq9RYUmnyAivJ06GjyC2Kw4IQF7bb5kpQ">
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-5">
+<div class="text-white">
+<span class="bg-primary text-white text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Ground Operations</span>
+<p class="text-sm sm:text-base font-semibold text-white mt-1.5 leading-snug">Emergency warm meal distributions along railway communities &amp; urban slums</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Quick Floating Donation Engine Card (5 Cols) -->
+<div class="lg:col-span-5">
+<div class="bg-surface-clean rounded-3xl shadow-xl p-6 sm:p-8 border border-border-subtle relative">
+<!-- Header Tag -->
+<div class="flex items-center justify-between pb-4 border-b border-border-subtle">
+<div>
+<span class="text-xs uppercase tracking-wider text-primary font-extrabold">Instant Secure Donation</span>
+<h3 class="font-serif-heading text-2xl font-bold text-on-surface mt-0.5">Extend a Helping Hand</h3>
+</div>
+<div class="w-11 h-11 rounded-2xl bg-surface-subtle-mint flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+</div>
+</div>
+<!-- Frequency Switcher -->
+<div class="mt-5">
+<label class="text-xs font-bold text-on-surface-variant block mb-1.5 uppercase tracking-wider">Donation Frequency</label>
+<div class="grid grid-cols-2 gap-2 bg-surface-subtle-mint/70 p-1.5 rounded-xl border border-primary/10" id="freq-wrapper">
+<button class="freq-btn py-2 text-center rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-sm" data-freq="one-time" type="button">One-off Gift</button>
+<button class="freq-btn py-2 text-center rounded-lg text-sm font-semibold text-on-surface hover:text-primary transition-all" data-freq="monthly" type="button">Monthly Sadaqah</button>
+</div>
+</div>
+<!-- Cause Selector -->
+<div class="mt-4">
+<label class="text-xs font-bold text-on-surface-variant block mb-1 uppercase tracking-wider" for="cause-select">Select Designated Fund</label>
+<div class="relative">
+<select class="w-full bg-surface-subtle-mint/80 border border-primary/20 text-on-surface font-semibold text-sm rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-primary" id="cause-select">
+<option value="meal">One Meal One Hope (Emergency Food Support)</option>
+<option value="alo">Project Alo (Pediatric Medical &amp; Eye Surgery)</option>
+<option value="zakat">100% General Zakat Fund (Shariah-Compliant)</option>
+<option value="winter">Project Sheetolota (Winter Warmth &amp; Blankets)</option>
+<option value="water">Clean Water Wells &amp; Dignified Sanitation</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 pointer-events-none text-text-muted">expand_more</span>
+</div>
+</div>
+<!-- Amount Chips Grid -->
+<div class="mt-4">
+<label class="text-xs font-bold text-on-surface-variant block mb-2 uppercase tracking-wider">Select Gift Amount (USD $)</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="amt-btn py-2.5 rounded-xl text-sm font-bold transition-all bg-surface-subtle-mint text-primary border border-primary/20 hover:bg-primary hover:text-white" data-amt="25" type="button">$25</button>
+<button class="amt-btn py-2.5 rounded-xl text-sm font-bold transition-all bg-primary text-white shadow-sm" data-amt="50" type="button">$50</button>
+<button class="amt-btn py-2.5 rounded-xl text-sm font-bold transition-all bg-surface-subtle-mint text-primary border border-primary/20 hover:bg-primary hover:text-white" data-amt="100" type="button">$100</button>
+<button class="amt-btn py-2.5 rounded-xl text-sm font-bold transition-all bg-surface-subtle-mint text-primary border border-primary/20 hover:bg-primary hover:text-white" data-amt="250" type="button">$250</button>
+<button class="amt-btn py-2.5 rounded-xl text-sm font-bold transition-all bg-surface-subtle-mint text-primary border border-primary/20 hover:bg-primary hover:text-white col-span-2" data-amt="custom" type="button">Custom Amount</button>
+</div>
+</div>
+<!-- Custom Amount Input -->
+<div class="mt-3">
+<div class="flex items-center rounded-xl bg-surface border border-border-subtle px-3.5 py-2.5 focus-within:ring-2 focus-within:ring-primary">
+<span class="text-xl font-bold text-primary mr-2">$</span>
+<input class="w-full bg-transparent text-lg font-bold text-on-surface focus:outline-none" id="custom-amount-input" placeholder="Enter amount" type="number" value="50">
+<span class="text-xs font-bold text-text-muted">USD</span>
+</div>
+</div>
+<!-- Donor Quick Inputs -->
+<div class="mt-3.5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<input class="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary" placeholder="Full Name (Optional)" type="text">
+<input class="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary" placeholder="Email / Phone" type="text">
+</div>
+<!-- Instant Checkout CTA -->
+<div class="mt-5">
+<button class="w-full py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="">Give Securely with Card, PayPal or bKash</span>
+</button>
+</div>
+<!-- Trust Payment Logos & Shariah Assurance -->
+<div class="mt-4 pt-3.5 border-t border-border-subtle flex flex-wrap items-center justify-between text-xs text-text-muted gap-2">
+<div class="flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+<span class="">256-bit SSL Encrypted Gateway</span>
+</div>
+<div class="flex items-center gap-2 font-bold">
+<span class="px-2 py-0.5 rounded bg-surface border text-[10px] text-blue-700">VISA</span>
+<span class="px-2 py-0.5 rounded bg-surface border text-[10px] text-red-600">MasterCard</span>
+<span class="px-2 py-0.5 rounded bg-surface border text-[10px] text-blue-500">PayPal</span>
+<span class="px-2 py-0.5 rounded bg-surface border text-[10px] text-[#D82361]">bKash</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Impact Statistics & Transparency Ribbon -->
+<section class="w-full bg-emerald-dark text-on-primary py-10 shadow-inner">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<div class="p-2">
+<div class="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">120,000+</div>
+<p class="text-sm font-semibold text-primary-fixed mt-1">Meals Distributed</p>
+<span class="text-xs text-white/70 block mt-0.5">Railway tracks &amp; urban slums</span>
+</div>
+<div class="p-2 border-l border-white/10">
+<div class="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">8,400+</div>
+<p class="text-sm font-semibold text-primary-fixed mt-1">Children Medical Treatments</p>
+<span class="text-xs text-white/70 block mt-0.5">Pediatric surgeries &amp; medications</span>
+</div>
+<div class="p-2 border-l md:border-l border-white/10">
+<div class="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">350+</div>
+<p class="text-sm font-semibold text-primary-fixed mt-1">Clean Water Wells &amp; Washrooms</p>
+<span class="text-xs text-white/70 block mt-0.5">Deep aquifers &amp; hygiene stations</span>
+</div>
+<div class="p-2 border-l border-white/10">
+<div class="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">100%</div>
+<p class="text-sm font-semibold text-primary-fixed mt-1">Shariah Board Verified</p>
+<span class="text-xs text-white/70 block mt-0.5">Zero overhead deducted from Zakat</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Urgent Appeals & Active Campaigns Grid -->
+<section class="w-full py-16 bg-surface" id="active-appeals">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<div class="inline-flex items-center gap-2 text-primary text-xs uppercase tracking-wider font-extrabold">
+<span class="w-2.5 h-2.5 rounded-full bg-error animate-pulse"></span>
+              Emergency Humanitarian Appeals
+            </div>
+<h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
+              Active Appeals &amp; Dedicated Funds
+            </h2>
+<p class="text-sm sm:text-base text-on-surface-variant max-w-2xl mt-1.5">
+              Your charitable donation provides life-saving sustenance, emergency surgeries, clean drinking water, and winter protection to those facing acute hardship.
+            </p>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-sm">All Campaigns</button>
+<button class="px-4 py-2 rounded-xl bg-surface-subtle-mint text-primary text-xs font-semibold hover:bg-surface-clean border border-primary/20">Food Relief</button>
+<button class="px-4 py-2 rounded-xl bg-surface-subtle-mint text-primary text-xs font-semibold hover:bg-surface-clean border border-primary/20">Healthcare</button>
+</div>
+</div>
+<!-- Projects Cards Bento Grid (4 appeals) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Campaign 1: One Meal One Hope -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-52 overflow-hidden">
+<img alt="One Meal One Hope food distribution" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1XkPbUiAkE_KY0C0s6vMjJYRB2pURmrw_eCqPz4Tx58Ho8KnYe_QroesglV1sWLXChP32elKsWxXt0eYo4mNa78u-gODdrm3tQ2CvqL_i7EkI0dj4uBkVfr453Qim6unQ9DNVY0BIV5wEkTKV3aHu4I1J9Eh9bqxVpPYHA7fzykqjFQGxb3L4jLr1o8WF371MdNe7lGlkMIMdScxXAMranCMCPHe7YWZV82XFvVt0ZxUQ">
+<div class="absolute top-3 left-3 bg-amber-vibrant text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                Food Relief
+              </div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                Zakat Eligible
+              </div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+<div>
+<a href="campaign-details.html" class="block hover:underline"><h3 class="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                  One Meal One Hope
+                </h3></a>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
+                  Daily hot nutritious meals and essential supplements for abandoned street children and railway families across Dhaka hubs.
+                </p>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-primary">Raised: $38,500</span>
+<span class="text-text-muted">Goal: $50,000</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 77%;"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-amber-500">group</span>
+                    620 Donors
+                  </span>
+<span class="font-bold text-primary">77% funded</span>
+</div>
+</div>
+<a href="campaign-details.html" class="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-[18px]">volunteer_activism</span><span>View Appeal & Sponsor</span></a>
+</div>
+</div>
+<!-- Campaign 2: Project Alo: Eye Care & Pediatric Surgery -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-52 overflow-hidden">
+<img alt="Project Alo: Eye Care &amp; Pediatric Surgery" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1XQZJYF5AXs7BTCsX6k9L-3gdItovAz5qfz0XSlneRWDDI_ndALkI4M32zo3D41nDA5r49fZKmWYyWrreF5bOmv02aC9EJJPAbaXfxtcZtzLKTVG6ivhGMupItitwASu5xBbiImm-HUcHoImAPjmwK4OH7WvypwLMmhChUOW7uXnsm4f_siIEiBJ7MGFvwTV92yY_e_EoHwSRnRyKjBrlzH1cG4l9OxPJUY-yJj-MJbxQ">
+<div class="absolute top-3 left-3 bg-oceanic-teal-deep text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                Pediatric Care
+              </div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                Zakat Eligible
+              </div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+<div>
+<h3 class="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                  Project Alo: Eye Care &amp; Pediatric Surgery
+                </h3>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
+                  Sight-restoring cataract surgery, chronic infection treatments, and emergency prescription pharmaceuticals for impoverished children.
+                </p>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-primary">Raised: $29,000</span>
+<span class="text-text-muted">Goal: $35,000</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 83%;"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-amber-500">group</span>
+                    410 Donors
+                  </span>
+<span class="font-bold text-primary">83% funded</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+<span class="">Fund Pediatric Surgery</span>
+</button>
+</div>
+</div>
+<!-- Campaign 3: Project Sheetolota: Winter Blanket & Shelter -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-52 overflow-hidden">
+<img alt="Project Sheetolota winter blanket relief" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1UPcAICi5Y7b16qMhxkNclXho1uj1QVDnzfqzCNIzZcnhC4kBUvGbfhi9s4VhZJC0D0KM1fKV5LI6AAXB0Bjn3jNf2IhZ6lKSoB1k3-T4xXJ7zmGzSTg-8AnXVYVtQJXcuOxuj_rO6F608O1FzfOAzB10jOhphPtJk3EwbnMqDLcMP9JZp45cgIJIHVs2XOQGsckrsSZndURKjmPYXWAHDcvuRZzIsTuj-Hk87QIoUnpQ">
+<div class="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                Winter Warmth
+              </div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                Sadaqah
+              </div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+<div>
+<h3 class="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                  Project Sheetolota: Winter Blanket &amp; Shelter
+                </h3>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
+                  Heavy wool blankets, thermal jackets, and weather-resistant bedding distributed to rural orphanages and cold-struck families.
+                </p>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-primary">Raised: $31,000</span>
+<span class="text-text-muted">Goal: $40,000</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-amber-500">group</span>
+                    535 Donors
+                  </span>
+<span class="font-bold text-primary">78% funded</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">ac_unit</span>
+<span class="">Send Winter Blankets</span>
+</button>
+</div>
+</div>
+<!-- Campaign 4: Clean Water & Dignified Sanitation -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
+<div class="relative h-52 overflow-hidden">
+<img alt="Clean water and sanitation facility" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1UhitlaZRQLhOB7ztQLwXIMnLG3_8CA9GFYVlwPl214H_rPJSmE-tDs1JsNweJ1E_MGOPAIFGWOg9Z4qc8c4QoBplrffAF57KHzmdEUVtmEZ80al5lroiYzDnPV67b9B2mLSjZgnlL0JQVBelnn0cY8XL6rPhBPjkim4nafA6BzG-SSC41vsgLQG2mZXxAZYi3Ot-WQ1YmfINxcWEwX-TECmPrDwcf_eSW25A0AUxiB">
+<div class="absolute top-3 left-3 bg-primary-container text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                Clean Water &amp; Wash
+              </div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                Sadaqah Jariyah
+              </div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+<div>
+<h3 class="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                  Clean Water &amp; Dignified Sanitation
+                </h3>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
+                  Installing deep arsenic-free tube wells and hygienic communal washrooms across disaster-prone and water-stressed communities.
+                </p>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-primary">Raised: $19,500</span>
+<span class="text-text-muted">Goal: $25,000</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-amber-500">group</span>
+                    290 Donors
+                  </span>
+<span class="font-bold text-primary">78% funded</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+<span class="">Build a Water Well</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Real Stories Spotlight: Reconnection & Rehabilitation -->
+<section class="w-full py-16 bg-surface-subtle-mint/60 border-y border-border-subtle" id="story-spotlight">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="text-center max-w-2xl mx-auto mb-12">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Documented Field Impact</span>
+<h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
+            Real Life Transformations: A Mother &amp; Child Reunited
+          </h2>
+<p class="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
+            Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to families in their darkest hours.
+          </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+<!-- Story 1: Badshah Reconnection (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-clean rounded-3xl overflow-hidden border border-border-subtle shadow-md flex flex-col justify-between">
+<div class="relative h-72 sm:h-80 overflow-hidden">
+<img alt="Lost child Badshah reunited with mother by foundation" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ALJJyrA1ZuW-duf8x3aFhnKh27vuAXFSrDDmPMi0yn6kcCSFW5GTr6kqHUCqXFeiFZBVX3Uu46iF4KTUuIHM2_wFFSAPcJ97TfQ_EOMbTHG2MFEuyfiUF5J4RuOWNZDRYAt1EgAeOwPk8224HgAB6ajhznSOKSzFiWXGy9ysl0uAKUY6dQZ94z3MthcZQCsjr0wxsTauVdGBJBi0C1H19GooG9277IohzY2yyLuOa9y5n9a5">
+<div class="absolute bottom-4 left-4 bg-emerald-dark/95 text-white text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur shadow">
+                Family Reconnection &amp; Child Welfare
+              </div>
+</div>
+<div class="p-6 sm:p-8 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 text-xs text-text-muted mb-2 font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span class="">Tejgaon Community Center</span>
+<span class="">•</span>
+<span class="">Verified by Local Authorities</span>
+</div>
+<h3 class="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">
+                  "Bringing Badshah Back to His Mother's Embrace" — A Miracle of Compassion
+                </h3>
+<p class="text-sm text-on-surface-variant mt-3 leading-relaxed">
+                  Found wandering and distressed near the railway terminals, 8-year-old Badshah was taken into protective custody by our emergency field team. Following 21 days of meticulous cross-district verification and community coordination, he was safely reunited with his tearful mother.
+                </p>
+</div>
+<div class="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                    GMC
+                  </div>
+<div>
+<p class="text-xs sm:text-sm font-bold text-on-surface">Child Protection &amp; Welfare Division</p>
+<p class="text-xs text-text-muted">Global Muslim Charitable Foundation</p>
+</div>
+</div>
+<span class="text-primary font-bold text-xs sm:text-sm flex items-center gap-1 cursor-pointer hover:underline">
+                  Read Case Study →
+                </span>
+</div>
+</div>
+</div>
+<!-- Secondary Stories (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Story 2: Pediatric Hope -->
+<div class="bg-surface-clean rounded-3xl overflow-hidden border border-border-subtle shadow-md p-5 flex flex-col justify-between flex-grow">
+<div class="relative h-44 rounded-2xl overflow-hidden mb-3.5">
+<img alt="Pediatric healthcare and maternal hope" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XtMSIs0rUiirhFxI8AV6QoruaV4BrXXOPtnre6YKL36vorKqr8QB-wJtwcg79lOxYBmMc_oW0sE9HJodtrqvQtYKj3Lnhbx4w8mirv-ij8zBU2TM1m5E1sivQ52ZA5gz8rlQH5Ofc4s_0iRjUuzdyTvSSCRxWwDYCai1nkx7SmnqtGRblAANqm87Y3cjGQEgcshryJI1v_rdwujMGTvzi3lFPiFfpY7U3Z6V3rCKVv">
+<span class="absolute top-2.5 right-2.5 bg-primary text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">Pediatric Hope</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-on-surface">Saifan's Journey to Health &amp; Recovery</h4>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                  Born with critical medical distress into extreme poverty, Saifan received fully sponsored pediatric surgery and vital nutrition care.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
+<span class="text-text-muted font-medium">100% Sponsored Care</span>
+<span class="text-primary font-bold">View Medical Records →</span>
+</div>
+</div>
+<!-- Story 3: Special Moments for Special Children -->
+<div class="bg-surface-clean rounded-3xl overflow-hidden border border-border-subtle shadow-md p-5 flex flex-col justify-between flex-grow">
+<div class="relative h-44 rounded-2xl overflow-hidden mb-3.5">
+<img alt="Special kids inclusive celebration" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo">
+<span class="absolute top-2.5 right-2.5 bg-secondary-container text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">Community Joy</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-on-surface">Special Moments for Special Children</h4>
+<p class="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                  Hosting inclusive festive gatherings, medical checks, and joy-filled meals for neurodiverse and disabled youth in partner centers.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
+<span class="text-text-muted font-medium">Over 85+ Children Hosted</span>
+<span class="text-primary font-bold">Photo Gallery →</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dedicated Interactive Zakat Calculator Section -->
+<section class="w-full py-16 bg-surface" id="quick-calculator">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="bg-gradient-to-br from-emerald-dark via-[#065A4F] to-oceanic-teal-deep rounded-3xl text-on-primary p-6 sm:p-10 lg:p-12 shadow-2xl border border-white/10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Zakat Mandate & Policy (5 Cols) -->
+<div class="lg:col-span-5 space-y-5">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-warm/20 text-gold-warm text-xs font-bold border border-gold-warm/30">
+<span class="material-symbols-outlined text-[16px]">balance</span>
+<span class="">100% Shariah Compliant &amp; Independent Oversight</span>
+</div>
+<h2 class="font-serif-heading text-3xl sm:text-4xl text-white font-bold leading-tight">
+                Calculate Your Zakat with <span class="text-gold-warm italic">100% Precision &amp; Confidence</span>
+</h2>
+<p class="text-sm sm:text-base text-primary-fixed leading-relaxed">
+                In strict compliance with Islamic jurisprudence, your Zakat is segregated into an exclusive treasury. Not a single cent is deducted for admin or overhead expenses—guaranteeing your obligation directly lifts the poorest.
+              </p>
+<div class="space-y-2.5 pt-2 text-xs sm:text-sm">
+<div class="flex items-center gap-3">
+<span class="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">✓</span>
+<span class="text-white">Direct supervision by Certified Shariah Advisory Council</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">✓</span>
+<span class="text-white">Independently audited yearly accounting reports published</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">✓</span>
+<span class="text-white">Instant tax-deductible e-receipts and donor certificates</span>
+</div>
+</div>
+<div class="pt-3">
+<a class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm transition-all shadow-md" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="">Review Our Zakat Policy</span>
+</a>
+</div>
+</div>
+<!-- Interactive Zakat Calculator Card (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-clean rounded-3xl p-6 sm:p-8 text-on-surface shadow-2xl border border-border-subtle">
+<div class="flex items-center justify-between pb-4 border-b border-border-subtle">
+<div>
+<h3 class="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">Zakat Calculator</h3>
+<p class="text-xs text-text-muted">Instant calculation based on current Nisab threshold (2.5%)</p>
+</div>
+<span class="px-3 py-1 bg-surface-subtle-mint text-primary font-bold text-xs rounded-full border border-primary/20">
+                  Silver Nisab: $520 USD
+                </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Cash in Hand &amp; Bank Accounts ($)</label>
+<div class="relative">
+<span class="absolute left-3.5 top-2.5 font-bold text-text-muted">$</span>
+<input class="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary" id="calc-cash" placeholder="0" type="number">
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Gold &amp; Silver Value ($)</label>
+<div class="relative">
+<span class="absolute left-3.5 top-2.5 font-bold text-text-muted">$</span>
+<input class="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary" id="calc-gold" placeholder="0" type="number">
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Business Merchandise &amp; Stocks ($)</label>
+<div class="relative">
+<span class="absolute left-3.5 top-2.5 font-bold text-text-muted">$</span>
+<input class="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary" id="calc-biz" placeholder="0" type="number">
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Deduct: Immediate Liabilities &amp; Debts ($)</label>
+<div class="relative">
+<span class="absolute left-3.5 top-2.5 font-bold text-text-muted">$</span>
+<input class="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary" id="calc-debt" placeholder="0" type="number">
+</div>
+</div>
+</div>
+<!-- Instant Calculation Display Strip -->
+<div class="mt-6 p-4 rounded-2xl bg-surface-subtle-mint border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div>
+<span class="text-xs text-text-muted font-bold uppercase tracking-wider block">Net Zakat-Eligible Wealth</span>
+<span class="text-lg font-bold text-on-surface" id="calc-net-assets">$0.00</span>
+</div>
+<div class="text-right">
+<span class="text-xs text-text-muted font-bold uppercase tracking-wider block">Your Zakat Due (2.5%)</span>
+<span class="font-serif-heading text-2xl sm:text-3xl font-extrabold text-primary" id="calc-zakat-due">$0.00</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-5 flex flex-wrap items-center gap-3">
+<button class="flex-grow py-3 rounded-xl bg-primary hover:bg-emerald-dark text-white font-bold text-sm transition-all shadow-md text-center" id="calc-apply-btn" type="button">
+                  Pay This Zakat Now
+                </button>
+<button class="px-5 py-3 rounded-xl bg-surface hover:bg-surface-dim text-on-surface font-semibold text-xs border border-border-subtle transition-all" id="calc-reset-btn" type="button">
+                  Reset Form
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Volunteer & Youth Engagement -->
+<section class="w-full py-16 bg-surface-subtle-mint/40 border-t border-border-subtle">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Visual -->
+<div class="lg:col-span-6 relative">
+<div class="rounded-3xl overflow-hidden shadow-xl border border-border-subtle">
+<img alt="Youth volunteers of Global Muslim Charitable Foundation" class="w-full h-80 sm:h-96 object-cover object-center" src="https://lh3.googleusercontent.com/aida/AEtjO1W_gIB4MvKg9xKsKcGIK_fk-dTEmIlQ0DCBthTQgrT5zojWhKGc-ErJwCo-3lLUhOq2H_XlqslU3WWCnEsHVbLHchZwCMiFece48LMGzlq5N8GU3_h9d2ZbMonL65HWSRfY0Z5LmM3woKyCcJFZrMqzI80lFKTTnlXZdp2bRhEDikieZcRG_rq2H8J_iteTJ_W0Kh-9S3H3ONehU-Rddc34QqpZk0u3hWxBqxS7HpO_Cg">
+</div>
+<!-- Floating Mini Badge -->
+<div class="absolute -bottom-5 right-5 bg-surface-clean rounded-2xl p-4 shadow-xl border border-border-subtle max-w-xs hidden sm:flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-slate-900 flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[26px]">diversity_3</span>
+</div>
+<div>
+<p class="text-base font-bold text-on-surface">850+ Active Youth</p>
+<p class="text-xs text-text-muted">Dedicated frontline relief volunteers</p>
+</div>
+</div>
+</div>
+<!-- Right Content & Form -->
+<div class="lg:col-span-6 space-y-5">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Community Action &amp; Stewardship</span>
+<h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface leading-tight">
+              Join Our 850+ Dedicated Youth Volunteers
+            </h2>
+<p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+              Whether distributing emergency winter blankets, supporting medical triage camps, or tutoring street children—your time and sincerity can illuminate a vulnerable child's world.
+            </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">school</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Street Youth Literacy</h4>
+<p class="text-xs text-text-muted mt-0.5">Weekly foundational reading, numeracy &amp; moral education.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">local_shipping</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Emergency Field Dispatch</h4>
+<p class="text-xs text-text-muted mt-0.5">Rapid flood and winter relief response across rural districts.</p>
+</div>
+</div>
+</div>
+<!-- Sign-up Mini Bar -->
+<div class="pt-2">
+<form class="flex flex-col sm:flex-row items-center gap-2 max-w-md" onsubmit="event.preventDefault(); alert('Thank you! Your volunteer application has been received. Our team will reach out shortly.');">
+<input class="w-full bg-surface-clean border border-border-subtle rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary shadow-sm" placeholder="Enter your email or phone..." required="" type="email">
+<button class="w-full sm:w-auto px-6 py-3 rounded-xl bg-primary hover:bg-emerald-dark text-white font-bold text-xs sm:text-sm whitespace-nowrap transition-colors shadow-sm" type="submit">
+                  Join Us →
+                </button>
+</form>
+<p class="text-xs text-text-muted mt-2">No prior experience required. Compassion and commitment are all you need.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Governance, Shariah Board & Annual Audit Report Assurance -->
+<section class="w-full py-14 bg-surface border-t border-border-subtle" id="governance">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="bg-surface-clean rounded-3xl p-6 sm:p-8 shadow-sm border border-border-subtle">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-surface-subtle-mint text-primary flex items-center justify-center flex-shrink-0 shadow-sm border border-primary/20">
+<span class="material-symbols-outlined text-[32px]">assignment_turned_in</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-on-surface">Independent Charter Audit</h4>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                  Yearly financial and Zakat treasury audits conducted by top-tier chartered accounting firms.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-zakat-gold-light text-amber-700 flex items-center justify-center flex-shrink-0 shadow-sm border border-amber-300">
+<span class="material-symbols-outlined text-[32px]">menu_book</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-on-surface">Shariah Advisory Council</h4>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                  Supervised by renowned Islamic scholars to ensure 100% adherence to authentic Zakat distribution.
+                </p>
+</div>
+</div>
+<div class="flex items-center justify-start md:justify-end">
+<a class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all border border-primary/20 shadow-sm" href="#" onclick="alert('Downloading the 2024 GMCF Annual Financial &amp; Impact Report (PDF)...'); return false;">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="">Download 2024 Annual Report (PDF)</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- International Footer -->
+<footer class="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+<!-- Top Trust Bar -->
+<div class="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-white">100% Zakat Guarantee &amp; Absolute Transparency</h4>
+<p class="text-xs text-primary-fixed">Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm" href="zakat-calculator.html">Calculate Zakat</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20" href="about.html#governance">View Audit Reports</a>
+</div>
+</div>
+</div>
+<!-- Main Footer Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-14">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- Brand & Registration -->
+<div class="space-y-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">volunteer_activism</span>
+</div>
+<span class="font-bold text-base text-emerald-dark">Global Muslim Foundation</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+An international non-profit philanthropic organization dedicated to serving the destitute, orphans, and disaster-affected communities worldwide.
+</p>
+<div class="pt-1">
+<span class="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
+UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+</span>
+</div>
+</div>
+<!-- Appeals List -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Featured Appeals</h3>
+<ul class="space-y-2 text-xs text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-amber-500">campaign</span>Gaza Emergency Nourishment Appeal</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="campaign-details.html"><span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>One Meal One Hope (Street Food Aid)</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">medical_services</span>Project Alo: Pediatric Surgery &amp; Eyes</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">water_drop</span>Deep Tube Wells &amp; Clean Water</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">ac_unit</span>Project Sheetolota Winter Blankets</a></li>
+</ul>
+</div>
+<!-- Global Offices -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Global Headquarters</h3>
+<div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">location_on</span>
+<span><strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">public</span>
+<span><strong>London Office:</strong> 104 Whitechapel High St, London E1 7PT, United Kingdom</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span>
+<span>+44 20 7946 0991 / +880 1800-4673</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>donor-care@gmcf-global.org</span>
+</div>
+</div>
+</div>
+<!-- Newsletter & Updates -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Field Bulletins</h3>
+<p class="text-xs text-on-surface-variant">Receive verified field impact dispatch reports and tax exemption updates directly.</p>
+<form name="newsletter-subscription" method="POST" data-netlify="true" class="flex flex-col gap-2" onsubmit="event.preventDefault(); const form = this; fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() }).catch(() => {}); const btn = form.querySelector('button'); btn.textContent = 'Subscribed!'; btn.classList.add('bg-emerald-dark'); form.querySelector('input').value = '';">
+<input type="hidden" name="form-name" value="newsletter-subscription" />
+<div class="flex items-center bg-surface-clean rounded-xl p-1 border border-border-subtle shadow-sm">
+<input name="email" required class="w-full px-3 py-2 text-xs bg-transparent focus:outline-none text-on-surface" placeholder="Your email address..." type="email">
+<button type="submit" class="bg-primary text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-dark transition-colors">Subscribe</button>
+</div>
+<span class="text-[11px] text-text-muted">Strict privacy. Shariah compliant zero spam guarantee.</span>
+</form>
+</div>
+</div>
+<!-- Bottom Copyright & Legal -->
+<div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+<p>© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.</p>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="hover:text-primary transition-colors" href="appeals.html">Appeals</a>
+<a class="hover:text-primary transition-colors" href="zakat-calculator.html">Zakat Calculator</a>
+<a class="hover:text-primary transition-colors" href="impact.html">Impact</a>
+<a class="hover:text-primary transition-colors" href="about.html">About &amp; Governance</a>
+<a class="hover:text-primary transition-colors" href="volunteer.html">Volunteers</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Mobile Navigation Drawer Toggle Handler
+(function() {
+  const btn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      drawer.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+      }
+    });
+  }
+})();
+</script>
+<!-- Interactive JavaScript Engine -->
+<script>
+    (function initCharityInteractivity() {
+      // Frequency toggle
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          freqBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface');
+        });
+      });
+
+      // Amount Chips
+      const amtBtns = document.querySelectorAll('.amt-btn');
+      const customInput = document.getElementById('custom-amount-input');
+      amtBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          amtBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('bg-surface-subtle-mint', 'text-primary');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-surface-subtle-mint', 'text-primary');
+          const val = btn.getAttribute('data-amt');
+          if (val === 'custom') {
+            customInput.focus();
+          } else {
+            customInput.value = val;
+          }
+        });
+      });
+
+      // Zakat Calculator Logic
+      const gInput = document.getElementById('calc-gold');
+      const cInput = document.getElementById('calc-cash');
+      const bInput = document.getElementById('calc-biz');
+      const dInput = document.getElementById('calc-debt');
+      const netDisplay = document.getElementById('calc-net-assets');
+      const zakatDisplay = document.getElementById('calc-zakat-due');
+      const applyBtn = document.getElementById('calc-apply-btn');
+      const resetBtn = document.getElementById('calc-reset-btn');
+
+      function calculateZakat() {
+        const gold = parseFloat(gInput?.value) || 0;
+        const cash = parseFloat(cInput?.value) || 0;
+        const biz = parseFloat(bInput?.value) || 0;
+        const debt = parseFloat(dInput?.value) || 0;
+
+        const totalAssets = gold + cash + biz;
+        const netWealth = Math.max(0, totalAssets - debt);
+        const nisab = 520; // USD silver benchmark
+
+        let zakatDue = 0;
+        if (netWealth >= nisab) {
+          zakatDue = Math.round(netWealth * 0.025 * 100) / 100;
+        }
+
+        if (netDisplay) netDisplay.textContent = '$' + netWealth.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        if (zakatDisplay) zakatDisplay.textContent = '$' + zakatDue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        return zakatDue;
+      }
+
+      [gInput, cInput, bInput, dInput].forEach(inp => {
+        if (inp) inp.addEventListener('input', calculateZakat);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (gInput) gInput.value = '';
+          if (cInput) cInput.value = '';
+          if (bInput) bInput.value = '';
+          if (dInput) dInput.value = '';
+          calculateZakat();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const due = calculateZakat();
+          if (due > 0) {
+            if (customInput) customInput.value = Math.round(due);
+            const causeSel = document.getElementById('cause-select');
+            if (causeSel) causeSel.value = 'zakat';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (customInput) {
+              customInput.classList.add('bg-surface-subtle-mint');
+              setTimeout(() => customInput.classList.remove('bg-surface-subtle-mint'), 1500);
+            }
+          } else {
+            alert('Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.');
+          }
+        });
+      }
+    })();
+  </script>
+
+
+</body></html>

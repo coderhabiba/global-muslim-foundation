@@ -1,0 +1,1216 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Youth Volunteers Field Portal | Global Muslim Charitable Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .font-serif-heading { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Material 3 & Design Token Typography System */
+    .font-serif, .font-serif-heading {
+      font-family: 'Playfair Display', Georgia, serif !important;
+    }
+
+    h1, .text-headline-xl, .font-headline-xl {
+      font-size: 2.125rem !important; /* ~34px mobile */
+      line-height: 1.2 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 2.75rem !important; /* 44px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 3rem !important; /* 48px desktop */
+        line-height: 1.15 !important;
+      }
+    }
+
+    h2, .text-headline-lg, .font-headline-lg {
+      font-size: 1.625rem !important; /* 26px mobile */
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2rem !important; /* 32px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2.25rem !important; /* 36px desktop */
+        line-height: 1.2 !important;
+      }
+    }
+
+    h3, .text-headline-md, .font-headline-md {
+      font-size: 1.375rem !important; /* 22px mobile */
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 1024px) {
+      h3, .text-headline-md, .font-headline-md {
+        font-size: 1.75rem !important; /* 28px desktop */
+        line-height: 1.25 !important;
+      }
+    }
+
+    .text-headline-sm, .font-headline-sm {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-lg, .font-title-lg {
+      font-size: 1.25rem !important; /* 20px */
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-md, .font-title-md {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.625rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-sm, .font-title-sm {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-body-lg, .font-body-lg {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.75rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-md, .font-body-md {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-sm, .font-body-sm {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-label-lg, .font-label-lg {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+    }
+
+    .text-label-md, .font-label-md {
+      font-size: 0.75rem !important; /* 12px */
+      line-height: 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+    }
+
+    .text-label-sm, .font-label-sm {
+      font-size: 0.6875rem !important; /* 11px */
+      line-height: 0.875rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e6eeff",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e3f6",
+            "text-muted": "#4B5563",
+            "on-primary-container": "#bbffe9",
+            "on-tertiary-fixed": "#00201c",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed": "#97f4d9",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#fea619",
+            "on-surface": "#121c2a",
+            "surface": "#f8f9ff",
+            "oceanic-teal-deep": "#044E42",
+            "tertiary-container": "#3c786e",
+            "on-background": "#121c2a",
+            "secondary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#ffddb8",
+            "outline-variant": "#bdc9c4",
+            "on-primary-fixed": "#002019",
+            "primary-container": "#0D7C66",
+            "on-surface-variant": "#3e4945",
+            "outline": "#6e7a75",
+            "surface-dim": "#d0dbed",
+            "surface-variant": "#d9e3f6",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#95d2c6",
+            "surface-subtle-mint": "#EEF8F2",
+            "amber-vibrant": "#D97706",
+            "gold-accent": "#D4AF37",
+            "gold-warm": "#E5A93C",
+            "primary-fixed-dim": "#7bd7bd",
+            "emerald-dark": "#044E42",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-container": "#bffef1",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "on-primary-fixed-variant": "#005141",
+            "on-secondary": "#ffffff",
+            "background": "#f8f9ff",
+            "inverse-surface": "#27313f",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#0a5047",
+            "error-container": "#ffdad6",
+            "secondary": "#855300",
+            "surface-container-high": "#dee9fc",
+            "inverse-primary": "#7bd7bd",
+            "surface-clean": "#FFFFFF",
+            "error": "#ba1a1a",
+            "border-subtle": "#E5E7EB",
+            "tertiary": "#205f56",
+            "zakat-gold-light": "#FEF3C7",
+            "surface-tint": "#F8FAF9",
+            "primary": "#0D7C66",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#b1efe2"
+          },
+          
+          fontSize: {
+            'headline-xl': ['3rem', { lineHeight: '3.5rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-lg': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-md': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em', fontWeight: '600' }],
+            'headline-sm': ['1.375rem', { lineHeight: '1.875rem', fontWeight: '600' }],
+            'title-lg': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+            'title-md': ['1.125rem', { lineHeight: '1.625rem', fontWeight: '600' }],
+            'title-sm': ['1rem', { lineHeight: '1.5rem', fontWeight: '600' }],
+            'body-lg': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '400' }],
+            'body-md': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+            'body-sm': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+            'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.02em', fontWeight: '600' }],
+            'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.04em', fontWeight: '600' }],
+            'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.05em', fontWeight: '600' }]
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased">
+<!-- Fixed Header & Top Meta Banner -->
+<!-- Fixed Header & Top Meta Banner -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+<!-- International Meta Strip -->
+<div class="bg-emerald-dark text-on-primary py-1.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">call</span>
+<span>24/7 Helpline: <strong class="text-white">+880 1800-4673</strong></span>
+</div>
+<span class="hidden md:inline text-white/30">|</span>
+<div class="hidden md:flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">verified_user</span>
+<span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-1 hover:text-gold-warm transition-colors" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[15px]">calculate</span>
+<span>Zakat Calculator</span>
+</a>
+<div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded border border-white/10">
+<span class="material-symbols-outlined text-[13px] text-gold-warm">currency_exchange</span>
+<select class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+<option class="text-slate-900 bg-white" value="USD">USD ($)</option>
+<option class="text-slate-900 bg-white" value="GBP">GBP (£)</option>
+<option class="text-slate-900 bg-white" value="BDT">BDT (৳)</option>
+<option class="text-slate-900 bg-white" value="EUR">EUR (€)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="h-20 max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-11 h-11 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg text-emerald-dark tracking-tight leading-tight">Global Muslim Foundation</span>
+<span class="text-[11px] font-semibold text-text-muted uppercase tracking-wider">Charitable Relief &amp; Zakat Fund</span>
+</div>
+</a>
+</div>
+<nav class="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="index.html">Home</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="appeals.html">Appeals & Causes</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="zakat-calculator.html">Zakat Fund</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="impact.html">Impact & Reports</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="about.html">About Us</a>
+<a class="px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold" href="volunteer.html">Volunteer Portal</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span>Donate Now</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-colors" href="volunteer.html" title="Volunteer &amp; Donor Portal">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</a>
+<button id="mobile-menu-btn" type="button" class="xl:hidden w-10 h-10 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" aria-label="Toggle navigation menu">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-drawer" class="hidden xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle px-4 py-4 shadow-xl">
+<nav class="flex flex-col gap-1 text-sm font-semibold text-on-surface-variant">
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="index.html"><span>Home</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="appeals.html"><span>Appeals & Causes</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="zakat-calculator.html"><span>Zakat Fund</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="impact.html"><span>Impact & Reports</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="about.html"><span>About Us</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 text-primary bg-surface-subtle-mint rounded-lg font-bold flex items-center justify-between" href="volunteer.html"><span>Volunteer Portal</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+</nav>
+</div>
+</header>
+<main class="w-full bg-surface pt-32 sm:pt-36"><div class="flex flex-col w-full">
+<!-- Top Ambient Banner / Breadcrumb & Motivation Ribbon -->
+<section class="w-full bg-surface-subtle-mint px-4 sm:px-8 py-4">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-emerald-dark">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-on-primary">
+<span class="material-symbols-outlined text-sm">groups</span>
+</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">
+          Youth Volunteer Corps • Bangladesh Field Division
+        </span>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<span class="hidden sm:inline font-body-sm text-body-sm text-text-muted">
+          "The best among you are those who bring greatest benefit to humankind." (Hadith)
+        </span>
+</div>
+<div class="flex items-center gap-4 text-xs font-semibold">
+<span class="flex items-center gap-1.5 text-oceanic-teal-deep">
+<span class="w-2 h-2 rounded-full bg-amber-vibrant animate-pulse"></span>
+          Spring 2025 Cohort Open (Dhaka, Chittagong, Sylhet)
+        </span>
+</div>
+</div>
+</section>
+<!-- Impact Hero Statement & Metrics Mosaic -->
+<section class="w-full bg-surface px-4 sm:px-8 pt-8 pb-12">
+<div class="max-w-[1280px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left: Editorial Title Block -->
+<div class="lg:col-span-7 flex flex-col justify-center space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-subtle-mint text-primary w-fit">
+<span class="material-symbols-outlined text-base">emergency_share</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">
+              FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH
+            </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-emerald-dark tracking-tight leading-tight">
+            Become the Guiding Light for Communities in Crisis
+          </h1>
+<p class="font-body-lg text-body-lg text-text-muted leading-relaxed">
+            Whether serving nutritious warm meals at bustling railway platforms, distributing emergency blankets to flood plains, or assisting surgeons during pediatric eye camps — your time and physical dedication convert faith into tangible rescue.
+          </p>
+<!-- Quick Trust Highlights -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">verified_user</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark">Accredited Service</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Verified volunteer transcripts &amp; academic credit certification.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="material-symbols-outlined text-secondary-container text-2xl mt-0.5">health_and_safety</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark">Field Safety First</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Medical standby kits, high-visibility uniforms &amp; emergency transport.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Real Field Snapshot Mosaic -->
+<div class="lg:col-span-5 flex flex-col space-y-4">
+<div class="relative rounded-2xl overflow-hidden shadow-lg bg-surface-clean">
+<img class="w-full h-72 object-cover object-center" data-alt="A large, united group of young Bangladeshi humanitarian volunteers in light blue t-shirts gathered around a polished wooden conference table during an official field planning orientation. The atmosphere is warm, disciplined, and optimistic, with green indoor foliage in the foreground." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCD4oikKPQekhD5YJ5kd4Gxlit2S0wUTFMfVMT1Vxvj5ZQybKGtLzVsqa65voQzeHh1esliTyTEsz1zkAWr22LS6apsjy5xIrnl87pDrJrGBSNy9NLICCMHhOGV_g41bzUs9dQ55uzOZl92jtXwJrGWxlaeSNFrrDc_Ma_26sDJjjQEmqnbyusP3w3FKU9J5Mg3iWS23t1bSrEI3ecY9HQhkBpzLaL3R9KJ3qdt2XV">
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-emerald-dark/90 via-emerald-dark/40 to-transparent p-5 text-on-primary">
+<span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-vibrant text-surface-clean font-label-sm text-label-sm uppercase font-bold mb-1">
+                Dhaka Field Council Assembly
+              </span>
+<p class="font-title-md text-title-md font-bold text-surface-clean">
+                Volunteer Leadership Session 2025
+              </p>
+<p class="font-body-sm text-body-sm text-surface-container-high opacity-90">
+                Bangladesh Shishu Kalyan Parishad Central Hall, Dhaka
+              </p>
+</div>
+</div>
+<!-- Live Activity Bar -->
+<div class="p-4 rounded-xl bg-surface-subtle-mint flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">schedule</span>
+<div>
+<span class="font-label-md text-label-md text-emerald-dark block font-bold">Next Deployment Briefing</span>
+<span class="font-body-sm text-body-sm text-text-muted">Friday, 08:30 AM • Tejgaon Railway Node</span>
+</div>
+</div>
+<a class="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors" href="#volunteer-application">
+              Join Cohort
+            </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- High-Contrast Live Metric Bar -->
+<section class="w-full bg-primary-container text-on-primary py-8 px-4 sm:px-8 shadow-md">
+<div class="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<div class="flex flex-col items-center justify-center p-3">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">850</span>
+<span class="font-headline-md text-headline-md text-gold-warm font-bold">+</span>
+</div>
+<span class="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
+          Active Youth Volunteers
+        </span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
+          Universities &amp; Local Youth Clubs
+        </span>
+</div>
+<div class="flex flex-col items-center justify-center p-3">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">45</span>
+</div>
+<span class="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
+          Field Deployments
+        </span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
+          Active Relief Operations (2024-25)
+        </span>
+</div>
+<div class="flex flex-col items-center justify-center p-3">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">12</span>
+</div>
+<span class="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
+          Regional Dispatch Hubs
+        </span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
+          Covering 64 Districts Across Bangladesh
+        </span>
+</div>
+<div class="flex flex-col items-center justify-center p-3">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">100</span>
+<span class="font-headline-md text-headline-md text-gold-warm font-bold">%</span>
+</div>
+<span class="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
+          Certified Safety Training
+        </span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
+          Shariah Volunteer Ethics &amp; First Aid
+        </span>
+</div>
+</div>
+</section>
+<!-- Interactive Volunteer Role Pathways -->
+<section class="w-full bg-surface-container-low px-4 sm:px-8 py-16">
+<div class="max-w-[1280px] mx-auto space-y-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="font-label-md text-label-md text-primary uppercase font-bold tracking-wider">
+            Choose Your Humanitarian Pathway
+          </span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark mt-1">
+            Where Can Your Dedication Create Immediate Impact?
+          </h2>
+<p class="font-body-md text-body-md text-text-muted mt-2 max-w-2xl">
+            Select an operational pathway that resonates with your schedule, skills, and heart. Every volunteer is provided full logistics support, protective vests, and mentorship.
+          </p>
+</div>
+<a class="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:text-emerald-dark transition-colors self-start md:self-auto" href="#volunteer-application">
+<span class="">Apply Directly for All Sectors</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+<!-- 3-Card Pathways Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Pathway 1: Emergency Food & Railway Outreach -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+<div class="relative h-60 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dozens of young street children seated in organized rows along an open railway platform in Dhaka holding up hygienic food boxes and fresh orange fruit juice bottles with wide smiles, captured during daytime food relief distribution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeJyHYQc1dywAh89QF-p_5C8sG_uQlEU_lR9ItvgL86SzZtnuAaZz9JWw_lEw9EwjMDQkFj6wK05_Tei_hkfrSU9gnG7qdVKxQlncZogsKkdtNyb2FXa5lVNvRYdCZjbzOawM4wc2mRyh3nAHwqPz5r-1XMDcjSh-Dow2kv7Zry-wpx8aQq6iAwtvFFgqlCPjDQOCb5H116h8OCDSl3T17xl_kCm8IaV5mx8Bnzd68">
+<span class="absolute top-4 left-4 bg-amber-vibrant text-surface-clean px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
+              High Priority • Weekly Action
+            </span>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between space-y-6">
+<div class="space-y-3">
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1 font-semibold text-emerald-dark">
+<span class="material-symbols-outlined text-sm text-primary">calendar_today</span>
+                  Fridays &amp; Saturdays
+                </span>
+<span class="bg-surface-subtle-mint text-primary px-2.5 py-0.5 rounded-full font-bold">
+                  Urban Outreach
+                </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold leading-snug">
+                Emergency Food &amp; Railway Outreach
+              </h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+                Direct street nourishment distribution providing fresh, calorie-dense warm meals, hydration, and nutritional juice to orphaned children and unhoused families around metropolitan train stations.
+              </p>
+</div>
+<div class="space-y-4 pt-2">
+<div class="bg-surface-subtle-mint/60 p-3.5 rounded-xl space-y-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-emerald-dark font-bold block">
+                  Core Responsibilities
+                </span>
+<ul class="text-xs text-text-muted space-y-1.5 font-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Packaging hygienic hot meal boxes &amp; drink seal check
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Crowd coordination &amp; respectful queue management
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Child health roll-call &amp; basic welfare check-in
+                  </li>
+</ul>
+</div>
+<div class="text-xs text-text-muted flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary-container">pin_drop</span>
+<span class=""><strong>Key Zones:</strong> Tejgaon, Kamalapur, Mirpur, Tongi</span>
+</div>
+<button class="w-full py-3 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors flex items-center justify-center gap-2" onclick="preselectSector('Emergency Relief')">
+<span class="">Select This Pathway</span>
+<span class="material-symbols-outlined text-sm">navigate_next</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pathway 2: Project Alo Medical & Eye Camp Support -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+<div class="relative h-60 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Group of impoverished railway youth holding up packages with colorful yellow and orange polka dot balloons in the foreground, seated orderly near an outdoor train track line waiting for volunteer recreational engagement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWXQhHSUt7Xv_B9XvgvYqs1Y9jiSiy79zVCrNtMeocp4MIQ1ZIoTHAbTzfjFux-L4QSdXvNbBZeGQxTE2IqeM31fTwIH47-npWDVoonyjq996HNjC3Tm33DjEmg3zYSQZaO3IpYmBJtEmJk_D3Sai0wh-UMUmT-1rsXa2eqRPsiB-wTj-KJHLmVnlkUoWOx-mA8WLkTDXCa1IQOuFEJltYI8K3uyhc_tG57nnTGMNB">
+<span class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
+              Medical Specialization
+            </span>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between space-y-6">
+<div class="space-y-3">
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1 font-semibold text-emerald-dark">
+<span class="material-symbols-outlined text-sm text-primary">medical_services</span>
+                  Bi-Weekly / Camp Tours
+                </span>
+<span class="bg-surface-subtle-mint text-primary px-2.5 py-0.5 rounded-full font-bold">
+                  Healthcare
+                </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold leading-snug">
+                Project Alo Medical &amp; Eye Camps
+              </h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+                Assisting mobile health teams conducting vision screening, cataract restorations, pediatric eye checkups, and general primary care distribution in hard-to-reach rural settlements.
+              </p>
+</div>
+<div class="space-y-4 pt-2">
+<div class="bg-surface-subtle-mint/60 p-3.5 rounded-xl space-y-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-emerald-dark font-bold block">
+                  Core Responsibilities
+                </span>
+<ul class="text-xs text-text-muted space-y-1.5 font-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Patient reception, digital vitals logging &amp; token issue
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Elderly wheelchair transit &amp; patient accompaniment
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Prescription eyeglass distribution &amp; drop dispensing
+                  </li>
+</ul>
+</div>
+<div class="text-xs text-text-muted flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary-container">pin_drop</span>
+<span class=""><strong>Key Zones:</strong> Kurigram, Sunamganj, Cox's Bazar, Bhola</span>
+</div>
+<button class="w-full py-3 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors flex items-center justify-center gap-2" onclick="preselectSector('Medical Support')">
+<span class="">Select This Pathway</span>
+<span class="material-symbols-outlined text-sm">navigate_next</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pathway 3: Special Needs & Street Literacy Workshops -->
+<div class="bg-surface-clean rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+<div class="relative h-60 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Young male and female humanitarian volunteers assembled proudly wearing badges and uniform attire during a workshop seminar, smiling warmly with indoor plants and conference podium background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMYVhfhjghyTg4n6Lc3gcIPOTRGcvGtyyX7TqcoLCkiqUsPgmcp7KqgyPNc_56hhVChcm41-zfZOlszUZDo1JPblN2htqp2Gz0aRukd9LOo8whkoDK6v9a7_eBPdOd7E46RKMA3ArMz00nPRsxrNKSoquOskfhoayv3Q-XAj4AtZpr4M27IpsDzlQQBRPrXseLuVKSEKeDoEkyhQEYkwHzM542eEPpgDknuaVkI61K">
+<span class="absolute top-4 left-4 bg-tertiary text-on-tertiary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
+              Education &amp; Care
+            </span>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between space-y-6">
+<div class="space-y-3">
+<div class="flex items-center justify-between text-xs text-text-muted">
+<span class="flex items-center gap-1 font-semibold text-emerald-dark">
+<span class="material-symbols-outlined text-sm text-primary">school</span>
+                  Flexible / 2 Days/Month
+                </span>
+<span class="bg-surface-subtle-mint text-primary px-2.5 py-0.5 rounded-full font-bold">
+                  Youth Growth
+                </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold leading-snug">
+                Street Literacy &amp; Creative Workshops
+              </h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+                Empowering street children and underprivileged youth with basic numeracy, conversational English, Islamic moral values, handwashing hygiene habits, and therapeutic art sessions.
+              </p>
+</div>
+<div class="space-y-4 pt-2">
+<div class="bg-surface-subtle-mint/60 p-3.5 rounded-xl space-y-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-emerald-dark font-bold block">
+                  Core Responsibilities
+                </span>
+<ul class="text-xs text-text-muted space-y-1.5 font-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Conducting interactive picture-book reading circles
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Distributing school kits, color pencils, and exercise books
+                  </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+                    Life skills &amp; hand sanitization demonstration games
+                  </li>
+</ul>
+</div>
+<div class="text-xs text-text-muted flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary-container">pin_drop</span>
+<span class=""><strong>Key Zones:</strong> Gabtoli, Lalbagh, Sadarghat, Chittagong Port</span>
+</div>
+<button class="w-full py-3 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors flex items-center justify-center gap-2" onclick="preselectSector('Youth Education')">
+<span class="">Select This Pathway</span>
+<span class="material-symbols-outlined text-sm">navigate_next</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Volunteer Application & Onboarding Section -->
+<section class="w-full bg-surface px-4 sm:px-8 py-16" id="volunteer-application">
+<div class="max-w-[1280px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+<!-- Left Column: Guidelines, Code of Conduct, Value Props -->
+<div class="lg:col-span-5 space-y-6">
+<div class="space-y-3">
+<span class="font-label-md text-label-md uppercase font-bold text-primary tracking-wider">
+              Enlistment Application
+            </span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark leading-tight">
+              Join Our Field Taskforce in 4 Simple Steps
+            </h2>
+<p class="font-body-md text-body-md text-text-muted leading-relaxed">
+              Every applicant attends an accredited 3-hour orientation session covering Shariah-aligned humanitarian ethics, crisis safety precautions, and respectful beneficiary engagement.
+            </p>
+</div>
+<!-- Step Progression Roadmap Graphic -->
+<div class="space-y-4 pt-2">
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm shrink-0">1</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark font-bold">Online Application</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Submit your geographic availability and interest sector below.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary flex items-center justify-center font-bold text-sm shrink-0">2</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark font-bold">Orientation &amp; Code of Ethics</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Virtual or in-person workshop at Dhaka HQ / District Centers.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary flex items-center justify-center font-bold text-sm shrink-0">3</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark font-bold">Field Deployment Assignment</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Receive your volunteer badge, uniform kit, and squad leader invite.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
+<span class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary flex items-center justify-center font-bold text-sm shrink-0">4</span>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark font-bold">Certification of Service</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Issued upon completing 24 verified service hours.</p>
+</div>
+</div>
+</div>
+<!-- Official Shariah & Safety Guarantee Tag -->
+<div class="p-5 rounded-2xl bg-zakat-gold-light/60 text-secondary space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-vibrant text-2xl">verified</span>
+<span class="font-title-md text-title-md font-bold text-amber-900">Volunteer Protection &amp; Care</span>
+</div>
+<p class="font-body-sm text-body-sm text-amber-900/90 leading-relaxed">
+              Global Muslim Foundation provides zero-cost medical insurance coverage during deployments, hot meals during service, round-trip group transit for remote camps, and strict safety guidelines.
+            </p>
+</div>
+</div>
+<!-- Right Column: Interactive Registration Card -->
+<div class="lg:col-span-7 bg-surface-clean rounded-2xl p-6 sm:p-8 shadow-xl">
+<div class="border-b border-border-subtle pb-4 mb-6 flex items-center justify-between">
+<div>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold">Volunteer Candidate Profile</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Complete the fields below to schedule your orientation slot.</p>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl">badge</span>
+</div>
+<form class="space-y-6" id="volunteer-form" name="volunteer-application" method="POST" data-netlify="true" onsubmit="handleVolunteerSubmit(event)">
+<input type="hidden" name="form-name" value="volunteer-application" />
+<!-- Step 1: Personal Details -->
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold text-primary block mb-3">
+                1. Personal &amp; Contact Information
+              </span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Full Legal Name *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" name="fullName" placeholder="e.g., Tariqul Islam" required="" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Phone / WhatsApp Number *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" name="phone" placeholder="+880 1700-000000" required="" type="tel">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Email Address *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" name="email" placeholder="volunteer@university.edu" required="" type="email">
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Age *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" name="age" max="40" min="16" placeholder="21" required="" type="number">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">City / District *</label>
+<select name="district" class="w-full px-3 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary">
+<option value="Dhaka">Dhaka</option>
+<option value="Chittagong">Chittagong</option>
+<option value="Sylhet">Sylhet</option>
+<option value="Rajshahi">Rajshahi</option>
+<option value="Khulna">Khulna</option>
+<option value="Cox's Bazar">Cox's Bazar</option>
+<option value="Other">Other District</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Preferred Service Sector -->
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold text-primary block mb-3">
+                2. Preferred Humanitarian Sector
+              </span>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="sector" type="radio" value="Emergency Relief">
+<div class="p-3 rounded-xl text-center bg-surface-container-low peer-checked:bg-surface-subtle-mint peer-checked:ring-2 peer-checked:ring-primary text-text-muted peer-checked:text-emerald-dark font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-2xl block mb-1">soup_kitchen</span>
+                    Food &amp; Relief
+                  </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="sector" type="radio" value="Medical Support">
+<div class="p-3 rounded-xl text-center bg-surface-container-low peer-checked:bg-surface-subtle-mint peer-checked:ring-2 peer-checked:ring-primary text-text-muted peer-checked:text-emerald-dark font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-2xl block mb-1">medical_services</span>
+                    Medical Camps
+                  </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="sector" type="radio" value="Youth Education">
+<div class="p-3 rounded-xl text-center bg-surface-container-low peer-checked:bg-surface-subtle-mint peer-checked:ring-2 peer-checked:ring-primary text-text-muted peer-checked:text-emerald-dark font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-2xl block mb-1">menu_book</span>
+                    Street Literacy
+                  </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="sector" type="radio" value="Media &amp; Logistics">
+<div class="p-3 rounded-xl text-center bg-surface-container-low peer-checked:bg-surface-subtle-mint peer-checked:ring-2 peer-checked:ring-primary text-text-muted peer-checked:text-emerald-dark font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-2xl block mb-1">photo_camera</span>
+                    Media &amp; Comms
+                  </div>
+</label>
+</div>
+</div>
+<!-- Step 3: Availability -->
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold text-primary block mb-3">
+                3. Your Availability Windows
+              </span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<label class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" name="availability" value="Fridays/Saturdays" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface">Fridays / Saturdays</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low cursor-pointer">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary" name="availability" value="Weekday Afternoons" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface">Weekday Afternoons</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" name="availability" value="Rapid Crisis On-Call" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface">Rapid Crisis On-Call</span>
+</label>
+</div>
+</div>
+<!-- Step 4: Academic Background / Special Skills -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">
+                4. University, Major or Skills (Optional)
+              </label>
+<textarea class="w-full px-4 py-3 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" name="skills" placeholder="e.g., 3rd-year Medical Student at DMC, fluent in Bangla/English, Red Crescent First Aid certified..." rows="2"></textarea>
+</div>
+<!-- Form Submission Actions -->
+<div class="space-y-3 pt-2">
+<button class="w-full py-4 rounded-full bg-amber-vibrant hover:bg-secondary text-surface-clean font-label-lg text-label-lg font-bold shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-95" type="submit">
+<span class="material-symbols-outlined">send</span>
+<span class="">Submit Volunteer Application &amp; Join Orientation</span>
+</button>
+<div class="hidden p-4 rounded-xl bg-surface-subtle-mint text-emerald-dark font-body-sm text-body-sm flex items-center gap-3" id="application-success-msg">
+<span class="material-symbols-outlined text-primary text-xl">task_alt</span>
+<div class="">
+<strong>JazakAllah Khayr!</strong> Your volunteer profile has been submitted. Our field coordinator will send your WhatsApp orientation invitation within 24 hours.
+                </div>
+</div>
+<div class="flex items-center justify-center gap-4 text-xs text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">verified</span>
+                  Zero Registration Fees
+                </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">security</span>
+                  Strict Privacy Policy
+                </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">card_membership</span>
+                  Official Certificates
+                </span>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive FAQ Accordion -->
+<section class="w-full bg-surface-container-low px-4 sm:px-8 py-16">
+<div class="max-w-[1000px] mx-auto space-y-8">
+<div class="text-center space-y-2">
+<span class="font-label-md text-label-md text-primary uppercase font-bold tracking-wider">
+          Got Questions?
+        </span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark font-bold">
+          Volunteer Questions &amp; Clear Answers
+        </h2>
+<p class="font-body-md text-body-md text-text-muted max-w-xl mx-auto">
+          Everything you need to know about safety protocols, required hours, certificates, and student credit equivalency.
+        </p>
+</div>
+<!-- FAQ Items List -->
+<div class="space-y-3" id="faq-accordion-group">
+<!-- FAQ 1 -->
+<div class="bg-surface-clean rounded-xl p-5 shadow-sm">
+<button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)" type="button">
+<span class="font-title-md text-title-md text-emerald-dark font-semibold group-hover:text-primary transition-colors">
+              Is prior humanitarian or disaster relief experience required?
+            </span>
+<span class="material-symbols-outlined text-primary transform transition-transform duration-300">
+              expand_more
+            </span>
+</button>
+<div class="faq-content hidden mt-3 pt-3 border-t border-border-subtle font-body-md text-body-md text-text-muted leading-relaxed">
+            No prior field experience is required. All newly registered youth complete our foundational 3-hour orientation session that instructs you in on-ground crisis safety, crowd coordination ethics, and food hygiene standards. You will always be paired alongside seasoned field supervisors during your initial deployments.
+          </div>
+</div>
+<!-- FAQ 2 -->
+<div class="bg-surface-clean rounded-xl p-5 shadow-sm">
+<button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)" type="button">
+<span class="font-title-md text-title-md text-emerald-dark font-semibold group-hover:text-primary transition-colors">
+              How are emergency deployment safety protocols and insurance managed?
+            </span>
+<span class="material-symbols-outlined text-primary transform transition-transform duration-300">
+              expand_more
+            </span>
+</button>
+<div class="faq-content hidden mt-3 pt-3 border-t border-border-subtle font-body-md text-body-md text-text-muted leading-relaxed">
+            Safety is our highest institutional mandate. All volunteers are registered under our collective group liability and emergency medical policy during active duty. Every dispatch team travels with a designated senior logistics lead, paramedic standby kit, high-visibility identity vests, and secure transport. We never send volunteers into uncontrolled danger zones.
+          </div>
+</div>
+<!-- FAQ 3 -->
+<div class="bg-surface-clean rounded-xl p-5 shadow-sm">
+<button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)" type="button">
+<span class="font-title-md text-title-md text-emerald-dark font-semibold group-hover:text-primary transition-colors">
+              Can university students get formal community service credits or internship validation?
+            </span>
+<span class="material-symbols-outlined text-primary transform transition-transform duration-300">
+              expand_more
+            </span>
+</button>
+<div class="faq-content hidden mt-3 pt-3 border-t border-border-subtle font-body-md text-body-md text-text-muted leading-relaxed">
+            Yes! As a registered international NGO (UK Charity Reg #1184930 and Bangladesh NGO Affairs Bureau accredited), GMCF provides signed volunteer hour logs, recommendation letters for scholarship or graduate admissions, and official verification for university social internship requirements.
+          </div>
+</div>
+<!-- FAQ 4 -->
+<div class="bg-surface-clean rounded-xl p-5 shadow-sm">
+<button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)" type="button">
+<span class="font-title-md text-title-md text-emerald-dark font-semibold group-hover:text-primary transition-colors">
+              Are female volunteers accommodated with separate arrangements and safe transport?
+            </span>
+<span class="material-symbols-outlined text-primary transform transition-transform duration-300">
+              expand_more
+            </span>
+</button>
+<div class="faq-content hidden mt-3 pt-3 border-t border-border-subtle font-body-md text-body-md text-text-muted leading-relaxed">
+            Absolutely. Over 40% of our active squad leads and pediatric coordinators are sisters. We uphold strict Islamic modesty and safety protocols, including dedicated female volunteer hubs, peer pairings, chaperoned group transport, and private sanitation arrangements across all remote camp sites.
+          </div>
+</div>
+</div>
+<!-- Quick Support Contact -->
+<div class="p-6 rounded-2xl bg-surface-clean flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-subtle-mint flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">support_agent</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-emerald-dark font-bold">Still have questions before applying?</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Chat directly with the Volunteer Dispatch Officer on WhatsApp.</p>
+</div>
+</div>
+<a class="px-5 py-2.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors inline-flex items-center gap-2 shrink-0" href="https://wa.me/88018004673" target="_blank">
+<span class="material-symbols-outlined text-base">chat</span>
+<span class="">WhatsApp Helpdesk</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+<script>
+  function preselectSector(sectorName) {
+    const radios = document.querySelectorAll('input[name="sector"]');
+    radios.forEach(r => {
+      if (r.value === sectorName) {
+        r.checked = true;
+      }
+    });
+    const target = document.getElementById('volunteer-application');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function handleVolunteerSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    }).catch(function() {});
+
+    const successMsg = document.getElementById('application-success-msg');
+    if (successMsg) {
+      successMsg.classList.remove('hidden');
+      successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      form.reset();
+    }
+  }
+
+  function toggleFaq(btn) {
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const isHidden = content.classList.contains('hidden');
+    
+    // Close other open accordions in group
+    const allContents = document.querySelectorAll('#faq-accordion-group .faq-content');
+    const allIcons = document.querySelectorAll('#faq-accordion-group .material-symbols-outlined');
+    
+    allContents.forEach(c => c.classList.add('hidden'));
+    allIcons.forEach(i => i.classList.remove('rotate-180'));
+
+    if (isHidden) {
+      content.classList.remove('hidden');
+      icon.classList.add('rotate-180');
+    }
+  }
+</script></main>
+<!-- International Footer -->
+<footer class="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+<!-- Top Trust Bar -->
+<div class="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-white">100% Zakat Guarantee &amp; Absolute Transparency</h4>
+<p class="text-xs text-primary-fixed">Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm" href="zakat-calculator.html">Calculate Zakat</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20" href="about.html#governance">View Audit Reports</a>
+</div>
+</div>
+</div>
+<!-- Main Footer Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-14">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- Brand & Registration -->
+<div class="space-y-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">volunteer_activism</span>
+</div>
+<span class="font-bold text-base text-emerald-dark">Global Muslim Foundation</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+An international non-profit philanthropic organization dedicated to serving the destitute, orphans, and disaster-affected communities worldwide.
+</p>
+<div class="pt-1">
+<span class="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
+UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+</span>
+</div>
+</div>
+<!-- Appeals List -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Featured Appeals</h3>
+<ul class="space-y-2 text-xs text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-amber-500">campaign</span>Gaza Emergency Nourishment Appeal</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="campaign-details.html"><span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>One Meal One Hope (Street Food Aid)</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">medical_services</span>Project Alo: Pediatric Surgery &amp; Eyes</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">water_drop</span>Deep Tube Wells &amp; Clean Water</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">ac_unit</span>Project Sheetolota Winter Blankets</a></li>
+</ul>
+</div>
+<!-- Global Offices -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Global Headquarters</h3>
+<div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">location_on</span>
+<span><strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">public</span>
+<span><strong>London Office:</strong> 104 Whitechapel High St, London E1 7PT, United Kingdom</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span>
+<span>+44 20 7946 0991 / +880 1800-4673</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>donor-care@gmcf-global.org</span>
+</div>
+</div>
+</div>
+<!-- Newsletter & Updates -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Field Bulletins</h3>
+<p class="text-xs text-on-surface-variant">Receive verified field impact dispatch reports and tax exemption updates directly.</p>
+<form name="newsletter-subscription" method="POST" data-netlify="true" class="flex flex-col gap-2" onsubmit="event.preventDefault(); const form = this; fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() }).catch(() => {}); const btn = form.querySelector('button'); btn.textContent = 'Subscribed!'; btn.classList.add('bg-emerald-dark'); form.querySelector('input').value = '';">
+<input type="hidden" name="form-name" value="newsletter-subscription" />
+<div class="flex items-center bg-surface-clean rounded-xl p-1 border border-border-subtle shadow-sm">
+<input name="email" required class="w-full px-3 py-2 text-xs bg-transparent focus:outline-none text-on-surface" placeholder="Your email address..." type="email">
+<button type="submit" class="bg-primary text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-dark transition-colors">Subscribe</button>
+</div>
+<span class="text-[11px] text-text-muted">Strict privacy. Shariah compliant zero spam guarantee.</span>
+</form>
+</div>
+</div>
+<!-- Bottom Copyright & Legal -->
+<div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+<p>© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.</p>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="hover:text-primary transition-colors" href="appeals.html">Appeals</a>
+<a class="hover:text-primary transition-colors" href="zakat-calculator.html">Zakat Calculator</a>
+<a class="hover:text-primary transition-colors" href="impact.html">Impact</a>
+<a class="hover:text-primary transition-colors" href="about.html">About &amp; Governance</a>
+<a class="hover:text-primary transition-colors" href="volunteer.html">Volunteers</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Mobile Navigation Drawer Toggle Handler
+(function() {
+  const btn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      drawer.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+      }
+    });
+  }
+})();
+</script>
+<!-- Interactive JavaScript Engine -->
+<script>
+    (function initCharityInteractivity() {
+      // Frequency toggle
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          freqBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface');
+        });
+      });
+
+      // Amount Chips
+      const amtBtns = document.querySelectorAll('.amt-btn');
+      const customInput = document.getElementById('custom-amount-input');
+      amtBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          amtBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('bg-surface-subtle-mint', 'text-primary');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-surface-subtle-mint', 'text-primary');
+          const val = btn.getAttribute('data-amt');
+          if (val === 'custom') {
+            customInput.focus();
+          } else {
+            customInput.value = val;
+          }
+        });
+      });
+
+      // Zakat Calculator Logic
+      const gInput = document.getElementById('calc-gold');
+      const cInput = document.getElementById('calc-cash');
+      const bInput = document.getElementById('calc-biz');
+      const dInput = document.getElementById('calc-debt');
+      const netDisplay = document.getElementById('calc-net-assets');
+      const zakatDisplay = document.getElementById('calc-zakat-due');
+      const applyBtn = document.getElementById('calc-apply-btn');
+      const resetBtn = document.getElementById('calc-reset-btn');
+
+      function calculateZakat() {
+        const gold = parseFloat(gInput?.value) || 0;
+        const cash = parseFloat(cInput?.value) || 0;
+        const biz = parseFloat(bInput?.value) || 0;
+        const debt = parseFloat(dInput?.value) || 0;
+
+        const totalAssets = gold + cash + biz;
+        const netWealth = Math.max(0, totalAssets - debt);
+        const nisab = 520; // USD silver benchmark
+
+        let zakatDue = 0;
+        if (netWealth >= nisab) {
+          zakatDue = Math.round(netWealth * 0.025 * 100) / 100;
+        }
+
+        if (netDisplay) netDisplay.textContent = '$' + netWealth.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        if (zakatDisplay) zakatDisplay.textContent = '$' + zakatDue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        return zakatDue;
+      }
+
+      [gInput, cInput, bInput, dInput].forEach(inp => {
+        if (inp) inp.addEventListener('input', calculateZakat);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (gInput) gInput.value = '';
+          if (cInput) cInput.value = '';
+          if (bInput) bInput.value = '';
+          if (dInput) dInput.value = '';
+          calculateZakat();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const due = calculateZakat();
+          if (due > 0) {
+            if (customInput) customInput.value = Math.round(due);
+            const causeSel = document.getElementById('cause-select');
+            if (causeSel) causeSel.value = 'zakat';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (customInput) {
+              customInput.classList.add('bg-surface-subtle-mint');
+              setTimeout(() => customInput.classList.remove('bg-surface-subtle-mint'), 1500);
+            }
+          } else {
+            alert('Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.');
+          }
+        });
+      }
+    })();
+  </script>
+
+
+</body></html>

@@ -1,0 +1,1467 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>One Meal One Hope (Street Food Aid) | GMCF Appeal</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .font-serif-heading { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Material 3 & Design Token Typography System */
+    .font-serif, .font-serif-heading {
+      font-family: 'Playfair Display', Georgia, serif !important;
+    }
+
+    h1, .text-headline-xl, .font-headline-xl {
+      font-size: 2.125rem !important; /* ~34px mobile */
+      line-height: 1.2 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 2.75rem !important; /* 44px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 3rem !important; /* 48px desktop */
+        line-height: 1.15 !important;
+      }
+    }
+
+    h2, .text-headline-lg, .font-headline-lg {
+      font-size: 1.625rem !important; /* 26px mobile */
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2rem !important; /* 32px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2.25rem !important; /* 36px desktop */
+        line-height: 1.2 !important;
+      }
+    }
+
+    h3, .text-headline-md, .font-headline-md {
+      font-size: 1.375rem !important; /* 22px mobile */
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 1024px) {
+      h3, .text-headline-md, .font-headline-md {
+        font-size: 1.75rem !important; /* 28px desktop */
+        line-height: 1.25 !important;
+      }
+    }
+
+    .text-headline-sm, .font-headline-sm {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-lg, .font-title-lg {
+      font-size: 1.25rem !important; /* 20px */
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-md, .font-title-md {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.625rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-sm, .font-title-sm {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-body-lg, .font-body-lg {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.75rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-md, .font-body-md {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-sm, .font-body-sm {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-label-lg, .font-label-lg {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+    }
+
+    .text-label-md, .font-label-md {
+      font-size: 0.75rem !important; /* 12px */
+      line-height: 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+    }
+
+    .text-label-sm, .font-label-sm {
+      font-size: 0.6875rem !important; /* 11px */
+      line-height: 0.875rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e6eeff",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e3f6",
+            "text-muted": "#4B5563",
+            "on-primary-container": "#bbffe9",
+            "on-tertiary-fixed": "#00201c",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed": "#97f4d9",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#fea619",
+            "on-surface": "#121c2a",
+            "surface": "#f8f9ff",
+            "oceanic-teal-deep": "#044E42",
+            "tertiary-container": "#3c786e",
+            "on-background": "#121c2a",
+            "secondary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#ffddb8",
+            "outline-variant": "#bdc9c4",
+            "on-primary-fixed": "#002019",
+            "primary-container": "#0D7C66",
+            "on-surface-variant": "#3e4945",
+            "outline": "#6e7a75",
+            "surface-dim": "#d0dbed",
+            "surface-variant": "#d9e3f6",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#95d2c6",
+            "surface-subtle-mint": "#EEF8F2",
+            "amber-vibrant": "#D97706",
+            "gold-accent": "#D4AF37",
+            "gold-warm": "#E5A93C",
+            "primary-fixed-dim": "#7bd7bd",
+            "emerald-dark": "#044E42",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-container": "#bffef1",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "on-primary-fixed-variant": "#005141",
+            "on-secondary": "#ffffff",
+            "background": "#f8f9ff",
+            "inverse-surface": "#27313f",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#0a5047",
+            "error-container": "#ffdad6",
+            "secondary": "#855300",
+            "surface-container-high": "#dee9fc",
+            "inverse-primary": "#7bd7bd",
+            "surface-clean": "#FFFFFF",
+            "error": "#ba1a1a",
+            "border-subtle": "#E5E7EB",
+            "tertiary": "#205f56",
+            "zakat-gold-light": "#FEF3C7",
+            "surface-tint": "#F8FAF9",
+            "primary": "#0D7C66",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#b1efe2"
+          },
+          
+          fontSize: {
+            'headline-xl': ['3rem', { lineHeight: '3.5rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-lg': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-md': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em', fontWeight: '600' }],
+            'headline-sm': ['1.375rem', { lineHeight: '1.875rem', fontWeight: '600' }],
+            'title-lg': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+            'title-md': ['1.125rem', { lineHeight: '1.625rem', fontWeight: '600' }],
+            'title-sm': ['1rem', { lineHeight: '1.5rem', fontWeight: '600' }],
+            'body-lg': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '400' }],
+            'body-md': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+            'body-sm': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+            'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.02em', fontWeight: '600' }],
+            'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.04em', fontWeight: '600' }],
+            'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.05em', fontWeight: '600' }]
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased">
+<!-- Fixed Header & Top Meta Banner -->
+<!-- Fixed Header & Top Meta Banner -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+<!-- International Meta Strip -->
+<div class="bg-emerald-dark text-on-primary py-1.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">call</span>
+<span>24/7 Helpline: <strong class="text-white">+880 1800-4673</strong></span>
+</div>
+<span class="hidden md:inline text-white/30">|</span>
+<div class="hidden md:flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">verified_user</span>
+<span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-1 hover:text-gold-warm transition-colors" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[15px]">calculate</span>
+<span>Zakat Calculator</span>
+</a>
+<div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded border border-white/10">
+<span class="material-symbols-outlined text-[13px] text-gold-warm">currency_exchange</span>
+<select class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+<option class="text-slate-900 bg-white" value="USD">USD ($)</option>
+<option class="text-slate-900 bg-white" value="GBP">GBP (£)</option>
+<option class="text-slate-900 bg-white" value="BDT">BDT (৳)</option>
+<option class="text-slate-900 bg-white" value="EUR">EUR (€)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="h-20 max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-11 h-11 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg text-emerald-dark tracking-tight leading-tight">Global Muslim Foundation</span>
+<span class="text-[11px] font-semibold text-text-muted uppercase tracking-wider">Charitable Relief &amp; Zakat Fund</span>
+</div>
+</a>
+</div>
+<nav class="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="index.html">Home</a>
+<a class="px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold" href="appeals.html">Appeals & Causes</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="zakat-calculator.html">Zakat Fund</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="impact.html">Impact & Reports</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="about.html">About Us</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="volunteer.html">Volunteer Portal</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span>Donate Now</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-colors" href="volunteer.html" title="Volunteer &amp; Donor Portal">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</a>
+<button id="mobile-menu-btn" type="button" class="xl:hidden w-10 h-10 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" aria-label="Toggle navigation menu">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-drawer" class="hidden xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle px-4 py-4 shadow-xl">
+<nav class="flex flex-col gap-1 text-sm font-semibold text-on-surface-variant">
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="index.html"><span>Home</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 text-primary bg-surface-subtle-mint rounded-lg font-bold flex items-center justify-between" href="appeals.html"><span>Appeals & Causes</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="zakat-calculator.html"><span>Zakat Fund</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="impact.html"><span>Impact & Reports</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="about.html"><span>About Us</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="volunteer.html"><span>Volunteer Portal</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+</nav>
+</div>
+</header>
+<main class="w-full bg-surface pt-36"><div class="flex flex-col w-full">
+<!-- Sub-Header Breadcrumb & Status Ribbon -->
+<div class="bg-surface-clean shadow-sm">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<a class="hover:text-primary transition-colors flex items-center gap-1 font-label-md text-label-md" href="index.html">
+<span class="material-symbols-outlined text-[16px]">home</span>
+          Home
+        </a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<a class="hover:text-primary transition-colors font-label-md text-label-md" href="appeals.html">Appeals &amp; Relief</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-bold">One Meal One Hope (Street Food Aid)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zakat-gold-light text-on-secondary-container font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px] text-amber-vibrant">verified</span>
+          100% Zakat Certified
+        </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-subtle-mint text-primary font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+          Live Distribution in Progress
+        </span>
+</div>
+</div>
+</div>
+<!-- Main Campaign Detail Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-8 md:py-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Rich Appeal Story & Media (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<!-- Header Text Block -->
+<div class="flex flex-col gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-surface-subtle-mint text-primary font-label-md text-label-md tracking-wider uppercase">Emergency Food Aid</span>
+<span class="px-2.5 py-1 rounded bg-error-container text-on-error-container font-label-md text-label-md tracking-wider uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+              High Priority Drive
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-md text-label-md">Dhaka Stations &amp; Slums</span>
+</div>
+<h1 class="font-serif font-bold text-headline-xl text-emerald-dark tracking-tight leading-tight">
+            One Meal One Hope — Nourishing Vulnerable Lives Across Railway Communities
+          </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Partnered with <strong class="text-on-surface">Pally Life Development Society (PLDS)</strong> and local community kitchens to provide fresh hot cooked meals, bottled clean water, and fruit juice packs to malnourished children living along railway tracks in Tejgaon, Kamalapur, and Mirpur.
+          </p>
+</div>
+<!-- Dynamic Photo Gallery Component -->
+<div class="flex flex-col gap-3">
+<div class="relative w-full h-[360px] sm:h-[460px] rounded-2xl overflow-hidden bg-surface-container shadow-md group">
+<img alt="Main Appeal Field Photograph" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Dozens of underprivileged Bangladeshi street children sitting in rows along a Dhaka railway platform, happily holding up freshly packed white meal boxes and orange juice bottles under an open daytime sky, captured in crisp journalistic documentary style." id="main-gallery-view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIx_RyaWpGEfRDMTfbQPW5VVCE_ozsk1tZAS_xnAvgn3_8BDPbf7uFOPgMdqwdX8BqLqJ205eA5SI1vvH6acwfMGZ1Z_s5RiGg6l37MSSAQ087wNT734feQK-6SNkHyCPDIvlGFeD92X52cln07pagPWcMNCY7dLE0r_UAHxswH3i4IPdGV7V7nF6iQS2XcA-cD0G12eG8TdWkUClrMjyt2vrtQSB8WFI8r9cUnfWz">
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6 text-on-primary pointer-events-none">
+<div class="flex items-center gap-2 text-label-sm font-label-sm uppercase tracking-widest text-primary-fixed mb-1">
+<span class="material-symbols-outlined text-[15px]">location_on</span>
+                Tejgaon Railway Platform #2, Dhaka
+              </div>
+<p class="font-title-md text-title-md font-semibold text-white drop-shadow-sm">
+                Afternoon lunch package distribution drive for 180+ street children and single-mother families.
+              </p>
+</div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-white font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed-dim">verified_user</span>
+              Field Verified Dispatch
+            </div>
+</div>
+<!-- Thumbnail Row with Active Selector -->
+<div class="grid grid-cols-4 gap-3">
+<button class="thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm ring-2 ring-primary transition-all opacity-100" data-img-idx="0">
+<img alt="Street meal distribution sidewalk" class="w-full h-full object-cover" data-alt="Rows of underprivileged children sitting along a brick boundary wall on the sidewalk receiving hot rice dishes and red cups of clean drinking water in Bangladesh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGnCWPlQESRp-IkGsLR9-E4fnB9tmf5NiAJcRLYBAMiOEVABx2LCmek1y5io_u6FiYi5BJgsX4wcG9jeZ3nzWRO4rl9e1uEN8P3POZ4yW-U2oTEN_MYXsYU96AVRCiGssopJxd0UMAVyw8VDOeUUgCaFymHHgi9yX3tQfajmR_DN10UUzaKS8BVaPcgUwcz5XrpZ2XIC2hNZ2pmMkw2qarA_UXJbleGCcHK2VhxHXJ">
+</button>
+<button class="thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm ring-0 hover:ring-2 hover:ring-primary/50 transition-all opacity-70 hover:opacity-100" data-img-idx="1">
+<img alt="Balloons and meal boxes at railway" class="w-full h-full object-cover" data-alt="Joyful children on a railway platform holding up colorful celebration balloons and sweet meal parcels during a community nourishment event in Dhaka." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_2asx4gZnMTeWw0D0p8B9ziENzvVVI260Hb33a9mJjsZILBs_TGdYl_NqCM1beA2Pfo1vXJax0Fz4biz5u7K53w9ibVyRi53Tpe7dAaLczaovuy2gIy1q2ao5wsRW_50MjHwPg8FYZIA_659Q1-9d29m5N8R35oqvVnMobs8U-40wS1O25hKPkyA4HmW2fnP70YpQe_D3glHOWvRRZcsjLeCan0Wonz0fyPEcC_tB">
+</button>
+<button class="thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm ring-0 hover:ring-2 hover:ring-primary/50 transition-all opacity-70 hover:opacity-100" data-img-idx="2">
+<img alt="Meal distribution alongside train tracks" class="w-full h-full object-cover" data-alt="Dozens of children seated in two neat lines along railway tracks raising meal packages and juice bottles toward the camera with big smiles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDpcUQQF5Nb4oGErEXihiVHnlMpihrruwKusgysowgw9H2EUYRnpWz8Z_xPxIbsBJBmd3j0lqGeVMMuZAVK_B94HCD8_tIkqc2FK5CNcRWHEKm3If1yO4IDfQqoKmgImTuaanOMeUUmzQAM3jq7Pj6xZrQj_JplTYzwNEhXuOPJNpSPkgkAftQ04khvQNndOQDbMxgtroHn9pn4fP9RPDkPKmlZO7-c8tOf0SwKu_v">
+</button>
+<button class="thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm ring-0 hover:ring-2 hover:ring-primary/50 transition-all opacity-70 hover:opacity-100" data-img-idx="3">
+<img alt="Community kitchen prep" class="w-full h-full object-cover" data-alt="Volunteers in teal aprons stirring large steaming pots of nutritious chicken biryani and vegetable stew in a clean community kitchen facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd0FktXvo6a9rHDsmInRMAHwhW-7nHLyqMNKw1eB5K59pyXVqTHVkKGRhvKLkfdYMEuCqWYPv8hQEiJiSC-2qrh5OGRtVPTiGBgVr4F9lLCus-pXri1plJqvzyM5u71unGEC1NeAv66IbbwgXTZ1BacjwvqGNR7qToo9gdLfY5BFvBejRdZdm5jFYAkMj5btRMaaNbGMX_aXhOXVthcCS0VFhQkJECIGz5dxhXfjVG">
+</button>
+</div>
+</div>
+<!-- Navigation Tabs: Story, Breakdown, Field Updates, Impact -->
+<div class="bg-surface-clean rounded-2xl shadow-sm overflow-hidden">
+<div class="flex items-center overflow-x-auto bg-surface-container-low px-2 pt-2 scrollbar-none">
+<button class="tab-btn px-5 py-3 font-label-lg text-label-lg font-bold text-primary bg-surface-clean rounded-t-xl transition-colors flex items-center gap-2 shrink-0" data-target="tab-about">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+              About Appeal
+            </button>
+<button class="tab-btn px-5 py-3 font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-primary hover:bg-surface-clean/50 rounded-t-xl transition-colors flex items-center gap-2 shrink-0" data-target="tab-budget">
+<span class="material-symbols-outlined text-[18px]">pie_chart</span>
+              Cost Breakdown ($2/Meal)
+            </button>
+<button class="tab-btn px-5 py-3 font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-primary hover:bg-surface-clean/50 rounded-t-xl transition-colors flex items-center gap-2 shrink-0" data-target="tab-updates">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+              Field Dispatch Log (4)
+            </button>
+<button class="tab-btn px-5 py-3 font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-primary hover:bg-surface-clean/50 rounded-t-xl transition-colors flex items-center gap-2 shrink-0" data-target="tab-shariah">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+              Zakat Governance
+            </button>
+</div>
+<div class="p-6 md:p-8">
+<!-- TAB 1: About the Appeal -->
+<div class="tab-content flex flex-col gap-6" id="tab-about">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark mb-3">No Child Should Sleep with an Empty Stomach on the Cold Concrete</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4">
+                  Every evening at the Tejgaon and Kamalapur railway stations in Dhaka, hundreds of children gather not to take a train, but to find shelter from the night. Displaced by riverbank erosion, acute rural poverty, and domestic tragedies, these youngsters scavenge for survival. Most subsist on discarded scrap food or go without a warm meal for over 36 consecutive hours.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Through the <strong class="text-on-surface">One Meal One Hope initiative</strong>, our mission is to eliminate acute hunger along the rail corridor. Each single serving is not merely calories—it is freshly prepared high-protein nutrition, purified safe drinking water, and unconditional human dignity served with warmth and respect.
+                </p>
+</div>
+<!-- High Impact Quote Banner -->
+<div class="p-5 rounded-2xl bg-surface-subtle-mint flex items-start gap-4">
+<span class="material-symbols-outlined text-[36px] text-primary shrink-0">format_quote</span>
+<div class="flex flex-col gap-1">
+<p class="font-serif italic font-semibold text-title-md text-emerald-dark">
+                    “Whoever feeds a fasting person or an impoverished child shall have a reward like theirs, without diminishing from their reward in the slightest.”
+                  </p>
+<span class="font-label-md text-label-md text-tertiary uppercase tracking-wider font-bold">— Sunan al-Tirmidhi | Prophetic Compassion in Action</span>
+</div>
+</div>
+<!-- How the Food Relief Operates Grid -->
+<div class="flex flex-col gap-3">
+<h4 class="font-serif font-bold text-title-lg text-on-surface">How the Relief Mechanism Functions Daily</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="w-10 h-10 rounded-lg bg-surface-clean flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">soup_kitchen</span>
+</div>
+<span class="font-title-md text-title-md font-bold text-on-surface">1. Hygienic Cooking</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prepared daily at 10:00 AM by licensed community cooks in central sanitary kitchens using certified halal ingredients.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="w-10 h-10 rounded-lg bg-surface-clean flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">local_shipping</span>
+</div>
+<span class="font-title-md text-title-md font-bold text-on-surface">2. Mobile Logistics</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Insulated thermal vans transport hot food packages to scheduled railway platforms and street cluster hubs by 1:30 PM.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="w-10 h-10 rounded-lg bg-surface-clean flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">favorite</span>
+</div>
+<span class="font-title-md text-title-md font-bold text-on-surface">3. Dignified Serving</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Volunteers sit with children, organizing clean eating rows, distributing hand sanitizers, juices, and essential medicines.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: Cost Breakdown Graphic -->
+<div class="tab-content hidden flex flex-col gap-6" id="tab-budget">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark mb-2">Complete Cost Transparency: Exactly Where $2 Goes</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  We maintain a strict 100% donation efficiency pledge. Every individual US $2 donation translates directly into one complete, hearty midday meal kit. Administrative and marketing expenditures are fully sponsored by an endowment trust fund.
+                </p>
+</div>
+<!-- Cost breakdown chart visual -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-surface-container-low p-6 rounded-2xl">
+<div class="md:col-span-5 flex flex-col items-center justify-center">
+<!-- Custom SVG Donut Chart representing $2 Breakdown -->
+<div class="relative w-44 h-44 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+<!-- Background Ring -->
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#d9e3f6" stroke-width="4.5"></circle>
+<!-- Protein & Rice 60% ($1.20) -->
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#00614f" stroke-dasharray="60, 100" stroke-dashoffset="0" stroke-width="4.5"></circle>
+<!-- Pure Water & Juice 20% ($0.40) -->
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#fea619" stroke-dasharray="20, 100" stroke-dashoffset="-60" stroke-width="4.5"></circle>
+<!-- Thermal Eco Box & Hygiene 15% ($0.30) -->
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#205f56" stroke-dasharray="15, 100" stroke-dashoffset="-80" stroke-width="4.5"></circle>
+<!-- Field Distribution Fuel 5% ($0.10) -->
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#6e7a75" stroke-dasharray="5, 100" stroke-dashoffset="-95" stroke-width="4.5"></circle>
+</svg>
+<div class="absolute flex flex-col items-center text-center">
+<span class="font-serif font-bold text-headline-sm text-emerald-dark leading-none">$2.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Per Hot Meal</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 flex flex-col gap-3 font-body-sm text-body-sm">
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-clean shadow-sm">
+<div class="flex items-center gap-2.5">
+<span class="w-3.5 h-3.5 rounded-full bg-primary shrink-0"></span>
+<span class="font-semibold text-on-surface">Fresh Halal Chicken / Egg, Fragrant Rice &amp; Lentils</span>
+</div>
+<span class="font-bold text-primary font-label-lg text-label-lg">$1.20 (60%)</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-clean shadow-sm">
+<div class="flex items-center gap-2.5">
+<span class="w-3.5 h-3.5 rounded-full bg-secondary-container shrink-0"></span>
+<span class="font-semibold text-on-surface">Sealed Purified Water &amp; Fortified Fruit Juice Bottle</span>
+</div>
+<span class="font-bold text-on-surface font-label-lg text-label-lg">$0.40 (20%)</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-clean shadow-sm">
+<div class="flex items-center gap-2.5">
+<span class="w-3.5 h-3.5 rounded-full bg-tertiary shrink-0"></span>
+<span class="font-semibold text-on-surface">Biodegradable Bento Box, Spoon &amp; Antibacterial Wipe</span>
+</div>
+<span class="font-bold text-on-surface font-label-lg text-label-lg">$0.30 (15%)</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-clean shadow-sm">
+<div class="flex items-center gap-2.5">
+<span class="w-3.5 h-3.5 rounded-full bg-outline shrink-0"></span>
+<span class="font-semibold text-on-surface">Thermal Transport Fuel &amp; Volunteer Logistics</span>
+</div>
+<span class="font-bold text-on-surface font-label-lg text-label-lg">$0.10 (5%)</span>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-zakat-gold-light text-on-secondary-container flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px] text-amber-vibrant shrink-0">shield_lock</span>
+<p class="font-body-sm text-body-sm font-medium">
+<strong>0% Admin Fee Guarantee:</strong> Our foundation board pays all bank processing fees, administrative salaries, and overheads separately. 100% of your chosen dollar count reaches the kitchen.
+                </p>
+</div>
+</div>
+<!-- TAB 3: Field Updates Timeline -->
+<div class="tab-content hidden flex flex-col gap-6" id="tab-updates">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark">Live Verified Dispatch Log</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time reports sent by our ground coordinators in Dhaka.</p>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold">Updated 4 Hours Ago</span>
+</div>
+<!-- Dispatch Timeline -->
+<div class="flex flex-col gap-6 relative before:absolute before:top-3 before:bottom-3 before:left-4 before:w-0.5 before:bg-surface-variant">
+<!-- Dispatch Item 1 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">restaurant</span>
+</div>
+<div class="flex flex-col gap-2 p-5 rounded-2xl bg-surface-container-low flex-1">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">Tejgaon Station North Yard Drive</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-clean px-2 py-0.5 rounded shadow-sm">Today, 2:15 PM BDT</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Distributed 320 hot chicken biryani lunch boxes with mango juice bottles to street children and elder porters along the outer railway platform tracks. Special hydration packs handed out due to the high midday heat.
+                    </p>
+<div class="flex items-center gap-2 pt-1 font-label-sm text-label-sm text-primary font-bold">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                      Coordinator: Engr. Farhan Kabir (PLDS Field Ops)
+                    </div>
+</div>
+</div>
+<!-- Dispatch Item 2 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-8 h-8 rounded-full bg-surface-clean text-primary flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">celebration</span>
+</div>
+<div class="flex flex-col gap-2 p-5 rounded-2xl bg-surface-container-low flex-1">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">Special Joy &amp; Nutrition Day</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-clean px-2 py-0.5 rounded shadow-sm">3 Days Ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Arranged colorful balloons and sweet treat packages along with warm nutritious meals for 240 children at Kamalapur rail shed. Conducted basic handwashing and hygiene education session before food distribution.
+                    </p>
+<div class="flex items-center gap-2 pt-1 font-label-sm text-label-sm text-primary font-bold">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                      Coordinator: Dr. Sumaiya Akter (Child Welfare Lead)
+                    </div>
+</div>
+</div>
+<!-- Dispatch Item 3 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-8 h-8 rounded-full bg-surface-clean text-primary flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">inventory_2</span>
+</div>
+<div class="flex flex-col gap-2 p-5 rounded-2xl bg-surface-container-low flex-1">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">Emergency Food Relief Batch Stocking</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-clean px-2 py-0.5 rounded shadow-sm">Last Week</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                      Secured 4,000 kg of aromatic rice, 1,200 dozen farm eggs, and sanitary packing consumables for the upcoming holy period kitchen rotations. All batches certified compliant with national hygiene benchmarks.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 4: Zakat & Shariah Governance -->
+<div class="tab-content hidden flex flex-col gap-6" id="tab-shariah">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark mb-2">Shariah Board Verification &amp; Tamleek Fulfillment</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Food charity designated for Zakat must fulfill the core condition of <em>Tamleek</em> (complete unconditional transfer of ownership to qualified <em>Masarif al-Zakat</em> recipients, primarily <em>Al-Fuqara</em> and <em>Al-Masakin</em>).
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-5 rounded-2xl bg-surface-subtle-mint flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold font-title-md text-title-md">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+                    100% Direct Recipient Ownership
+                  </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Each food package is handed directly into the physical possession of the beneficiary or their legal guardian with no conditional reclaim or third-party diversion.
+                  </p>
+</div>
+<div class="p-5 rounded-2xl bg-surface-subtle-mint flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold font-title-md text-title-md">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+                    Ring-Fenced Zakat Bank Account
+                  </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    All Zakat funds are deposited into an autonomous Islamic bank escrow ledger separate from General Sadaqah and operating reserves.
+                  </p>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-bold text-on-surface">Shariah Supervisory Board Endorsement</span>
+<span class="font-label-md text-label-md text-emerald-dark font-bold uppercase tracking-wider">Fatwa Ref: GMCF-2024-ZK09</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                  “We have audited the procurement, kitchen preparation, packaging, and station distribution mechanisms of 'One Meal One Hope'. We confirm that all meals distributed under Zakat allocations meet the criteria of authentic Islamic charity.”
+                </p>
+<div class="flex items-center gap-3 pt-2 text-label-md font-label-md text-on-surface font-semibold">
+<span class="material-symbols-outlined text-primary text-[20px]">history_edu</span>
+                  Signed: Sheikh Dr. Mufti Ahmadullah &amp; Maulana Zubair Hossain
+                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Verified Impact Ribbon Bar -->
+<div class="p-6 md:p-8 rounded-2xl text-on-primary shadow-md flex flex-col gap-6 bg-primary-container">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<span class="text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-wider font-bold">GMCF &amp; PLDS Joint Mission</span>
+<h3 class="font-serif font-bold text-headline-sm text-white mt-1">Verified Milestone Statistics to Date</h3>
+</div>
+<div class="flex items-center gap-2 text-primary-fixed bg-white/10 px-3 py-1.5 rounded-xl font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-amber-vibrant">bolt</span>
+              Audited Weekly
+            </div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+<div class="flex flex-col items-center">
+<span class="font-serif font-bold text-headline-md text-secondary-fixed-dim">124,580+</span>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">Meals Served</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-serif font-bold text-headline-md text-white">45</span>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">Kitchen Networks</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-serif font-bold text-headline-md text-secondary-fixed-dim">9,200+</span>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">Children Nourished</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-serif font-bold text-headline-md text-white">100%</span>
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">Zero Admin Fee</span>
+</div>
+</div>
+</div>
+<!-- Live Wall of Dua & Donor Encouragement -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-6 md:p-8 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark">Recent Donors &amp; Words of Dua</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Community members worldwide standing with street children.</p>
+</div>
+<span class="material-symbols-outlined text-[28px] text-primary">volunteer_activism</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Donor 1 -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary font-bold font-label-md text-label-md flex items-center justify-center">
+                    TK
+                  </div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Br. Tariq Khan</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold text-primary">$100 (50 Meals)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                “May Allah accept this as Sadaqah Jariyah for my late mother. May no child remain hungry tonight.”
+              </p>
+<span class="font-label-sm text-label-sm text-text-muted">London, UK • 22 mins ago</span>
+</div>
+<!-- Donor 2 -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-zakat-gold-light text-secondary font-bold font-label-md text-label-md flex items-center justify-center">
+                    AN
+                  </div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Anonymous Sister</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold text-primary">$200 (Emergency Box)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                “Zakat allocation. Seeing their smiles holding the food boxes brings tears to my eyes. Keep up the transparent work.”
+              </p>
+<span class="font-label-sm text-label-sm text-text-muted">Toronto, Canada • 1 hour ago</span>
+</div>
+<!-- Donor 3 -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary font-bold font-label-md text-label-md flex items-center justify-center">
+                    MH
+                  </div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Mahmudul Hasan</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold text-primary">$50 (25 Meals)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                “Grateful to PLDS and GMCF team for reaching Tejgaon rail area directly. Blesings to the volunteers.”
+              </p>
+<span class="font-label-sm text-label-sm text-text-muted">Dhaka, Bangladesh • 3 hours ago</span>
+</div>
+<!-- Donor 4 -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-subtle-mint text-primary font-bold font-label-md text-label-md flex items-center justify-center">
+                    SZ
+                  </div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Dr. Salman &amp; Family</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold text-primary">$300 (150 Meals)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                “Monthly pledge fulfilled. May Almighty protect our little brothers and sisters.”
+              </p>
+<span class="font-label-sm text-label-sm text-text-muted">Dallas, TX • 5 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Frequently Asked Questions Accordion -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-6 md:p-8 flex flex-col gap-6">
+<div>
+<h3 class="font-serif font-bold text-headline-sm text-emerald-dark">Frequently Asked Questions</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Clarity on donations, ground execution, and tax receipts.</p>
+</div>
+<div class="flex flex-col gap-3">
+<details class="group p-4 rounded-xl bg-surface-container-low cursor-pointer [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between font-title-md text-title-md font-bold text-on-surface">
+<span class="">Can I specify my donation strictly as Zakat vs General Sadaqah?</span>
+<span class="material-symbols-outlined text-[20px] text-primary transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-3 leading-relaxed">
+                Yes. During giving, selecting the "Designate as Zakat" checkbox routes your contribution into our ring-fenced Zakat bank account. It is exclusively deployed to purchase direct meals given directly to eligible impoverished individuals without operational deductions.
+              </p>
+</details>
+<details class="group p-4 rounded-xl bg-surface-container-low cursor-pointer [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between font-title-md text-title-md font-bold text-on-surface">
+<span class="">Can overseas donors visit the community kitchens in Dhaka?</span>
+<span class="material-symbols-outlined text-[20px] text-primary transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-3 leading-relaxed">
+                Absolutely. We maintain an open-door policy for all donors and independent observers. Contact our Gulshan-2 HQ at least 48 hours prior, and our donor-relations officers will arrange a guided field briefing and cooking inspection at the Tejgaon operations kitchen.
+              </p>
+</details>
+<details class="group p-4 rounded-xl bg-surface-container-low cursor-pointer [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between font-title-md text-title-md font-bold text-on-surface">
+<span class="">Will I receive an official tax-deductible donation receipt?</span>
+<span class="material-symbols-outlined text-[20px] text-primary transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-3 leading-relaxed">
+                Yes. Instantly after checkout, an automated receipt with UK Gift Aid confirmation (Charity Reg #1184930) or US 501(c)(3) tax exemption identification is sent to your registered email address.
+              </p>
+</details>
+</div>
+</div>
+</div>
+<!-- Right Column: Sticky Quick Giving Card & Progress (5 cols) -->
+<div class="lg:col-span-5 sticky top-28 flex flex-col gap-6">
+<!-- Main Giving Card -->
+<div class="bg-surface-clean rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col gap-6">
+<!-- Goal Progress Tracker -->
+<div class="flex flex-col gap-3">
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-1.5">
+<span class="font-serif font-bold text-headline-lg text-emerald-dark leading-none">$38,500</span>
+<span class="font-label-md text-label-md text-on-surface-variant">raised of $50,000 goal</span>
+</div>
+<span class="font-title-md text-title-md font-bold text-primary">77%</span>
+</div>
+<!-- Two-tone progress bar -->
+<div class="w-full h-3 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-1000" style="width: 77%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">group</span>
+                620 Verified Donors
+              </span>
+<span class="flex items-center gap-1 text-amber-vibrant font-bold">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                18 Days Left in Current Batch
+              </span>
+</div>
+</div>
+<!-- Giving Frequency Toggle (One-time vs Monthly) -->
+<div class="p-1 rounded-xl bg-surface-container-low flex items-center">
+<button class="flex-1 py-2.5 rounded-lg font-label-lg text-label-lg font-bold bg-primary text-white shadow-sm transition-all text-center" id="freq-one">
+              One-Time Gift
+            </button>
+<button class="flex-1 py-2.5 rounded-lg font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-primary transition-all text-center flex items-center justify-center gap-1" id="freq-month">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">autorenew</span>
+              Monthly Recurring
+            </button>
+</div>
+<!-- Preset Food Packages (Radio Cards) -->
+<div class="flex flex-col gap-2.5">
+<label class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">
+              Select Your Meal Sponsorship Package:
+            </label>
+<!-- Package Option 1 -->
+<div class="pkg-card p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-subtle-mint transition-all cursor-pointer flex items-center justify-between" data-amount="30">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-surface-clean flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px] check-mark hidden">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">$30 USD</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Feeds 15 Street Children with Hot Meals</span>
+</div>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary bg-surface-clean px-2.5 py-1 rounded shadow-sm">15 Meals</span>
+</div>
+<!-- Package Option 2 (Popular Choice) -->
+<div class="pkg-card p-3.5 rounded-xl bg-surface-subtle-mint ring-2 ring-primary transition-all cursor-pointer flex items-center justify-between" data-amount="50">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[14px] check-mark">check</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">$50 USD</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">Most Popular</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Feeds 25 Children + Clean Water Packs</span>
+</div>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary bg-surface-clean px-2.5 py-1 rounded shadow-sm">25 Meals</span>
+</div>
+<!-- Package Option 3 -->
+<div class="pkg-card p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-subtle-mint transition-all cursor-pointer flex items-center justify-between" data-amount="100">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-surface-clean flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px] check-mark hidden">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">$100 USD</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sponsors 50 Nutritious Meals &amp; Fruit Packs</span>
+</div>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary bg-surface-clean px-2.5 py-1 rounded shadow-sm">50 Meals</span>
+</div>
+<!-- Package Option 4 -->
+<div class="pkg-card p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-subtle-mint transition-all cursor-pointer flex items-center justify-between" data-amount="200">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full bg-surface-clean flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px] check-mark hidden">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">$200 USD</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Full Family Emergency Ration Box (1 Month)</span>
+</div>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary bg-surface-clean px-2.5 py-1 rounded shadow-sm">Family Pack</span>
+</div>
+</div>
+<!-- Custom Donation Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
+              Or Enter Custom Amount:
+            </label>
+<div class="relative flex items-center">
+<span class="absolute left-4 font-serif font-bold text-headline-sm text-on-surface">$</span>
+<input class="w-full h-12 pl-10 pr-24 rounded-xl bg-surface-container-low text-on-surface font-title-lg text-title-lg font-bold focus:outline-none focus:bg-surface-clean focus:ring-2 focus:ring-primary shadow-inner" id="custom-amount-val" min="2" placeholder="Amount" type="number" value="50">
+<span class="absolute right-4 font-label-md text-label-md text-primary font-bold">
+                USD ($)
+              </span>
+</div>
+<p class="font-label-sm text-label-sm text-primary font-semibold" id="meal-impact-counter">
+              ✨ Your $50 will directly serve 25 nutritious warm meal sets.
+            </p>
+</div>
+<!-- Toggles & Dedications Checkboxes -->
+<div class="flex flex-col gap-2.5 pt-1">
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 bg-surface-clean" id="chk-zakat" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Designate as 100% Zakat Fund</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Strict Tamleek shariah compliance with zero administrative deductions.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 bg-surface-clean" id="chk-anon" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Make My Gift Completely Anonymous</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hide your name and country from the public donor wall.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 bg-surface-clean" id="chk-giftaid" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Add UK Gift Aid / Tax Receipt</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Boost your gift by 25% at no extra cost to you.</span>
+</div>
+</label>
+</div>
+<!-- Primary Direct Giving Button -->
+<button class="w-full py-4 rounded-full bg-gradient-to-r hover:from-amber-600 hover:to-amber-700 text-white font-title-lg text-title-lg font-bold shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 from-primary to-primary-container" id="btn-submit-donation">
+<span class="material-symbols-outlined text-[24px]">favorite</span>
+<span id="btn-donate-label" class="">Sponsor 25 Meals Now ($50)</span>
+</button>
+<!-- Alternative Instant Payment Methods -->
+<div class="flex flex-col gap-2 pt-1 text-center">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest font-bold">Or Express Fast Checkout</span>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">credit_card</span>
+                Card
+              </button>
+<button class="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-amber-vibrant">payments</span>
+                PayPal
+              </button>
+<button class="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-error">smartphone</span>
+                bKash / MFS
+              </button>
+</div>
+</div>
+<!-- Trust Badges Strip -->
+<div class="pt-3 flex items-center justify-center gap-4 text-label-sm font-label-sm text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">lock</span>
+              256-Bit SSL Encrypted
+            </span>
+<span class="">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">verified_user</span>
+              100% Shariah Compliant
+            </span>
+</div>
+</div>
+<!-- Field Operations Contact Card -->
+<div class="p-5 rounded-2xl bg-surface-clean shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">Questions About This Appeal?</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Speak directly with our Dhaka Field Director.</span>
+<a class="font-label-md text-label-md text-primary font-bold hover:underline mt-1 flex items-center gap-1" href="tel:+88018004673">
+<span class="material-symbols-outlined text-[14px]">call</span>
+              +880 1800-4673 (Ext 4)
+            </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Related Urgent Appeals Carousel / Section -->
+<div class="bg-surface-container-low py-12 md:py-16">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col gap-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="px-2.5 py-1 rounded bg-surface-subtle-mint text-primary font-label-md text-label-md uppercase tracking-wider font-bold">Comprehensive Relief</span>
+<h2 class="font-serif font-bold text-headline-lg text-emerald-dark mt-2">Other Active Emergency Appeals</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Support companion humanitarian operations serving vulnerable communities.</p>
+</div>
+<a class="font-label-lg text-label-lg font-bold text-primary hover:text-emerald-dark flex items-center gap-1" href="appeals.html">
+          View All Active Causes
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Project Alo -->
+<div class="bg-surface-clean rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow group">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img alt="Project Alo Eye Care" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A smiling Bangladeshi child after cataract eye surgery wearing protective eye shield patch standing beside a female doctor in a rural clinic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_PyFFLOCf15tGm8UVyJ-qDQAlQD7ok6eWLbIDTKhLubJc_1VIRE67oSV06-7rFfzevrBjy6l5PZwxSlP4SEjXFtGJgLuHFcl3nThxbknJvMK428nLWqhbStJNVF6-QY9NQgDehpkUQvPqO18f02xPpBnCwh9ySAK-ILGcKoolJXg8ZKpaOWsEMG-9KczRX_KvHfh61ksNsAn00F_UhZ00_0Fm-OBLx9uToo5e0S0u">
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
+              Pediatric Surgery
+            </span>
+</div>
+<div class="p-5 flex flex-col gap-3 flex-1 justify-between">
+<div class="flex flex-col gap-1.5">
+<h3 class="font-serif font-bold text-title-lg text-on-surface group-hover:text-primary transition-colors">
+                Project Alo: Restoring Sight &amp; Pediatric Surgeries
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Restoring vision for 500 blind rural children through free laser cataract operations and ophthalmology care.
+              </p>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 82%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span class=""><strong>$41,200</strong> of $50,000</span>
+<span class="text-primary font-bold">82% Funded</span>
+</div>
+<a class="mt-2 w-full py-2.5 rounded-xl bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold text-center hover:bg-primary hover:text-white transition-colors" href="#">
+                Support Project Alo
+              </a>
+</div>
+</div>
+</div>
+<!-- Card 2: Deep Tube Wells -->
+<div class="bg-surface-clean rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow group">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img alt="Clean Water Tube Wells" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Village women and young children pumping clean fresh water from a newly constructed blue manual hand tube well in a drought-affected rural Bangladesh village." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDPyQOmFFgEoSx44zUbWf636y1UCFejm47VxckPXu9mmUvie8f__DKDY6STXIexVmxgU1Jt5X-K7ocRBcsFAHFn-biVCgMquCtT9doO6erpiQ0Il_L_bJromLbOuRtJBr15HmknSCSLFElyGcLhtpT1BcXC70PRmoTjhrIXO-qn-MPfDnx3DkUBUHj5006AyLusnDu05x4xnbLVVNddgGJZIpAvDEzc6zIZs0W27BR">
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
+              Water &amp; Sanitation
+            </span>
+</div>
+<div class="p-5 flex flex-col gap-3 flex-1 justify-between">
+<div class="flex flex-col gap-1.5">
+<h3 class="font-serif font-bold text-title-lg text-on-surface group-hover:text-primary transition-colors">
+                Deep Tube Wells: Lifesaving Pure Water
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Installing deep arsenic-free water pumps to prevent waterborne illnesses across remote flood-prone communities.
+              </p>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 64%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span class=""><strong>$19,200</strong> of $30,000</span>
+<span class="text-primary font-bold">64% Funded</span>
+</div>
+<a class="mt-2 w-full py-2.5 rounded-xl bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold text-center hover:bg-primary hover:text-white transition-colors" href="#">
+                Build a Water Well ($350)
+              </a>
+</div>
+</div>
+</div>
+<!-- Card 3: Project Sheetolota -->
+<div class="bg-surface-clean rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow group">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img alt="Winter Blankets Relief" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Elderly destitute villagers and children wrapped warmly in high quality thick red winter blankets during a nighttime cold wave relief distribution in northern Bangladesh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD12Upy8bhiTad2yXnOnKrAKJvSyxrN9XcX1aT0uCzMCerX9NaEdBiuEhbsGpMjHDrqj3wuWuZdB94iLhigcLy59CRsJKNWv8qC1g4iJ7JpGtybg4MZpG8OMDHB_TjPOS1-O8cF2g6CbSzVZCnFxTazM334P5Lb5B4HkzrxDl4L_A_eVBGepovY6oH-VXJ-lxXr-dlGO-16zLEeEhJTUh_TdNwHSE2N4wMeggZqETV">
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
+              Seasonal Emergency
+            </span>
+</div>
+<div class="p-5 flex flex-col gap-3 flex-1 justify-between">
+<div class="flex flex-col gap-1.5">
+<h3 class="font-serif font-bold text-title-lg text-on-surface group-hover:text-primary transition-colors">
+                Project Sheetolota: Winter Warmth &amp; Blankets
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Providing thick insulated winter quilts and sweaters to thousands exposed to hypothermia in northern char regions.
+              </p>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 91%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span class=""><strong>$27,300</strong> of $30,000</span>
+<span class="text-primary font-bold">91% Funded</span>
+</div>
+<a class="mt-2 w-full py-2.5 rounded-xl bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold text-center hover:bg-primary hover:text-white transition-colors" href="#">
+                Sponsor Blankets ($15)
+              </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Client-side Script for Page Interactions -->
+<script>
+    (function initCampaignDetailPage() {
+      // 1. Tabbed Navigation Logic
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-target');
+          tabBtns.forEach(b => {
+            b.classList.remove('text-primary', 'bg-surface-clean');
+            b.classList.add('text-on-surface-variant');
+          });
+          btn.classList.add('text-primary', 'bg-surface-clean');
+          btn.classList.remove('text-on-surface-variant');
+
+          tabContents.forEach(tc => {
+            if (tc.id === target) {
+              tc.classList.remove('hidden');
+            } else {
+              tc.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // 2. Photo Gallery Thumbnail Switcher
+      const galleryThumbs = document.querySelectorAll('.thumb-btn');
+      const mainView = document.getElementById('main-gallery-view');
+      galleryThumbs.forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          galleryThumbs.forEach(t => {
+            t.classList.remove('ring-2', 'ring-primary', 'opacity-100');
+            t.classList.add('opacity-70');
+          });
+          thumb.classList.add('ring-2', 'ring-primary', 'opacity-100');
+          thumb.classList.remove('opacity-70');
+          const thumbImg = thumb.querySelector('img');
+          if (thumbImg && mainView) {
+            mainView.src = thumbImg.src;
+            if (thumbImg.hasAttribute('data-alt')) {
+              mainView.setAttribute('data-alt', thumbImg.getAttribute('data-alt'));
+            }
+          }
+        });
+      });
+
+      // 3. Giving Frequency Switcher
+      const freqOne = document.getElementById('freq-one');
+      const freqMonth = document.getElementById('freq-month');
+      let isMonthly = false;
+
+      if (freqOne && freqMonth) {
+        freqOne.addEventListener('click', () => {
+          isMonthly = false;
+          freqOne.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          freqOne.classList.remove('text-on-surface-variant');
+          freqMonth.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+          freqMonth.classList.add('text-on-surface-variant');
+          updateGivingCta();
+        });
+
+        freqMonth.addEventListener('click', () => {
+          isMonthly = true;
+          freqMonth.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          freqMonth.classList.remove('text-on-surface-variant');
+          freqOne.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+          freqOne.classList.add('text-on-surface-variant');
+          updateGivingCta();
+        });
+      }
+
+      // 4. Preset Package Selection & Dynamic Calculation
+      const pkgCards = document.querySelectorAll('.pkg-card');
+      const customInput = document.getElementById('custom-amount-val');
+      const impactCounter = document.getElementById('meal-impact-counter');
+      const donateLabel = document.getElementById('btn-donate-label');
+
+      function updateGivingCta() {
+        const val = parseFloat(customInput?.value) || 0;
+        const mealsCount = Math.floor(val / 2);
+        const recurringSuffix = isMonthly ? '/month' : ' Now';
+
+        if (impactCounter) {
+          impactCounter.textContent = `✨ Your $${val} will directly serve ${mealsCount} nutritious warm meal sets.`;
+        }
+        if (donateLabel) {
+          donateLabel.textContent = `Sponsor ${mealsCount} Meals${recurringSuffix} ($${val})`;
+        }
+      }
+
+      pkgCards.forEach(card => {
+        card.addEventListener('click', () => {
+          pkgCards.forEach(c => {
+            c.classList.remove('bg-surface-subtle-mint', 'ring-2', 'ring-primary');
+            c.classList.add('bg-surface-container-low');
+            const check = c.querySelector('.check-mark');
+            const circle = c.querySelector('.rounded-full');
+            if (check) check.classList.add('hidden');
+            if (circle) {
+              circle.classList.remove('bg-primary', 'text-white');
+              circle.classList.add('bg-surface-clean', 'text-primary');
+            }
+          });
+
+          card.classList.add('bg-surface-subtle-mint', 'ring-2', 'ring-primary');
+          card.classList.remove('bg-surface-container-low');
+          const activeCheck = card.querySelector('.check-mark');
+          const activeCircle = card.querySelector('.rounded-full');
+          if (activeCheck) activeCheck.classList.remove('hidden');
+          if (activeCircle) {
+            activeCircle.classList.add('bg-primary', 'text-white');
+            activeCircle.classList.remove('bg-surface-clean', 'text-primary');
+          }
+
+          const amt = card.getAttribute('data-amount');
+          if (customInput && amt) {
+            customInput.value = amt;
+            updateGivingCta();
+          }
+        });
+      });
+
+      if (customInput) {
+        customInput.addEventListener('input', () => {
+          pkgCards.forEach(c => {
+            if (c.getAttribute('data-amount') === customInput.value) {
+              c.classList.add('bg-surface-subtle-mint', 'ring-2', 'ring-primary');
+              c.classList.remove('bg-surface-container-low');
+              const check = c.querySelector('.check-mark');
+              if (check) check.classList.remove('hidden');
+            } else {
+              c.classList.remove('bg-surface-subtle-mint', 'ring-2', 'ring-primary');
+              c.classList.add('bg-surface-container-low');
+              const check = c.querySelector('.check-mark');
+              if (check) check.classList.add('hidden');
+            }
+          });
+          updateGivingCta();
+        });
+      }
+
+      // 5. Submit Donation Trigger
+      const submitBtn = document.getElementById('btn-submit-donation');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          const amt = customInput?.value || 50;
+          const isZakat = document.getElementById('chk-zakat')?.checked;
+          const freqText = isMonthly ? 'monthly recurring' : 'one-time';
+          const zakatNote = isZakat ? 'Designated as 100% Shariah Zakat.' : 'Sadaqah Relief Fund.';
+          alert(`JazakAllah Khair! Initiating secure checkout for $${amt} USD (${freqText}). ${zakatNote} Redirecting to bank gateway...`);
+        });
+      }
+    })();
+  </script>
+</div></main>
+<!-- International Footer -->
+<footer class="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+<!-- Top Trust Bar -->
+<div class="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-white">100% Zakat Guarantee &amp; Absolute Transparency</h4>
+<p class="text-xs text-primary-fixed">Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm" href="zakat-calculator.html">Calculate Zakat</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20" href="about.html#governance">View Audit Reports</a>
+</div>
+</div>
+</div>
+<!-- Main Footer Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-14">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- Brand & Registration -->
+<div class="space-y-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">volunteer_activism</span>
+</div>
+<span class="font-bold text-base text-emerald-dark">Global Muslim Foundation</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+An international non-profit philanthropic organization dedicated to serving the destitute, orphans, and disaster-affected communities worldwide.
+</p>
+<div class="pt-1">
+<span class="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
+UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+</span>
+</div>
+</div>
+<!-- Appeals List -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Featured Appeals</h3>
+<ul class="space-y-2 text-xs text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-amber-500">campaign</span>Gaza Emergency Nourishment Appeal</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="campaign-details.html"><span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>One Meal One Hope (Street Food Aid)</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">medical_services</span>Project Alo: Pediatric Surgery &amp; Eyes</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">water_drop</span>Deep Tube Wells &amp; Clean Water</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">ac_unit</span>Project Sheetolota Winter Blankets</a></li>
+</ul>
+</div>
+<!-- Global Offices -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Global Headquarters</h3>
+<div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">location_on</span>
+<span><strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">public</span>
+<span><strong>London Office:</strong> 104 Whitechapel High St, London E1 7PT, United Kingdom</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span>
+<span>+44 20 7946 0991 / +880 1800-4673</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>donor-care@gmcf-global.org</span>
+</div>
+</div>
+</div>
+<!-- Newsletter & Updates -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Field Bulletins</h3>
+<p class="text-xs text-on-surface-variant">Receive verified field impact dispatch reports and tax exemption updates directly.</p>
+<form name="newsletter-subscription" method="POST" data-netlify="true" class="flex flex-col gap-2" onsubmit="event.preventDefault(); const form = this; fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() }).catch(() => {}); const btn = form.querySelector('button'); btn.textContent = 'Subscribed!'; btn.classList.add('bg-emerald-dark'); form.querySelector('input').value = '';">
+<input type="hidden" name="form-name" value="newsletter-subscription" />
+<div class="flex items-center bg-surface-clean rounded-xl p-1 border border-border-subtle shadow-sm">
+<input name="email" required class="w-full px-3 py-2 text-xs bg-transparent focus:outline-none text-on-surface" placeholder="Your email address..." type="email">
+<button type="submit" class="bg-primary text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-dark transition-colors">Subscribe</button>
+</div>
+<span class="text-[11px] text-text-muted">Strict privacy. Shariah compliant zero spam guarantee.</span>
+</form>
+</div>
+</div>
+<!-- Bottom Copyright & Legal -->
+<div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+<p>© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.</p>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="hover:text-primary transition-colors" href="appeals.html">Appeals</a>
+<a class="hover:text-primary transition-colors" href="zakat-calculator.html">Zakat Calculator</a>
+<a class="hover:text-primary transition-colors" href="impact.html">Impact</a>
+<a class="hover:text-primary transition-colors" href="about.html">About &amp; Governance</a>
+<a class="hover:text-primary transition-colors" href="volunteer.html">Volunteers</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Mobile Navigation Drawer Toggle Handler
+(function() {
+  const btn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      drawer.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+      }
+    });
+  }
+})();
+</script>
+<!-- Interactive JavaScript Engine -->
+<script>
+    (function initCharityInteractivity() {
+      // Frequency toggle
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          freqBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface');
+        });
+      });
+
+      // Amount Chips
+      const amtBtns = document.querySelectorAll('.amt-btn');
+      const customInput = document.getElementById('custom-amount-input');
+      amtBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          amtBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('bg-surface-subtle-mint', 'text-primary');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-surface-subtle-mint', 'text-primary');
+          const val = btn.getAttribute('data-amt');
+          if (val === 'custom') {
+            customInput.focus();
+          } else {
+            customInput.value = val;
+          }
+        });
+      });
+
+      // Zakat Calculator Logic
+      const gInput = document.getElementById('calc-gold');
+      const cInput = document.getElementById('calc-cash');
+      const bInput = document.getElementById('calc-biz');
+      const dInput = document.getElementById('calc-debt');
+      const netDisplay = document.getElementById('calc-net-assets');
+      const zakatDisplay = document.getElementById('calc-zakat-due');
+      const applyBtn = document.getElementById('calc-apply-btn');
+      const resetBtn = document.getElementById('calc-reset-btn');
+
+      function calculateZakat() {
+        const gold = parseFloat(gInput?.value) || 0;
+        const cash = parseFloat(cInput?.value) || 0;
+        const biz = parseFloat(bInput?.value) || 0;
+        const debt = parseFloat(dInput?.value) || 0;
+
+        const totalAssets = gold + cash + biz;
+        const netWealth = Math.max(0, totalAssets - debt);
+        const nisab = 520; // USD silver benchmark
+
+        let zakatDue = 0;
+        if (netWealth >= nisab) {
+          zakatDue = Math.round(netWealth * 0.025 * 100) / 100;
+        }
+
+        if (netDisplay) netDisplay.textContent = '$' + netWealth.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        if (zakatDisplay) zakatDisplay.textContent = '$' + zakatDue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        return zakatDue;
+      }
+
+      [gInput, cInput, bInput, dInput].forEach(inp => {
+        if (inp) inp.addEventListener('input', calculateZakat);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (gInput) gInput.value = '';
+          if (cInput) cInput.value = '';
+          if (bInput) bInput.value = '';
+          if (dInput) dInput.value = '';
+          calculateZakat();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const due = calculateZakat();
+          if (due > 0) {
+            if (customInput) customInput.value = Math.round(due);
+            const causeSel = document.getElementById('cause-select');
+            if (causeSel) causeSel.value = 'zakat';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (customInput) {
+              customInput.classList.add('bg-surface-subtle-mint');
+              setTimeout(() => customInput.classList.remove('bg-surface-subtle-mint'), 1500);
+            }
+          } else {
+            alert('Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.');
+          }
+        });
+      }
+    })();
+  </script>
+
+
+
+
+</body></html>

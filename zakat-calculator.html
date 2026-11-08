@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Zakat Fund & Shariah Calculator | Global Muslim Charitable Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .font-serif-heading { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Material 3 & Design Token Typography System */
+    .font-serif, .font-serif-heading {
+      font-family: 'Playfair Display', Georgia, serif !important;
+    }
+
+    h1, .text-headline-xl, .font-headline-xl {
+      font-size: 2.125rem !important; /* ~34px mobile */
+      line-height: 1.2 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 2.75rem !important; /* 44px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 3rem !important; /* 48px desktop */
+        line-height: 1.15 !important;
+      }
+    }
+
+    h2, .text-headline-lg, .font-headline-lg {
+      font-size: 1.625rem !important; /* 26px mobile */
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2rem !important; /* 32px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2.25rem !important; /* 36px desktop */
+        line-height: 1.2 !important;
+      }
+    }
+
+    h3, .text-headline-md, .font-headline-md {
+      font-size: 1.375rem !important; /* 22px mobile */
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 1024px) {
+      h3, .text-headline-md, .font-headline-md {
+        font-size: 1.75rem !important; /* 28px desktop */
+        line-height: 1.25 !important;
+      }
+    }
+
+    .text-headline-sm, .font-headline-sm {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-lg, .font-title-lg {
+      font-size: 1.25rem !important; /* 20px */
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-md, .font-title-md {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.625rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-sm, .font-title-sm {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-body-lg, .font-body-lg {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.75rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-md, .font-body-md {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-sm, .font-body-sm {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-label-lg, .font-label-lg {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+    }
+
+    .text-label-md, .font-label-md {
+      font-size: 0.75rem !important; /* 12px */
+      line-height: 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+    }
+
+    .text-label-sm, .font-label-sm {
+      font-size: 0.6875rem !important; /* 11px */
+      line-height: 0.875rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e6eeff",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e3f6",
+            "text-muted": "#4B5563",
+            "on-primary-container": "#bbffe9",
+            "on-tertiary-fixed": "#00201c",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed": "#97f4d9",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#fea619",
+            "on-surface": "#121c2a",
+            "surface": "#f8f9ff",
+            "oceanic-teal-deep": "#044E42",
+            "tertiary-container": "#3c786e",
+            "on-background": "#121c2a",
+            "secondary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#ffddb8",
+            "outline-variant": "#bdc9c4",
+            "on-primary-fixed": "#002019",
+            "primary-container": "#0D7C66",
+            "on-surface-variant": "#3e4945",
+            "outline": "#6e7a75",
+            "surface-dim": "#d0dbed",
+            "surface-variant": "#d9e3f6",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#95d2c6",
+            "surface-subtle-mint": "#EEF8F2",
+            "amber-vibrant": "#D97706",
+            "gold-accent": "#D4AF37",
+            "gold-warm": "#E5A93C",
+            "primary-fixed-dim": "#7bd7bd",
+            "emerald-dark": "#044E42",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-container": "#bffef1",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "on-primary-fixed-variant": "#005141",
+            "on-secondary": "#ffffff",
+            "background": "#f8f9ff",
+            "inverse-surface": "#27313f",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#0a5047",
+            "error-container": "#ffdad6",
+            "secondary": "#855300",
+            "surface-container-high": "#dee9fc",
+            "inverse-primary": "#7bd7bd",
+            "surface-clean": "#FFFFFF",
+            "error": "#ba1a1a",
+            "border-subtle": "#E5E7EB",
+            "tertiary": "#205f56",
+            "zakat-gold-light": "#FEF3C7",
+            "surface-tint": "#F8FAF9",
+            "primary": "#0D7C66",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#b1efe2"
+          },
+          
+          fontSize: {
+            'headline-xl': ['3rem', { lineHeight: '3.5rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-lg': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-md': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em', fontWeight: '600' }],
+            'headline-sm': ['1.375rem', { lineHeight: '1.875rem', fontWeight: '600' }],
+            'title-lg': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+            'title-md': ['1.125rem', { lineHeight: '1.625rem', fontWeight: '600' }],
+            'title-sm': ['1rem', { lineHeight: '1.5rem', fontWeight: '600' }],
+            'body-lg': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '400' }],
+            'body-md': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+            'body-sm': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+            'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.02em', fontWeight: '600' }],
+            'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.04em', fontWeight: '600' }],
+            'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.05em', fontWeight: '600' }]
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased">
+<!-- Fixed Header & Top Meta Banner -->
+<!-- Fixed Header & Top Meta Banner -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+<!-- International Meta Strip -->
+<div class="bg-emerald-dark text-on-primary py-1.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">call</span>
+<span>24/7 Helpline: <strong class="text-white">+880 1800-4673</strong></span>
+</div>
+<span class="hidden md:inline text-white/30">|</span>
+<div class="hidden md:flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">verified_user</span>
+<span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-1 hover:text-gold-warm transition-colors" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[15px]">calculate</span>
+<span>Zakat Calculator</span>
+</a>
+<div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded border border-white/10">
+<span class="material-symbols-outlined text-[13px] text-gold-warm">currency_exchange</span>
+<select class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+<option class="text-slate-900 bg-white" value="USD">USD ($)</option>
+<option class="text-slate-900 bg-white" value="GBP">GBP (£)</option>
+<option class="text-slate-900 bg-white" value="BDT">BDT (৳)</option>
+<option class="text-slate-900 bg-white" value="EUR">EUR (€)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="h-20 max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-11 h-11 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg text-emerald-dark tracking-tight leading-tight">Global Muslim Foundation</span>
+<span class="text-[11px] font-semibold text-text-muted uppercase tracking-wider">Charitable Relief &amp; Zakat Fund</span>
+</div>
+</a>
+</div>
+<nav class="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="index.html">Home</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="appeals.html">Appeals & Causes</a>
+<a class="px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold" href="zakat-calculator.html">Zakat Fund</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="impact.html">Impact & Reports</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="about.html">About Us</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="volunteer.html">Volunteer Portal</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span>Donate Now</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-colors" href="volunteer.html" title="Volunteer &amp; Donor Portal">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</a>
+<button id="mobile-menu-btn" type="button" class="xl:hidden w-10 h-10 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" aria-label="Toggle navigation menu">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-drawer" class="hidden xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle px-4 py-4 shadow-xl">
+<nav class="flex flex-col gap-1 text-sm font-semibold text-on-surface-variant">
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="index.html"><span>Home</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="appeals.html"><span>Appeals & Causes</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 text-primary bg-surface-subtle-mint rounded-lg font-bold flex items-center justify-between" href="zakat-calculator.html"><span>Zakat Fund</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="impact.html"><span>Impact & Reports</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="about.html"><span>About Us</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="volunteer.html"><span>Volunteer Portal</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+</nav>
+</div>
+</header>
+<main class="w-full bg-surface pt-32 sm:pt-36"><div class="flex flex-col w-full">
+<!-- Section 1: Hero Banner & Trust Foundation -->
+<section class="relative w-full bg-surface-container-low overflow-hidden py-16 lg:py-24">
+<!-- Ambient Islamic Motif Decorative Layers -->
+<div class="absolute inset-0 pointer-events-none opacity-40">
+<div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary-fixed/20 blur-3xl"></div>
+<div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-secondary-fixed/20 blur-3xl"></div>
+<svg class="w-full h-full object-cover opacity-10" fill="none" viewbox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+<circle class="text-primary" cx="400" cy="400" r="380" stroke="currentColor" stroke-dasharray="8 8" stroke-width="1"></circle>
+<circle class="text-primary" cx="400" cy="400" r="280" stroke="currentColor" stroke-width="1"></circle>
+<path class="text-primary" d="M400 20L450 350L780 400L450 450L400 780L350 450L20 400L350 350Z" stroke="currentColor" stroke-width="0.75"></path>
+</svg>
+</div>
+<div class="relative max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Text Column -->
+<div class="lg:col-span-7 flex flex-col space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle-mint text-primary w-fit shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-md text-label-md tracking-wider uppercase">100% Zakat Policy Guaranteed</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+            Purify Your Wealth with <span class="text-primary italic">Absolute Shariah Integrity</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+            Every single cent of your Zakat reaches vetted Asnaf families with zero operational or administrative deductions. Supervised by qualified scholars, independently audited, and directly transferred to preserve human dignity.
+          </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+<div class="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span>Ring-Fenced</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Separate trust accounts solely for designated Zakat payouts.</p>
+</div>
+<div class="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md">
+<span class="material-symbols-outlined text-[20px]">transfer_within_a_station</span>
+<span>Tamleek Direct</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Unconditional ownership transferred to verified recipients.</p>
+</div>
+<div class="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span>0% Overhead</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Operational expenditures funded exclusively via separate gift funds.</p>
+</div>
+</div>
+</div>
+<!-- Field Photo Spotlight (Project Alo / Dignity) -->
+<div class="lg:col-span-5 relative">
+<div class="relative rounded-2xl overflow-hidden bg-surface-clean shadow-xl group">
+<img class="w-full h-80 sm:h-96 object-cover object-top transition-transform duration-700 group-hover:scale-105" data-alt="A portrait of a resilient mother in a soft white veil gently cradling her young child in an impoverished village setting, capturing quiet human dignity and resilience with warm daylight tones, soft greenery in the background, and deep emerald oceanic green accents reflecting the charitable foundation visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL3sGQebx4-AE21BirYCzKMLCLrDdCha1nkfy2UB9h3l73__UR9nNmzCIwuFsiZAarnGGyAlSirUYRYWz2qubO3MjfqXTURz1U2B7Z7EPTTrSAo8Zr6o_172NhqDwKBbKfFTmeQXhh2O7nVH6b1f65wp7yAEzTrYHpnF3Le0Q4NfBxOOrczREmpRNID2uwhBiTkgYGQLvYaX1F63NjOj6Lp3QrJvVqL3O5a0m4esem"/>
+<div class="absolute inset-0 bg-gradient-to-t from-oceanic-teal-deep/90 via-oceanic-teal-deep/30 to-transparent flex flex-col justify-end p-6 text-on-primary">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-vibrant text-on-secondary font-label-sm text-label-sm w-fit uppercase mb-2">
+<span class="material-symbols-outlined text-[14px]">local_hospital</span>
+<span>Field Case #ZA-482: Project Alo</span>
+</div>
+<h2 class="font-title-lg text-title-lg text-on-primary leading-tight">Pediatric Sight Restoration &amp; Family Rehabilitation</h2>
+<p class="font-body-sm text-body-sm text-on-primary/80 mt-1">Direct Zakat beneficiary receiving surgical trauma care in Kurigram district.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Live Nisab Benchmark Ticker -->
+<section class="w-full bg-emerald-dark text-on-primary py-8">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-zakat-gold-light">
+<span class="material-symbols-outlined text-[24px]">scale</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-primary">Today's Live Nisab Values</h3>
+<p class="font-label-md text-label-md text-primary-fixed">Updated dynamically per London Bullion Market Association (LBMA) standards</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Silver Nisab (Recommended for Charity) -->
+<div class="bg-black/25 rounded-xl p-3 flex flex-col">
+<div class="flex items-center justify-between text-primary-fixed font-label-sm text-label-sm">
+<span>Silver Nisab (612.36g)</span>
+<span class="text-zakat-gold-light">Preferred</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold mt-1" id="nisab-silver-usd">$581.75</span>
+<span class="font-label-sm text-label-sm text-on-primary/60">USD Benchmark</span>
+</div>
+<!-- Silver Nisab BDT -->
+<div class="bg-black/25 rounded-xl p-3 flex flex-col">
+<span class="text-primary-fixed font-label-sm text-label-sm">Silver Nisab (BDT)</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold mt-1" id="nisab-silver-bdt">৳68,450</span>
+<span class="font-label-sm text-label-sm text-on-primary/60">Local Market Rate</span>
+</div>
+<!-- Silver Nisab GBP -->
+<div class="bg-black/25 rounded-xl p-3 flex flex-col">
+<span class="text-primary-fixed font-label-sm text-label-sm">Silver Nisab (GBP)</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold mt-1" id="nisab-silver-gbp">£458.20</span>
+<span class="font-label-sm text-label-sm text-on-primary/60">UK Standard</span>
+</div>
+<!-- Gold Nisab (87.48g) -->
+<div class="bg-black/25 rounded-xl p-3 flex flex-col">
+<span class="text-primary-fixed font-label-sm text-label-sm">Gold Nisab (87.48g)</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold mt-1" id="nisab-gold-usd">$6,820.00</span>
+<span class="font-label-sm text-label-sm text-on-primary/60">Alternative Benchmark</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Interactive 5-Step Comprehensive Zakat Calculator -->
+<section class="w-full bg-surface py-16" id="quick-calculator">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="text-center max-w-3xl mx-auto mb-12 flex flex-col items-center">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary bg-surface-subtle-mint px-3 py-1 rounded-full mb-3">5-Category Shariah Matrix</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Calculate Your Annual Zakat Obligation</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Enter all assets possessed over one lunar year (Hawl). Debts and immediate living liabilities are deducted automatically before applying the obligatory 2.5% rate.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left: 5-Category Form Panels -->
+<div class="lg:col-span-7 flex flex-col space-y-6">
+<!-- Category A: Liquid Cash & Savings -->
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center font-bold">
+<span>A</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Liquid Cash &amp; Bank Balances</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Immediate funds held in physical cash, current, and savings accounts.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-cash-home">Cash in Hand / Wallets ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-cash-home" min="0" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-cash-bank">Checking &amp; Savings Deposits ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-cash-bank" min="0" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Category B: Gold, Silver & Precious Metals -->
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold">
+<span>B</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Gold, Silver &amp; Precious Bullion</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Market value of bullion, coins, and ornamental jewelry above customary personal use.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-gold-value">Gold Value ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-gold-value" min="0" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-silver-value">Silver Value ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-silver-value" min="0" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Category C: Business Inventory & Stocks -->
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center font-bold">
+<span>C</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Business Trade Assets &amp; Equity Stocks</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Net trade inventory value, wholesale stock, and marketable stock equities.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-inventory">Resale Inventory / Stock-in-Trade ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-inventory" min="0" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-stocks">Shares, Mutual Funds &amp; Crypto ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-stocks" min="0" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Category D: Real Estate for Trade & Rental Income -->
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center font-bold">
+<span>D</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Properties for Resale &amp; Accrued Rent</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Do not count your primary residence. Enter plots bought for quick flipping or net collected rent.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-prop-resale">Plot / Property Bought for Resale ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-prop-resale" min="0" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-rental-income">Net Undistributed Rental Income ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-rental-income" min="0" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Category E: Liabilities & Immediate Debts -->
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-error-container text-on-error-container flex items-center justify-center font-bold">
+<span>E</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Short-term Liabilities (Deductions)</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Debts currently overdue, unpaid utility obligations, and urgent personal borrowings.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-debts-due">Debts Due Immediately ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-debts-due" min="0" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="step-bills-due">Pending Business / Household Bills ($)</label>
+<input class="calc-field w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-clean focus:outline-none transition-colors" id="step-bills-due" min="0" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Real-Time Summary & Checkout Card -->
+<div class="lg:col-span-5 sticky top-36">
+<div class="bg-surface-clean rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col space-y-6">
+<div class="flex items-center justify-between pb-4">
+<div>
+<span class="font-label-md text-label-md uppercase tracking-wider text-text-muted">Assessment Card</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Zakat Status Summary</h3>
+</div>
+<button class="text-primary hover:text-oceanic-teal-deep font-label-md text-label-md flex items-center gap-1" id="calc-reset-all">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Reset</span>
+</button>
+</div>
+<!-- Breakdown lines -->
+<div class="space-y-3 font-body-sm text-body-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Total Zakatable Assets (A+B+C+D):</span>
+<span class="font-bold text-on-surface" id="summary-total-assets">$0.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Total Deductible Liabilities (E):</span>
+<span class="font-bold text-error" id="summary-total-debts">-$0.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant pt-2">
+<span class="font-title-md text-title-md text-on-surface">Net Wealth:</span>
+<span class="font-title-md text-title-md text-primary font-bold" id="summary-net-wealth">$0.00</span>
+</div>
+</div>
+<!-- Nisab Qualifier Badge -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center gap-3" id="nisab-status-box">
+<span class="material-symbols-outlined text-primary text-[28px]" id="nisab-icon">info</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface" id="nisab-status-text">Pending Assessment</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Silver Nisab threshold: $581.75 USD</p>
+</div>
+</div>
+<!-- Due Amount Callout -->
+<div class="p-6 rounded-2xl bg-emerald-dark text-on-primary flex flex-col items-center justify-center text-center">
+<span class="font-label-md text-label-md uppercase tracking-widest text-primary-fixed">Your Net Obligation (2.5%)</span>
+<div class="font-headline-xl text-headline-xl text-zakat-gold-light font-bold mt-2" id="summary-zakat-due">$0.00</div>
+<p class="font-label-sm text-label-sm text-on-primary/80 mt-1">100% Ring-Fenced • Shariah Supervised</p>
+</div>
+<!-- Target Allocation Selector -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="zakat-cause-allocation">Direct My Zakat Towards:</label>
+<select class="w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-clean focus:outline-none" id="zakat-cause-allocation">
+<option value="where-most-needed">Where Most Needed (Crisis Priority)</option>
+<option value="project-alo">Project Alo: Pediatric Surgery &amp; Eyes</option>
+<option value="gaza-emergency">Gaza Urgent Nourishment &amp; Tents</option>
+<option value="widow-support">Widows &amp; Destitute Mothers Care</option>
+<option value="clean-water">Deep Wells for Asnaf Communities</option>
+</select>
+</div>
+<!-- Primary Fulfillment Action -->
+<button class="w-full py-4 px-6 rounded-xl bg-secondary-container hover:bg-amber-vibrant text-on-surface font-title-md text-title-md font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2" id="btn-fulfill-zakat">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Fulfill Zakat Now</span>
+</button>
+<!-- Audit Guarantee Tagline -->
+<div class="flex items-center justify-center gap-2 text-center text-text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span>Tax-deductible receipt generated instantaneously</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Governance, Shariah Integrity & Ring-Fenced Stewardship -->
+<section class="w-full bg-surface-container-low py-16 lg:py-24" id="governance">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Visual: Child Medical Care (Project Alo Case Study) -->
+<div class="lg:col-span-5 order-2 lg:order-1">
+<div class="relative bg-surface-clean rounded-3xl p-6 shadow-md">
+<div class="relative rounded-2xl overflow-hidden mb-4">
+<img class="w-full h-72 object-cover object-center" data-alt="Close up documentary photograph of a young Bengali boy with a soft sterile eye bandage sitting patiently in a clinic bed, wearing a modest patterned shirt, bathed in natural light, evoking vulnerable hope and pediatric healing under humanitarian medical care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO5ez7KwSbgDbBuTFOKOVkl1vlX2c3aJzSeKDfqVGrTaQSWlXY0I9sAS1AQx4tPVhfudHU3Tzzvl6Ir8uW0MrlKYIgGWTKTyfIqKsIg5NJp_CCjW-b_JZwROcsqsGd7lguSCbVE2SGcUhk94jmiEixnsVsW0W_BRBI23ICoSw1mB8mWKfvDFJK_ADDyK50tozSPrWQQq5YakCn5BB0DFwVqXMXQuqKCDcnLSnU4bLa"/>
+<div class="absolute bottom-3 left-3 bg-oceanic-teal-deep/90 text-on-primary px-3 py-1.5 rounded-lg font-label-sm text-label-sm backdrop-blur-md">
+                Verified Asnaf Case #BD-109
+              </div>
+</div>
+<h4 class="font-title-lg text-title-lg text-on-surface">Tamleek in Practice: Young Saifan's Journey</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Through the Tamleek protocol, medical equipment, hospital stipends, and immediate eye surgery funds are handed unconditionally to Saifan's widowed guardian, fulfilling full Shariah ownership before surgical release.
+            </p>
+<div class="mt-4 pt-4 flex items-center justify-between font-label-md text-label-md text-primary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> 100% Medical Recovery
+              </span>
+<span class="text-text-muted">Zero admin cost deducted</span>
+</div>
+</div>
+</div>
+<!-- Right: Governance Protocols -->
+<div class="lg:col-span-7 order-1 lg:order-2 flex flex-col space-y-6">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary bg-surface-subtle-mint px-3 py-1 rounded-full w-fit">Strict Institutional Governance</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">How We Safeguard Your Sacred Obligation</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Zakat is not a voluntary gift; it is a divinely ordained right belonging exclusively to the eight Qur'anic categories (Surah At-Tawbah 9:60). Our rigorous governance framework guarantees your obligation is fulfilled impeccably.
+          </p>
+<div class="space-y-4">
+<!-- Pillar 1 -->
+<div class="bg-surface-clean rounded-2xl p-5 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Ring-Fenced Bank Accounts</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Zakat donations enter an isolated trust account separated from administrative budgets, Sadaqah Jariyah funds, and gift endowments. No currency blending ever occurs.
+                </p>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="bg-surface-clean rounded-2xl p-5 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">supervised_user_circle</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Scholarly Shariah Board Oversight</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Every aid disbursement proposal is reviewed and signed off by our resident council of certified Muftis, confirming strict eligibility before cash or in-kind assets are transferred.
+                </p>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="bg-surface-clean rounded-2xl p-5 shadow-sm flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-subtle-mint text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">rule_folder</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Independent Tier-1 Financial Audits</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Annual compliance evaluations performed by international certified accounting firms confirming 100% pass-through ratio with zero administrative attrition.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Common Zakat Questions & Downloadable Reports -->
+<section class="w-full bg-surface py-16 lg:py-24">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary bg-surface-subtle-mint px-3 py-1 rounded-full">Knowledge Hub</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mt-3">Frequently Asked Questions on Zakat</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Clear rulings based on standard consensus to help you calculate and fulfill with peace of heart.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Accordion Q&A -->
+<div class="lg:col-span-8 space-y-4">
+<!-- Item 1 -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-5 cursor-pointer faq-item">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Should I use Gold or Silver Nisab for my calculations?</h3>
+<span class="material-symbols-outlined text-primary faq-icon">expand_more</span>
+</div>
+<div class="faq-content hidden mt-3 pt-3 text-on-surface-variant font-body-sm text-body-sm">
+              Classical scholars and majority contemporary fatwa councils recommend using the <strong>Silver Nisab</strong> for cash and liquid wealth. Because silver has a lower dollar threshold, it allows more destitute families to benefit from collective aid. Gold Nisab is commonly utilized when assessing gold bullion directly.
+            </div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-5 cursor-pointer faq-item">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">How do I calculate Zakat on pensions, 401(k), and retirement funds?</h3>
+<span class="material-symbols-outlined text-primary faq-icon">expand_more</span>
+</div>
+<div class="faq-content hidden mt-3 pt-3 text-on-surface-variant font-body-sm text-body-sm">
+              If your retirement fund is inaccessible without heavy early-withdrawal penalties, Zakat is only due upon the actual accessible cash value or calculated on the underlying zakatable assets (cash and trade equities, roughly 25-40% of the total fund portfolio) after subtracting estimated exit tax penalties.
+            </div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-5 cursor-pointer faq-item">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Is Zakat due on personal jewelry worn regularly?</h3>
+<span class="material-symbols-outlined text-primary faq-icon">expand_more</span>
+</div>
+<div class="faq-content hidden mt-3 pt-3 text-on-surface-variant font-body-sm text-body-sm">
+              According to the Hanafi school of jurisprudence, Zakat is due on all gold and silver regardless of whether it is worn or stored. In the Shafi'i, Maliki, and Hanbali schools, customary personal jewelry kept without intention of asset storage is exempt. For precaution, many donors choose to purify all precious metals.
+            </div>
+</div>
+<!-- Item 4 -->
+<div class="bg-surface-clean rounded-2xl shadow-sm p-5 cursor-pointer faq-item">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Can Zakat be paid in advance for emergency crises like Gaza?</h3>
+<span class="material-symbols-outlined text-primary faq-icon">expand_more</span>
+</div>
+<div class="faq-content hidden mt-3 pt-3 text-on-surface-variant font-body-sm text-body-sm">
+              Yes, it is permissible and highly encouraged according to authentic prophetic narrations to prepay Zakat one or two years ahead to alleviate acute disasters, famine, and medical crises facing vulnerable communities.
+            </div>
+</div>
+</div>
+<!-- Download Reports Box -->
+<div class="lg:col-span-4 flex flex-col space-y-4">
+<div class="bg-surface-subtle-mint rounded-2xl p-6 shadow-sm flex flex-col space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface">Official Governance Dispatches</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Download our signed Shariah Board rulings, financial distribution ledgers, and independent audit statements for complete donor confidence.
+            </p>
+<div class="space-y-2 pt-2">
+<a class="flex items-center justify-between p-3 rounded-xl bg-surface-clean text-on-surface hover:text-primary transition-colors text-body-sm font-body-sm shadow-sm" href="about.html#governance">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span>2024 Shariah Compliance Fatwa</span>
+</span>
+<span class="material-symbols-outlined text-[18px]">download</span>
+</a>
+<a class="flex items-center justify-between p-3 rounded-xl bg-surface-clean text-on-surface hover:text-primary transition-colors text-body-sm font-body-sm shadow-sm" href="about.html#governance">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">policy</span>
+<span>100% Zakat Policy Ledger (PDF)</span>
+</span>
+<span class="material-symbols-outlined text-[18px]">download</span>
+</a>
+<a class="flex items-center justify-between p-3 rounded-xl bg-surface-clean text-on-surface hover:text-primary transition-colors text-body-sm font-body-sm shadow-sm" href="about.html#governance">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">analytics</span>
+<span>Independent Audit Statement</span>
+</span>
+<span class="material-symbols-outlined text-[18px]">download</span>
+</a>
+</div>
+</div>
+<div class="bg-surface-clean rounded-2xl p-6 shadow-sm flex flex-col items-center text-center space-y-3">
+<span class="material-symbols-outlined text-amber-vibrant text-[32px]">support_agent</span>
+<h5 class="font-title-md text-title-md text-on-surface">Need Scholarly Consultation?</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Our Shariah research team is available to assist with complex asset holdings, commercial equity, or family trusts.
+            </p>
+<a class="text-primary font-title-md text-title-md hover:underline font-bold" href="mailto:shariah@gmcf-global.org">
+              shariah@gmcf-global.org
+            </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  (function () {
+    const NISAB_SILVER_USD = 581.75;
+
+    const fields = {
+      cashHome: document.getElementById('step-cash-home'),
+      cashBank: document.getElementById('step-cash-bank'),
+      goldVal: document.getElementById('step-gold-value'),
+      silverVal: document.getElementById('step-silver-value'),
+      inventory: document.getElementById('step-inventory'),
+      stocks: document.getElementById('step-stocks'),
+      propResale: document.getElementById('step-prop-resale'),
+      rentalIncome: document.getElementById('step-rental-income'),
+      debtsDue: document.getElementById('step-debts-due'),
+      billsDue: document.getElementById('step-bills-due')
+    };
+
+    const outTotalAssets = document.getElementById('summary-total-assets');
+    const outTotalDebts = document.getElementById('summary-total-debts');
+    const outNetWealth = document.getElementById('summary-net-wealth');
+    const outZakatDue = document.getElementById('summary-zakat-due');
+    const nisabBox = document.getElementById('nisab-status-box');
+    const nisabText = document.getElementById('nisab-status-text');
+    const nisabIcon = document.getElementById('nisab-icon');
+    const resetBtn = document.getElementById('calc-reset-all');
+    const fulfillBtn = document.getElementById('btn-fulfill-zakat');
+
+    function parseNum(el) {
+      if (!el) return 0;
+      const v = parseFloat(el.value);
+      return isNaN(v) || v < 0 ? 0 : v;
+    }
+
+    function formatMoney(num) {
+      return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function recompute() {
+      const assets =
+        parseNum(fields.cashHome) +
+        parseNum(fields.cashBank) +
+        parseNum(fields.goldVal) +
+        parseNum(fields.silverVal) +
+        parseNum(fields.inventory) +
+        parseNum(fields.stocks) +
+        parseNum(fields.propResale) +
+        parseNum(fields.rentalIncome);
+
+      const debts =
+        parseNum(fields.debtsDue) +
+        parseNum(fields.billsDue);
+
+      const netWealth = Math.max(0, assets - debts);
+      let zakat = 0;
+
+      if (outTotalAssets) outTotalAssets.textContent = formatMoney(assets);
+      if (outTotalDebts) outTotalDebts.textContent = '-' + formatMoney(debts);
+      if (outNetWealth) outNetWealth.textContent = formatMoney(netWealth);
+
+      if (netWealth >= NISAB_SILVER_USD) {
+        zakat = netWealth * 0.025;
+        if (nisabText) nisabText.textContent = 'Nisab Reached (Zakat Obligatory)';
+        if (nisabIcon) {
+          nisabIcon.textContent = 'check_circle';
+          nisabIcon.className = 'material-symbols-outlined text-primary text-[28px]';
+        }
+        if (nisabBox) {
+          nisabBox.className = 'p-4 rounded-xl bg-surface-subtle-mint flex items-center gap-3 transition-colors';
+        }
+      } else if (netWealth > 0) {
+        if (nisabText) nisabText.textContent = 'Below Nisab ($581.75) — Optional Sadaqah';
+        if (nisabIcon) {
+          nisabIcon.textContent = 'info';
+          nisabIcon.className = 'material-symbols-outlined text-amber-vibrant text-[28px]';
+        }
+        if (nisabBox) {
+          nisabBox.className = 'p-4 rounded-xl bg-surface-container-low flex items-center gap-3 transition-colors';
+        }
+      } else {
+        if (nisabText) nisabText.textContent = 'Pending Assessment';
+        if (nisabIcon) {
+          nisabIcon.textContent = 'info';
+          nisabIcon.className = 'material-symbols-outlined text-primary text-[28px]';
+        }
+        if (nisabBox) {
+          nisabBox.className = 'p-4 rounded-xl bg-surface-container-low flex items-center gap-3 transition-colors';
+        }
+      }
+
+      if (outZakatDue) outZakatDue.textContent = formatMoney(zakat);
+      return zakat;
+    }
+
+    Object.values(fields).forEach(input => {
+      if (input) input.addEventListener('input', recompute);
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        Object.values(fields).forEach(input => {
+          if (input) input.value = '';
+        });
+        recompute();
+      });
+    }
+
+    if (fulfillBtn) {
+      fulfillBtn.addEventListener('click', () => {
+        const zakat = recompute();
+        const customInput = document.getElementById('custom-amount-input');
+        if (zakat > 0) {
+          if (customInput) {
+            customInput.value = Math.round(zakat);
+          }
+          alert('Your calculated Zakat of ' + formatMoney(zakat) + ' has been transferred to your donation tray.');
+        } else {
+          alert('Your current net wealth is below the Nisab threshold. You can still contribute voluntary Sadaqah.');
+        }
+      });
+    }
+
+    // FAQ Accordion Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+        if (!content) return;
+        const isHidden = content.classList.contains('hidden');
+        if (isHidden) {
+          content.classList.remove('hidden');
+          if (icon) icon.textContent = 'expand_less';
+        } else {
+          content.classList.add('hidden');
+          if (icon) icon.textContent = 'expand_more';
+        }
+      });
+    });
+  })();
+</script></main>
+<!-- International Footer -->
+<footer class="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+<!-- Top Trust Bar -->
+<div class="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-white">100% Zakat Guarantee &amp; Absolute Transparency</h4>
+<p class="text-xs text-primary-fixed">Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm" href="zakat-calculator.html">Calculate Zakat</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20" href="about.html#governance">View Audit Reports</a>
+</div>
+</div>
+</div>
+<!-- Main Footer Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-14">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- Brand & Registration -->
+<div class="space-y-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">volunteer_activism</span>
+</div>
+<span class="font-bold text-base text-emerald-dark">Global Muslim Foundation</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+An international non-profit philanthropic organization dedicated to serving the destitute, orphans, and disaster-affected communities worldwide.
+</p>
+<div class="pt-1">
+<span class="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
+UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+</span>
+</div>
+</div>
+<!-- Appeals List -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Featured Appeals</h3>
+<ul class="space-y-2 text-xs text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-amber-500">campaign</span>Gaza Emergency Nourishment Appeal</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="campaign-details.html"><span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>One Meal One Hope (Street Food Aid)</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">medical_services</span>Project Alo: Pediatric Surgery &amp; Eyes</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">water_drop</span>Deep Tube Wells &amp; Clean Water</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">ac_unit</span>Project Sheetolota Winter Blankets</a></li>
+</ul>
+</div>
+<!-- Global Offices -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Global Headquarters</h3>
+<div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">location_on</span>
+<span><strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">public</span>
+<span><strong>London Office:</strong> 104 Whitechapel High St, London E1 7PT, United Kingdom</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span>
+<span>+44 20 7946 0991 / +880 1800-4673</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>donor-care@gmcf-global.org</span>
+</div>
+</div>
+</div>
+<!-- Newsletter & Updates -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Field Bulletins</h3>
+<p class="text-xs text-on-surface-variant">Receive verified field impact dispatch reports and tax exemption updates directly.</p>
+<form name="newsletter-subscription" method="POST" data-netlify="true" class="flex flex-col gap-2" onsubmit="event.preventDefault(); const form = this; fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() }).catch(() => {}); const btn = form.querySelector('button'); btn.textContent = 'Subscribed!'; btn.classList.add('bg-emerald-dark'); form.querySelector('input').value = '';">
+<input type="hidden" name="form-name" value="newsletter-subscription" />
+<div class="flex items-center bg-surface-clean rounded-xl p-1 border border-border-subtle shadow-sm">
+<input name="email" required class="w-full px-3 py-2 text-xs bg-transparent focus:outline-none text-on-surface" placeholder="Your email address..." type="email">
+<button type="submit" class="bg-primary text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-dark transition-colors">Subscribe</button>
+</div>
+<span class="text-[11px] text-text-muted">Strict privacy. Shariah compliant zero spam guarantee.</span>
+</form>
+</div>
+</div>
+<!-- Bottom Copyright & Legal -->
+<div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+<p>© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.</p>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="hover:text-primary transition-colors" href="appeals.html">Appeals</a>
+<a class="hover:text-primary transition-colors" href="zakat-calculator.html">Zakat Calculator</a>
+<a class="hover:text-primary transition-colors" href="impact.html">Impact</a>
+<a class="hover:text-primary transition-colors" href="about.html">About &amp; Governance</a>
+<a class="hover:text-primary transition-colors" href="volunteer.html">Volunteers</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Mobile Navigation Drawer Toggle Handler
+(function() {
+  const btn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      drawer.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+      }
+    });
+  }
+})();
+</script>
+<!-- Interactive JavaScript Engine -->
+<script>
+    (function initCharityInteractivity() {
+      // Frequency toggle
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          freqBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface');
+        });
+      });
+
+      // Amount Chips
+      const amtBtns = document.querySelectorAll('.amt-btn');
+      const customInput = document.getElementById('custom-amount-input');
+      amtBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          amtBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('bg-surface-subtle-mint', 'text-primary');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-surface-subtle-mint', 'text-primary');
+          const val = btn.getAttribute('data-amt');
+          if (val === 'custom') {
+            customInput.focus();
+          } else {
+            customInput.value = val;
+          }
+        });
+      });
+
+      // Zakat Calculator Logic
+      const gInput = document.getElementById('calc-gold');
+      const cInput = document.getElementById('calc-cash');
+      const bInput = document.getElementById('calc-biz');
+      const dInput = document.getElementById('calc-debt');
+      const netDisplay = document.getElementById('calc-net-assets');
+      const zakatDisplay = document.getElementById('calc-zakat-due');
+      const applyBtn = document.getElementById('calc-apply-btn');
+      const resetBtn = document.getElementById('calc-reset-btn');
+
+      function calculateZakat() {
+        const gold = parseFloat(gInput?.value) || 0;
+        const cash = parseFloat(cInput?.value) || 0;
+        const biz = parseFloat(bInput?.value) || 0;
+        const debt = parseFloat(dInput?.value) || 0;
+
+        const totalAssets = gold + cash + biz;
+        const netWealth = Math.max(0, totalAssets - debt);
+        const nisab = 520; // USD silver benchmark
+
+        let zakatDue = 0;
+        if (netWealth >= nisab) {
+          zakatDue = Math.round(netWealth * 0.025 * 100) / 100;
+        }
+
+        if (netDisplay) netDisplay.textContent = '$' + netWealth.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        if (zakatDisplay) zakatDisplay.textContent = '$' + zakatDue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        return zakatDue;
+      }
+
+      [gInput, cInput, bInput, dInput].forEach(inp => {
+        if (inp) inp.addEventListener('input', calculateZakat);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (gInput) gInput.value = '';
+          if (cInput) cInput.value = '';
+          if (bInput) bInput.value = '';
+          if (dInput) dInput.value = '';
+          calculateZakat();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const due = calculateZakat();
+          if (due > 0) {
+            if (customInput) customInput.value = Math.round(due);
+            const causeSel = document.getElementById('cause-select');
+            if (causeSel) causeSel.value = 'zakat';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (customInput) {
+              customInput.classList.add('bg-surface-subtle-mint');
+              setTimeout(() => customInput.classList.remove('bg-surface-subtle-mint'), 1500);
+            }
+          } else {
+            alert('Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.');
+          }
+        });
+      }
+    })();
+  </script>
+</body></html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>About Us & Shariah Governance | Global Muslim Charitable Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .font-serif-heading { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Material 3 & Design Token Typography System */
+    .font-serif, .font-serif-heading {
+      font-family: 'Playfair Display', Georgia, serif !important;
+    }
+
+    h1, .text-headline-xl, .font-headline-xl {
+      font-size: 2.125rem !important; /* ~34px mobile */
+      line-height: 1.2 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 2.75rem !important; /* 44px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h1, .text-headline-xl, .font-headline-xl {
+        font-size: 3rem !important; /* 48px desktop */
+        line-height: 1.15 !important;
+      }
+    }
+
+    h2, .text-headline-lg, .font-headline-lg {
+      font-size: 1.625rem !important; /* 26px mobile */
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 640px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2rem !important; /* 32px tablet */
+      }
+    }
+    @media (min-width: 1024px) {
+      h2, .text-headline-lg, .font-headline-lg {
+        font-size: 2.25rem !important; /* 36px desktop */
+        line-height: 1.2 !important;
+      }
+    }
+
+    h3, .text-headline-md, .font-headline-md {
+      font-size: 1.375rem !important; /* 22px mobile */
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 1024px) {
+      h3, .text-headline-md, .font-headline-md {
+        font-size: 1.75rem !important; /* 28px desktop */
+        line-height: 1.25 !important;
+      }
+    }
+
+    .text-headline-sm, .font-headline-sm {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-lg, .font-title-lg {
+      font-size: 1.25rem !important; /* 20px */
+      line-height: 1.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-md, .font-title-md {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.625rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-title-sm, .font-title-sm {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 600 !important;
+    }
+
+    .text-body-lg, .font-body-lg {
+      font-size: 1.125rem !important; /* 18px */
+      line-height: 1.75rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-md, .font-body-md {
+      font-size: 1rem !important; /* 16px */
+      line-height: 1.5rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-body-sm, .font-body-sm {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 400 !important;
+    }
+
+    .text-label-lg, .font-label-lg {
+      font-size: 0.875rem !important; /* 14px */
+      line-height: 1.25rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em;
+    }
+
+    .text-label-md, .font-label-md {
+      font-size: 0.75rem !important; /* 12px */
+      line-height: 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+    }
+
+    .text-label-sm, .font-label-sm {
+      font-size: 0.6875rem !important; /* 11px */
+      line-height: 0.875rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#e6eeff",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e3f6",
+            "text-muted": "#4B5563",
+            "on-primary-container": "#bbffe9",
+            "on-tertiary-fixed": "#00201c",
+            "on-secondary-fixed": "#2a1700",
+            "primary-fixed": "#97f4d9",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#fea619",
+            "on-surface": "#121c2a",
+            "surface": "#f8f9ff",
+            "oceanic-teal-deep": "#044E42",
+            "tertiary-container": "#3c786e",
+            "on-background": "#121c2a",
+            "secondary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#ffddb8",
+            "outline-variant": "#bdc9c4",
+            "on-primary-fixed": "#002019",
+            "primary-container": "#0D7C66",
+            "on-surface-variant": "#3e4945",
+            "outline": "#6e7a75",
+            "surface-dim": "#d0dbed",
+            "surface-variant": "#d9e3f6",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed-dim": "#95d2c6",
+            "surface-subtle-mint": "#EEF8F2",
+            "amber-vibrant": "#D97706",
+            "gold-accent": "#D4AF37",
+            "gold-warm": "#E5A93C",
+            "primary-fixed-dim": "#7bd7bd",
+            "emerald-dark": "#044E42",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-container": "#bffef1",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#684000",
+            "on-primary-fixed-variant": "#005141",
+            "on-secondary": "#ffffff",
+            "background": "#f8f9ff",
+            "inverse-surface": "#27313f",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#0a5047",
+            "error-container": "#ffdad6",
+            "secondary": "#855300",
+            "surface-container-high": "#dee9fc",
+            "inverse-primary": "#7bd7bd",
+            "surface-clean": "#FFFFFF",
+            "error": "#ba1a1a",
+            "border-subtle": "#E5E7EB",
+            "tertiary": "#205f56",
+            "zakat-gold-light": "#FEF3C7",
+            "surface-tint": "#F8FAF9",
+            "primary": "#0D7C66",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#b1efe2"
+          },
+          
+          fontSize: {
+            'headline-xl': ['3rem', { lineHeight: '3.5rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-lg': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.02em', fontWeight: '700' }],
+            'headline-md': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em', fontWeight: '600' }],
+            'headline-sm': ['1.375rem', { lineHeight: '1.875rem', fontWeight: '600' }],
+            'title-lg': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+            'title-md': ['1.125rem', { lineHeight: '1.625rem', fontWeight: '600' }],
+            'title-sm': ['1rem', { lineHeight: '1.5rem', fontWeight: '600' }],
+            'body-lg': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '400' }],
+            'body-md': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+            'body-sm': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+            'label-lg': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.02em', fontWeight: '600' }],
+            'label-md': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.04em', fontWeight: '600' }],
+            'label-sm': ['0.6875rem', { lineHeight: '0.875rem', letterSpacing: '0.05em', fontWeight: '600' }]
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased">
+<!-- Fixed Header & Top Meta Banner -->
+<!-- Fixed Header & Top Meta Banner -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
+<!-- International Meta Strip -->
+<div class="bg-emerald-dark text-on-primary py-1.5 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between text-xs font-medium">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">call</span>
+<span>24/7 Helpline: <strong class="text-white">+880 1800-4673</strong></span>
+</div>
+<span class="hidden md:inline text-white/30">|</span>
+<div class="hidden md:flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px] text-gold-warm">verified_user</span>
+<span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex items-center gap-1 hover:text-gold-warm transition-colors" href="zakat-calculator.html">
+<span class="material-symbols-outlined text-[15px]">calculate</span>
+<span>Zakat Calculator</span>
+</a>
+<div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded border border-white/10">
+<span class="material-symbols-outlined text-[13px] text-gold-warm">currency_exchange</span>
+<select class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+<option class="text-slate-900 bg-white" value="USD">USD ($)</option>
+<option class="text-slate-900 bg-white" value="GBP">GBP (£)</option>
+<option class="text-slate-900 bg-white" value="BDT">BDT (৳)</option>
+<option class="text-slate-900 bg-white" value="EUR">EUR (€)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="h-20 max-w-[1280px] mx-auto px-4 sm:px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-11 h-11 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg text-emerald-dark tracking-tight leading-tight">Global Muslim Foundation</span>
+<span class="text-[11px] font-semibold text-text-muted uppercase tracking-wider">Charitable Relief &amp; Zakat Fund</span>
+</div>
+</a>
+</div>
+<nav class="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="index.html">Home</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="appeals.html">Appeals & Causes</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="zakat-calculator.html">Zakat Fund</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="impact.html">Impact & Reports</a>
+<a class="px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold" href="about.html">About Us</a>
+<a class="px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors" href="volunteer.html">Volunteer Portal</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5" href="appeals.html">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span>Donate Now</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 flex items-center justify-center text-primary transition-colors" href="volunteer.html" title="Volunteer &amp; Donor Portal">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</a>
+<button id="mobile-menu-btn" type="button" class="xl:hidden w-10 h-10 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors" aria-label="Toggle navigation menu">
+<span class="material-symbols-outlined text-[22px]">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-drawer" class="hidden xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle px-4 py-4 shadow-xl">
+<nav class="flex flex-col gap-1 text-sm font-semibold text-on-surface-variant">
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="index.html"><span>Home</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="appeals.html"><span>Appeals & Causes</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="zakat-calculator.html"><span>Zakat Fund</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="impact.html"><span>Impact & Reports</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+<a class="px-4 py-2.5 text-primary bg-surface-subtle-mint rounded-lg font-bold flex items-center justify-between" href="about.html"><span>About Us</span><span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+<a class="px-4 py-2.5 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors flex items-center justify-between" href="volunteer.html"><span>Volunteer Portal</span><span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span></a>
+</nav>
+</div>
+</header>
+<main class="w-full bg-surface pt-32 sm:pt-36"><div class="flex flex-col w-full">
+<!-- Top Trust & Mission Banner -->
+<section class="w-full bg-gradient-to-b from-surface-subtle-mint via-surface to-background px-4 sm:px-8 py-16">
+<div class="max-w-[1280px] mx-auto flex flex-col items-center text-center">
+<!-- Sacred Trust Badge -->
+<div class="inline-flex items-center gap-2 bg-surface-clean shadow-sm px-4 py-1.5 rounded-full mb-6">
+<span class="material-symbols-outlined text-amber-vibrant text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md text-primary tracking-wider uppercase">ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930</span>
+</div>
+<!-- Main Headline -->
+<h1 class="font-headline-xl text-headline-xl text-emerald-dark max-w-4xl tracking-tight leading-tight mb-6">
+        Faithful Stewardship. Absolute Transparency. Dignified Humanitarian Action.
+      </h1>
+<!-- Mission Statement -->
+<p class="font-body-lg text-body-lg text-text-muted max-w-3xl leading-relaxed mb-10">
+        Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.
+      </p>
+<!-- Institutional Metrics Quick-Bar -->
+<div class="w-full grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-surface-clean rounded-2xl shadow-sm">
+<div class="flex flex-col items-center justify-center p-3 text-center">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">100%</span>
+<span class="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">Zakat Distribution Ratio</span>
+</div>
+<div class="flex flex-col items-center justify-center p-3 text-center">
+<span class="font-headline-lg text-headline-lg text-emerald-dark font-bold">৳0</span>
+<span class="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">Admin Deductions from Zakat</span>
+</div>
+<div class="flex flex-col items-center justify-center p-3 text-center">
+<span class="font-headline-lg text-headline-lg text-amber-vibrant font-bold">18,400+</span>
+<span class="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">Families Uplifted (Tamleek)</span>
+</div>
+<div class="flex flex-col items-center justify-center p-3 text-center">
+<span class="font-headline-lg text-headline-lg text-tertiary font-bold">Grade A</span>
+<span class="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">Independent Audit Rating</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4 Pillars of Sacred Stewardship -->
+<section class="w-full bg-surface-clean py-20 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-amber-vibrant font-bold">FOUNDATIONAL PILLARS</span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark mt-2">The GMCF Covenant of Trust</h2>
+</div>
+<p class="font-body-md text-body-md text-text-muted max-w-md">
+          Every penny entrusted into our care is governed under strict divine injunctions and uncompromising financial ethics.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Pillar 1 -->
+<div class="bg-surface-subtle-mint/60 p-8 rounded-2xl flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-md">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface-clean shadow-sm flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">balance</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">01. PILLAR</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">Shariah Integrity</h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+              100% of all Zakat donations are strictly ring-fenced in a non-interest treasury account. Absolutely zero admin fees or operational costs are deducted.
+            </p>
+</div>
+<div class="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Independent Fatwa Certified</span>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="bg-surface-subtle-mint/60 p-8 rounded-2xl flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-md">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface-clean shadow-sm flex items-center justify-center text-amber-vibrant mb-6">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">front_hand</span>
+</div>
+<span class="font-label-sm text-label-sm text-amber-vibrant uppercase font-bold tracking-wider">02. PILLAR</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">Dignity &amp; Tamleek</h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+              Unconditional direct ownership (Tamleek) is granted immediately to verified Asnaf recipients without intermediate institutional capture or debt attachment.
+            </p>
+</div>
+<div class="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Direct Asset Transfer Protocol</span>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="bg-surface-subtle-mint/60 p-8 rounded-2xl flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-md">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface-clean shadow-sm flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">pin_drop</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">03. PILLAR</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">Ground-Truth Verification</h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+              Every distribution is documented with geo-tagged photographic evidence, national ID authentication, and signed beneficiary acknowledgement ledgers.
+            </p>
+</div>
+<div class="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>GPS Time-Stamped Audits</span>
+</div>
+</div>
+<!-- Pillar 4 -->
+<div class="bg-surface-subtle-mint/60 p-8 rounded-2xl flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-md">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface-clean shadow-sm flex items-center justify-center text-tertiary mb-6">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-bold tracking-wider">04. PILLAR</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">Radical Stewardship</h3>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+              100% of staff salaries, operational costs, software platforms, and vehicle logistics are underwritten separately through an exclusive private endowment fund.
+            </p>
+</div>
+<div class="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Zero-Cost Public Donorship</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Governance & Shariah Advisory Council -->
+<section class="w-full bg-surface py-20 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-bold">ETHICAL JURISPRUDENCE</span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark mt-2 mb-4">Independent Shariah Advisory Council</h2>
+<p class="font-body-md text-body-md text-text-muted">
+          Our operations, relief allocation criteria, and donor ledgers are scrutinized year-round by reputable scholars and statutory chartered accountants.
+        </p>
+</div>
+<!-- Council Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+<!-- Scholar 1 -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full bg-surface-subtle-mint flex items-center justify-center text-primary mb-6 shadow-inner">
+<span class="material-symbols-outlined text-[48px]">person_outline</span>
+</div>
+<span class="font-label-sm text-label-sm text-amber-vibrant font-bold uppercase tracking-wider mb-1">Lead Scholar &amp; Jurisconsult</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold">Mufti Muhammad Zubair</h3>
+<p class="font-label-md text-label-md text-text-muted mb-4">Senior Islamic Jurisprudence Scholar (Darul Uloom)</p>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+            Over 22 years of fiqh leadership overseeing international Zakat compliance, inheritance waqf models, and authentic Tamleek verification across South Asia.
+          </p>
+</div>
+<!-- Scholar 2 -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full bg-surface-subtle-mint flex items-center justify-center text-primary mb-6 shadow-inner">
+<span class="material-symbols-outlined text-[48px]">school</span>
+</div>
+<span class="font-label-sm text-label-sm text-amber-vibrant font-bold uppercase tracking-wider mb-1">Council Co-Chair</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold">Dr. Amina Rahman</h3>
+<p class="font-label-md text-label-md text-text-muted mb-4">PhD, Islamic Economics &amp; Sustainable Waqf</p>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+            Former advisor to multilateral development funds, specializing in micro-enterprise endowments, poverty graduation models, and ethical liquidity management.
+          </p>
+</div>
+<!-- Auditor 3 -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full bg-surface-subtle-mint flex items-center justify-center text-primary mb-6 shadow-inner">
+<span class="material-symbols-outlined text-[48px]">fact_check</span>
+</div>
+<span class="font-label-sm text-label-sm text-amber-vibrant font-bold uppercase tracking-wider mb-1">Independent Assurance</span>
+<h3 class="font-title-lg text-title-lg text-emerald-dark font-bold">Chartered Audit Panel</h3>
+<p class="font-label-md text-label-md text-text-muted mb-4">Tier-1 Registered Certified Accountants (ICAB &amp; ICAEW)</p>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+            Conducting bi-annual statutory audits, random sample beneficiary spot-checks, and public release of unqualified governance opinions.
+          </p>
+</div>
+</div>
+<!-- Official Governance Documents & Disclosures -->
+<div class="bg-emerald-dark rounded-2xl p-8 md:p-12 text-on-primary">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-8">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-zakat-gold-light font-bold">PUBLIC DISCLOSURES &amp; LEDGERS</span>
+<h3 class="font-headline-md text-headline-md text-white mt-1">Official Governance Documentation</h3>
+<p class="font-body-sm text-body-sm text-primary-fixed mt-2 max-w-xl">
+              Download verified legal rulings, signed Shariah certifications, and unqualified financial statements.
+            </p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold-warm text-[32px]">security</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">Transparency Standard</span>
+<span class="font-title-md text-title-md text-white font-bold">IATI &amp; Charity Commission</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Document Card 1 -->
+<a class="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[32px] text-amber-vibrant">description</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">2024 Shariah Compliance Fatwa</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">Signed by Advisory Council (PDF, 2.4MB)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">download</span>
+</a>
+<!-- Document Card 2 -->
+<a class="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[32px] text-amber-vibrant">policy</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">100% Zakat Policy Ledger</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">Tamleek Operating Manual (PDF, 1.8MB)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">download</span>
+</a>
+<!-- Document Card 3 -->
+<a class="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[32px] text-amber-vibrant">analytics</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">Independent Audit Statement</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">Annual Financials 2023-2024 (PDF, 4.1MB)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">download</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Story & Ground Truth Field Operations -->
+<section class="w-full bg-surface-clean py-20 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Story Narrative Column -->
+<div class="lg:col-span-5 flex flex-col justify-center">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-amber-vibrant font-bold mb-2">ROOTED IN DIRECT ACTION</span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark leading-tight mb-6">
+            From Dhaka Railway Platforms to a Resilient Global Aid Network
+          </h2>
+<p class="font-body-md text-body-md text-text-muted leading-relaxed mb-6">
+            Global Muslim Charitable Foundation began not in boardrooms, but on freezing winter nights distributing hot meals and warm blankets directly to abandoned street children along Kamalapur and Tejgaon railway tracks.
+          </p>
+<p class="font-body-md text-body-md text-text-muted leading-relaxed mb-8">
+            Today, our youth volunteer chapters and field officers coordinate complex emergency nourishment lines, deep tube-well installations, orphan schooling sponsorships, and emergency surgical interventions with complete, verified zero-overhead fidelity.
+          </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<div class="p-4 bg-surface-subtle-mint rounded-xl">
+<span class="font-title-lg text-title-lg text-primary font-bold block">48 Hours</span>
+<span class="font-body-sm text-body-sm text-text-muted">Max response time during cyclone &amp; flood crises</span>
+</div>
+<div class="p-4 bg-surface-subtle-mint rounded-xl">
+<span class="font-title-lg text-title-lg text-emerald-dark font-bold block">1,200+</span>
+<span class="font-body-sm text-body-sm text-text-muted">Registered youth volunteers across all 64 districts</span>
+</div>
+</div>
+</div>
+<!-- Team Photo Column -->
+<div class="lg:col-span-7 flex flex-col">
+<div class="relative overflow-hidden rounded-2xl shadow-xl bg-surface-subtle-mint group">
+<img alt="GMCF Volunteer and Field Operations Team at Dhaka Headquarters" class="w-full h-[460px] object-cover object-center group-hover:scale-102 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1W_gIB4MvKg9xKsKcGIK_fk-dTEmIlQ0DCBthTQgrT5zojWhKGc-ErJwCo-3lLUhOq2H_XlqslU3WWCnEsHVbLHchZwCMiFece48LMGzlq5N8GU3_h9d2ZbMonL65HWSRfY0Z5LmM3woKyCcJFZrMqzI80lFKTTnlXZdp2bRhEDikieZcRG_rq2H8J_iteTJ_W0Kh-9S3H3ONehU-Rddc34QqpZk0u3hWxBqxS7HpO_Cg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-emerald-dark/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-6 text-on-primary">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-vibrant animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-zakat-gold-light font-bold">Field Deployment Unit #04</span>
+</div>
+<h4 class="font-title-lg text-title-lg text-white font-bold">
+                Our Frontline Field Team &amp; Coordinators at Dhaka Headquarters
+              </h4>
+<p class="font-body-sm text-body-sm text-primary-fixed mt-1">
+                Volunteer briefing session for Project Sheetolota &amp; Emergency Street Nutrition drive at Bangladesh Shishu Kalyan Parishad.
+              </p>
+</div>
+</div>
+<div class="flex items-center justify-between text-text-muted font-body-sm text-body-sm px-2 pt-3">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">groups</span>
+<span>100% Volunteer Field Force</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-amber-vibrant">verified</span>
+<span>Certified Child Safeguarding Protocols</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Offices & Statutory Registration Grid -->
+<section class="w-full bg-surface-subtle-mint/40 py-20 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-bold">STATUTORY JURISDICTIONS</span>
+<h2 class="font-headline-lg text-headline-lg text-emerald-dark mt-2">Registered Global Headquarters &amp; Offices</h2>
+</div>
+<a class="inline-flex items-center gap-2 text-primary font-title-md text-title-md hover:underline font-bold" href="mailto:governance@gmcf-global.org">
+<span>Speak with our Director of Governance</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Dhaka HQ -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">Field Operations HQ</span>
+<span class="material-symbols-outlined text-primary text-[24px]">flag</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">Dhaka, Bangladesh</h3>
+<p class="font-body-sm text-body-sm text-text-muted mb-4">
+              Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212, Bangladesh
+            </p>
+<div class="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
+<p><strong class="text-on-surface">Registration:</strong> NGO Affairs Bureau Reg #NGO-AB-89423</p>
+<p><strong class="text-on-surface">Helpline:</strong> +880 1800-4673</p>
+<p><strong class="text-on-surface">Audit Liaison:</strong> dhaka.office@gmcf-global.org</p>
+</div>
+</div>
+<div class="pt-4 bg-surface-subtle-mint/40 rounded-xl p-3 flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">domain_verification</span>
+<span>Principal Field Operations Hub</span>
+</div>
+</div>
+<!-- London Office -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">UK Statutory Reg</span>
+<span class="material-symbols-outlined text-primary text-[24px]">account_balance</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">London, United Kingdom</h3>
+<p class="font-body-sm text-body-sm text-text-muted mb-4">
+              104 Whitechapel High St, London E1 7PT, United Kingdom
+            </p>
+<div class="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
+<p><strong class="text-on-surface">Reg Number:</strong> UK Charity Commission Reg #1184930</p>
+<p><strong class="text-on-surface">Gift Aid:</strong> Registered for HMRC 25% Top-up</p>
+<p><strong class="text-on-surface">Desk:</strong> +44 20 7946 0991</p>
+</div>
+</div>
+<div class="pt-4 bg-surface-subtle-mint/40 rounded-xl p-3 flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">domain_verification</span>
+<span>European Oversight &amp; Treasury</span>
+</div>
+</div>
+<!-- USA Liaison -->
+<div class="bg-surface-clean rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">US Tax-Exempt Status</span>
+<span class="material-symbols-outlined text-primary text-[24px]">public</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">New York, United States</h3>
+<p class="font-body-sm text-body-sm text-text-muted mb-4">
+              Rockefeller Center Plaza, 45 Rockefeller Plaza, New York, NY 10111
+            </p>
+<div class="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
+<p><strong class="text-on-surface">Status:</strong> 501(c)(3) Partner Liaison Entity</p>
+<p><strong class="text-on-surface">Tax Relief:</strong> IRS Tax-Deductible Receipts Issued</p>
+<p><strong class="text-on-surface">Inquiries:</strong> usa.partners@gmcf-global.org</p>
+</div>
+</div>
+<div class="pt-4 bg-surface-subtle-mint/40 rounded-xl p-3 flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">domain_verification</span>
+<span>North American Diaspora Grants</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Transparency Trust Banner (CTA) -->
+<section class="w-full bg-emerald-dark py-16 px-4 sm:px-8 text-on-primary">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-gold-warm shadow-md flex-shrink-0">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-zakat-gold-light uppercase tracking-widest font-bold">UNCOMPROMISING ACCOUNTABILITY</span>
+<h3 class="font-headline-md text-headline-md text-white mt-1">
+            Inspect our records or speak with our Shariah board.
+          </h3>
+<p class="font-body-sm text-body-sm text-primary-fixed mt-1">
+            We welcome personal donor inspections, independent audit queries, and field visits anytime.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-wrap">
+<button class="bg-surface-clean text-primary hover:bg-surface-subtle-mint px-6 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-sm flex items-center gap-2" id="view-audits-btn">
+<span class="material-symbols-outlined text-[20px]">summarize</span>
+<span>Read Audit Reports</span>
+</button>
+<a class="bg-amber-vibrant hover:bg-secondary text-white px-7 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-lg hover:shadow-xl flex items-center gap-2" href="appeals.html">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>Donate with Confidence</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+<script>
+  (function initGovernanceInteractivity() {
+    const auditBtn = document.getElementById('view-audits-btn');
+    if (auditBtn) {
+      auditBtn.addEventListener('click', () => {
+        alert('All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact governance@gmcf-global.org or download the official PDF pack.');
+      });
+    }
+  })();
+</script></main>
+<!-- International Footer -->
+<footer class="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+<!-- Top Trust Bar -->
+<div class="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="font-serif-heading text-lg font-bold text-white">100% Zakat Guarantee &amp; Absolute Transparency</h4>
+<p class="text-xs text-primary-fixed">Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm" href="zakat-calculator.html">Calculate Zakat</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20" href="about.html#governance">View Audit Reports</a>
+</div>
+</div>
+</div>
+<!-- Main Footer Grid -->
+<div class="max-w-[1280px] mx-auto px-4 sm:px-8 py-14">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- Brand & Registration -->
+<div class="space-y-4">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">volunteer_activism</span>
+</div>
+<span class="font-bold text-base text-emerald-dark">Global Muslim Foundation</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+An international non-profit philanthropic organization dedicated to serving the destitute, orphans, and disaster-affected communities worldwide.
+</p>
+<div class="pt-1">
+<span class="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
+UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+</span>
+</div>
+</div>
+<!-- Appeals List -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Featured Appeals</h3>
+<ul class="space-y-2 text-xs text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-amber-500">campaign</span>Gaza Emergency Nourishment Appeal</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="campaign-details.html"><span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>One Meal One Hope (Street Food Aid)</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">medical_services</span>Project Alo: Pediatric Surgery &amp; Eyes</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">water_drop</span>Deep Tube Wells &amp; Clean Water</a></li>
+<li><a class="hover:text-primary transition-colors flex items-center gap-1.5" href="appeals.html"><span class="material-symbols-outlined text-[15px] text-primary">ac_unit</span>Project Sheetolota Winter Blankets</a></li>
+</ul>
+</div>
+<!-- Global Offices -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Global Headquarters</h3>
+<div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">location_on</span>
+<span><strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">public</span>
+<span><strong>London Office:</strong> 104 Whitechapel High St, London E1 7PT, United Kingdom</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span>
+<span>+44 20 7946 0991 / +880 1800-4673</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>donor-care@gmcf-global.org</span>
+</div>
+</div>
+</div>
+<!-- Newsletter & Updates -->
+<div class="space-y-3">
+<h3 class="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">Field Bulletins</h3>
+<p class="text-xs text-on-surface-variant">Receive verified field impact dispatch reports and tax exemption updates directly.</p>
+<form name="newsletter-subscription" method="POST" data-netlify="true" class="flex flex-col gap-2" onsubmit="event.preventDefault(); const form = this; fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() }).catch(() => {}); const btn = form.querySelector('button'); btn.textContent = 'Subscribed!'; btn.classList.add('bg-emerald-dark'); form.querySelector('input').value = '';">
+<input type="hidden" name="form-name" value="newsletter-subscription" />
+<div class="flex items-center bg-surface-clean rounded-xl p-1 border border-border-subtle shadow-sm">
+<input name="email" required class="w-full px-3 py-2 text-xs bg-transparent focus:outline-none text-on-surface" placeholder="Your email address..." type="email">
+<button type="submit" class="bg-primary text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-dark transition-colors">Subscribe</button>
+</div>
+<span class="text-[11px] text-text-muted">Strict privacy. Shariah compliant zero spam guarantee.</span>
+</form>
+</div>
+</div>
+<!-- Bottom Copyright & Legal -->
+<div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+<p>© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.</p>
+<div class="flex items-center gap-4">
+<a class="hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="hover:text-primary transition-colors" href="appeals.html">Appeals</a>
+<a class="hover:text-primary transition-colors" href="zakat-calculator.html">Zakat Calculator</a>
+<a class="hover:text-primary transition-colors" href="impact.html">Impact</a>
+<a class="hover:text-primary transition-colors" href="about.html">About &amp; Governance</a>
+<a class="hover:text-primary transition-colors" href="volunteer.html">Volunteers</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+// Mobile Navigation Drawer Toggle Handler
+(function() {
+  const btn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      drawer.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+        drawer.classList.add('hidden');
+      }
+    });
+  }
+})();
+</script>
+<!-- Interactive JavaScript Engine -->
+<script>
+    (function initCharityInteractivity() {
+      // Frequency toggle
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          freqBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface');
+        });
+      });
+
+      // Amount Chips
+      const amtBtns = document.querySelectorAll('.amt-btn');
+      const customInput = document.getElementById('custom-amount-input');
+      amtBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          amtBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+            b.classList.add('bg-surface-subtle-mint', 'text-primary');
+          });
+          btn.classList.add('bg-primary', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-surface-subtle-mint', 'text-primary');
+          const val = btn.getAttribute('data-amt');
+          if (val === 'custom') {
+            customInput.focus();
+          } else {
+            customInput.value = val;
+          }
+        });
+      });
+
+      // Zakat Calculator Logic
+      const gInput = document.getElementById('calc-gold');
+      const cInput = document.getElementById('calc-cash');
+      const bInput = document.getElementById('calc-biz');
+      const dInput = document.getElementById('calc-debt');
+      const netDisplay = document.getElementById('calc-net-assets');
+      const zakatDisplay = document.getElementById('calc-zakat-due');
+      const applyBtn = document.getElementById('calc-apply-btn');
+      const resetBtn = document.getElementById('calc-reset-btn');
+
+      function calculateZakat() {
+        const gold = parseFloat(gInput?.value) || 0;
+        const cash = parseFloat(cInput?.value) || 0;
+        const biz = parseFloat(bInput?.value) || 0;
+        const debt = parseFloat(dInput?.value) || 0;
+
+        const totalAssets = gold + cash + biz;
+        const netWealth = Math.max(0, totalAssets - debt);
+        const nisab = 520; // USD silver benchmark
+
+        let zakatDue = 0;
+        if (netWealth >= nisab) {
+          zakatDue = Math.round(netWealth * 0.025 * 100) / 100;
+        }
+
+        if (netDisplay) netDisplay.textContent = '$' + netWealth.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        if (zakatDisplay) zakatDisplay.textContent = '$' + zakatDue.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        return zakatDue;
+      }
+
+      [gInput, cInput, bInput, dInput].forEach(inp => {
+        if (inp) inp.addEventListener('input', calculateZakat);
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (gInput) gInput.value = '';
+          if (cInput) cInput.value = '';
+          if (bInput) bInput.value = '';
+          if (dInput) dInput.value = '';
+          calculateZakat();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const due = calculateZakat();
+          if (due > 0) {
+            if (customInput) customInput.value = Math.round(due);
+            const causeSel = document.getElementById('cause-select');
+            if (causeSel) causeSel.value = 'zakat';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (customInput) {
+              customInput.classList.add('bg-surface-subtle-mint');
+              setTimeout(() => customInput.classList.remove('bg-surface-subtle-mint'), 1500);
+            }
+          } else {
+            alert('Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.');
+          }
+        });
+      }
+    })();
+  </script>
+</body></html>
