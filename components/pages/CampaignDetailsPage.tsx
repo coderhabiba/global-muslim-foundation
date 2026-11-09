@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 const TABS = [
   { id: 'tab-about', icon: 'menu_book', label: 'About Appeal' },
@@ -17,7 +18,8 @@ const TABS = [
 ];
 
 export default function CampaignDetailsPage() {
-  const { localize } = useSiteSettings();
+  const { localize, currency } = useSiteSettings();
+  const { openPaymentModal } = useModalState();
   const mainImageRef = useRef<HTMLImageElement | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [activeTab, setActiveTab] = useState('tab-about');
@@ -43,17 +45,12 @@ export default function CampaignDetailsPage() {
   }
 
   function submitDonation() {
-    const amt = amount || 50;
-    const freqText = isMonthly ? 'monthly recurring' : 'one-time';
-    const zakatNote = isZakat
-      ? 'Designated as 100% Shariah Zakat.'
-      : 'Sadaqah Relief Fund.';
-
-    alert(
-      localize(
-        `JazakAllah Khair! Initiating secure checkout for $${amt} USD (${freqText}). ${zakatNote} Redirecting to bank gateway...`,
-      ),
-    );
+    const amt = parseFloat(amount) || 50;
+    openPaymentModal({
+      amount: currency === 'BDT' ? amt * 122 : amt,
+      currency: currency,
+      cause: 'One Meal One Hope (Emergency Food Support)',
+    });
   }
 
   return (
@@ -1362,29 +1359,46 @@ export default function CampaignDetailsPage() {
 
                   {/* Alternative Instant Payment Methods */}
 
-                  <div className="flex flex-col gap-2 pt-1 text-center">
+                  <div className="flex flex-col gap-2.5 pt-2 text-center">
                     <span className="font-label-sm text-label-sm text-text-muted uppercase tracking-widest font-bold">
-                      Or Express Fast Checkout
+                      Supported Official Payment Gateways
                     </span>
-                    <div className="grid grid-cols-3 gap-2">
-                      <button className="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
-                        <span className="material-symbols-outlined text-[16px] text-primary">
-                          credit_card
-                        </span>
-                        Card
-                      </button>
-                      <button className="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
-                        <span className="material-symbols-outlined text-[16px] text-amber-vibrant">
-                          payments
-                        </span>
-                        PayPal
-                      </button>
-                      <button className="py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-bold flex items-center justify-center gap-1 transition-colors">
-                        <span className="material-symbols-outlined text-[16px] text-error">
-                          smartphone
-                        </span>
-                        bKash / MFS
-                      </button>
+                    <div className="flex items-center justify-center gap-2 flex-wrap pt-1">
+                      <img
+                        src="/images/payment/bkash.svg"
+                        alt="bKash"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/nagad.svg"
+                        alt="Nagad"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/rocket.svg"
+                        alt="Rocket"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/upay.svg"
+                        alt="Upay"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/visa.svg"
+                        alt="Visa"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/mastercard.svg"
+                        alt="Mastercard"
+                        className="h-6 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/eps.svg"
+                        alt="EPS"
+                        className="h-6 w-auto object-contain rounded"
+                      />
                     </div>
                   </div>
 

@@ -217,11 +217,21 @@ export default function SiteFooter() {
 
         {/* Bottom Copyright & Legal */}
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <p>
-            {isBn
-              ? '© ২০২৫ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
-              : '© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.'}
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <p>
+              {isBn
+                ? '© ২০২৫ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
+                : '© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.'}
+            </p>
+            <div className="flex items-center gap-1.5 opacity-80">
+              <img src="/images/payment/bkash.svg" alt="bKash" className="h-4 w-auto object-contain" />
+              <img src="/images/payment/nagad.svg" alt="Nagad" className="h-4 w-auto object-contain" />
+              <img src="/images/payment/rocket.svg" alt="Rocket" className="h-4 w-auto object-contain" />
+              <img src="/images/payment/upay.svg" alt="Upay" className="h-4 w-auto object-contain" />
+              <img src="/images/payment/visa.svg" alt="Visa" className="h-4 w-auto object-contain" />
+              <img src="/images/payment/mastercard.svg" alt="Mastercard" className="h-4 w-auto object-contain" />
+            </div>
+          </div>
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link className="hover:text-primary transition-colors" href="/">
               {isBn ? 'হোম' : 'Home'}

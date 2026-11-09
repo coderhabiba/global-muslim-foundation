@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <rect width="120" height="40" rx="8" fill="#E2136E"/>
+  <path d="M22 8l9 12-9 12h8l5-7 5 7h8l-9-12 9-12h-8l-5 7-5-7h-8z" fill="#FFFFFF"/>
+  <text x="56" y="26" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="18" letter-spacing="-0.5">bKash</text>
+</svg>

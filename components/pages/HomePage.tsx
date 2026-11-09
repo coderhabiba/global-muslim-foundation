@@ -467,21 +467,39 @@ export default function HomePage() {
                       </span>
                       <span className="underline">Govt Reg #NGO-AB-89423 (সনদ দেখুন)</span>
                     </button>
-                    <div className="flex items-center gap-1.5 font-bold">
-                      <span className="px-2 py-0.5 rounded bg-emerald-50 text-[10px] text-emerald-800 border border-emerald-300">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <img
+                        src="/images/payment/bkash.svg"
+                        alt="bKash"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/nagad.svg"
+                        alt="Nagad"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/rocket.svg"
+                        alt="Rocket"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/upay.svg"
+                        alt="Upay"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/visa.svg"
+                        alt="Visa"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <img
+                        src="/images/payment/mastercard.svg"
+                        alt="Mastercard"
+                        className="h-5 w-auto object-contain rounded"
+                      />
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-[10px] text-emerald-900 font-mono font-bold">
                         EPS
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-blue-700">
-                        VISA
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-red-600">
-                        MasterCard
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-[#D82361]">
-                        bKash
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-orange-600">
-                        Nagad
                       </span>
                     </div>
                   </div>

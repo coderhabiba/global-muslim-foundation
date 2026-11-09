@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <rect width="120" height="40" rx="8" fill="#F7941D"/>
+  <circle cx="24" cy="20" r="12" fill="#FFFFFF"/>
+  <path d="M24 11a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 15a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" fill="#ED1C24"/>
+  <circle cx="24" cy="20" r="3" fill="#F7941D"/>
+  <text x="44" y="26" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="18" letter-spacing="-0.5">নগদ</text>
+</svg>

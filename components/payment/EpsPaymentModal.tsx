@@ -154,45 +154,61 @@ export default function EpsPaymentModal() {
                   <button
                     type="button"
                     onClick={() => handleStartPayment('bkash')}
-                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-1.5 hover:border-pink-500 hover:bg-pink-50/50 transition-all group border-slate-200"
+                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-2 hover:border-pink-500 hover:bg-pink-50/50 transition-all group border-slate-200 cursor-pointer shadow-xs"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center font-bold text-pink-600 text-xs">
-                      bKash
+                    <div className="h-8 w-auto flex items-center justify-center">
+                      <img
+                        src="/images/payment/bkash.svg"
+                        alt="bKash"
+                        className="h-7 w-auto object-contain group-hover:scale-105 transition-transform"
+                      />
                     </div>
-                    <span className="text-xs font-bold text-slate-700 group-hover:text-pink-600">bKash</span>
+                    <span className="text-[11px] font-bold text-slate-700 group-hover:text-pink-600">bKash</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleStartPayment('nagad')}
-                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-1.5 hover:border-orange-500 hover:bg-orange-50/50 transition-all group border-slate-200"
+                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-2 hover:border-orange-500 hover:bg-orange-50/50 transition-all group border-slate-200 cursor-pointer shadow-xs"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center font-bold text-orange-600 text-xs">
-                      Nagad
+                    <div className="h-8 w-auto flex items-center justify-center">
+                      <img
+                        src="/images/payment/nagad.svg"
+                        alt="Nagad"
+                        className="h-7 w-auto object-contain group-hover:scale-105 transition-transform"
+                      />
                     </div>
-                    <span className="text-xs font-bold text-slate-700 group-hover:text-orange-600">Nagad</span>
+                    <span className="text-[11px] font-bold text-slate-700 group-hover:text-orange-600">নগদ (Nagad)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleStartPayment('rocket')}
-                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-1.5 hover:border-purple-500 hover:bg-purple-50/50 transition-all group border-slate-200"
+                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-50/50 transition-all group border-slate-200 cursor-pointer shadow-xs"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center font-bold text-purple-600 text-xs">
-                      Rocket
+                    <div className="h-8 w-auto flex items-center justify-center">
+                      <img
+                        src="/images/payment/rocket.svg"
+                        alt="Rocket"
+                        className="h-7 w-auto object-contain group-hover:scale-105 transition-transform"
+                      />
                     </div>
-                    <span className="text-xs font-bold text-slate-700 group-hover:text-purple-600">Rocket</span>
+                    <span className="text-[11px] font-bold text-slate-700 group-hover:text-purple-600">Rocket</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleStartPayment('upay')}
-                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-1.5 hover:border-blue-500 hover:bg-blue-50/50 transition-all group border-slate-200"
+                    className="p-3 border rounded-xl flex flex-col items-center justify-center gap-2 hover:border-blue-500 hover:bg-blue-50/50 transition-all group border-slate-200 cursor-pointer shadow-xs"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center font-bold text-blue-600 text-xs">
-                      Upay
+                    <div className="h-8 w-auto flex items-center justify-center">
+                      <img
+                        src="/images/payment/upay.svg"
+                        alt="Upay"
+                        className="h-7 w-auto object-contain group-hover:scale-105 transition-transform"
+                      />
                     </div>
-                    <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">Upay</span>
+                    <span className="text-[11px] font-bold text-slate-700 group-hover:text-blue-600">Upay</span>
                   </button>
                 </div>
               </div>
@@ -200,34 +216,51 @@ export default function EpsPaymentModal() {
               {/* Cards Section */}
               <div className="mb-4">
                 <span className="text-xs font-semibold text-slate-700 mb-2 block">
-                  Debit / Credit Cards (Local & International)
+                  Debit / Credit Cards (Local &amp; International)
                 </span>
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <button
                     type="button"
                     onClick={() => handleStartPayment('card')}
-                    className="p-3 border rounded-xl flex items-center gap-3 hover:border-emerald-600 hover:bg-emerald-50/40 transition-all border-slate-200 text-left"
+                    className="p-3 border rounded-xl flex items-center gap-3 hover:border-emerald-600 hover:bg-emerald-50/40 transition-all border-slate-200 text-left cursor-pointer shadow-xs group"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
-                      <span className="material-symbols-outlined text-[20px]">credit_card</span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <img
+                        src="/images/payment/visa.svg"
+                        alt="Visa"
+                        className="h-6 w-auto object-contain"
+                      />
+                      <img
+                        src="/images/payment/mastercard.svg"
+                        alt="Mastercard"
+                        className="h-6 w-auto object-contain"
+                      />
                     </div>
-                    <div>
-                      <span className="text-xs font-bold text-slate-800 block">Visa / Mastercard</span>
-                      <span className="text-[10px] text-slate-500">EPS Instant Card Processing</span>
+                    <div className="min-w-0">
+                      <span className="text-xs font-bold text-slate-800 block group-hover:text-emerald-800">
+                        Visa &amp; Mastercard
+                      </span>
+                      <span className="text-[10px] text-slate-500 block truncate">
+                        EPS Instant 3D Secure Processing
+                      </span>
                     </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleStartPayment('bank')}
-                    className="p-3 border rounded-xl flex items-center gap-3 hover:border-teal-600 hover:bg-teal-50/40 transition-all border-slate-200 text-left"
+                    className="p-3 border rounded-xl flex items-center gap-3 hover:border-teal-600 hover:bg-teal-50/40 transition-all border-slate-200 text-left cursor-pointer shadow-xs group"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-teal-100 flex items-center justify-center text-teal-700">
-                      <span className="material-symbols-outlined text-[20px]">account_balance</span>
+                    <div className="w-10 h-7 rounded-lg bg-teal-100 flex items-center justify-center text-teal-800 shrink-0">
+                      <span className="material-symbols-outlined text-[18px]">account_balance</span>
                     </div>
-                    <div>
-                      <span className="text-xs font-bold text-slate-800 block">Internet Banking</span>
-                      <span className="text-[10px] text-slate-500">City, IBBL, BRAC, DBBL</span>
+                    <div className="min-w-0">
+                      <span className="text-xs font-bold text-slate-800 block group-hover:text-teal-800">
+                        Internet Banking
+                      </span>
+                      <span className="text-[10px] text-slate-500 block truncate">
+                        IBBL, BRAC, City, DBBL
+                      </span>
                     </div>
                   </button>
                 </div>
