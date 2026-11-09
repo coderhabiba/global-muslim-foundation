@@ -17,8 +17,9 @@ const GIFT_AMOUNTS = [
 const NISAB_THRESHOLD_USD = 520;
 
 export default function HomePage() {
-  const { localize, currency } = useSiteSettings();
+  const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, openLicenseModal } = useModalState();
+  const isBn = language === 'bn';
   const [donorName, setDonorName] = useState('');
   const [donorContact, setDonorContact] = useState('');
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>(
@@ -448,8 +449,10 @@ export default function HomePage() {
                       <span className="material-symbols-outlined text-[18px]">
                         lock
                       </span>
-                      <span className="">
-                        EPS গেটওয়ে দিয়ে নিরাপদ অনুদান দিন (bKash/Card)
+                      <span>
+                        {isBn
+                          ? 'EPS গেটওয়ে দিয়ে নিরাপদ অনুদান দিন (bKash/Card)'
+                          : 'Give Securely via EPS Gateway (Cards/bKash)'}
                       </span>
                     </button>
                   </div>
@@ -465,7 +468,11 @@ export default function HomePage() {
                       <span className="material-symbols-outlined text-[16px] text-primary">
                         verified_user
                       </span>
-                      <span className="underline">Govt Reg #NGO-AB-89423 (সনদ দেখুন)</span>
+                      <span className="underline">
+                        {isBn
+                          ? 'Govt Reg #NGO-AB-89423 (সনদ দেখুন)'
+                          : 'Govt Reg #NGO-AB-89423 (View Licenses)'}
+                      </span>
                     </button>
                     <div className="flex items-center gap-2 flex-wrap">
                       <img
