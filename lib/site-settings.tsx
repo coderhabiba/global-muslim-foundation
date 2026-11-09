@@ -74,21 +74,33 @@ const SiteSettingsContext = createContext<SiteSettingsValue | null>(null);
 export function SiteSettingsProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [currency, setCurrencyState] = useState<CurrencyCode>('BDT');
-  const [language, setLanguageState] = useState<Language>('bn');
+  // Initial state is USD / en to perfectly match the hardcoded English JSX during SSR,
+  // preventing hydration mismatches across all pages.
+  const [currency, setCurrencyState] = useState<CurrencyCode>('USD');
+  const [language, setLanguageState] = useState<Language>('en');
 
-  // Restore the visitor's last choice once mounted. Reading storage during the
-  // first render would desynchronise hydration, so it is applied afterwards.
+  // Once mounted on the client, restore the visitor's choice or default to BDT / bn.
   useEffect(() => {
     try {
       const storedCurrency = window.localStorage.getItem(CURRENCY_KEY);
       const storedLanguage = window.localStorage.getItem(LANGUAGE_KEY);
 
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (isCurrency(storedCurrency)) setCurrencyState(storedCurrency);
-      if (isLanguage(storedLanguage)) setLanguageState(storedLanguage);
+      if (isCurrency(storedCurrency)) {
+        setCurrencyState(storedCurrency);
+      } else {
+        setCurrencyState('BDT');
+      }
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (isLanguage(storedLanguage)) {
+        setLanguageState(storedLanguage);
+      } else {
+        setLanguageState('bn');
+      }
     } catch {
-      // Storage can be unavailable in private mode; defaults are fine.
+      setCurrencyState('BDT');
+      setLanguageState('bn');
     }
   }, []);
 

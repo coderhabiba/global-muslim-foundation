@@ -210,7 +210,7 @@ export default function SiteSettingsBridge() {
     };
 
     observer = new MutationObserver(schedule);
-    run();
+    schedule();
 
     return () => {
       observer?.disconnect();
