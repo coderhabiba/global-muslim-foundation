@@ -1,0 +1,1 @@
+Client-side React/Next.js page components and shared layout shell (header, footer, newsletter form) that render the Global Muslim Charitable Foundation website.

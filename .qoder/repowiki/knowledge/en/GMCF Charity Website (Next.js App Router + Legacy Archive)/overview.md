@@ -1,0 +1,1 @@
+Root of the Global Muslim Charitable Foundation website, combining a Next.js App Router site with an archived legacy static site and Netlify deployment wiring.

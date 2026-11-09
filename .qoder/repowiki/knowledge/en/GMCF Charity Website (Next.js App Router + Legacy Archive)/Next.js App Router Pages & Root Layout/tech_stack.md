@@ -1,0 +1,1 @@
+Next.js App Router with React Server Components; typography via `next/font/google` (Playfair Display, Plus Jakarta Sans) and Google-hosted Material Symbols Outlined icon font.

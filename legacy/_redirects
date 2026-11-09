@@ -1,0 +1,11 @@
+# Netlify Redirects
+#
+# No catch-all rules here on purpose.
+# Netlify automatically serves /404.html for unknown paths, so a rule like
+# `/*    /404.html   404` is not needed. It is actively harmful on a
+# multi-page static site: it intercepts Netlify's internal pretty-URL
+# resolution (/about -> about.html) and returns "Page not found" for every
+# page except the home page.
+#
+# Add only explicit rules below this line, e.g.:
+# /old-page    /about.html    301

@@ -1,0 +1,1 @@
+Deploy by pushing to the repo branch configured for Netlify; the site publishes the `legacy/` directory root with zero build step. Do not add a `/* -> /404.html` redirect in `_redirects` — it breaks Netlify's internal pretty-URL resolution for all non-root pages, as documented in both `netlify.toml` and `_redirects`.

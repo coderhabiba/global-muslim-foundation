@@ -1,0 +1,5 @@
+- Every interactive page/component starts with the `'use client'` directive at the top of the file before any imports.
+- Navigation between routes is done exclusively through Next.js `<Link>` components rather than `window.location` or router.push.
+- Icons are rendered inline via `<span className="material-symbols-outlined">...</span>` instead of an icon component wrapper.
+- Reusable data tables / option sets (e.g. `NAV_ITEMS`, `GIFT_AMOUNTS`, `EMPTY_FIELDS`) are declared as `as const` arrays or plain objects at module scope and iterated with `.map` to render lists.
+- Forms use controlled `useState` state plus a `parseNum`/`toAmount` helper that coerces empty strings to zero before arithmetic, keeping numeric fields safe.

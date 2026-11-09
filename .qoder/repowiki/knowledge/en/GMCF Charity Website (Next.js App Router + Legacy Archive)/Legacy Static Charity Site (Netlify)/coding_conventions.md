@@ -1,0 +1,5 @@
+- Each page is fully self-contained: fonts, Tailwind config, design tokens, and styles are defined inline inside a `<style>` block within the same HTML file rather than shared through a stylesheet.
+- Typography follows a Material-3 token naming scheme (headline-xl/lg/md/sm, title-lg/md/sm, body-lg/md/sm, label-lg/md/sm) applied uniformly across pages via matching class names.
+- The site uses a fixed, hand-maintained Tailwind color palette (primary `#0D7C66`, secondary `#855300`, emerald-dark `#044E42`, gold accents, surface variants) extended via the inline `tailwind.config` object rather than relying on default Tailwind colors.
+- Icons are rendered exclusively through Google's Material Symbols Outlined web font using `<span class="material-symbols-outlined">…</span>` elements instead of SVGs or icon libraries.
+- Inter-page navigation is done with plain relative `<a href="*.html">` links; there is no client-side router or shared header/footer template.

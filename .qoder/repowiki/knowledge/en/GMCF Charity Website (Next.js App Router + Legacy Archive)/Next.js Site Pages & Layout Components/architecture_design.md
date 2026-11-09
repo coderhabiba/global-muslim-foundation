@@ -1,0 +1,5 @@
+Two flat sub-folders with no internal layering:
+- `layout/` holds three reusable shell components — `SiteHeader.tsx` (with a `'default' | 'simple'` variant for legacy pages), `SiteFooter.tsx`, and `NewsletterForm.tsx` (a small client form posting to `/api/forms`).
+- `pages/` holds one default-exported React component per route: `HomePage`, `AboutPage`, `AppealsPage`, `CampaignDetailsPage`, `ImpactPage`, `VolunteerPage`, `ZakatCalculatorPage`, and `NotFoundPage`. Each is a self-contained client component (`'use client'`) rendering its full page markup.
+
+Dependency direction is one-way: pages import from `layout` (e.g. `SiteFooter` uses `NewsletterForm`); layout components never import from `pages`. Routing is via Next.js `Link` against fixed URL paths (`/`, `/appeals`, `/zakat-calculator`, `/impact`, `/about`, `/volunteer`, `/campaign-details`). There is no shared UI library or state store inside this module — all interactivity lives as local `useState`/`useMemo` hooks within each page.

@@ -1,0 +1,60 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: master
+nodes_managed: true
+exported_at: "2026-11-09T15:41:21Z"
+modules:
+    "":
+        dir_name: GMCF Charity Website (Next.js App Router + Legacy Archive)
+        title: GMCF Charity Website (Next.js App Router + Legacy Archive)
+        scope:
+            - README.md
+            - AGENTS.md
+            - .gitignore
+            - package.json
+            - package-lock.json
+            - next.config.ts
+            - tailwind.config.ts
+            - tsconfig.json
+            - eslint.config.mjs
+            - postcss.config.mjs
+            - .class-check.mjs
+            - netlify.toml
+            - site-deploy.zip
+        source_files: []
+        children:
+            - app_routes
+            - components
+            - legacy_site
+        depends_on: []
+        related_to: []
+    app_routes:
+        dir_name: Next.js App Router Pages & Root Layout
+        title: Next.js App Router Pages & Root Layout
+        scope:
+            - app/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: legacy_site
+    components:
+        dir_name: Next.js Site Pages & Layout Components
+        title: Next.js Site Pages & Layout Components
+        scope:
+            - components/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
+    legacy_site:
+        dir_name: Legacy Static Charity Site (Netlify)
+        title: Legacy Static Charity Site (Netlify)
+        scope:
+            - legacy/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: app_routes

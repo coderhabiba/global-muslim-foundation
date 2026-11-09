@@ -1,8 +1,13 @@
 [build]
-  # Directory containing the static site files
-  publish = "."
+  # Next.js App Router build (see next.config.ts for legacy URL redirects)
+  command = "npm run build"
+  publish = ".next"
 
-# Security and caching headers
+# Official Netlify adapter: runs the Next.js server output on Netlify Functions
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Security headers carried over from the legacy static deployment
 [[headers]]
   for = "/*"
   [headers.values]
@@ -12,15 +17,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Cache static screenshots and media assets
+# Cache static media assets served from /public
 [[headers]]
-  for = "/assets/*"
+  for = "/*.svg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Clean 404 redirect rule
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
-
+# Legacy static configuration (html pages, _redirects) is archived in /legacy.
+# Clean URLs, custom 404 and the *.html -> route redirects are now handled by
+# the App Router (`app/not-found.tsx`) and `next.config.ts`.

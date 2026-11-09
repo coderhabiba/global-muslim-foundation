@@ -1,0 +1,3 @@
+- Public-facing pages are grouped under the `(site)` Route Group so they share the SiteHeader/SiteFooter layout without each page importing it.
+- Metadata (title template, description, icons) is declared at the root `app/layout.tsx` rather than per-page, with per-page overrides only where needed (e.g. `not-found.tsx`).
+- API routes preserve the legacy Netlify form contract by reading `form-name` from URLSearchParams and returning a minimal `{ ok, form }` JSON payload instead of performing server-side persistence.
