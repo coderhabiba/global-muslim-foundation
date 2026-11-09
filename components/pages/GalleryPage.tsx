@@ -205,7 +205,7 @@ export default function GalleryPage() {
     : PROJECT_TOPICS.filter(item => item.category === activeCategory);
 
   return (
-    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[95px] sm:pt-[103px] min-h-screen">
+    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[93px] sm:pt-[101px] min-h-screen">
       <div className="flex flex-col w-full">
         {/* Gallery Header / Breadcrumb Hero */}
         <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] overflow-hidden pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
