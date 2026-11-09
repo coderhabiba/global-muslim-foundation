@@ -63,6 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${playfairDisplay.variable} ${notoSansBengali.variable}`}
     >
       <head>
@@ -75,7 +76,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-surface font-sans text-on-surface antialiased">
+      <body
+        suppressHydrationWarning
+        className="bg-surface font-sans text-on-surface antialiased"
+      >
         <SiteSettingsProvider>
           <ModalStateProvider>
             {children}
