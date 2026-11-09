@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { ORPHAN_PROFILES, OrphanProfile } from '@/lib/data/orphans';
 
 type SponsorshipPlan = {
   id: string;
@@ -38,7 +39,7 @@ const PLANS: SponsorshipPlan[] = [
       'দৈনিক ৩ বেলা স্বাস্থ্যসম্মত সুষম পুষ্টিকর খাবার',
       'স্কুল/মাদরাসার বেতন, বই ও খাতা-কলম সরবরাহ',
       'কুরআন হেফজ ও নৈতিক ইসলামি শিক্ষা',
-      'নিয়মিত ডাক্তার চেকাআপ ও জরুরি ওষুধ',
+      'নিয়মিত ডাক্তার চেকআপ ও জরুরি ওষুধ',
       'ত্রৈমাসিক অগ্রগতি রিপোর্ট ও ছবি প্রদান'
     ]
   },
@@ -95,75 +96,35 @@ const PLANS: SponsorshipPlan[] = [
   }
 ];
 
-const ORPHAN_PROFILES = [
-  {
-    id: 'GMCF-ORP-01',
-    nameEn: 'Hafizul Islam',
-    nameBn: 'হাফিজুল ইসলাম',
-    age: 9,
-    locationEn: 'Kurigram, Rangpur',
-    locationBn: 'কুড়িগ্রাম, রংপুর',
-    dreamEn: 'Wants to become a Quran Hafiz & Islamic Teacher',
-    dreamBn: 'কুরআন হাফেজ ও দ্বীনি শিক্ষক হতে চায়',
-    storyEn: 'Lost his father to river erosion illness in 2022. Lives under GMCF residential supervision with full dedication.',
-    storyBn: '২০২২ সালে নদীভাঙন ও অসুস্থতায় বাবাকে হারায়। বর্তমানে GMCF তত্ত্বাবধানে অত্যন্ত আন্তরিকতার সাথে পড়ছে।',
-    image: '/images/drive-orphan-1.jpg',
-    statusEn: 'Needs Immediate Sponsor',
-    statusBn: 'জরুরি স্পনসর প্রয়োজন'
-  },
-  {
-    id: 'GMCF-ORP-02',
-    nameEn: 'Abdullah Al Noman',
-    nameBn: 'আবদুল্লাহ আল নোমান',
-    age: 11,
-    locationEn: 'Gaibandha, Northern BD',
-    locationBn: 'গাইবান্ধা, উত্তরবঙ্গ',
-    dreamEn: 'Dreams of becoming an engineer to rebuild flood homes',
-    dreamBn: 'বন্যাদুর্গত এলাকার ঘরবাড়ি তৈরি করতে প্রকৌশলী হতে চায়',
-    storyEn: 'Both parents passed away during severe winter cold wave. Extremely bright student memorizing 15 Para Quran.',
-    storyBn: 'তীব্র শৈত্যপ্রবাহে পিতা-মাতা দুজনকেই হারায়। অত্যন্ত মেধাবী, ইতোমধ্যে ১৫ পারা কুরআন হিফজ সম্পন্ন করেছে।',
-    image: '/images/drive-orphan-2.jpg',
-    statusEn: 'Needs Immediate Sponsor',
-    statusBn: 'জরুরি স্পনসর প্রয়োজন'
-  },
-  {
-    id: 'GMCF-ORP-03',
-    nameEn: 'Tariqul Islam',
-    nameBn: 'তরিকুল ইসলাম',
-    age: 8,
-    locationEn: 'Sunamganj Haor Region',
-    locationBn: 'সুনামগঞ্জ হাওরাঞ্চল',
-    dreamEn: 'Dreams of becoming a compassionate doctor for poor villagers',
-    dreamBn: 'দরিদ্র গ্রামবাসীদের বিনামূল্যে চিকিৎসা দিতে ডাক্তার হতে চায়',
-    storyEn: 'Orphaned in 2023 flash floods. Loves mathematics and recitation, needing food and uniform support.',
-    storyBn: '২০২৩ সালের পাহাড়ি ঢল ও বন্যায় পিতৃহীন হয়। অংকে ভীষণ মনোযোগী এবং নিয়মিত খাদ্য সহায়তা প্রয়োজন।',
-    image: '/images/drive-orphan-3.jpg',
-    statusEn: 'Needs Immediate Sponsor',
-    statusBn: 'জরুরি স্পনসর প্রয়োজন'
-  },
-  {
-    id: 'GMCF-ORP-04',
-    nameEn: 'Zubair Hossain',
-    nameBn: 'জুবায়ের হোসেন',
-    age: 10,
-    locationEn: 'Sirajganj Jamuna Basin',
-    locationBn: 'সিরাজগঞ্জ যমুনা পাড়',
-    dreamEn: 'Wants to lead prayers in Mecca and teach impoverished children',
-    dreamBn: 'মক্কায় ইমামতি করতে চায় ও সুবিধাবঞ্চিত শিশুদের কুরআন শেখাতে চায়',
-    storyEn: 'Rescued from absolute poverty after losing breadwinner father. Active, disciplined, and memorizing Quran daily.',
-    storyBn: 'উপার্জনক্ষম পিতাকে হারিয়ে চরম সংকটে পড়েছিল। বর্তমানে সম্পূর্ণ সুরক্ষিত পরিবেশে পড়াশোনা চালিয়ে যাচ্ছে।',
-    image: '/images/drive-orphan-4.jpg',
-    statusEn: 'Needs Immediate Sponsor',
-    statusBn: 'জরুরি স্পনসর প্রয়োজন'
-  }
-];
-
 export default function SponsorOrphanPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const isBn = language === 'bn';
 
-  const [selectedOrphan, setSelectedOrphan] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'hifz' | 'pre-hifz'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [displayCount, setDisplayCount] = useState(8);
+
+  const filteredOrphans = useMemo(() => {
+    return ORPHAN_PROFILES.filter(child => {
+      // Category filter
+      if (selectedCategory === 'hifz' && child.classEn !== 'Hifz Program') return false;
+      if (selectedCategory === 'pre-hifz' && child.classEn === 'Hifz Program') return false;
+
+      // Search filter
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchesName = child.nameEn.toLowerCase().includes(q) || child.nameBn.includes(q);
+        const matchesLoc = child.locationEn.toLowerCase().includes(q) || child.locationBn.includes(q);
+        const matchesId = child.id.toLowerCase().includes(q);
+        return matchesName || matchesLoc || matchesId;
+      }
+
+      return true;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const visibleOrphans = filteredOrphans.slice(0, displayCount);
 
   const handleSponsorClick = (planTitle: string, amountBDT: number, amountUSD: number) => {
     const amount = currency === 'BDT' ? amountBDT : amountUSD;
@@ -223,7 +184,7 @@ export default function SponsorOrphanPage() {
               className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs transition-all flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">child_care</span>
-              <span>{isBn ? 'শিশুদের তালিকা ও প্রোফাইল' : 'View Waiting Children'}</span>
+              <span>{isBn ? `শিশুদের তালিকা (${ORPHAN_PROFILES.length} জন)` : `View Waiting Children (${ORPHAN_PROFILES.length})`}</span>
             </a>
           </div>
         </div>
@@ -231,31 +192,85 @@ export default function SponsorOrphanPage() {
 
       {/* Waiting Children Profiles */}
       <section id="orphan-profiles" className="w-full px-4 sm:px-8 py-12 max-w-[1280px] mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-8">
           <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">
-            {isBn ? 'অপেক্ষমাণ এতিম সন্তান' : 'Immediate Need'}
+            {isBn ? 'অপেক্ষমাণ এতিম ও দরিদ্র সন্তান' : 'Immediate Need'}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-heading">
             {isBn ? 'যাদের জন্য অভিভাবকত্ব প্রয়োজন' : 'Children Awaiting Compassionate Guardians'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
             {isBn
-              ? 'নিচের প্রতিটি শিশু পিতা অথবা পিতা-মাতা উভয়কে হারিয়ে চরম অনিশ্চয়তার মধ্যে দিন কাটাচ্ছে। আপনার একটি সিদ্ধান্তই তাদের নিরাপদ ভবিষ্যৎ নিশ্চিত করবে।'
-              : 'Each child below has lost their primary breadwinner or both parents to disasters, poverty, or terminal illness.'}
+              ? `মোট ${ORPHAN_PROFILES.length} জন শিক্ষার্থীর তালিকা ও ছবি রয়েছে, যারা অতি দরিদ্র ও অসহায় পরিবারের সন্তান। আপনার একটি সিদ্ধান্তই তাদের নিরাপদ ভবিষ্যৎ নিশ্চিত করবে।`
+              : `Profiles of ${ORPHAN_PROFILES.length} children from destitute families needing your urgent sponsorship for food, shelter and Hifz education.`}
           </p>
         </div>
 
+        {/* Filter and Search Bar */}
+        <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => { setSelectedCategory('all'); setDisplayCount(8); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedCategory === 'all'
+                  ? 'bg-emerald-800 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {isBn ? `সকল শিক্ষার্থী (${ORPHAN_PROFILES.length})` : `All Children (${ORPHAN_PROFILES.length})`}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setSelectedCategory('hifz'); setDisplayCount(8); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedCategory === 'hifz'
+                  ? 'bg-emerald-800 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {isBn ? 'হিফজ বিভাগ' : 'Hifz Program'}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setSelectedCategory('pre-hifz'); setDisplayCount(8); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedCategory === 'pre-hifz'
+                  ? 'bg-emerald-800 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {isBn ? 'নাজেরা / প্রি-হিফজ' : 'Pre-Hifz / Nazera'}
+            </button>
+          </div>
+
+          <div className="relative w-full sm:w-72">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">
+              search
+            </span>
+            <input
+              type="text"
+              placeholder={isBn ? 'নাম বা এলাকা দিয়ে খুঁজুন...' : 'Search by name or district...'}
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); setDisplayCount(8); }}
+              className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+            />
+          </div>
+        </div>
+
+        {/* Children Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {ORPHAN_PROFILES.map(child => (
+          {visibleOrphans.map(child => (
             <div
               key={child.id}
               className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
             >
-              <div className="relative h-56 w-full overflow-hidden bg-slate-100">
+              <div className="relative h-60 w-full overflow-hidden bg-slate-100">
                 <img
                   src={child.image}
                   alt={isBn ? child.nameBn : child.nameEn}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
                 <span className="absolute top-3 left-3 bg-red-600/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
@@ -263,6 +278,9 @@ export default function SponsorOrphanPage() {
                 </span>
                 <span className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm text-white text-[11px] font-mono px-2 py-0.5 rounded">
                   {child.id}
+                </span>
+                <span className="absolute bottom-3 left-3 bg-emerald-900/80 backdrop-blur-sm text-white text-[10px] font-medium px-2 py-0.5 rounded">
+                  {isBn ? child.classBn : child.classEn}
                 </span>
               </div>
 
@@ -290,7 +308,7 @@ export default function SponsorOrphanPage() {
                     <span className="text-[10px] font-bold text-amber-800 uppercase block">
                       {isBn ? 'স্বপ্ন ও আকাঙ্ক্ষা:' : 'Dream & Goal:'}
                     </span>
-                    <span className="text-xs text-amber-950 font-medium">
+                    <span className="text-xs text-amber-950 font-medium line-clamp-2">
                       {isBn ? child.dreamBn : child.dreamEn}
                     </span>
                   </div>
@@ -306,7 +324,7 @@ export default function SponsorOrphanPage() {
                       cause: `Orphan Sponsorship for ${childName} (${child.id})`
                     });
                   }}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-800 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-white font-bold text-xs shadow transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-800 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-white font-bold text-xs shadow transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-2"
                 >
                   <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
                   <span>{isBn ? 'এই শিশুকে স্পনসর করুন' : `Sponsor ${child.nameEn.split(' ')[0]}`}</span>
@@ -315,6 +333,31 @@ export default function SponsorOrphanPage() {
             </div>
           ))}
         </div>
+
+        {/* Load More Button */}
+        {visibleOrphans.length < filteredOrphans.length && (
+          <div className="mt-10 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setDisplayCount(prev => Math.min(prev + 8, filteredOrphans.length))}
+              className="px-6 py-3 rounded-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[16px]">expand_more</span>
+              <span>
+                {isBn
+                  ? `আরও ৮ জন শিশু দেখুন (বাকি ${filteredOrphans.length - visibleOrphans.length} জন)`
+                  : `Load 8 More Children (${filteredOrphans.length - visibleOrphans.length} remaining)`}
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDisplayCount(filteredOrphans.length)}
+              className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs border border-slate-300 shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <span>{isBn ? `সকল ${filteredOrphans.length} জন এক সাথে দেখুন` : `View All ${filteredOrphans.length}`}</span>
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Sponsorship Pricing Plans */}
