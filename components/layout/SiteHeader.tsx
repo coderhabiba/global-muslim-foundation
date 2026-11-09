@@ -12,8 +12,9 @@ import {
 import { useModalState } from '@/lib/modal-context';
 
 const NAV_ITEMS = [
-  { href: '/', en: 'Home', bn: 'হোম' },
   { href: '/appeals', en: 'Appeals', bn: 'আবেদনসমূহ' },
+  { href: '/sponsor-orphan', en: 'Orphans', bn: 'এতিম স্পনসর' },
+  { href: '/news', en: 'News', bn: 'সংবাদ' },
   { href: '/zakat-calculator', en: 'Zakat', bn: 'যাকাত' },
   { href: '/impact', en: 'Impact', bn: 'কার্যক্রম' },
   { href: '/gallery', en: 'Gallery', bn: 'গ্যালারি' },
