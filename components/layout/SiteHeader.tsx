@@ -12,14 +12,14 @@ import {
 import { useModalState } from '@/lib/modal-context';
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Home' },
-  { href: '/appeals', label: 'Appeals & Causes' },
-  { href: '/zakat-calculator', label: 'Zakat Fund' },
-  { href: '/impact', label: 'Impact & Reports' },
-  { href: '/gallery', label: 'Field Gallery' },
-  { href: '/members', label: 'Members & Team' },
-  { href: '/about', label: 'About Us' },
-  { href: '/volunteer', label: 'Volunteer Portal' },
+  { href: '/', en: 'Home', bn: 'হোম' },
+  { href: '/appeals', en: 'Appeals', bn: 'আবেদনসমূহ' },
+  { href: '/zakat-calculator', en: 'Zakat', bn: 'যাকাত' },
+  { href: '/impact', en: 'Impact', bn: 'কার্যক্রম' },
+  { href: '/gallery', en: 'Gallery', bn: 'গ্যালারি' },
+  { href: '/members', en: 'Team', bn: 'টিম ও মেম্বার' },
+  { href: '/volunteer', en: 'Volunteer', bn: 'স্বেচ্ছাসেবক' },
+  { href: '/about', en: 'About', bn: 'পরিচিতি' },
 ] as const;
 
 type SiteHeaderProps = {
@@ -37,6 +37,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
   const { currency, setCurrency, language, setLanguage } = useSiteSettings();
   const { openPaymentModal, openLicenseModal } = useModalState();
 
+  const isBn = language === 'bn';
   const isSimple = variant === 'simple';
   const activeHref = pathname.startsWith('/campaign-details')
     ? '/appeals'
@@ -60,16 +61,17 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
     >
       {/* International Meta Strip */}
       <div className="bg-emerald-dark text-on-primary">
-        <div className="max-w-[1280px] mx-auto h-8 sm:h-9 px-3 sm:px-8 flex items-center justify-between gap-2 text-[11px] sm:text-xs font-medium">
+        <div className="max-w-[1280px] mx-auto h-8 px-3 sm:px-8 flex items-center justify-between gap-2 text-[11px] sm:text-xs font-medium">
           <div className="flex items-center gap-1.5 min-w-0">
-            <span className="material-symbols-outlined text-[14px] sm:text-[15px] text-gold-warm shrink-0">
+            <span className="material-symbols-outlined text-[14px] text-gold-warm shrink-0">
               call
             </span>
             <span className="flex items-baseline gap-1 whitespace-nowrap truncate">
-              <span className="hidden sm:inline">24/7 Helpline:</span>
+              <span className="hidden sm:inline">{isBn ? 'জরুরি হেল্পলাইন:' : '24/7 Helpline:'}</span>
               <strong className="text-white">+880 1913-119525</strong>
             </span>
           </div>
+
           <div className="hidden lg:flex items-center gap-1.5 text-primary-fixed shrink-0">
             <button
               type="button"
@@ -77,32 +79,34 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               className="flex items-center gap-1.5 hover:text-amber-300 transition-colors cursor-pointer bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15"
               title="সরকারি নিবন্ধন ও শরীয়াহ সনদপত্র দেখুন"
             >
-              <span className="material-symbols-outlined text-[15px] text-gold-warm">
+              <span className="material-symbols-outlined text-[14px] text-gold-warm">
                 verified_user
               </span>
-              <span>সরকারি লাইসেন্স ও সনদপত্র (#NGO-AB-89423)</span>
+              <span>{isBn ? 'সরকারি লাইসেন্স ও সনদ (#NGO-AB-89423)' : 'Govt. License & Certificate (#NGO-AB-89423)'}</span>
             </button>
           </div>
+
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <Link
-              className="hidden md:flex items-center gap-1 hover:text-gold-warm transition-colors whitespace-nowrap"
+              className="hidden md:flex items-center gap-1 hover:text-gold-warm transition-colors whitespace-nowrap text-[11px]"
               href="/zakat-calculator"
             >
-              <span className="material-symbols-outlined text-[15px]">
+              <span className="material-symbols-outlined text-[14px]">
                 calculate
               </span>
-              <span>Zakat Calculator</span>
+              <span>{isBn ? 'যাকাত ক্যালকুলেটর' : 'Zakat Calculator'}</span>
             </Link>
+
             {!isSimple && (
               <div
-                className="flex items-center gap-1 bg-black/20 px-1.5 sm:px-2 py-0.5 rounded border border-white/10"
+                className="flex items-center gap-1 bg-black/20 px-1.5 py-0.5 rounded border border-white/10"
                 data-l10n="off"
               >
-                <span className="material-symbols-outlined text-[13px] text-gold-warm">
+                <span className="material-symbols-outlined text-[12px] text-gold-warm">
                   currency_exchange
                 </span>
                 <select
-                  className="bg-transparent text-white text-[11px] sm:text-xs focus:outline-none cursor-pointer"
+                  className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
                   value={currency}
                   onChange={event =>
                     setCurrency(event.target.value as typeof currency)
@@ -121,13 +125,14 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
                 </select>
               </div>
             )}
+
             <div
-              className="flex items-center gap-1 bg-black/20 p-0.5 rounded border border-white/10"
+              className="flex items-center gap-0.5 bg-black/20 p-0.5 rounded border border-white/10"
               data-l10n="off"
             >
               <button
                 type="button"
-                className={`px-1.5 py-0.5 rounded text-[11px] font-bold leading-tight ${
+                className={`px-1.5 py-0.5 rounded text-[10px] font-bold leading-tight transition-colors ${
                   language === 'en'
                     ? 'bg-gold-warm text-emerald-dark'
                     : 'text-white/70 hover:text-white'
@@ -139,7 +144,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               </button>
               <button
                 type="button"
-                className={`px-1.5 py-0.5 rounded text-[11px] font-bold leading-tight ${
+                className={`px-1.5 py-0.5 rounded text-[10px] font-bold leading-tight transition-colors ${
                   language === 'bn'
                     ? 'bg-gold-warm text-emerald-dark'
                     : 'text-white/70 hover:text-white'
@@ -147,7 +152,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
                 aria-pressed={language === 'bn'}
                 onClick={() => setLanguage('bn')}
               >
-                বাংলা
+                বাং
               </button>
             </div>
           </div>
@@ -155,39 +160,44 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-3 sm:px-8 flex items-center justify-between gap-2 sm:gap-4">
+      <div className="max-w-[1280px] mx-auto h-16 sm:h-18 px-3 sm:px-6 flex items-center justify-between gap-2 lg:gap-4">
+        {/* Brand Logo */}
         <Link
-          className="flex items-center gap-2 sm:gap-3 group min-w-0"
+          className="flex items-center shrink-0 group py-1"
           href="/"
+          title="Global Muslim Charitable Foundation"
         >
-          <div className="h-10 sm:h-12 shrink-0 flex items-center justify-start group-hover:scale-105 transition-transform">
-            <img
-              src="/images/gmcf-logo-full.png"
-              alt="Global Muslim Charitable Foundation Logo"
-              className="h-9 sm:h-11 w-auto object-contain"
-            />
-          </div>
+          <img
+            src="/images/gmcf-logo-full.png"
+            alt="Global Muslim Charitable Foundation Logo"
+            className="h-9 sm:h-11 w-auto max-w-[200px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
+          />
         </Link>
-        <nav className="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
+
+        {/* Clean, Compact Desktop Menu */}
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[13px] xl:text-[14px] font-semibold text-slate-700">
           {NAV_ITEMS.map(item => {
             const isActive = !isSimple && item.href === activeHref;
+            const label = isBn ? item.bn : item.en;
 
             return (
               <Link
                 key={item.href}
                 className={
                   isActive
-                    ? 'px-3 py-2 text-primary bg-surface-subtle-mint rounded-lg font-bold whitespace-nowrap'
-                    : 'px-3 py-2 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-lg transition-colors whitespace-nowrap'
+                    ? 'px-2.5 xl:px-3 py-1.5 text-emerald-800 bg-emerald-50 rounded-lg font-bold whitespace-nowrap'
+                    : 'px-2.5 xl:px-3 py-1.5 hover:text-emerald-700 hover:bg-slate-100/70 rounded-lg transition-colors whitespace-nowrap'
                 }
                 href={item.href}
               >
-                {item.label}
+                {label}
               </Link>
             );
           })}
         </nav>
-        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+
+        {/* Right Action Buttons */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <button
             type="button"
             onClick={() =>
@@ -196,35 +206,37 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
                 cause: 'General Humanitarian Relief Fund',
               })
             }
-            className={`inline-flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-[11px] xs:text-xs sm:text-sm px-2.5 xs:px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
               isSimple
                 ? 'shadow-md hover:shadow-lg transition-all'
                 : 'shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5'
             }`}
           >
-            <span className="material-symbols-outlined text-[13px] xs:text-[15px] sm:text-[18px]">
+            <span className="material-symbols-outlined text-[15px] sm:text-[17px]">
               favorite
             </span>
-            <span>Donate Now</span>
+            <span>{isBn ? 'অনুদান দিন' : 'Donate'}</span>
           </button>
+
           {!isSimple && (
             <Link
-              className="hidden sm:flex w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 items-center justify-center text-primary transition-colors shrink-0"
+              className="hidden sm:flex w-9 h-9 sm:w-9.5 sm:h-9.5 rounded-full bg-slate-100 hover:bg-emerald-50 border border-slate-200 items-center justify-center text-slate-700 hover:text-emerald-800 transition-colors shrink-0"
               href="/login"
-              title="Admin & Volunteer Portal Login"
+              title={isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal Login'}
             >
-              <span className="material-symbols-outlined text-[20px]">
+              <span className="material-symbols-outlined text-[19px]">
                 admin_panel_settings
               </span>
             </Link>
           )}
+
           <button
             id="mobile-menu-btn"
             type="button"
-            className={`xl:hidden w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary ${
+            className={`lg:hidden w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 ${
               isSimple
                 ? ''
-                : 'hover:bg-primary hover:text-white transition-colors'
+                : 'hover:bg-emerald-800 hover:text-white transition-colors'
             }`}
             aria-label="Toggle navigation menu"
             aria-expanded={isDrawerOpen}
@@ -245,29 +257,30 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         id="mobile-drawer"
         className={`${
           isDrawerOpen ? 'block' : 'hidden'
-        } xl:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle shadow-xl`}
+        } lg:hidden bg-white/98 backdrop-blur-md border-t border-border-subtle shadow-xl`}
         onClick={event => event.stopPropagation()}
       >
-        <nav className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto px-3 pb-2 pt-2 flex flex-col gap-0.5 text-sm font-semibold text-on-surface-variant">
+        <nav className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto px-3 pb-2 pt-2 flex flex-col gap-0.5 text-sm font-semibold text-slate-700">
           {NAV_ITEMS.map(item => {
             const isActive = !isSimple && item.href === activeHref;
+            const label = isBn ? item.bn : item.en;
 
             return (
               <Link
                 key={item.href}
                 className={
                   isActive
-                    ? 'px-3.5 py-3 text-primary bg-surface-subtle-mint rounded-xl font-bold flex items-center justify-between gap-3'
-                    : 'px-3.5 py-3 hover:text-primary hover:bg-surface-subtle-mint/60 rounded-xl transition-colors flex items-center justify-between gap-3'
+                    ? 'px-3.5 py-2.5 text-emerald-800 bg-emerald-50 rounded-xl font-bold flex items-center justify-between gap-3'
+                    : 'px-3.5 py-2.5 hover:text-emerald-800 hover:bg-slate-50 rounded-xl transition-colors flex items-center justify-between gap-3'
                 }
                 href={item.href}
                 onClick={() => setIsDrawerOpen(false)}
               >
-                <span className="truncate">{item.label}</span>
+                <span className="truncate">{label}</span>
                 <span
                   className={
                     isActive
-                      ? 'material-symbols-outlined text-[16px] shrink-0'
+                      ? 'material-symbols-outlined text-[16px] text-emerald-700 shrink-0'
                       : 'material-symbols-outlined text-[16px] text-gray-400 shrink-0'
                   }
                 >
@@ -289,28 +302,28 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             <span className="material-symbols-outlined text-[18px]">
               favorite
             </span>
-            <span>Donate Now (EPS Gateway)</span>
+            <span>{isBn ? 'অনলাইন অনুদান দিন (EPS)' : 'Donate Now (EPS Gateway)'}</span>
           </button>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
             <button
               type="button"
-              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-surface-subtle-mint text-primary text-xs font-bold border border-primary/20"
+              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 cursor-pointer"
               onClick={() => {
                 setIsDrawerOpen(false);
                 openLicenseModal();
               }}
             >
               <span className="material-symbols-outlined text-[16px]">verified</span>
-              <span>লাইসেন্স ও সনদ</span>
+              <span>{isBn ? 'লাইসেন্স ও সনদ' : 'Govt. License'}</span>
             </button>
             <Link
               href="/login"
-              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300"
+              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300"
               onClick={() => setIsDrawerOpen(false)}
             >
               <span className="material-symbols-outlined text-[16px]">login</span>
-              <span>অ্যাডমিন লগইন</span>
+              <span>{isBn ? 'লগইন' : 'Login'}</span>
             </Link>
           </div>
         </div>
