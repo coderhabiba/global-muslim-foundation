@@ -180,6 +180,7 @@ export default function AppealsPage() {
                   <h4
                     className="font-serif text-title-lg text-emerald-dark"
                     id="modal-appeal-title"
+                    suppressHydrationWarning
                   >
                     Support {modalTitle}
                   </h4>

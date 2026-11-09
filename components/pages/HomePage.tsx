@@ -104,8 +104,8 @@ export default function HomePage() {
                   emergency_home
                 </span>
               </span>
-              <span className="">
-                <strong>Ramadan &amp; Emergency Appeal:</strong> 100% of your
+              <span className="" suppressHydrationWarning>
+                <strong suppressHydrationWarning>Ramadan &amp; Emergency Appeal:</strong> 100% of your
                 Zakat funds provide immediate warm meals and urgent pediatric
                 healthcare for destitute children.
               </span>
