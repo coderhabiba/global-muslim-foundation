@@ -179,7 +179,8 @@ export default function SiteFooter() {
                   person
                 </span>
                 <span>
-                  <strong>{isBn ? 'চেয়ারম্যান:' : 'Chairman:'}</strong> মোহাম্মদ আলী মোস্তফা
+                  <strong>{isBn ? 'চেয়ারম্যান:' : 'Chairman:'}</strong>{' '}
+                  {isBn ? 'মোহাম্মদ আলী মোস্তফা' : 'Mohammad Ali Mostafa'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
