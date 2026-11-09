@@ -40,7 +40,7 @@ export default function ImpactPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-[96px] sm:pt-[116px]">
+      <main className="w-full bg-surface-clean pt-[96px] sm:pt-[116px]">
         <div className="flex flex-col w-full">
           {/* Editorial Hero & Narrative Header */}
 

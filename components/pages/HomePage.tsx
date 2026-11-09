@@ -88,7 +88,7 @@ export default function HomePage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-[96px] sm:pt-[116px]">
+      <main className="w-full bg-surface-subtle-mint pt-[96px] sm:pt-[116px]">
         {/* Top Announcement Pill Bar */}
 
         <div className="w-full bg-surface-subtle-mint border-b border-border-subtle py-2.5 px-4 sm:px-8">
