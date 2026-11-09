@@ -217,6 +217,12 @@ export default function SiteFooter() {
             </Link>
             <Link
               className="hover:text-primary transition-colors"
+              href="/gallery"
+            >
+              Gallery
+            </Link>
+            <Link
+              className="hover:text-primary transition-colors"
               href="/about"
             >
               About &amp; Governance

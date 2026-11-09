@@ -12,6 +12,8 @@ const bn: Record<string, string> = {
   ...part2,
   ...part3,
   ...part4,
+  'Field Gallery': 'ফিল্ড গ্যালারি',
+  Gallery: 'গ্যালারি',
   // Attribute copy (tooltips, aria labels) rendered outside text nodes.
   'Toggle navigation menu': 'নেভিগেশন মেনু খুলুন',
   'Volunteer & Donor Portal': 'স্বেচ্ছাসেবক ও দাতা পোর্টাল',
