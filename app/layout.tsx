@@ -42,7 +42,11 @@ export const metadata: Metadata = {
     'Global Muslim Charitable Foundation (GMCF) is a Shariah-compliant humanitarian portal delivering emergency meals, pediatric medical care, clean water and 100% Zakat-funded relief across Bangladesh and beyond.',
   applicationName: 'Global Muslim Charitable Foundation',
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/favicon.png', type: 'image/png' }],
   },
   // Carried over verbatim from the legacy document head.
   other: { 'shell-type': 'web_standard' },

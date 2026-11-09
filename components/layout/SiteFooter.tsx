@@ -46,22 +46,17 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand & Registration */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-white border border-primary/20 flex items-center justify-center p-1 overflow-hidden shadow-sm">
+            <div className="flex flex-col gap-2">
+              <Link href="/" className="inline-block">
                 <img
-                  src="/images/gmcf-logo-emblem.png"
-                  alt="GMCF Emblem"
-                  className="w-full h-full object-contain"
+                  src="/images/gmcf-logo-full.png"
+                  alt="Global Muslim Charitable Foundation Logo"
+                  className="h-10 sm:h-12 w-auto object-contain"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-base text-emerald-dark">
-                  Global Muslim Charitable Foundation
-                </span>
-                <span className="text-[11px] text-text-muted">
-                  Chairman: Mohammad Ali Mostafa
-                </span>
-              </div>
+              </Link>
+              <span className="text-xs text-text-muted font-medium">
+                Chairman: Mohammad Ali Mostafa
+              </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Dedicated to serving the destitute, orphans, hunger relief, and

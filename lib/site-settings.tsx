@@ -74,8 +74,8 @@ const SiteSettingsContext = createContext<SiteSettingsValue | null>(null);
 export function SiteSettingsProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [currency, setCurrencyState] = useState<CurrencyCode>('USD');
-  const [language, setLanguageState] = useState<Language>('en');
+  const [currency, setCurrencyState] = useState<CurrencyCode>('BDT');
+  const [language, setLanguageState] = useState<Language>('bn');
 
   // Restore the visitor's last choice once mounted. Reading storage during the
   // first render would desynchronise hydration, so it is applied afterwards.

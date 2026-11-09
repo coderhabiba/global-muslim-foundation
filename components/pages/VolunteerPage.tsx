@@ -784,24 +784,46 @@ export default function VolunteerPage() {
                         2. Preferred Humanitarian Sector
                       </span>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        {SECTOR_OPTIONS.map(option => (
-                          <label className="cursor-pointer" key={option.value}>
-                            <input
-                              checked={sector === option.value}
-                              className="peer sr-only"
-                              name="sector"
-                              type="radio"
-                              value={option.value}
-                              onChange={() => setSector(option.value)}
-                            />
-                            <div className="p-3 rounded-xl text-center bg-surface-container-low peer-checked:bg-surface-subtle-mint peer-checked:ring-2 peer-checked:ring-primary text-text-muted peer-checked:text-emerald-dark font-body-sm text-body-sm font-semibold transition-all">
-                              <span className="material-symbols-outlined text-2xl block mb-1">
-                                {option.icon}
-                              </span>
-                              {option.label}
-                            </div>
-                          </label>
-                        ))}
+                        {SECTOR_OPTIONS.map(option => {
+                          const isSelected = sector === option.value;
+                          return (
+                            <label className="cursor-pointer group block h-full" key={option.value}>
+                              <input
+                                checked={isSelected}
+                                className="peer sr-only"
+                                name="sector"
+                                type="radio"
+                                value={option.value}
+                                onChange={() => setSector(option.value)}
+                              />
+                              <div
+                                className={`h-full min-h-[96px] p-3.5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 border ${
+                                  isSelected
+                                    ? 'bg-surface-subtle-mint border-primary shadow-sm ring-2 ring-primary/20 text-emerald-dark'
+                                    : 'bg-white border-border-subtle hover:border-primary/40 hover:bg-surface-subtle-mint/40 text-text-muted hover:text-emerald-dark'
+                                }`}
+                              >
+                                <div
+                                  className={`w-10 h-10 rounded-xl flex items-center justify-center mb-2 transition-transform duration-200 group-hover:scale-110 shrink-0 ${
+                                    isSelected
+                                      ? 'bg-primary text-white shadow-sm'
+                                      : 'bg-surface-subtle-mint text-primary'
+                                  }`}
+                                >
+                                  <span
+                                    className="material-symbols-outlined text-[22px]"
+                                    style={{ fontVariationSettings: isSelected ? "'FILL' 1" : "'FILL' 0" }}
+                                  >
+                                    {option.icon}
+                                  </span>
+                                </div>
+                                <span className="font-semibold text-xs sm:text-[13px] leading-tight text-center line-clamp-2">
+                                  {option.label}
+                                </span>
+                              </div>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
 

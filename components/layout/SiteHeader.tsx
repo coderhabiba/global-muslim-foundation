@@ -149,20 +149,12 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           className="flex items-center gap-2 sm:gap-3 group min-w-0"
           href="/"
         >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-white border border-primary/20 flex items-center justify-center p-1 group-hover:scale-105 transition-transform shadow-sm overflow-hidden">
+          <div className="h-10 sm:h-12 shrink-0 flex items-center justify-start group-hover:scale-105 transition-transform">
             <img
-              src="/images/gmcf-logo-emblem.png"
+              src="/images/gmcf-logo-full.png"
               alt="Global Muslim Charitable Foundation Logo"
-              className="w-full h-full object-contain"
+              className="h-9 sm:h-11 w-auto object-contain"
             />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <span className="font-bold text-[13px] sm:text-lg text-emerald-dark tracking-tight leading-tight truncate">
-              Global Muslim Foundation
-            </span>
-            <span className="hidden sm:block text-[11px] font-semibold text-text-muted uppercase tracking-wider truncate">
-              Global Muslim Charitable Foundation
-            </span>
           </div>
         </Link>
         <nav className="hidden xl:flex items-center gap-1 text-[14px] font-semibold text-on-surface-variant">
