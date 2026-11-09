@@ -58,6 +58,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
   return (
     <header
       ref={headerRef}
+      data-l10n="off"
       className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
     >
       {/* International Meta Strip */}

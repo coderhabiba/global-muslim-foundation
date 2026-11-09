@@ -192,7 +192,7 @@ export default function AdminDashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col">
+    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-col">
       {/* Top Admin Bar */}
       <header className="bg-emerald-950 text-white sticky top-0 z-40 shadow-md">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
