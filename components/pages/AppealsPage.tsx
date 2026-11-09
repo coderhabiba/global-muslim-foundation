@@ -648,8 +648,8 @@ export default function AppealsPage() {
                 <div className="relative w-full h-56 bg-surface-container overflow-hidden group">
                   <img
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    data-alt="Newly constructed brick and cement sanitation block and clean water washroom in rural Bakerganj Barishal with engraved metallic doors under clear daytime sky"
-                    src="/images/rural-sanitation-block.jpg"
+                    alt="Clean water installation project by Global Muslim Charitable Foundation"
+                    src="/images/drive-water-1.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md bg-oceanic-teal-deep text-white font-label-sm font-bold shadow-sm uppercase tracking-wider">

@@ -451,6 +451,7 @@ export default function AboutPage() {
                     Network
                   </h2>
                   <p className="font-body-md text-body-md text-text-muted leading-relaxed mb-6">
+                    Under the visionary leadership of Chairman Mohammad Ali Mostafa,
                     Global Muslim Charitable Foundation began not in boardrooms,
                     but on freezing winter nights distributing hot meals and
                     warm blankets directly to abandoned street children along
@@ -545,9 +546,9 @@ export default function AboutPage() {
                 </div>
                 <a
                   className="inline-flex items-center gap-2 text-primary font-title-md text-title-md hover:underline font-bold"
-                  href="mailto:governance@gmcf-global.org"
+                  href="mailto:gmcfoundation2022@gmail.com"
                 >
-                  <span>Speak with our Director of Governance</span>
+                  <span>Contact Chairman &amp; Foundation Office</span>
                   <span className="material-symbols-outlined text-[18px]">
                     arrow_forward
                   </span>
@@ -560,35 +561,34 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        Field Operations HQ
+                        Principal Head Office
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         flag
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      Dhaka, Bangladesh
+                      Savar, Dhaka
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
-                      Level 7, Rangs Fortune Tower, Gulshan-2, Dhaka-1212,
-                      Bangladesh
+                      99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
                         <strong className="text-on-surface">
-                          Registration:
+                          Chairman:
                         </strong>{' '}
-                        NGO Affairs Bureau Reg #NGO-AB-89423
+                        Mohammad Ali Mostafa
                       </p>
                       <p>
-                        <strong className="text-on-surface">Helpline:</strong>{' '}
-                        +880 1800-4673
+                        <strong className="text-on-surface">Mobile:</strong>{' '}
+                        01913119525
                       </p>
                       <p>
                         <strong className="text-on-surface">
-                          Audit Liaison:
+                          Official Email:
                         </strong>{' '}
-                        dhaka.office@gmcf-global.org
+                        gmcfoundation2022@gmail.com
                       </p>
                     </div>
                   </div>
@@ -596,7 +596,7 @@ export default function AboutPage() {
                     <span className="material-symbols-outlined text-[16px]">
                       domain_verification
                     </span>
-                    <span>Principal Field Operations Hub</span>
+                    <span>Global Muslim Charitable Foundation</span>
                   </div>
                 </div>
 
@@ -720,7 +720,7 @@ export default function AboutPage() {
                   onClick={() =>
                     alert(
                       localize(
-                        'All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact governance@gmcf-global.org or download the official PDF pack.',
+                        'All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact gmcfoundation2022@gmail.com or download the official PDF pack.',
                       ),
                     )
                   }

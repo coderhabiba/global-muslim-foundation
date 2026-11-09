@@ -63,7 +63,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             </span>
             <span className="flex items-baseline gap-1 whitespace-nowrap truncate">
               <span className="hidden sm:inline">24/7 Helpline:</span>
-              <strong className="text-white">+880 1800-4673</strong>
+              <strong className="text-white">+880 1913-119525</strong>
             </span>
           </div>
           <div className="hidden lg:flex items-center gap-1.5 text-primary-fixed shrink-0">
@@ -149,17 +149,19 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           className="flex items-center gap-2 sm:gap-3 group min-w-0"
           href="/"
         >
-          <div className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
-            <span className="material-symbols-outlined text-[22px] sm:text-[26px]">
-              volunteer_activism
-            </span>
+          <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-white border border-primary/20 flex items-center justify-center p-1 group-hover:scale-105 transition-transform shadow-sm overflow-hidden">
+            <img
+              src="/images/gmcf-logo-emblem.png"
+              alt="Global Muslim Charitable Foundation Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="flex flex-col min-w-0">
             <span className="font-bold text-[13px] sm:text-lg text-emerald-dark tracking-tight leading-tight truncate">
               Global Muslim Foundation
             </span>
             <span className="hidden sm:block text-[11px] font-semibold text-text-muted uppercase tracking-wider truncate">
-              Charitable Relief &amp; Zakat Fund
+              Global Muslim Charitable Foundation
             </span>
           </div>
         </Link>

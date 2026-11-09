@@ -226,9 +226,9 @@ export default function HomePage() {
 
                 <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border-subtle mt-4">
                   <img
-                    alt="Community relief activity by foundation"
+                    alt="Community relief activity by Global Muslim Charitable Foundation"
                     className="w-full h-52 sm:h-64 object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                    src="/images/community-relief-meals.jpg"
+                    src="/images/drive-food-1.jpg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-5">
                     <div className="text-white">

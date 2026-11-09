@@ -47,23 +47,29 @@ export default function SiteFooter() {
           {/* Brand & Registration */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-[22px]">
-                  volunteer_activism
+              <div className="w-10 h-10 rounded-xl bg-white border border-primary/20 flex items-center justify-center p-1 overflow-hidden shadow-sm">
+                <img
+                  src="/images/gmcf-logo-emblem.png"
+                  alt="GMCF Emblem"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-base text-emerald-dark">
+                  Global Muslim Charitable Foundation
+                </span>
+                <span className="text-[11px] text-text-muted">
+                  Chairman: Mohammad Ali Mostafa
                 </span>
               </div>
-              <span className="font-bold text-base text-emerald-dark">
-                Global Muslim Foundation
-              </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              An international non-profit philanthropic organization dedicated
-              to serving the destitute, orphans, and disaster-affected
-              communities worldwide.
+              Dedicated to serving the destitute, orphans, hunger relief, and
+              community empowerment across Bangladesh and beyond.
             </p>
             <div className="pt-1">
               <span className="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
-                UK Charity Reg #1184930 | US 501(c)(3) Tax-Exempt
+                Govt Reg / Non-Profit Charitable Organization
               </span>
             </div>
           </div>
@@ -135,7 +141,7 @@ export default function SiteFooter() {
           {/* Global Offices */}
           <div className="space-y-3">
             <h3 className="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">
-              Global Headquarters
+              Registered Office
             </h3>
             <div className="space-y-2 text-xs text-on-surface-variant leading-relaxed">
               <div className="flex items-start gap-2">
@@ -143,30 +149,32 @@ export default function SiteFooter() {
                   location_on
                 </span>
                 <span>
-                  <strong>Dhaka HQ:</strong> Level 7, Rangs Fortune Tower,
-                  Gulshan-2, Dhaka-1212
+                  <strong>Head Office:</strong> 99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh
                 </span>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary mt-0.5">
-                  public
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-[16px] text-primary">
+                  person
                 </span>
                 <span>
-                  <strong>London Office:</strong> 104 Whitechapel High St,
-                  London E1 7PT, United Kingdom
+                  <strong>Chairman:</strong> Mohammad Ali Mostafa
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px] text-primary">
                   call
                 </span>
-                <span>+44 20 7946 0991 / +880 1800-4673</span>
+                <a href="tel:01913119525" className="hover:underline font-semibold text-emerald-dark">
+                  01913119525
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px] text-primary">
                   mail
                 </span>
-                <span>donor-care@gmcf-global.org</span>
+                <a href="mailto:gmcfoundation2022@gmail.com" className="hover:underline">
+                  gmcfoundation2022@gmail.com
+                </a>
               </div>
             </div>
           </div>
