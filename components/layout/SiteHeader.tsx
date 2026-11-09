@@ -9,6 +9,7 @@ import {
   CURRENCY_CODES,
   useSiteSettings,
 } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home' },
@@ -33,6 +34,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const { currency, setCurrency, language, setLanguage } = useSiteSettings();
+  const { openPaymentModal, openLicenseModal } = useModalState();
 
   const isSimple = variant === 'simple';
   const activeHref = pathname.startsWith('/campaign-details')
@@ -68,10 +70,17 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             </span>
           </div>
           <div className="hidden lg:flex items-center gap-1.5 text-primary-fixed shrink-0">
-            <span className="material-symbols-outlined text-[15px] text-gold-warm">
-              verified_user
-            </span>
-            <span>100% Zakat Policy Guaranteed — Zero Admin Deductions</span>
+            <button
+              type="button"
+              onClick={() => openLicenseModal()}
+              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors cursor-pointer bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15"
+              title="সরকারি নিবন্ধন ও শরীয়াহ সনদপত্র দেখুন"
+            >
+              <span className="material-symbols-outlined text-[15px] text-gold-warm">
+                verified_user
+              </span>
+              <span>সরকারি লাইসেন্স ও সনদপত্র (#NGO-AB-89423)</span>
+            </button>
           </div>
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <Link
@@ -178,27 +187,33 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           })}
         </nav>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          <Link
-            className={`inline-flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-[11px] xs:text-xs sm:text-sm px-2.5 xs:px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 ${
+          <button
+            type="button"
+            onClick={() =>
+              openPaymentModal({
+                amount: currency === 'BDT' ? 1000 : 25,
+                cause: 'General Humanitarian Relief Fund',
+              })
+            }
+            className={`inline-flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-[11px] xs:text-xs sm:text-sm px-2.5 xs:px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
               isSimple
                 ? 'shadow-md hover:shadow-lg transition-all'
                 : 'shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5'
             }`}
-            href="/appeals"
           >
             <span className="material-symbols-outlined text-[13px] xs:text-[15px] sm:text-[18px]">
               favorite
             </span>
             <span>Donate Now</span>
-          </Link>
+          </button>
           {!isSimple && (
             <Link
               className="hidden sm:flex w-10 h-10 rounded-full bg-surface-subtle-mint hover:bg-primary/10 border border-primary/20 items-center justify-center text-primary transition-colors shrink-0"
-              href="/volunteer"
-              title="Volunteer & Donor Portal"
+              href="/login"
+              title="Admin & Volunteer Portal Login"
             >
               <span className="material-symbols-outlined text-[20px]">
-                person
+                admin_panel_settings
               </span>
             </Link>
           )}
@@ -261,17 +276,42 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             );
           })}
         </nav>
-        <div className="border-t border-border-subtle px-3 py-3">
-          <Link
-            className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-sm px-4 py-3 rounded-xl shadow-md whitespace-nowrap"
-            href="/appeals"
-            onClick={() => setIsDrawerOpen(false)}
+        <div className="border-t border-border-subtle px-3 py-3 space-y-2">
+          <button
+            type="button"
+            className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-sm px-4 py-3 rounded-xl shadow-md whitespace-nowrap cursor-pointer"
+            onClick={() => {
+              setIsDrawerOpen(false);
+              openPaymentModal({ amount: currency === 'BDT' ? 1000 : 25 });
+            }}
           >
             <span className="material-symbols-outlined text-[18px]">
               favorite
             </span>
-            <span>Donate Now</span>
-          </Link>
+            <span>Donate Now (EPS Gateway)</span>
+          </button>
+
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-surface-subtle-mint text-primary text-xs font-bold border border-primary/20"
+              onClick={() => {
+                setIsDrawerOpen(false);
+                openLicenseModal();
+              }}
+            >
+              <span className="material-symbols-outlined text-[16px]">verified</span>
+              <span>লাইসেন্স ও সনদ</span>
+            </button>
+            <Link
+              href="/login"
+              className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300"
+              onClick={() => setIsDrawerOpen(false)}
+            >
+              <span className="material-symbols-outlined text-[16px]">login</span>
+              <span>অ্যাডমিন লগইন</span>
+            </Link>
+          </div>
         </div>
       </div>
     </header>

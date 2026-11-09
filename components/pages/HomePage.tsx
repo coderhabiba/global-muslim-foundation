@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useMemo, useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 const GIFT_AMOUNTS = [
   { value: '25', label: '$25', bordered: true, span: false },
@@ -16,7 +17,10 @@ const GIFT_AMOUNTS = [
 const NISAB_THRESHOLD_USD = 520;
 
 export default function HomePage() {
-  const { localize } = useSiteSettings();
+  const { localize, currency } = useSiteSettings();
+  const { openPaymentModal, openLicenseModal } = useModalState();
+  const [donorName, setDonorName] = useState('');
+  const [donorContact, setDonorContact] = useState('');
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>(
     'one-time',
   );
@@ -399,11 +403,15 @@ export default function HomePage() {
                       className="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary"
                       placeholder="Full Name (Optional)"
                       type="text"
+                      value={donorName}
+                      onChange={e => setDonorName(e.target.value)}
                     />
                     <input
                       className="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary"
                       placeholder="Email / Phone"
                       type="text"
+                      value={donorContact}
+                      onChange={e => setDonorContact(e.target.value)}
                     />
                   </div>
 
@@ -411,14 +419,31 @@ export default function HomePage() {
 
                   <div className="mt-5">
                     <button
-                      className="w-full py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all"
+                      className="w-full py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
                       type="button"
+                      onClick={() => {
+                        const parsedAmt = parseFloat(customAmount) || 50;
+                        const causeMap: Record<string, string> = {
+                          meal: 'One Meal One Hope (Emergency Food Support)',
+                          alo: 'Project Alo (Pediatric Medical & Eye Surgery)',
+                          zakat: '100% General Zakat Fund (Shariah-Compliant)',
+                          winter: 'Project Sheetolota (Winter Warmth & Blankets)',
+                          water: 'Clean Water Wells & Dignified Sanitation',
+                        };
+                        openPaymentModal({
+                          amount: currency === 'BDT' ? parsedAmt * 122 : parsedAmt,
+                          currency: currency,
+                          cause: causeMap[fund] || 'Humanitarian Relief',
+                          donorName: donorName,
+                          donorPhone: donorContact,
+                        });
+                      }}
                     >
                       <span className="material-symbols-outlined text-[18px]">
                         lock
                       </span>
                       <span className="">
-                        Give Securely with Card, PayPal or bKash
+                        EPS গেটওয়ে দিয়ে নিরাপদ অনুদান দিন (bKash/Card)
                       </span>
                     </button>
                   </div>
@@ -426,24 +451,31 @@ export default function HomePage() {
                   {/* Trust Payment Logos & Shariah Assurance */}
 
                   <div className="mt-4 pt-3.5 border-t border-border-subtle flex flex-wrap items-center justify-between text-xs text-text-muted gap-2">
-                    <div className="flex items-center gap-1.5 font-medium">
+                    <button
+                      type="button"
+                      onClick={() => openLicenseModal()}
+                      className="flex items-center gap-1.5 font-medium text-emerald-800 hover:text-emerald-950 transition-colors cursor-pointer"
+                    >
                       <span className="material-symbols-outlined text-[16px] text-primary">
                         verified_user
                       </span>
-                      <span className="">256-bit SSL Encrypted Gateway</span>
-                    </div>
-                    <div className="flex items-center gap-2 font-bold">
+                      <span className="underline">Govt Reg #NGO-AB-89423 (সনদ দেখুন)</span>
+                    </button>
+                    <div className="flex items-center gap-1.5 font-bold">
+                      <span className="px-2 py-0.5 rounded bg-emerald-50 text-[10px] text-emerald-800 border border-emerald-300">
+                        EPS
+                      </span>
                       <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-blue-700">
                         VISA
                       </span>
                       <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-red-600">
                         MasterCard
                       </span>
-                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-blue-500">
-                        PayPal
-                      </span>
                       <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-[#D82361]">
                         bKash
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-surface border text-[10px] text-orange-600">
+                        Nagad
                       </span>
                     </div>
                   </div>

@@ -7,6 +7,9 @@ import {
 
 import SiteSettingsBridge from '@/components/system/SiteSettingsBridge';
 import { SiteSettingsProvider } from '@/lib/site-settings';
+import { ModalStateProvider } from '@/lib/modal-context';
+import EpsPaymentModal from '@/components/payment/EpsPaymentModal';
+import CharityLicenseModal from '@/components/trust/CharityLicenseModal';
 
 import './globals.css';
 
@@ -72,8 +75,12 @@ export default function RootLayout({
       </head>
       <body className="bg-surface font-sans text-on-surface antialiased">
         <SiteSettingsProvider>
-          {children}
-          <SiteSettingsBridge />
+          <ModalStateProvider>
+            {children}
+            <EpsPaymentModal />
+            <CharityLicenseModal />
+            <SiteSettingsBridge />
+          </ModalStateProvider>
         </SiteSettingsProvider>
       </body>
     </html>

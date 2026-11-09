@@ -1,8 +1,12 @@
-import Link from "next/link";
+'use client';
 
+import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
+import { useModalState } from "@/lib/modal-context";
 
 export default function SiteFooter() {
+  const { openLicenseModal, openPaymentModal } = useModalState();
+
   return (
     <footer className="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
       {/* Top Trust Bar */}
@@ -25,18 +29,22 @@ export default function SiteFooter() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Link
-              className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm"
-              href="/zakat-calculator"
+            <button
+              type="button"
+              onClick={() => openLicenseModal()}
+              className="bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
-              Calculate Zakat
-            </Link>
-            <Link
-              className="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors border border-white/20"
-              href="/about#governance"
+              <span className="material-symbols-outlined text-[16px]">verified</span>
+              লাইসেন্স ও সনদপত্র দেখুন
+            </button>
+            <button
+              type="button"
+              onClick={() => openPaymentModal({ amount: 1000, cause: 'General Zakat Fund' })}
+              className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
-              View Audit Reports
-            </Link>
+              <span className="material-symbols-outlined text-[16px]">favorite</span>
+              EPS অনুদান
+            </button>
           </div>
         </div>
       </div>
@@ -62,10 +70,15 @@ export default function SiteFooter() {
               Dedicated to serving the destitute, orphans, hunger relief, and
               community empowerment across Bangladesh and beyond.
             </p>
-            <div className="pt-1">
-              <span className="inline-block text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-800 px-2.5 py-1 rounded font-bold">
-                Govt Reg / Non-Profit Charitable Organization
-              </span>
+            <div className="pt-1 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => openLicenseModal()}
+                className="inline-flex items-center gap-1.5 text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-900 hover:bg-amber-100 px-2.5 py-1.5 rounded-lg font-bold text-left transition-colors cursor-pointer w-fit"
+              >
+                <span className="material-symbols-outlined text-[15px] text-amber-700">verified</span>
+                <span>সরকারি নিবন্ধন: #NGO-AB-89423 (সনদ দেখুন)</span>
+              </button>
             </div>
           </div>
 
@@ -228,10 +241,10 @@ export default function SiteFooter() {
               About &amp; Governance
             </Link>
             <Link
-              className="hover:text-primary transition-colors"
-              href="/volunteer"
+              className="hover:text-primary transition-colors font-semibold text-emerald-800"
+              href="/login"
             >
-              Volunteers
+              Admin Portal
             </Link>
           </div>
         </div>
