@@ -205,10 +205,10 @@ export default function GalleryPage() {
     : PROJECT_TOPICS.filter(item => item.category === activeCategory);
 
   return (
-    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-16 sm:pt-20 min-h-screen">
+    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[96px] sm:pt-[104px] min-h-screen">
       <div className="flex flex-col w-full">
         {/* Gallery Header / Breadcrumb Hero */}
-        <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] overflow-hidden pt-4 pb-8 lg:pt-6 lg:pb-10 border-b border-slate-200">
+        <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] overflow-hidden pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold tracking-wide shadow-sm">

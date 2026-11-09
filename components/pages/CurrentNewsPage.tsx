@@ -141,9 +141,9 @@ export default function CurrentNewsPage() {
   });
 
   return (
-    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-16 sm:pt-20 min-h-screen">
+    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[96px] sm:pt-[104px] min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-4 pb-6 lg:pt-5 lg:pb-8 border-b border-slate-200">
+      <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-900 text-xs font-bold tracking-wide shadow-xs">
             <span className="material-symbols-outlined text-[16px] text-emerald-700">
