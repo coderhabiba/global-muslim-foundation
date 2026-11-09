@@ -11,7 +11,7 @@ export default function SiteFooter() {
   const isBn = language === 'bn';
 
   return (
-    <footer className="w-full bg-[#f3f6f4] text-slate-800 border-t border-slate-200">
+    <footer data-l10n="off" className="w-full bg-[#f3f6f4] text-slate-800 border-t border-slate-200">
       {/* Top Trust Bar */}
       <div className="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
         <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">

@@ -196,7 +196,7 @@ export default function MembersVolunteersPage() {
       : TEAM_MEMBERS.filter(m => m.category === activeFilter);
 
   return (
-    <main className="w-full bg-[#f8faf9] pt-[96px] sm:pt-[116px] min-h-screen">
+    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[96px] sm:pt-[116px] min-h-screen">
       <div className="flex flex-col w-full">
         {/* Hero Section */}
         <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] py-14 lg:py-18 border-b border-slate-200">
@@ -461,3 +461,4 @@ export default function MembersVolunteersPage() {
     </main>
   );
 }
+

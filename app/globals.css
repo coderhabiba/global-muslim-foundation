@@ -195,3 +195,50 @@ h3,
 html[lang='bn'] :where(:not(.material-symbols-outlined)) {
   font-family: var(--font-bengali), var(--font-plus-jakarta), sans-serif !important;
 }
+
+/* Swiper custom styling for premium carousel presentation */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fea619 !important;
+  background: rgba(4, 78, 66, 0.75);
+  backdrop-filter: blur(4px);
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #044e42 !important;
+  transform: scale(1.08);
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px !important;
+  font-weight: 900;
+}
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important;
+  opacity: 0.7 !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s;
+}
+.swiper-pagination-bullet-active {
+  background: #fea619 !important;
+  opacity: 1 !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+}
+.project-card-swiper .swiper-button-next,
+.project-card-swiper .swiper-button-prev {
+  width: 32px !important;
+  height: 32px !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #ffffff !important;
+}
+.project-card-swiper .swiper-button-next::after,
+.project-card-swiper .swiper-button-prev::after {
+  font-size: 12px !important;
+}
