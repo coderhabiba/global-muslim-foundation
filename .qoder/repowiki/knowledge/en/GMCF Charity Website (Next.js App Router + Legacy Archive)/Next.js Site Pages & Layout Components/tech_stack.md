@@ -1,1 +1,0 @@
-React Server Components with explicit `'use client'` directives, Next.js App Router navigation (`next/link`, `next/navigation`'s `usePathname`), Tailwind CSS utility classes, and Material Symbols Outlined icons.

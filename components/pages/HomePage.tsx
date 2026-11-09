@@ -1,32 +1,35 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import Link from 'next/link';
+import { useMemo, useRef, useState } from 'react';
+
+import { useSiteSettings } from '@/lib/site-settings';
 
 const GIFT_AMOUNTS = [
-  { value: "25", label: "$25", bordered: true, span: false },
-  { value: "50", label: "$50", bordered: false, span: false },
-  { value: "100", label: "$100", bordered: true, span: false },
-  { value: "250", label: "$250", bordered: true, span: false },
-  { value: "custom", label: "Custom Amount", bordered: true, span: true },
+  { value: '25', label: '$25', bordered: true, span: false },
+  { value: '50', label: '$50', bordered: false, span: false },
+  { value: '100', label: '$100', bordered: true, span: false },
+  { value: '250', label: '$250', bordered: true, span: false },
+  { value: 'custom', label: 'Custom Amount', bordered: true, span: true },
 ] as const;
 
 const NISAB_THRESHOLD_USD = 520;
 
 export default function HomePage() {
-  const [frequency, setFrequency] = useState<"one-time" | "monthly">(
-    "one-time",
+  const { localize } = useSiteSettings();
+  const [frequency, setFrequency] = useState<'one-time' | 'monthly'>(
+    'one-time',
   );
-  const [fund, setFund] = useState("meal");
-  const [amountChoice, setAmountChoice] = useState("50");
-  const [customAmount, setCustomAmount] = useState("50");
+  const [fund, setFund] = useState('meal');
+  const [amountChoice, setAmountChoice] = useState('50');
+  const [customAmount, setCustomAmount] = useState('50');
   const [isAmountHighlighted, setIsAmountHighlighted] = useState(false);
   const customAmountRef = useRef<HTMLInputElement>(null);
   const [zakatFields, setZakatFields] = useState({
-    cash: "",
-    gold: "",
-    biz: "",
-    debt: "",
+    cash: '',
+    gold: '',
+    biz: '',
+    debt: '',
   });
 
   const { netWealth, zakatDue } = useMemo(() => {
@@ -43,13 +46,13 @@ export default function HomePage() {
   }, [zakatFields]);
 
   function formatMoney(value: number) {
-    return `$${value.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
+    return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
   }
 
   function handleAmountSelect(value: string) {
     setAmountChoice(value);
 
-    if (value === "custom") {
+    if (value === 'custom') {
       customAmountRef.current?.focus();
       return;
     }
@@ -58,32 +61,34 @@ export default function HomePage() {
   }
 
   function updateZakatField(field: keyof typeof zakatFields, value: string) {
-    setZakatFields((current) => ({ ...current, [field]: value }));
+    setZakatFields(current => ({ ...current, [field]: value }));
   }
 
   function resetZakatFields() {
-    setZakatFields({ cash: "", gold: "", biz: "", debt: "" });
+    setZakatFields({ cash: '', gold: '', biz: '', debt: '' });
   }
 
   function payZakatNow() {
     if (zakatDue > 0) {
       setCustomAmount(String(Math.round(zakatDue)));
-      setAmountChoice("custom");
-      setFund("zakat");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setAmountChoice('custom');
+      setFund('zakat');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setIsAmountHighlighted(true);
       window.setTimeout(() => setIsAmountHighlighted(false), 1500);
       return;
     }
 
     alert(
-      "Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.",
+      localize(
+        'Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.',
+      ),
     );
   }
 
   return (
     <>
-      <main className="w-full bg-surface pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         {/* Top Announcement Pill Bar */}
 
         <div className="w-full bg-surface-subtle-mint border-b border-border-subtle py-2.5 px-4 sm:px-8">
@@ -134,7 +139,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-[54px] font-bold text-on-surface tracking-tight leading-[1.15]">
-                  Empowering Lives Through Faith,{" "}
+                  Empowering Lives Through Faith,{' '}
                   <span className="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">
                     Compassion &amp; Stewardship
                   </span>
@@ -223,7 +228,7 @@ export default function HomePage() {
                   <img
                     alt="Community relief activity by foundation"
                     className="w-full h-52 sm:h-64 object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1VJsW0niheML_8rWPWfGpw8VESzbzEM0eoKmXFGu6p0uPYJAe4AQGFsrio-bE6mvBvhVL3xSsNjRmTOM7jzhU1-ucaohAG5uAgr7OM7SO4RIYR5VK5XBAwNSkuQ1pBr0GlJ69Ysoh527Ll7wNDB27w0urkTZaPk7J7YFWC6APWO5yEH-fVzWfuUbgXeD-pMC5agxHOVj2k_acq9RYUmnyAivJ06GjyC2Kw4IQF7bb5kpQ"
+                    src="/images/community-relief-meals.jpg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-5">
                     <div className="text-white">
@@ -273,25 +278,25 @@ export default function HomePage() {
                     >
                       <button
                         className={`freq-btn py-2 text-center rounded-lg text-sm font-bold transition-all ${
-                          frequency === "one-time"
-                            ? "bg-primary text-white shadow-sm"
-                            : "text-on-surface hover:text-primary"
+                          frequency === 'one-time'
+                            ? 'bg-primary text-white shadow-sm'
+                            : 'text-on-surface hover:text-primary'
                         }`}
                         data-freq="one-time"
                         type="button"
-                        onClick={() => setFrequency("one-time")}
+                        onClick={() => setFrequency('one-time')}
                       >
                         One-off Gift
                       </button>
                       <button
                         className={`freq-btn py-2 text-center rounded-lg text-sm font-semibold transition-all ${
-                          frequency === "monthly"
-                            ? "bg-primary text-white shadow-sm"
-                            : "text-on-surface hover:text-primary"
+                          frequency === 'monthly'
+                            ? 'bg-primary text-white shadow-sm'
+                            : 'text-on-surface hover:text-primary'
                         }`}
                         data-freq="monthly"
                         type="button"
-                        onClick={() => setFrequency("monthly")}
+                        onClick={() => setFrequency('monthly')}
                       >
                         Monthly Sadaqah
                       </button>
@@ -312,7 +317,7 @@ export default function HomePage() {
                         className="w-full bg-surface-subtle-mint/80 border border-primary/20 text-on-surface font-semibold text-sm rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                         id="cause-select"
                         value={fund}
-                        onChange={(event) => setFund(event.target.value)}
+                        onChange={event => setFund(event.target.value)}
                       >
                         <option value="meal">
                           One Meal One Hope (Emergency Food Support)
@@ -343,16 +348,16 @@ export default function HomePage() {
                       Select Gift Amount (USD $)
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {GIFT_AMOUNTS.map((option) => (
+                      {GIFT_AMOUNTS.map(option => (
                         <button
                           key={option.value}
                           className={`amt-btn py-2.5 rounded-xl text-sm font-bold transition-all ${
-                            option.bordered ? "border border-primary/20" : ""
+                            option.bordered ? 'border border-primary/20' : ''
                           } ${
                             amountChoice === option.value
-                              ? "bg-primary text-white shadow-sm"
-                              : "bg-surface-subtle-mint text-primary hover:bg-primary hover:text-white"
-                          } ${option.span ? "col-span-2" : ""}`}
+                              ? 'bg-primary text-white shadow-sm'
+                              : 'bg-surface-subtle-mint text-primary hover:bg-primary hover:text-white'
+                          } ${option.span ? 'col-span-2' : ''}`}
                           data-amt={option.value}
                           type="button"
                           onClick={() => handleAmountSelect(option.value)}
@@ -373,15 +378,13 @@ export default function HomePage() {
                       <input
                         ref={customAmountRef}
                         className={`w-full bg-transparent text-lg font-bold text-on-surface focus:outline-none ${
-                          isAmountHighlighted ? "bg-surface-subtle-mint" : ""
+                          isAmountHighlighted ? 'bg-surface-subtle-mint' : ''
                         }`}
                         id="custom-amount-input"
                         placeholder="Enter amount"
                         type="number"
                         value={customAmount}
-                        onChange={(event) =>
-                          setCustomAmount(event.target.value)
-                        }
+                        onChange={event => setCustomAmount(event.target.value)}
                       />
                       <span className="text-xs font-bold text-text-muted">
                         USD
@@ -547,7 +550,7 @@ export default function HomePage() {
                   <img
                     alt="One Meal One Hope food distribution"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1XkPbUiAkE_KY0C0s6vMjJYRB2pURmrw_eCqPz4Tx58Ho8KnYe_QroesglV1sWLXChP32elKsWxXt0eYo4mNa78u-gODdrm3tQ2CvqL_i7EkI0dj4uBkVfr453Qim6unQ9DNVY0BIV5wEkTKV3aHu4I1J9Eh9bqxVpPYHA7fzykqjFQGxb3L4jLr1o8WF371MdNe7lGlkMIMdScxXAMranCMCPHe7YWZV82XFvVt0ZxUQ"
+                    src="/images/one-meal-one-hope.jpg"
                   />
                   <div className="absolute top-3 left-3 bg-amber-vibrant text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
                     Food Relief
@@ -585,7 +588,7 @@ export default function HomePage() {
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
                         className="h-full bg-primary rounded-full"
-                        style={{ width: "77%" }}
+                        style={{ width: '77%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-xs text-text-muted">
@@ -617,7 +620,7 @@ export default function HomePage() {
                   <img
                     alt="Project Alo: Eye Care &amp; Pediatric Surgery"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1XQZJYF5AXs7BTCsX6k9L-3gdItovAz5qfz0XSlneRWDDI_ndALkI4M32zo3D41nDA5r49fZKmWYyWrreF5bOmv02aC9EJJPAbaXfxtcZtzLKTVG6ivhGMupItitwASu5xBbiImm-HUcHoImAPjmwK4OH7WvypwLMmhChUOW7uXnsm4f_siIEiBJ7MGFvwTV92yY_e_EoHwSRnRyKjBrlzH1cG4l9OxPJUY-yJj-MJbxQ"
+                    src="/images/project-alo-eye-care.jpg"
                   />
                   <div className="absolute top-3 left-3 bg-oceanic-teal-deep text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
                     Pediatric Care
@@ -647,7 +650,7 @@ export default function HomePage() {
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
                         className="h-full bg-primary rounded-full"
-                        style={{ width: "83%" }}
+                        style={{ width: '83%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-xs text-text-muted">
@@ -679,7 +682,7 @@ export default function HomePage() {
                   <img
                     alt="Project Sheetolota winter blanket relief"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1UPcAICi5Y7b16qMhxkNclXho1uj1QVDnzfqzCNIzZcnhC4kBUvGbfhi9s4VhZJC0D0KM1fKV5LI6AAXB0Bjn3jNf2IhZ6lKSoB1k3-T4xXJ7zmGzSTg-8AnXVYVtQJXcuOxuj_rO6F608O1FzfOAzB10jOhphPtJk3EwbnMqDLcMP9JZp45cgIJIHVs2XOQGsckrsSZndURKjmPYXWAHDcvuRZzIsTuj-Hk87QIoUnpQ"
+                    src="/images/project-sheetolota-blankets.jpg"
                   />
                   <div className="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
                     Winter Warmth
@@ -709,7 +712,7 @@ export default function HomePage() {
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
                         className="h-full bg-primary rounded-full"
-                        style={{ width: "78%" }}
+                        style={{ width: '78%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-xs text-text-muted">
@@ -741,7 +744,7 @@ export default function HomePage() {
                   <img
                     alt="Clean water and sanitation facility"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1UhitlaZRQLhOB7ztQLwXIMnLG3_8CA9GFYVlwPl214H_rPJSmE-tDs1JsNweJ1E_MGOPAIFGWOg9Z4qc8c4QoBplrffAF57KHzmdEUVtmEZ80al5lroiYzDnPV67b9B2mLSjZgnlL0JQVBelnn0cY8XL6rPhBPjkim4nafA6BzG-SSC41vsgLQG2mZXxAZYi3Ot-WQ1YmfINxcWEwX-TECmPrDwcf_eSW25A0AUxiB"
+                    src="/images/clean-water-well.jpg"
                   />
                   <div className="absolute top-3 left-3 bg-primary-container text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
                     Clean Water &amp; Wash
@@ -771,7 +774,7 @@ export default function HomePage() {
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
                         className="h-full bg-primary rounded-full"
-                        style={{ width: "78%" }}
+                        style={{ width: '78%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-xs text-text-muted">
@@ -827,7 +830,7 @@ export default function HomePage() {
                   <img
                     alt="Lost child Badshah reunited with mother by foundation"
                     className="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida/ALJJyrA1ZuW-duf8x3aFhnKh27vuAXFSrDDmPMi0yn6kcCSFW5GTr6kqHUCqXFeiFZBVX3Uu46iF4KTUuIHM2_wFFSAPcJ97TfQ_EOMbTHG2MFEuyfiUF5J4RuOWNZDRYAt1EgAeOwPk8224HgAB6ajhznSOKSzFiWXGy9ysl0uAKUY6dQZ94z3MthcZQCsjr0wxsTauVdGBJBi0C1H19GooG9277IohzY2yyLuOa9y5n9a5"
+                    src="/images/badshah-reunion.jpg"
                   />
                   <div className="absolute bottom-4 left-4 bg-emerald-dark/95 text-white text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur shadow">
                     Family Reconnection &amp; Child Welfare
@@ -886,7 +889,7 @@ export default function HomePage() {
                     <img
                       alt="Pediatric healthcare and maternal hope"
                       className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida/AEtjO1XtMSIs0rUiirhFxI8AV6QoruaV4BrXXOPtnre6YKL36vorKqr8QB-wJtwcg79lOxYBmMc_oW0sE9HJodtrqvQtYKj3Lnhbx4w8mirv-ij8zBU2TM1m5E1sivQ52ZA5gz8rlQH5Ofc4s_0iRjUuzdyTvSSCRxWwDYCai1nkx7SmnqtGRblAANqm87Y3cjGQEgcshryJI1v_rdwujMGTvzi3lFPiFfpY7U3Z6V3rCKVv"
+                      src="/images/pediatric-hope-saifan.jpg"
                     />
                     <span className="absolute top-2.5 right-2.5 bg-primary text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">
                       Pediatric Hope
@@ -919,7 +922,7 @@ export default function HomePage() {
                     <img
                       alt="Special kids inclusive celebration"
                       className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo"
+                      src="/images/special-children-joy.jpg"
                     />
                     <span className="absolute top-2.5 right-2.5 bg-secondary-container text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">
                       Community Joy
@@ -967,7 +970,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <h2 className="font-serif-heading text-3xl sm:text-4xl text-white font-bold leading-tight">
-                    Calculate Your Zakat with{" "}
+                    Calculate Your Zakat with{' '}
                     <span className="text-gold-warm italic">
                       100% Precision &amp; Confidence
                     </span>
@@ -1050,8 +1053,8 @@ export default function HomePage() {
                           placeholder="0"
                           type="number"
                           value={zakatFields.cash}
-                          onChange={(event) =>
-                            updateZakatField("cash", event.target.value)
+                          onChange={event =>
+                            updateZakatField('cash', event.target.value)
                           }
                         />
                       </div>
@@ -1070,8 +1073,8 @@ export default function HomePage() {
                           placeholder="0"
                           type="number"
                           value={zakatFields.gold}
-                          onChange={(event) =>
-                            updateZakatField("gold", event.target.value)
+                          onChange={event =>
+                            updateZakatField('gold', event.target.value)
                           }
                         />
                       </div>
@@ -1090,8 +1093,8 @@ export default function HomePage() {
                           placeholder="0"
                           type="number"
                           value={zakatFields.biz}
-                          onChange={(event) =>
-                            updateZakatField("biz", event.target.value)
+                          onChange={event =>
+                            updateZakatField('biz', event.target.value)
                           }
                         />
                       </div>
@@ -1110,8 +1113,8 @@ export default function HomePage() {
                           placeholder="0"
                           type="number"
                           value={zakatFields.debt}
-                          onChange={(event) =>
-                            updateZakatField("debt", event.target.value)
+                          onChange={event =>
+                            updateZakatField('debt', event.target.value)
                           }
                         />
                       </div>
@@ -1183,7 +1186,7 @@ export default function HomePage() {
                   <img
                     alt="Youth volunteers of Global Muslim Charitable Foundation"
                     className="w-full h-80 sm:h-96 object-cover object-center"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1W_gIB4MvKg9xKsKcGIK_fk-dTEmIlQ0DCBthTQgrT5zojWhKGc-ErJwCo-3lLUhOq2H_XlqslU3WWCnEsHVbLHchZwCMiFece48LMGzlq5N8GU3_h9d2ZbMonL65HWSRfY0Z5LmM3woKyCcJFZrMqzI80lFKTTnlXZdp2bRhEDikieZcRG_rq2H8J_iteTJ_W0Kh-9S3H3ONehU-Rddc34QqpZk0u3hWxBqxS7HpO_Cg"
+                    src="/images/youth-volunteers.jpg"
                   />
                 </div>
 
@@ -1256,10 +1259,12 @@ export default function HomePage() {
                 <div className="pt-2">
                   <form
                     className="flex flex-col sm:flex-row items-center gap-2 max-w-md"
-                    onSubmit={(event) => {
+                    onSubmit={event => {
                       event.preventDefault();
                       alert(
-                        "Thank you! Your volunteer application has been received. Our team will reach out shortly.",
+                        localize(
+                          'Thank you! Your volunteer application has been received. Our team will reach out shortly.',
+                        ),
                       );
                     }}
                   >
@@ -1331,10 +1336,12 @@ export default function HomePage() {
                   <a
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all border border-primary/20 shadow-sm"
                     href="#"
-                    onClick={(event) => {
+                    onClick={event => {
                       event.preventDefault();
                       alert(
-                        "Downloading the 2024 GMCF Annual Financial & Impact Report (PDF)...",
+                        localize(
+                          'Downloading the 2024 GMCF Annual Financial & Impact Report (PDF)...',
+                        ),
                       );
                     }}
                   >

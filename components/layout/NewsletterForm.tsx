@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 
-type SubscriptionStatus = "idle" | "subscribed";
+type SubscriptionStatus = 'idle' | 'subscribed';
 
 export default function NewsletterForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<SubscriptionStatus>("idle");
+  const [status, setStatus] = useState<SubscriptionStatus>('idle');
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -16,18 +16,18 @@ export default function NewsletterForm() {
     new FormData(form).forEach((value, key) => body.append(key, String(value)));
 
     try {
-      await fetch("/api/forms", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      await fetch('/api/forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body,
       });
     } catch {
       // The legacy page only ever surfaced the optimistic confirmation state.
     }
 
-    setStatus("subscribed");
+    setStatus('subscribed');
     form.reset();
-    formRef.current?.querySelector("input")?.blur();
+    formRef.current?.querySelector('input')?.blur();
   }
 
   return (
@@ -54,13 +54,13 @@ export default function NewsletterForm() {
         />
         <button
           type="submit"
-          className={`text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-            status === "subscribed"
-              ? "bg-emerald-dark"
-              : "bg-primary hover:bg-emerald-dark"
+          className={`text-white px-4 py-2 rounded-lg text-xs font-bold leading-tight whitespace-nowrap shrink-0 transition-colors ${
+            status === 'subscribed'
+              ? 'bg-emerald-dark'
+              : 'bg-primary hover:bg-emerald-dark'
           }`}
         >
-          {status === "subscribed" ? "Subscribed!" : "Subscribe"}
+          {status === 'subscribed' ? 'Subscribed!' : 'Subscribe'}
         </button>
       </div>
       <span className="text-[11px] text-text-muted">

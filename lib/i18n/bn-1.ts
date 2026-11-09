@@ -55,8 +55,8 @@ const bn: Record<string, string> = {
   '100% of staff salaries, operational costs, software platforms, and vehicle logistics are underwritten separately through an exclusive private endowment fund.':
     'কর্মীদের বেতন, পরিচালন ব্যয়, সফটওয়্যার প্ল্যাটফর্ম ও যানবাহন লজিস্টিকস আলাদাভাবে একটি স্বতন্ত্র বেসরকারি ওয়াকফ তহবিল থেকে বহন করা হয়।',
   '100% of your Zakat funds provide immediate warm meals and urgent pediatric healthcare for destitute children.':
-    'আপনার যাকাত তহবিলের 100% দুস্থ শিশুদের জরুরি গরম খাবার ও জরুরি শিশু স্বাস্থ্যসেবায় ব্যয় হয়।',
-  '100% Precision & Confidence': '100% নিখুঁততা ও আস্থা',
+    'আপনার যাকাত তহবিলের 100% দিয়েই দুস্থ শিশুদের গরম খাবার ও জরুরি শিশু স্বাস্থ্যসেবা নিশ্চিত হয়।',
+  '100% Precision & Confidence': '100% নিখুঁততা ও আস্থার সাথে',
   '100% Ring-Fenced • Shariah Supervised':
     '100% সুরক্ষিত • শরিয়াহ তত্ত্বাবধানে',
   '100% Shariah Compliant': '100% শরিয়াহসম্মত',
@@ -135,7 +135,7 @@ const bn: Record<string, string> = {
   'About & Governance': 'পরিচিতি ও সুশাসন',
   'About Appeal': 'আবেদন সম্পর্কে',
   'About Us': 'আমাদের সম্পর্কে',
-  'Absolute Shariah Integrity': 'পূর্ণ শরিয়াহ সততা',
+  'Absolute Shariah Integrity': 'পূর্ণ শরিয়াহ নিষ্ঠার সাথে',
   'Absolutely. Over 40% of our active squad leads and pediatric coordinators are sisters. We uphold strict Islamic modesty and safety protocols, including dedicated female volunteer hubs, peer pairings, chaperoned group transport, and private sanitation arrangements across all remote camp sites.':
     'অবশ্যই। আমাদের সক্রিয় দলনেতা ও শিশু সমন্বয়কদের 40%-এর বেশি বোনেরা। আমরা কঠোর ইসলামি শালীনতা ও নিরাপত্তা প্রক্রিয়া মেনে চলি—স্বতন্ত্র নারী স্বেচ্ছাসেবক কেন্দ্র, সমবয়সি জোড়া, তত্ত্বাবধানে দলগত যাতায়াত এবং সব দূরবর্তী ক্যাম্পে পৃথক স্যানিটেশন ব্যবস্থা।',
   'Absolutely. We maintain an open-door policy for all donors and independent observers. Contact our Gulshan-2 HQ at least 48 hours prior, and our donor-relations officers will arrange a guided field briefing and cooking inspection at the Tejgaon operations kitchen.':
@@ -154,7 +154,7 @@ const bn: Record<string, string> = {
   'Administrative overhead is 100% covered by independent endowment funds (Waqf) and private patrons.':
     'প্রশাসনিক ব্যয় 100% স্বতন্ত্র ওয়াকফ তহবিল ও ব্যক্তিগত পৃষ্ঠপোষকদের মাধ্যমে বহন করা হয়।',
   'Afternoon lunch package distribution drive for 180+ street children and single-mother families.':
-    '180+ পথশিশু ও একক মা-পরিবারের জন্য বিকেলের দুপুরের খাবার প্যাকেজ বিতরণ অভিযান।',
+    '180+ পথশিশু ও একক মায়ের পরিবারের জন্য বিকেলের খাবার প্যাকেজ বিতরণ অভিযান।',
   'Age *': 'বয়স *',
   'Al-Fuqara': 'আল-ফুকারা',
   'Al-Masakin': 'আল-মাসাকিন',
@@ -225,7 +225,7 @@ const bn: Record<string, string> = {
   'Business Trade Assets & Equity Stocks': 'ব্যবসায়িক সম্পদ ও শেয়ার স্টক',
   'Calculate My Zakat': 'আমার যাকাত হিসাব করুন',
   'Calculate Your Annual Zakat Obligation': 'আপনার বার্ষিক যাকাত হিসাব করুন',
-  'Calculate Your Zakat with': 'আপনার যাকাত হিসাব করুন',
+  'Calculate Your Zakat with': 'আপনার যাকাত হিসাব করুন —',
   'Calculate Zakat': 'যাকাত হিসাব করুন',
   'Can I specify my donation strictly as Zakat vs General Sadaqah?':
     'আমি কি আমার অনুদানকে শুধু যাকাত বা সাধারণ সদকা হিসেবে নির্দিষ্ট করতে পারি?',

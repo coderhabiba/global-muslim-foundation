@@ -1,1 +1,0 @@
-Plain HTML5 + Tailwind CSS v3 loaded from `cdn.tailwindcss.com` (with forms + container-queries plugins), Google Fonts (Plus Jakarta Sans, Playfair Display), and Google Material Symbols Outlined icons. Deployed to Netlify as a static publish directory.

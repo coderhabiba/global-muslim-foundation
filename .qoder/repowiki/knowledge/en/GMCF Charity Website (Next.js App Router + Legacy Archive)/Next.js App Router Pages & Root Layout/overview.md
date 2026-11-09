@@ -1,1 +1,0 @@
-Next.js App Router entry points for the GMCF website, providing root layout, site shell, static pages, and a legacy form submission endpoint.

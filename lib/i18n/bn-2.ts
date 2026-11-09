@@ -5,13 +5,13 @@ const bn: Record<string, string> = {
   'Close Dossier': 'ডসিয়ার বন্ধ করুন',
   'CNIC & Local Verification': 'সিএনআইসি ও স্থানীয় যাচাই',
   'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.':
-    'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারಗಳ জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।',
-  'Community Action & Stewardship': 'কমিউনিটি উদ্যোগ ও তত্ত্বাবধান',
+    'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।',
+  'Community Action & Stewardship': 'কমিউনিটি উদ্যোগ ও দায়িত্বশীলতা',
   'Community Champion Program': 'কমিউনিটি চ্যাম্পিয়ন কর্মসূচি',
   'Community Joy': 'কমিউনিটি আনন্দ',
   'Community members worldwide standing with street children.':
     'বিশ্বজুড়ে কমিউনিটির সদস্যরা পথশিশুদের পাশে দাঁড়াচ্ছেন।',
-  'Compassion & Stewardship': 'সহানুভূতি ও তত্ত্বাবধান',
+  'Compassion & Stewardship': 'সহানুভূতি ও দায়িত্বশীলতা',
   'Complete Cost Transparency: Exactly Where $2 Goes':
     'সম্পূর্ণ ব্যয় স্বচ্ছতা: $2 ঠিক কোথায় যায়',
   'Complete Secure Donation': 'নিরাপদ অনুদান সম্পন্ন করুন',
@@ -46,7 +46,7 @@ const bn: Record<string, string> = {
   'Custom Amount': 'কাস্টম পরিমাণ',
   'Custom Donation Amount': 'কাস্টম অনুদানের পরিমাণ',
   'Daily hot nutritious meals and essential supplements for abandoned street children and railway families across Dhaka hubs.':
-    'ঢাকার বিভিন্ন হাবে পরিত্যক্ত পথশিশু ও রেলপথের পরিবারগুলোর জন্য প্রতিদিন গরম পুষ্টিকর খাবার ও প্রয়োজনীয় সাপ্লিমেন্ট।',
+    'ঢাকার বিভিন্ন কেন্দ্রে পরিত্যক্ত পথশিশু ও রেলপথের পরিবারগুলোর জন্য প্রতিদিন গরম পুষ্টিকর খাবার ও প্রয়োজনীয় সাপ্লিমেন্ট।',
   'Dallas, TX • 5 hours ago': 'ডালাস, টেক্সাস • 5 ঘণ্টা আগে',
   'DAY 01': 'দিন 01',
   'DAY 07': 'দিন 07',
@@ -59,7 +59,7 @@ const bn: Record<string, string> = {
   'Deduct: Immediate Liabilities & Debts ($)':
     'বাদ দিন: তাৎক্ষণিক দায় ও ঋণ ($)',
   'Deep aquifers & hygiene stations':
-    'গভীর ভূগর্ভস্থ জলাশয় ও স্বাস্থ্যবিধি কেন্দ্র',
+    'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র',
   'Deep Tube Wells & Clean Water': 'গভীর নলকূপ ও বিশুদ্ধ পানি',
   'Deep Tube Wells: Lifesaving Pure Water':
     'গভীর নলকূপ: জীবনরক্ষাকারী বিশুদ্ধ পানি',
@@ -121,7 +121,7 @@ const bn: Record<string, string> = {
     'বয়স্কদের হুইলচেয়ার পরিবহন ও রোগীর সঙ্গী',
   'Email Address *': 'ইমেইল ঠিকানা *',
   'Emergency Appeal': 'জরুরি আবেদন',
-  'Emergency Field Dispatch': 'জরুরি মাঠ প্রতিবেদন',
+  'Emergency Field Dispatch': 'জরুরি মাঠ প্রেরণ',
   'Emergency Food & Railway Outreach': 'জরুরি খাদ্য ও রেলপথ সহায়তা',
   'Emergency Food Aid': 'জরুরি খাদ্য সহায়তা',
   'Emergency Food Relief Batch Stocking': 'জরুরি খাদ্য ত্রাণের ব্যাচ মজুদ',
@@ -134,7 +134,7 @@ const bn: Record<string, string> = {
     'রেলপথের কমিউনিটি ও শহরের বস্তিতে জরুরি গরম খাবার বিতরণ',
   'Emergency Zakat Pool (Immediate Need)':
     'জরুরি যাকাত তহবিল (তাৎক্ষণিক প্রয়োজন)',
-  'Empowering Lives Through Faith,': 'বিশ্বাসের শক্তিতে জীবনকে সক্ষম করা,',
+  'Empowering Lives Through Faith,': 'বিশ্বাসের শক্তিতে জীবনের ক্ষমতায়ন,',
   'Empowering Neurodiverse Children with Dignified Smiles':
     'নিউরোডাইভার্স শিশুদের মর্যাদাপূর্ণ হাসিতে সক্ষম করে তোলা',
   'Empowering street children and underprivileged youth with basic numeracy, conversational English, Islamic moral values, handwashing hygiene habits, and therapeutic art sessions.':
@@ -156,7 +156,7 @@ const bn: Record<string, string> = {
   'Every applicant attends an accredited 3-hour orientation session covering Shariah-aligned humanitarian ethics, crisis safety precautions, and respectful beneficiary engagement.':
     'প্রতিটি আবেদনকারী শরিয়াহসম্মত মানবিক নৈতিকতা, সংকটকালীন নিরাপত্তা সতর্কতা ও সুবিধাভোগীদের সাথে সম্মানজনক আচরণ বিষয়ক 3 ঘণ্টার স্বীকৃত ওরিয়েন্টেশনে অংশ নেন।',
   'Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.':
-    'আপনার যাকাতের প্রতিটি পয়সা কঠোর শরিয়াহ তত্ত্বাবধানে যোগ্য হকদারদের কাছে সরাসরি পৌঁছে।',
+    'কঠোর শরিয়াহ তত্ত্বাবধানে আপনার যাকাতের প্রতিটি পয়সা যোগ্য হকদারদের কাছে সরাসরি পৌঁছায়।',
   'Every distribution is documented with geo-tagged photographic evidence, national ID authentication, and signed beneficiary acknowledgement ledgers.':
     'প্রতিটি বিতরণ জিও-ট্যাগযুক্ত ছবি, জাতীয় পরিচয়পত্র যাচাই এবং সুবিধাভোগীর স্বাক্ষরিত স্বীকৃতি খতিয়ান দিয়ে নথিভুক্ত করা হয়।',
   'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to families in their darkest hours.':
@@ -178,7 +178,7 @@ const bn: Record<string, string> = {
   'Extend a Helping Hand': 'সহায়তার হাত বাড়িয়ে দিন',
   'Eye Surgery': 'চোখের অপারেশন',
   'Faithful Stewardship. Absolute Transparency. Dignified Humanitarian Action.':
-    'নিষ্ঠাবান তত্ত্বাবধান। পূর্ণ স্বচ্ছতা। মর্যাদাপূর্ণ মানবিক কাজ।',
+    'নিষ্ঠাবান দায়িত্বশীলতা। পূর্ণ স্বচ্ছতা। মর্যাদাপূর্ণ মানবিক কাজ।',
   'Families Uplifted (Tamleek)': 'উন্নীত পরিবার (তামলিক)',
   'Family Confirmation:': 'পরিবার নিশ্চিতকরণ:',
   'Family Pack': 'ফ্যামিলি প্যাক',
@@ -212,7 +212,7 @@ const bn: Record<string, string> = {
   'Former advisor to multilateral development funds, specializing in micro-enterprise endowments, poverty graduation models, and ethical liquidity management.':
     'বহুপাক্ষিক উন্নয়ন তহবিলের সাবেক উপদেষ্টা; ক্ষুদ্র উদ্যোগ এনডাউমেন্ট, দারিদ্র্য উত্তরণ মডেল ও নৈতিক তারল্য ব্যবস্থাপনায় বিশেষজ্ঞ।',
   'Found wandering and distressed near the railway terminals, 8-year-old Badshah was taken into protective custody by our emergency field team. Following 21 days of meticulous cross-district verification and community coordination, he was safely reunited with his tearful mother.':
-    'রেল টার্মিনালের কাছে অস্থির অবস্থায় ঘুরতে থাকা 8 বছরের বাদশাকে আমাদের জরুরি মাঠ দল সুরক্ষিত হেফাজতে নেয়। 21 দিনের সুনিবিড় আন্তঃজেলা যাচাই ও কমিউনিটি সমন্বয়ের পর তাকে নিরাপদে কাঁদতে থাকা মায়ের কোলে ফিরিয়ে দেওয়া হয়।',
+    'রেল টার্মিনালের কাছে অস্থির অবস্থায় ঘুরতে থাকা 8 বছরের বাদশাকে আমাদের জরুরি মাঠ দল সুরক্ষিত হেফাজতে নেয়। 21 দিনের নিবিড় আন্তঃজেলা যাচাই ও কমিউনিটি সমন্বয়ের পর তাকে নিরাপদে কাঁদতে থাকা মায়ের কোলে ফিরিয়ে দেওয়া হয়।',
   'Found wandering in deep distress near the hazardous Tejgaon railway terminal by GMCF’s midnight mobile patrol. After 21 days of intensive cross-district verification, psychosocial rehabilitation, and nourishment, our team handed Badshah safely back to his weeping mother.':
     'GMCF-এর মধ্যরাতের মোবাইল টহলদল তেজগাঁও রেল টার্মিনালের কাছে তীব্র কষ্টে ঘুরতে থাকা বাদশাকে খুঁজে পায়। 21 দিনের নিবিড় আন্তঃজেলা যাচাই, মনোসামাজিক পুনর্বাসন ও পুষ্টি সহায়তার পর আমাদের দল তাকে কাঁদতে থাকা মায়ের কাছে নিরাপদে ফিরিয়ে দেয়।',
   'FOUNDATIONAL PILLARS': 'ভিত্তি স্তম্ভ',
@@ -257,7 +257,7 @@ const bn: Record<string, string> = {
   'Global Muslim Foundation': 'গ্লোবাল মুসলিম ফাউন্ডেশন',
   'Global Muslim Foundation provides zero-cost medical insurance coverage during deployments, hot meals during service, round-trip group transit for remote camps, and strict safety guidelines.':
     'গ্লোবাল মুসলিম ফাউন্ডেশন মাঠ মোতায়েনের সময় বিনামূল্যে চিকিৎসা বীমা, সেবাকালে গরম খাবার, দূরবর্তী ক্যাম্পে দলগত যাতায়াত এবং কঠোর নিরাপত্তা নির্দেশিকা প্রদান করে।',
-  GMC: 'জিএমসি',
+  GMC: 'GMC',
   'GMCF & PLDS Joint Mission': 'GMCF ও PLDS যৌথ অভিযান',
   'Goal: $25,000': 'লক্ষ্য: $25,000',
   'Goal: $35,000': 'লক্ষ্য: $35,000',

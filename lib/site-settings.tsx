@@ -9,6 +9,8 @@ import {
   useState,
 } from 'react';
 
+import { convertPrices, localizeText } from '@/lib/i18n/localize';
+
 export type CurrencyCode = 'USD' | 'GBP' | 'EUR' | 'BDT';
 export type Language = 'en' | 'bn';
 
@@ -59,6 +61,12 @@ type SiteSettingsValue = {
   setLanguage: (language: Language) => void;
   /** Converts and formats a USD amount with the active currency. */
   money: (usd: number) => string;
+  /**
+   * Translates one English phrase and re-expresses its dollar amounts in the
+   * active currency. Used for native dialogs, where the DOM bridge cannot
+   * reach the text.
+   */
+  localize: (text: string) => string;
 };
 
 const SiteSettingsContext = createContext<SiteSettingsValue | null>(null);
@@ -69,12 +77,14 @@ export function SiteSettingsProvider({
   const [currency, setCurrencyState] = useState<CurrencyCode>('USD');
   const [language, setLanguageState] = useState<Language>('en');
 
-  // Restore the visitor's last choice once mounted (keeps SSR markup stable).
+  // Restore the visitor's last choice once mounted. Reading storage during the
+  // first render would desynchronise hydration, so it is applied afterwards.
   useEffect(() => {
     try {
       const storedCurrency = window.localStorage.getItem(CURRENCY_KEY);
       const storedLanguage = window.localStorage.getItem(LANGUAGE_KEY);
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (isCurrency(storedCurrency)) setCurrencyState(storedCurrency);
       if (isLanguage(storedLanguage)) setLanguageState(storedLanguage);
     } catch {
@@ -111,9 +121,15 @@ export function SiteSettingsProvider({
     [currency],
   );
 
+  const localize = useCallback(
+    (text: string) =>
+      convertPrices(localizeText(text, language), currency, money),
+    [currency, language, money],
+  );
+
   const value = useMemo<SiteSettingsValue>(
-    () => ({ currency, language, setCurrency, setLanguage, money }),
-    [currency, language, setCurrency, setLanguage, money],
+    () => ({ currency, language, setCurrency, setLanguage, money, localize }),
+    [currency, language, setCurrency, setLanguage, money, localize],
   );
 
   return (

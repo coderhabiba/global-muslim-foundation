@@ -1,41 +1,46 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link';
+import { useState } from 'react';
+
+import { useSiteSettings } from '@/lib/site-settings';
 
 const CASE_FILTERS = [
-  { category: "all", label: "All Stories (48)" },
-  { category: "child-protection", label: "Child Protection (14)" },
-  { category: "healthcare", label: "Pediatric Healthcare (21)" },
-  { category: "food-relief", label: "Street Food Relief (8)" },
-  { category: "wash", label: "Clean Water & WASH (5)" },
+  { category: 'all', label: 'All Stories (48)' },
+  { category: 'child-protection', label: 'Child Protection (14)' },
+  { category: 'healthcare', label: 'Pediatric Healthcare (21)' },
+  { category: 'food-relief', label: 'Street Food Relief (8)' },
+  { category: 'wash', label: 'Clean Water & WASH (5)' },
 ];
 
 const SPONSOR_TIERS = [
-  { amount: "65", label: "$65", caption: "Child Care" },
-  { amount: "180", label: "$180", caption: "Eye Surgery" },
-  { amount: "350", label: "$350", caption: "Family Tracing" },
+  { amount: '65', label: '$65', caption: 'Child Care' },
+  { amount: '180', label: '$180', caption: 'Eye Surgery' },
+  { amount: '350', label: '$350', caption: 'Family Tracing' },
 ];
 
 export default function ImpactPage() {
+  const { localize } = useSiteSettings();
   const [openModals, setOpenModals] = useState<Record<string, boolean>>({});
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState('all');
   const [filterTouched, setFilterTouched] = useState(false);
-  const [activeTier, setActiveTier] = useState("65");
+  const [activeTier, setActiveTier] = useState('65');
 
   function toggleModal(modalId: string) {
-    setOpenModals((current) => ({ ...current, [modalId]: !current[modalId] }));
+    setOpenModals(current => ({ ...current, [modalId]: !current[modalId] }));
   }
 
   function handleSponsorshipSubmit() {
     alert(
-      "Thank you! Redirecting to the secure Tamleek-certified checkout gateway with zero administrative deductions.",
+      localize(
+        'Thank you! Redirecting to the secure Tamleek-certified checkout gateway with zero administrative deductions.',
+      ),
     );
   }
 
   return (
     <>
-      <main className="w-full bg-surface pt-32 sm:pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Editorial Hero & Narrative Header */}
 
@@ -60,7 +65,7 @@ export default function ImpactPage() {
 
               <div className="mt-6 max-w-4xl">
                 <h1 className="font-headline-xl text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                  Stories of Restored Hope,{" "}
+                  Stories of Restored Hope,{' '}
                   <span className="text-amber-vibrant">
                     Healing &amp; Dignity
                   </span>
@@ -154,11 +159,11 @@ export default function ImpactPage() {
                 className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none"
                 id="case-filters"
               >
-                {CASE_FILTERS.map((filter) => {
+                {CASE_FILTERS.map(filter => {
                   const isActive = activeFilter === filter.category;
                   const activeClasses = filterTouched
-                    ? "bg-emerald-dark text-on-primary"
-                    : "bg-primary-container text-on-primary active";
+                    ? 'bg-emerald-dark text-on-primary'
+                    : 'bg-primary-container text-on-primary active';
 
                   return (
                     <button
@@ -166,7 +171,7 @@ export default function ImpactPage() {
                       className={`filter-tab px-4 py-2 rounded-full font-label-md text-label-md shadow-sm transition-colors whitespace-nowrap ${
                         isActive
                           ? activeClasses
-                          : "bg-surface-clean text-text-muted hover:text-primary"
+                          : 'bg-surface-clean text-text-muted hover:text-primary'
                       }`}
                       data-category={filter.category}
                       type="button"
@@ -209,7 +214,7 @@ export default function ImpactPage() {
                     <img
                       alt="Mother and rescued boy Badshah reunited safely through GMCF humanitarian child protection fund"
                       className="w-full h-full object-cover object-center"
-                      src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo"
+                      src="/images/badshah-reunion.jpg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark/80 via-transparent to-transparent lg:hidden"></div>
 
@@ -301,7 +306,7 @@ export default function ImpactPage() {
                     <div className="mt-8 pt-6 flex flex-wrap items-center gap-4">
                       <button
                         className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-vibrant hover:bg-secondary text-white font-label-lg text-label-lg shadow-md transition-all"
-                        onClick={() => toggleModal("modal-badshah")}
+                        onClick={() => toggleModal('modal-badshah')}
                       >
                         <span className="material-symbols-outlined text-[20px]">
                           visibility
@@ -352,7 +357,7 @@ export default function ImpactPage() {
                     <img
                       alt="Mother holding her child Saifan who received urgent pediatric emergency healthcare assistance"
                       className="w-full h-full object-cover object-center transition-transform hover:scale-105 duration-500"
-                      src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo"
+                      src="/images/pediatric-hope-saifan.jpg"
                     />
                     <div className="absolute top-3 left-3 bg-emerald-dark/90 backdrop-blur-md text-white font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
                       Pediatric Sponsorship
@@ -390,7 +395,7 @@ export default function ImpactPage() {
                       <div className="mt-4 flex items-center justify-between">
                         <button
                           className="text-primary hover:text-emerald-dark font-label-sm text-label-sm font-bold inline-flex items-center gap-1"
-                          onClick={() => toggleModal("modal-saifan")}
+                          onClick={() => toggleModal('modal-saifan')}
                         >
                           <span className="material-symbols-outlined text-[16px]">
                             receipt_long
@@ -412,7 +417,7 @@ export default function ImpactPage() {
                     <img
                       alt="Vulnerable young boy receiving specialized pediatric eye operation and post-surgical recovery bandage under Project Alo"
                       className="w-full h-full object-cover object-center transition-transform hover:scale-105 duration-500"
-                      src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo"
+                      src="/images/project-alo-eye-care.jpg"
                     />
                     <div className="absolute top-3 left-3 bg-emerald-dark/90 backdrop-blur-md text-white font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
                       Project Alo (The Light)
@@ -452,7 +457,7 @@ export default function ImpactPage() {
                       <div className="mt-4 flex items-center justify-between">
                         <button
                           className="text-primary hover:text-emerald-dark font-label-sm text-label-sm font-bold inline-flex items-center gap-1"
-                          onClick={() => toggleModal("modal-alo")}
+                          onClick={() => toggleModal('modal-alo')}
                         >
                           <span className="material-symbols-outlined text-[16px]">
                             clinical_notes
@@ -474,7 +479,7 @@ export default function ImpactPage() {
                     <img
                       alt="Neurodiverse children and special needs kids enjoying therapeutic recreation and warm physical therapy support"
                       className="w-full h-full object-cover object-center transition-transform hover:scale-105 duration-500"
-                      src="https://lh3.googleusercontent.com/aida/ALJJyrCnZcKtGrdH1QHR0lHiXDEMq_m3uUaM8wcozM3FEvid6-xQMDJsC-ZQ8Kdv2Q1DuKqGOWVVjphyd1oPBKSv-oHLLtf4oaCNuAsJFRlaC4GbSTbQO8lunB78q68Mfzr9vuaG3yCouOdc74uJ7PY1UWu2AdzBaf4FmWfjXhBc_yTmzAmRhqoMgGQ299ZYgat-2mfczowmsAb0nK0MXY5nxo6pyzzh9T2bD2ApEfi13uJo"
+                      src="/images/special-care-therapy.jpg"
                     />
                     <div className="absolute top-3 left-3 bg-amber-vibrant text-white font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
                       Inclusive Joy &amp; Rehab
@@ -513,7 +518,7 @@ export default function ImpactPage() {
                       <div className="mt-4 flex items-center justify-between">
                         <button
                           className="text-primary hover:text-emerald-dark font-label-sm text-label-sm font-bold inline-flex items-center gap-1"
-                          onClick={() => toggleModal("modal-special")}
+                          onClick={() => toggleModal('modal-special')}
                         >
                           <span className="material-symbols-outlined text-[16px]">
                             favorite
@@ -717,19 +722,19 @@ export default function ImpactPage() {
                       Select Impact Tier
                     </label>
                     <div className="grid grid-cols-3 gap-2" id="tier-buttons">
-                      {SPONSOR_TIERS.map((tier) => (
+                      {SPONSOR_TIERS.map(tier => (
                         <button
                           key={tier.amount}
                           className={`tier-btn py-2 px-3 rounded-lg bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold transition-all ${
                             activeTier === tier.amount
-                              ? "active ring-2 ring-primary"
-                              : ""
+                              ? 'active ring-2 ring-primary'
+                              : ''
                           }`}
                           data-amount={tier.amount}
                           type="button"
                           onClick={() => setActiveTier(tier.amount)}
                         >
-                          {tier.label}{" "}
+                          {tier.label}{' '}
                           <span className="block text-[10px] font-normal text-text-muted">
                             {tier.caption}
                           </span>
@@ -774,7 +779,7 @@ export default function ImpactPage() {
 
           <div
             className={`fixed inset-0 z-50 ${
-              openModals["modal-badshah"] ? "" : "hidden"
+              openModals['modal-badshah'] ? '' : 'hidden'
             } bg-emerald-dark/60 backdrop-blur-md flex items-center justify-center p-4`}
             id="modal-badshah"
           >
@@ -790,7 +795,7 @@ export default function ImpactPage() {
                 </div>
                 <button
                   className="text-text-muted hover:text-emerald-dark p-1"
-                  onClick={() => toggleModal("modal-badshah")}
+                  onClick={() => toggleModal('modal-badshah')}
                 >
                   <span className="material-symbols-outlined text-[24px]">
                     close
@@ -829,7 +834,7 @@ export default function ImpactPage() {
                   </div>
                   <button
                     className="px-4 py-2 rounded-lg text-white font-label-md text-label-md bg-primary-container"
-                    onClick={() => toggleModal("modal-badshah")}
+                    onClick={() => toggleModal('modal-badshah')}
                   >
                     Close Dossier
                   </button>
@@ -842,7 +847,7 @@ export default function ImpactPage() {
 
           <div
             className={`fixed inset-0 z-50 ${
-              openModals["modal-saifan"] ? "" : "hidden"
+              openModals['modal-saifan'] ? '' : 'hidden'
             } bg-emerald-dark/60 backdrop-blur-md flex items-center justify-center p-4`}
             id="modal-saifan"
           >
@@ -853,7 +858,7 @@ export default function ImpactPage() {
                 </span>
                 <button
                   className="text-text-muted hover:text-emerald-dark"
-                  onClick={() => toggleModal("modal-saifan")}
+                  onClick={() => toggleModal('modal-saifan')}
                 >
                   <span className="material-symbols-outlined">close</span>
                 </button>
@@ -870,7 +875,7 @@ export default function ImpactPage() {
               <div className="mt-6 pt-4 flex justify-end">
                 <button
                   className="px-4 py-2 rounded-lg bg-emerald-dark text-white font-label-md text-label-md"
-                  onClick={() => toggleModal("modal-saifan")}
+                  onClick={() => toggleModal('modal-saifan')}
                 >
                   Done
                 </button>
@@ -879,7 +884,7 @@ export default function ImpactPage() {
           </div>
           <div
             className={`fixed inset-0 z-50 ${
-              openModals["modal-alo"] ? "" : "hidden"
+              openModals['modal-alo'] ? '' : 'hidden'
             } bg-emerald-dark/60 backdrop-blur-md flex items-center justify-center p-4`}
             id="modal-alo"
           >
@@ -890,7 +895,7 @@ export default function ImpactPage() {
                 </span>
                 <button
                   className="text-text-muted hover:text-emerald-dark"
-                  onClick={() => toggleModal("modal-alo")}
+                  onClick={() => toggleModal('modal-alo')}
                 >
                   <span className="material-symbols-outlined">close</span>
                 </button>
@@ -908,7 +913,7 @@ export default function ImpactPage() {
               <div className="mt-6 pt-4 flex justify-end">
                 <button
                   className="px-4 py-2 rounded-lg bg-emerald-dark text-white font-label-md text-label-md"
-                  onClick={() => toggleModal("modal-alo")}
+                  onClick={() => toggleModal('modal-alo')}
                 >
                   Done
                 </button>
@@ -917,7 +922,7 @@ export default function ImpactPage() {
           </div>
           <div
             className={`fixed inset-0 z-50 ${
-              openModals["modal-special"] ? "" : "hidden"
+              openModals['modal-special'] ? '' : 'hidden'
             } bg-emerald-dark/60 backdrop-blur-md flex items-center justify-center p-4`}
             id="modal-special"
           >
@@ -928,7 +933,7 @@ export default function ImpactPage() {
                 </span>
                 <button
                   className="text-text-muted hover:text-emerald-dark"
-                  onClick={() => toggleModal("modal-special")}
+                  onClick={() => toggleModal('modal-special')}
                 >
                   <span className="material-symbols-outlined">close</span>
                 </button>
@@ -946,7 +951,7 @@ export default function ImpactPage() {
               <div className="mt-6 pt-4 flex justify-end">
                 <button
                   className="px-4 py-2 rounded-lg bg-emerald-dark text-white font-label-md text-label-md"
-                  onClick={() => toggleModal("modal-special")}
+                  onClick={() => toggleModal('modal-special')}
                 >
                   Done
                 </button>

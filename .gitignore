@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev / audit temp files
+.audit*
+audit*.png
+*.log
+.home-bn.txt
+.i18n-gaps.txt
+.missing-nodes.txt
+.untranslated.txt
+.strings.json
+.i18n-check.mjs
+*.zip
+.qoder/
+

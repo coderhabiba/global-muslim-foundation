@@ -1,2 +1,0 @@
-- Legacy page URLs (`about.html`, `appeals.html`, `campaign-details.html`, `impact.html`, `volunteer.html`, `zakat-calculator.html`) are preserved via permanent redirects in `next.config.ts` rather than duplicated routes.
-- Netlify deployment configuration in `netlify.toml` mirrors the security headers and caching behavior of the original static site for the new Next.js build.

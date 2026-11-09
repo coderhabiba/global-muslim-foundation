@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import bn from '@/lib/i18n/bn';
-import { DYNAMIC_RULES } from '@/lib/i18n/dynamic';
+import { convertPrices, localizeText } from '@/lib/i18n/localize';
 import { useSiteSettings } from '@/lib/site-settings';
 
 /**
@@ -20,10 +19,11 @@ const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE']);
 const SKIP_CLASS = 'material-symbols-outlined';
 const LOCALIZED_ATTRS = ['placeholder', 'aria-label', 'title', 'alt'] as const;
 
-const textOriginals = new WeakMap<Text, string>();
-const attrOriginals = new WeakMap<Element, Map<string, string>>();
-
-const DOLLAR_AMOUNT = /\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)/g;
+const textOriginals = new WeakMap<Text, { base: string; applied: string }>();
+const attrOriginals = new WeakMap<
+  Element,
+  Map<string, { base: string; applied: string }>
+>();
 
 function isSkipped(element: Element | null): boolean {
   let node: Element | null = element;
@@ -43,31 +43,18 @@ function isSkipped(element: Element | null): boolean {
   return false;
 }
 
-function localizeCore(core: string, language: string): string {
-  if (language === 'en') return core;
-
-  const direct = bn[core];
-  if (direct !== undefined) return direct;
-
-  for (const [pattern, replacement] of DYNAMIC_RULES) {
-    if (pattern.test(core)) return core.replace(pattern, replacement);
-  }
-
-  return core;
-}
-
-function convertPrices(
+/**
+ * Converts dollar amounts unless the slot is marked `data-money="off"`,
+ * which is used for reference tables that list several currencies at once.
+ */
+function applyMoney(
   text: string,
+  element: Element | null,
   currency: string,
   money: (usd: number) => string,
 ): string {
-  if (currency === 'USD') return text;
-
-  return text
-    .replace(DOLLAR_AMOUNT, (_match, amount: string) =>
-      money(Number(amount.replace(/,/g, ''))),
-    )
-    .replace(/\bUSD\b/g, currency);
+  if (element?.closest('[data-money="off"]')) return text;
+  return convertPrices(text, currency, money);
 }
 
 function translateTextNode(
@@ -80,22 +67,25 @@ function translateTextNode(
 
   const current = node.data;
 
-  let base = textOriginals.get(node);
-  if (base === undefined) {
-    base = current;
-    textOriginals.set(node, base);
+  // React can rewrite a text node (calculator results, counters, etc.). If the
+  // live text no longer matches what we last wrote, treat it as a new source.
+  let entry = textOriginals.get(node);
+  if (!entry || current !== entry.applied) {
+    entry = { base: current, applied: current };
+    textOriginals.set(node, entry);
   }
 
-  if (base.trim() === '') return;
+  if (entry.base.trim() === '') return;
 
-  const leading = base.match(/^\s*/)?.[0] ?? '';
-  const trailing = base.match(/\s*$/)?.[0] ?? '';
-  const core = base.trim();
+  const leading = entry.base.match(/^\s*/)?.[0] ?? '';
+  const trailing = entry.base.match(/\s*$/)?.[0] ?? '';
+  const core = entry.base.trim();
 
-  const localized = localizeCore(core, language);
-  const next = `${leading}${convertPrices(localized, currency, money)}${trailing}`;
+  const localized = localizeText(core, language);
+  const next = `${leading}${applyMoney(localized, node.parentElement, currency, money)}${trailing}`;
 
   if (current !== next) node.data = next;
+  entry.applied = next;
 }
 
 function translateAttributes(
@@ -109,7 +99,11 @@ function translateAttributes(
       LOCALIZED_ATTRS.map(attr => `[${attr}]`).join(','),
     )
     .forEach(element => {
-      if (isSkipped(element)) return;
+      // Form controls carry their copy in attributes, not child text, so the
+      // TEXTAREA guard that protects typed values must not apply here. Only
+      // the element's own opt-out and its ancestors are honoured.
+      if (element.getAttribute('data-l10n') === 'off') return;
+      if (isSkipped(element.parentElement)) return;
 
       for (const attr of LOCALIZED_ATTRS) {
         const value = element.getAttribute(attr);
@@ -117,20 +111,21 @@ function translateAttributes(
 
         let store = attrOriginals.get(element);
         if (!store) {
-          store = new Map<string, string>();
+          store = new Map<string, { base: string; applied: string }>();
           attrOriginals.set(element, store);
         }
 
-        let base = store.get(attr);
-        if (base === undefined) {
-          base = value;
-          store.set(attr, base);
+        let entry = store.get(attr);
+        if (!entry || value !== entry.applied) {
+          entry = { base: value, applied: value };
+          store.set(attr, entry);
         }
 
-        const localized = localizeCore(base.trim(), language);
-        const next = convertPrices(localized, currency, money);
+        const localized = localizeText(entry.base.trim(), language);
+        const next = applyMoney(localized, element, currency, money);
 
         if (value !== next) element.setAttribute(attr, next);
+        entry.applied = next;
       }
     });
 }
@@ -149,7 +144,35 @@ function translateTree(
   for (const node of nodes) translateTextNode(node, language, currency, money);
 
   translateAttributes(root, language, currency, money);
+  translateTitle(language, currency, money);
 }
+
+/** Localises the browser tab title, which lives outside <body>. */
+function translateTitle(
+  language: string,
+  currency: string,
+  money: (usd: number) => string,
+): void {
+  const current = document.title;
+  if (!current) return;
+
+  let entry = titleOriginal;
+  if (!entry || current !== entry.applied) {
+    entry = { base: current, applied: current };
+    titleOriginal = entry;
+  }
+
+  const next = convertPrices(
+    localizeText(entry.base, language),
+    currency,
+    money,
+  );
+
+  if (current !== next) document.title = next;
+  entry.applied = next;
+}
+
+let titleOriginal: { base: string; applied: string } | null = null;
 
 export default function SiteSettingsBridge() {
   const { currency, language, money } = useSiteSettings();

@@ -1,26 +1,29 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useRef, useState } from "react";
+import Link from 'next/link';
+import { useRef, useState } from 'react';
+
+import { useSiteSettings } from '@/lib/site-settings';
 
 const TABS = [
-  { id: "tab-about", icon: "menu_book", label: "About Appeal" },
+  { id: 'tab-about', icon: 'menu_book', label: 'About Appeal' },
   {
-    id: "tab-budget",
-    icon: "pie_chart",
-    label: "Cost Breakdown ($2/Meal)",
+    id: 'tab-budget',
+    icon: 'pie_chart',
+    label: 'Cost Breakdown ($2/Meal)',
   },
-  { id: "tab-updates", icon: "history_edu", label: "Field Dispatch Log (4)" },
-  { id: "tab-shariah", icon: "verified", label: "Zakat Governance" },
+  { id: 'tab-updates', icon: 'history_edu', label: 'Field Dispatch Log (4)' },
+  { id: 'tab-shariah', icon: 'verified', label: 'Zakat Governance' },
 ];
 
 export default function CampaignDetailsPage() {
+  const { localize } = useSiteSettings();
   const mainImageRef = useRef<HTMLImageElement | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const [activeTab, setActiveTab] = useState("tab-about");
+  const [activeTab, setActiveTab] = useState('tab-about');
   const [activeThumb, setActiveThumb] = useState(0);
   const [isMonthly, setIsMonthly] = useState(false);
-  const [amount, setAmount] = useState("50");
+  const [amount, setAmount] = useState('50');
   const [isZakat, setIsZakat] = useState(true);
 
   const numericAmount = parseFloat(amount) || 0;
@@ -29,31 +32,33 @@ export default function CampaignDetailsPage() {
   function selectThumb(index: number) {
     setActiveThumb(index);
     const main = mainImageRef.current;
-    const thumbImg = thumbRefs.current[index]?.querySelector("img");
+    const thumbImg = thumbRefs.current[index]?.querySelector('img');
 
     if (main && thumbImg) {
       main.src = thumbImg.src;
-      if (thumbImg.hasAttribute("data-alt")) {
-        main.setAttribute("data-alt", thumbImg.getAttribute("data-alt") ?? "");
+      if (thumbImg.hasAttribute('data-alt')) {
+        main.setAttribute('data-alt', thumbImg.getAttribute('data-alt') ?? '');
       }
     }
   }
 
   function submitDonation() {
     const amt = amount || 50;
-    const freqText = isMonthly ? "monthly recurring" : "one-time";
+    const freqText = isMonthly ? 'monthly recurring' : 'one-time';
     const zakatNote = isZakat
-      ? "Designated as 100% Shariah Zakat."
-      : "Sadaqah Relief Fund.";
+      ? 'Designated as 100% Shariah Zakat.'
+      : 'Sadaqah Relief Fund.';
 
     alert(
-      `JazakAllah Khair! Initiating secure checkout for $${amt} USD (${freqText}). ${zakatNote} Redirecting to bank gateway...`,
+      localize(
+        `JazakAllah Khair! Initiating secure checkout for $${amt} USD (${freqText}). ${zakatNote} Redirecting to bank gateway...`,
+      ),
     );
   }
 
   return (
     <>
-      <main className="w-full bg-surface pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Sub-Header Breadcrumb & Status Ribbon */}
 
@@ -129,10 +134,10 @@ export default function CampaignDetailsPage() {
                     Railway Communities
                   </h1>
                   <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    Partnered with{" "}
+                    Partnered with{' '}
                     <strong className="text-on-surface">
                       Pally Life Development Society (PLDS)
-                    </strong>{" "}
+                    </strong>{' '}
                     and local community kitchens to provide fresh hot cooked
                     meals, bottled clean water, and fruit juice packs to
                     malnourished children living along railway tracks in
@@ -150,7 +155,7 @@ export default function CampaignDetailsPage() {
                       data-alt="Dozens of underprivileged Bangladeshi street children sitting in rows along a Dhaka railway platform, happily holding up freshly packed white meal boxes and orange juice bottles under an open daytime sky, captured in crisp journalistic documentary style."
                       id="main-gallery-view"
                       ref={mainImageRef}
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIx_RyaWpGEfRDMTfbQPW5VVCE_ozsk1tZAS_xnAvgn3_8BDPbf7uFOPgMdqwdX8BqLqJ205eA5SI1vvH6acwfMGZ1Z_s5RiGg6l37MSSAQ087wNT734feQK-6SNkHyCPDIvlGFeD92X52cln07pagPWcMNCY7dLE0r_UAHxswH3i4IPdGV7V7nF6iQS2XcA-cD0G12eG8TdWkUClrMjyt2vrtQSB8WFI8r9cUnfWz"
+                      src="/images/street-children-meal-line.jpg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6 text-on-primary pointer-events-none">
                       <div className="flex items-center gap-2 text-label-sm font-label-sm uppercase tracking-widest text-primary-fixed mb-1">
@@ -178,11 +183,11 @@ export default function CampaignDetailsPage() {
                     <button
                       className={`thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm transition-all ${
                         activeThumb === 0
-                          ? "ring-2 ring-primary opacity-100"
-                          : "ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100"
+                          ? 'ring-2 ring-primary opacity-100'
+                          : 'ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100'
                       }`}
                       data-img-idx="0"
-                      ref={(node) => {
+                      ref={node => {
                         thumbRefs.current[0] = node;
                       }}
                       onClick={() => selectThumb(0)}
@@ -191,17 +196,17 @@ export default function CampaignDetailsPage() {
                         alt="Street meal distribution sidewalk"
                         className="w-full h-full object-cover"
                         data-alt="Rows of underprivileged children sitting along a brick boundary wall on the sidewalk receiving hot rice dishes and red cups of clean drinking water in Bangladesh."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGnCWPlQESRp-IkGsLR9-E4fnB9tmf5NiAJcRLYBAMiOEVABx2LCmek1y5io_u6FiYi5BJgsX4wcG9jeZ3nzWRO4rl9e1uEN8P3POZ4yW-U2oTEN_MYXsYU96AVRCiGssopJxd0UMAVyw8VDOeUUgCaFymHHgi9yX3tQfajmR_DN10UUzaKS8BVaPcgUwcz5XrpZ2XIC2hNZ2pmMkw2qarA_UXJbleGCcHK2VhxHXJ"
+                        src="/images/children-meal-rows.jpg"
                       />
                     </button>
                     <button
                       className={`thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm transition-all ${
                         activeThumb === 1
-                          ? "ring-2 ring-primary opacity-100"
-                          : "ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100"
+                          ? 'ring-2 ring-primary opacity-100'
+                          : 'ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100'
                       }`}
                       data-img-idx="1"
-                      ref={(node) => {
+                      ref={node => {
                         thumbRefs.current[1] = node;
                       }}
                       onClick={() => selectThumb(1)}
@@ -210,17 +215,17 @@ export default function CampaignDetailsPage() {
                         alt="Balloons and meal boxes at railway"
                         className="w-full h-full object-cover"
                         data-alt="Joyful children on a railway platform holding up colorful celebration balloons and sweet meal parcels during a community nourishment event in Dhaka."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_2asx4gZnMTeWw0D0p8B9ziENzvVVI260Hb33a9mJjsZILBs_TGdYl_NqCM1beA2Pfo1vXJax0Fz4biz5u7K53w9ibVyRi53Tpe7dAaLczaovuy2gIy1q2ao5wsRW_50MjHwPg8FYZIA_659Q1-9d29m5N8R35oqvVnMobs8U-40wS1O25hKPkyA4HmW2fnP70YpQe_D3glHOWvRRZcsjLeCan0Wonz0fyPEcC_tB"
+                        src="/images/railway-platform-children.jpg"
                       />
                     </button>
                     <button
                       className={`thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm transition-all ${
                         activeThumb === 2
-                          ? "ring-2 ring-primary opacity-100"
-                          : "ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100"
+                          ? 'ring-2 ring-primary opacity-100'
+                          : 'ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100'
                       }`}
                       data-img-idx="2"
-                      ref={(node) => {
+                      ref={node => {
                         thumbRefs.current[2] = node;
                       }}
                       onClick={() => selectThumb(2)}
@@ -229,17 +234,17 @@ export default function CampaignDetailsPage() {
                         alt="Meal distribution alongside train tracks"
                         className="w-full h-full object-cover"
                         data-alt="Dozens of children seated in two neat lines along railway tracks raising meal packages and juice bottles toward the camera with big smiles."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDpcUQQF5Nb4oGErEXihiVHnlMpihrruwKusgysowgw9H2EUYRnpWz8Z_xPxIbsBJBmd3j0lqGeVMMuZAVK_B94HCD8_tIkqc2FK5CNcRWHEKm3If1yO4IDfQqoKmgImTuaanOMeUUmzQAM3jq7Pj6xZrQj_JplTYzwNEhXuOPJNpSPkgkAftQ04khvQNndOQDbMxgtroHn9pn4fP9RPDkPKmlZO7-c8tOf0SwKu_v"
+                        src="/images/children-seated-outreach.jpg"
                       />
                     </button>
                     <button
                       className={`thumb-btn relative rounded-xl overflow-hidden h-20 bg-surface-container shadow-sm transition-all ${
                         activeThumb === 3
-                          ? "ring-2 ring-primary opacity-100"
-                          : "ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100"
+                          ? 'ring-2 ring-primary opacity-100'
+                          : 'ring-0 hover:ring-2 hover:ring-primary/50 opacity-70 hover:opacity-100'
                       }`}
                       data-img-idx="3"
-                      ref={(node) => {
+                      ref={node => {
                         thumbRefs.current[3] = node;
                       }}
                       onClick={() => selectThumb(3)}
@@ -248,7 +253,7 @@ export default function CampaignDetailsPage() {
                         alt="Community kitchen prep"
                         className="w-full h-full object-cover"
                         data-alt="Volunteers in teal aprons stirring large steaming pots of nutritious chicken biryani and vegetable stew in a clean community kitchen facility."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd0FktXvo6a9rHDsmInRMAHwhW-7nHLyqMNKw1eB5K59pyXVqTHVkKGRhvKLkfdYMEuCqWYPv8hQEiJiSC-2qrh5OGRtVPTiGBgVr4F9lLCus-pXri1plJqvzyM5u71unGEC1NeAv66IbbwgXTZ1BacjwvqGNR7qToo9gdLfY5BFvBejRdZdm5jFYAkMj5btRMaaNbGMX_aXhOXVthcCS0VFhQkJECIGz5dxhXfjVG"
+                        src="/images/volunteers-cooking-pots.jpg"
                       />
                     </button>
                   </div>
@@ -258,13 +263,13 @@ export default function CampaignDetailsPage() {
 
                 <div className="bg-surface-clean rounded-2xl shadow-sm overflow-hidden">
                   <div className="flex items-center overflow-x-auto bg-surface-container-low px-2 pt-2 scrollbar-none">
-                    {TABS.map((tab) => (
+                    {TABS.map(tab => (
                       <button
                         key={tab.id}
                         className={`tab-btn px-5 py-3 font-label-lg text-label-lg font-bold rounded-t-xl transition-colors flex items-center gap-2 shrink-0 ${
                           activeTab === tab.id
-                            ? "text-primary bg-surface-clean"
-                            : "text-on-surface-variant hover:text-primary hover:bg-surface-clean/50"
+                            ? 'text-primary bg-surface-clean'
+                            : 'text-on-surface-variant hover:text-primary hover:bg-surface-clean/50'
                         }`}
                         data-target={tab.id}
                         onClick={() => setActiveTab(tab.id)}
@@ -281,7 +286,7 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`tab-content flex flex-col gap-6${
-                        activeTab === "tab-about" ? "" : " hidden"
+                        activeTab === 'tab-about' ? '' : ' hidden'
                       }`}
                       id="tab-about"
                     >
@@ -300,7 +305,7 @@ export default function CampaignDetailsPage() {
                           without a warm meal for over 36 consecutive hours.
                         </p>
                         <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                          Through the{" "}
+                          Through the{' '}
                           <strong className="text-on-surface">
                             One Meal One Hope initiative
                           </strong>
@@ -391,7 +396,7 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`tab-content flex flex-col gap-6${
-                        activeTab === "tab-budget" ? "" : " hidden"
+                        activeTab === 'tab-budget' ? '' : ' hidden'
                       }`}
                       id="tab-budget"
                     >
@@ -559,7 +564,7 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`tab-content flex flex-col gap-6${
-                        activeTab === "tab-updates" ? "" : " hidden"
+                        activeTab === 'tab-updates' ? '' : ' hidden'
                       }`}
                       id="tab-updates"
                     >
@@ -681,7 +686,7 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`tab-content flex flex-col gap-6${
-                        activeTab === "tab-shariah" ? "" : " hidden"
+                        activeTab === 'tab-shariah' ? '' : ' hidden'
                       }`}
                       id="tab-shariah"
                     >
@@ -692,8 +697,8 @@ export default function CampaignDetailsPage() {
                         <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                           Food charity designated for Zakat must fulfill the
                           core condition of <em>Tamleek</em> (complete
-                          unconditional transfer of ownership to qualified{" "}
-                          <em>Masarif al-Zakat</em> recipients, primarily{" "}
+                          unconditional transfer of ownership to qualified{' '}
+                          <em>Masarif al-Zakat</em> recipients, primarily{' '}
                           <em>Al-Fuqara</em> and <em>Al-Masakin</em>).
                         </p>
                       </div>
@@ -1027,7 +1032,7 @@ export default function CampaignDetailsPage() {
                     <div className="w-full h-3 rounded-full bg-surface-container overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-1000"
-                        style={{ width: "77%" }}
+                        style={{ width: '77%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
@@ -1052,8 +1057,8 @@ export default function CampaignDetailsPage() {
                     <button
                       className={`flex-1 py-2.5 rounded-lg font-label-lg text-label-lg font-bold transition-all text-center ${
                         isMonthly
-                          ? "text-on-surface-variant hover:text-primary"
-                          : "bg-primary text-white shadow-sm"
+                          ? 'text-on-surface-variant hover:text-primary'
+                          : 'bg-primary text-white shadow-sm'
                       }`}
                       id="freq-one"
                       type="button"
@@ -1064,8 +1069,8 @@ export default function CampaignDetailsPage() {
                     <button
                       className={`flex-1 py-2.5 rounded-lg font-label-lg text-label-lg font-bold transition-all text-center flex items-center justify-center gap-1 ${
                         isMonthly
-                          ? "bg-primary text-white shadow-sm"
-                          : "text-on-surface-variant hover:text-primary"
+                          ? 'bg-primary text-white shadow-sm'
+                          : 'text-on-surface-variant hover:text-primary'
                       }`}
                       id="freq-month"
                       type="button"
@@ -1089,24 +1094,24 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`pkg-card p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
-                        amount === "30"
-                          ? "bg-surface-subtle-mint ring-2 ring-primary"
-                          : "bg-surface-container-low hover:bg-surface-subtle-mint"
+                        amount === '30'
+                          ? 'bg-surface-subtle-mint ring-2 ring-primary'
+                          : 'bg-surface-container-low hover:bg-surface-subtle-mint'
                       }`}
                       data-amount="30"
-                      onClick={() => setAmount("30")}
+                      onClick={() => setAmount('30')}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                            amount === "30"
-                              ? "bg-primary text-white"
-                              : "bg-surface-clean text-primary"
+                            amount === '30'
+                              ? 'bg-primary text-white'
+                              : 'bg-surface-clean text-primary'
                           }`}
                         >
                           <span
                             className={`material-symbols-outlined text-[14px] check-mark${
-                              amount === "30" ? "" : " hidden"
+                              amount === '30' ? '' : ' hidden'
                             }`}
                           >
                             check
@@ -1130,24 +1135,24 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`pkg-card p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
-                        amount === "50"
-                          ? "bg-surface-subtle-mint ring-2 ring-primary"
-                          : "bg-surface-container-low hover:bg-surface-subtle-mint"
+                        amount === '50'
+                          ? 'bg-surface-subtle-mint ring-2 ring-primary'
+                          : 'bg-surface-container-low hover:bg-surface-subtle-mint'
                       }`}
                       data-amount="50"
-                      onClick={() => setAmount("50")}
+                      onClick={() => setAmount('50')}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                            amount === "50"
-                              ? "bg-primary text-white"
-                              : "bg-surface-clean text-primary"
+                            amount === '50'
+                              ? 'bg-primary text-white'
+                              : 'bg-surface-clean text-primary'
                           }`}
                         >
                           <span
                             className={`material-symbols-outlined text-[14px] check-mark${
-                              amount === "50" ? "" : " hidden"
+                              amount === '50' ? '' : ' hidden'
                             }`}
                           >
                             check
@@ -1176,24 +1181,24 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`pkg-card p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
-                        amount === "100"
-                          ? "bg-surface-subtle-mint ring-2 ring-primary"
-                          : "bg-surface-container-low hover:bg-surface-subtle-mint"
+                        amount === '100'
+                          ? 'bg-surface-subtle-mint ring-2 ring-primary'
+                          : 'bg-surface-container-low hover:bg-surface-subtle-mint'
                       }`}
                       data-amount="100"
-                      onClick={() => setAmount("100")}
+                      onClick={() => setAmount('100')}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                            amount === "100"
-                              ? "bg-primary text-white"
-                              : "bg-surface-clean text-primary"
+                            amount === '100'
+                              ? 'bg-primary text-white'
+                              : 'bg-surface-clean text-primary'
                           }`}
                         >
                           <span
                             className={`material-symbols-outlined text-[14px] check-mark${
-                              amount === "100" ? "" : " hidden"
+                              amount === '100' ? '' : ' hidden'
                             }`}
                           >
                             check
@@ -1217,24 +1222,24 @@ export default function CampaignDetailsPage() {
 
                     <div
                       className={`pkg-card p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
-                        amount === "200"
-                          ? "bg-surface-subtle-mint ring-2 ring-primary"
-                          : "bg-surface-container-low hover:bg-surface-subtle-mint"
+                        amount === '200'
+                          ? 'bg-surface-subtle-mint ring-2 ring-primary'
+                          : 'bg-surface-container-low hover:bg-surface-subtle-mint'
                       }`}
                       data-amount="200"
-                      onClick={() => setAmount("200")}
+                      onClick={() => setAmount('200')}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                            amount === "200"
-                              ? "bg-primary text-white"
-                              : "bg-surface-clean text-primary"
+                            amount === '200'
+                              ? 'bg-primary text-white'
+                              : 'bg-surface-clean text-primary'
                           }`}
                         >
                           <span
                             className={`material-symbols-outlined text-[14px] check-mark${
-                              amount === "200" ? "" : " hidden"
+                              amount === '200' ? '' : ' hidden'
                             }`}
                           >
                             check
@@ -1272,7 +1277,7 @@ export default function CampaignDetailsPage() {
                         placeholder="Amount"
                         type="number"
                         value={amount}
-                        onChange={(event) => setAmount(event.target.value)}
+                        onChange={event => setAmount(event.target.value)}
                       />
                       <span className="absolute right-4 font-label-md text-label-md text-primary font-bold">
                         USD ($)
@@ -1295,7 +1300,7 @@ export default function CampaignDetailsPage() {
                         className="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 bg-surface-clean"
                         id="chk-zakat"
                         type="checkbox"
-                        onChange={(event) => setIsZakat(event.target.checked)}
+                        onChange={event => setIsZakat(event.target.checked)}
                       />
                       <div className="flex flex-col">
                         <span className="font-label-md text-label-md font-bold text-on-surface">
@@ -1351,7 +1356,7 @@ export default function CampaignDetailsPage() {
                       favorite
                     </span>
                     <span id="btn-donate-label" className="">
-                      {`Sponsor ${mealsCount} Meals${isMonthly ? "/month" : " Now"} ($${numericAmount})`}
+                      {`Sponsor ${mealsCount} Meals${isMonthly ? '/month' : ' Now'} ($${numericAmount})`}
                     </span>
                   </button>
 
@@ -1468,7 +1473,7 @@ export default function CampaignDetailsPage() {
                       alt="Project Alo Eye Care"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="A smiling Bangladeshi child after cataract eye surgery wearing protective eye shield patch standing beside a female doctor in a rural clinic."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_PyFFLOCf15tGm8UVyJ-qDQAlQD7ok6eWLbIDTKhLubJc_1VIRE67oSV06-7rFfzevrBjy6l5PZwxSlP4SEjXFtGJgLuHFcl3nThxbknJvMK428nLWqhbStJNVF6-QY9NQgDehpkUQvPqO18f02xPpBnCwh9ySAK-ILGcKoolJXg8ZKpaOWsEMG-9KczRX_KvHfh61ksNsAn00F_UhZ00_0Fm-OBLx9uToo5e0S0u"
+                      src="/images/cataract-surgery-success.jpg"
                     />
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
                       Pediatric Surgery
@@ -1488,7 +1493,7 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: "82%" }}
+                          style={{ width: '82%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
@@ -1517,7 +1522,7 @@ export default function CampaignDetailsPage() {
                       alt="Clean Water Tube Wells"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="Village women and young children pumping clean fresh water from a newly constructed blue manual hand tube well in a drought-affected rural Bangladesh village."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDPyQOmFFgEoSx44zUbWf636y1UCFejm47VxckPXu9mmUvie8f__DKDY6STXIexVmxgU1Jt5X-K7ocRBcsFAHFn-biVCgMquCtT9doO6erpiQ0Il_L_bJromLbOuRtJBr15HmknSCSLFElyGcLhtpT1BcXC70PRmoTjhrIXO-qn-MPfDnx3DkUBUHj5006AyLusnDu05x4xnbLVVNddgGJZIpAvDEzc6zIZs0W27BR"
+                      src="/images/village-water-pump.jpg"
                     />
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
                       Water &amp; Sanitation
@@ -1538,7 +1543,7 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: "64%" }}
+                          style={{ width: '64%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
@@ -1567,7 +1572,7 @@ export default function CampaignDetailsPage() {
                       alt="Winter Blankets Relief"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="Elderly destitute villagers and children wrapped warmly in high quality thick red winter blankets during a nighttime cold wave relief distribution in northern Bangladesh."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD12Upy8bhiTad2yXnOnKrAKJvSyxrN9XcX1aT0uCzMCerX9NaEdBiuEhbsGpMjHDrqj3wuWuZdB94iLhigcLy59CRsJKNWv8qC1g4iJ7JpGtybg4MZpG8OMDHB_TjPOS1-O8cF2g6CbSzVZCnFxTazM334P5Lb5B4HkzrxDl4L_A_eVBGepovY6oH-VXJ-lxXr-dlGO-16zLEeEhJTUh_TdNwHSE2N4wMeggZqETV"
+                      src="/images/winter-blanket-distribution.jpg"
                     />
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-label-sm text-label-sm font-bold">
                       Seasonal Emergency
@@ -1588,7 +1593,7 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: "91%" }}
+                          style={{ width: '91%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">

@@ -1,1 +1,0 @@
-Next.js 16 App Router with React 19, TypeScript 5, Tailwind CSS 3, PostCSS/Autoprefixer, ESLint 9, deployed to Netlify via the official Next.js plugin.

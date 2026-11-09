@@ -1,11 +1,15 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
+
+import { useSiteSettings } from '@/lib/site-settings';
 
 export default function AboutPage() {
+  const { localize } = useSiteSettings();
+
   return (
     <>
-      <main className="w-full bg-surface pt-32 sm:pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Top Trust & Mission Banner */}
 
@@ -486,7 +490,7 @@ export default function AboutPage() {
                     <img
                       alt="GMCF Volunteer and Field Operations Team at Dhaka Headquarters"
                       className="w-full h-[460px] object-cover object-center group-hover:scale-102 transition-transform duration-500"
-                      src="https://lh3.googleusercontent.com/aida/AEtjO1W_gIB4MvKg9xKsKcGIK_fk-dTEmIlQ0DCBthTQgrT5zojWhKGc-ErJwCo-3lLUhOq2H_XlqslU3WWCnEsHVbLHchZwCMiFece48LMGzlq5N8GU3_h9d2ZbMonL65HWSRfY0Z5LmM3woKyCcJFZrMqzI80lFKTTnlXZdp2bRhEDikieZcRG_rq2H8J_iteTJ_W0Kh-9S3H3ONehU-Rddc34QqpZk0u3hWxBqxS7HpO_Cg"
+                      src="/images/youth-volunteers.jpg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark/80 via-transparent to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-on-primary">
@@ -573,17 +577,17 @@ export default function AboutPage() {
                       <p>
                         <strong className="text-on-surface">
                           Registration:
-                        </strong>{" "}
+                        </strong>{' '}
                         NGO Affairs Bureau Reg #NGO-AB-89423
                       </p>
                       <p>
-                        <strong className="text-on-surface">Helpline:</strong>{" "}
+                        <strong className="text-on-surface">Helpline:</strong>{' '}
                         +880 1800-4673
                       </p>
                       <p>
                         <strong className="text-on-surface">
                           Audit Liaison:
-                        </strong>{" "}
+                        </strong>{' '}
                         dhaka.office@gmcf-global.org
                       </p>
                     </div>
@@ -616,11 +620,11 @@ export default function AboutPage() {
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
-                        <strong className="text-on-surface">Reg Number:</strong>{" "}
+                        <strong className="text-on-surface">Reg Number:</strong>{' '}
                         UK Charity Commission Reg #1184930
                       </p>
                       <p>
-                        <strong className="text-on-surface">Gift Aid:</strong>{" "}
+                        <strong className="text-on-surface">Gift Aid:</strong>{' '}
                         Registered for HMRC 25% Top-up
                       </p>
                       <p>
@@ -658,15 +662,15 @@ export default function AboutPage() {
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
-                        <strong className="text-on-surface">Status:</strong>{" "}
+                        <strong className="text-on-surface">Status:</strong>{' '}
                         501(c)(3) Partner Liaison Entity
                       </p>
                       <p>
-                        <strong className="text-on-surface">Tax Relief:</strong>{" "}
+                        <strong className="text-on-surface">Tax Relief:</strong>{' '}
                         IRS Tax-Deductible Receipts Issued
                       </p>
                       <p>
-                        <strong className="text-on-surface">Inquiries:</strong>{" "}
+                        <strong className="text-on-surface">Inquiries:</strong>{' '}
                         usa.partners@gmcf-global.org
                       </p>
                     </div>
@@ -715,7 +719,9 @@ export default function AboutPage() {
                   type="button"
                   onClick={() =>
                     alert(
-                      "All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact governance@gmcf-global.org or download the official PDF pack.",
+                      localize(
+                        'All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact governance@gmcf-global.org or download the official PDF pack.',
+                      ),
                     )
                   }
                 >

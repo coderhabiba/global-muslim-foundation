@@ -254,7 +254,7 @@ const bn: Record<string, string> = {
   'Your Net Obligation (2.5%)': 'আপনার নিট দায় (2.5%)',
   'Your volunteer profile has been submitted. Our field coordinator will send your WhatsApp orientation invitation within 24 hours.':
     'আপনার স্বেচ্ছাসেবক প্রোফাইল জমা হয়েছে। আমাদের মাঠ সমন্বয়ক 24 ঘণ্টার মধ্যে আপনার হোয়াটসঅ্যাপ ওরিয়েন্টেশন আমন্ত্রণ পাঠাবেন।',
-  'Your Zakat Due (2.5%)': 'আপনার প্রাপ্য যাকাত (2.5%)',
+  'Your Zakat Due (2.5%)': 'আপনার প্রদেয় যাকাত (2.5%)',
   'Youth Growth': 'তরুণদের বিকাশ',
   'Youth Volunteer Corps • Bangladesh Field Division':
     'যুব স্বেচ্ছাসেবক বাহিনী • বাংলাদেশ মাঠ বিভাগ',
@@ -275,11 +275,11 @@ const bn: Record<string, string> = {
   'Zero Admin Deductions': 'শূন্য প্রশাসনিক কাটতি',
   'Zero Admin Fee': 'শূন্য প্রশাসনিক ফি',
   'Zero Admin Overhead on Zakat': 'যাকাতে শূন্য প্রশাসনিক ওভারহেড',
-  'Zero Agency Deductions': 'শূন্য সংস্থা কাটতি',
+  'Zero Agency Deductions': 'সংস্থার কোনো কাটতি নেই',
   'Zero overhead deducted from Zakat': 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়',
   'Zero Platform Fees': 'শূন্য প্ল্যাটফর্ম ফি',
   'Zero Registration Fees': 'শূন্য নিবন্ধন ফি',
-  'Zero-Cost Public Donorship': 'বিনামূল্যে পাবলিক দাতৃত্ব',
+  'Zero-Cost Public Donorship': 'বিনা খরচে জনদাতা সহযোগিতা',
 };
 
 export default bn;

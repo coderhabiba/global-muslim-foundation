@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
+import { useSiteSettings } from '@/lib/site-settings';
+
 const FILTER_PILLS = [
   { category: 'all', label: 'All Campaigns (6)' },
   { category: 'food', label: 'Food Security & Street Meals' },
@@ -61,6 +63,7 @@ const CAMPAIGN_META = [
 ];
 
 export default function AppealsPage() {
+  const { localize } = useSiteSettings();
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -144,16 +147,18 @@ export default function AppealsPage() {
 
   function submitDonation() {
     alert(
-      'Thank you for your generous pledge of $' +
-        modalAmount +
-        '! Redirecting to 256-bit encrypted checkout...',
+      localize(
+        'Thank you for your generous pledge of $' +
+          modalAmount +
+          '! Redirecting to 256-bit encrypted checkout...',
+      ),
     );
     closeDonate();
   }
 
   return (
     <>
-      <main className="w-full bg-surface pt-32 sm:pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Interactive Quick Donation Modal (Hidden by default, triggered via JS) */}
 
@@ -401,7 +406,7 @@ export default function AppealsPage() {
                   <img
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     data-alt="Dozens of underprivileged Bangladeshi street children sitting in a straight line along a brick wall enjoying hot meals from plates, soft sunlight, documentary humanitarian photography"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuChbjdJwBk-bXdyGjD9aW6fe_w6Wf-s0ua-VwldoBtL42YZLThWxL4t47GJ93ITekFkgsFx-sLl_iw9Ris7KCgxIUkGPkpY7eEEJlZ3vAarE7VLDtT50J99bhuLQ97NToAS1L6PnTakEUTx3LR_CTkz6qrEHak-AgpK-1I_a5cL0e4n-odsl7cq4nKF7Hap2VNySIadZp9f5vWFHsuxYZLH5ATAa0n448I-s6Zu-hGu"
+                    src="/images/street-children-hot-meals.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md bg-amber-vibrant text-white font-label-sm font-bold shadow-sm uppercase tracking-wider">
@@ -522,7 +527,7 @@ export default function AppealsPage() {
                   <img
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     data-alt="A young vulnerable boy resting gently on a clinic bed with a sterile white surgical bandage patch over one eye after cataract reconstruction surgery, teal background tone"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfqUVSgMedqoaV1t2A_ocUFElumcsh50k3rzWzoUJSpMRHvg5jeyfShTbe8D8e5SARuNDFyLh_7-dOzyfcYa7MTn_Ae0nHx3UJy6APbLeW_q_Zw5xr4cyPPSI2PSkN6vk-xEaPPvUAqgP5NAPd0H8N9PyGZ_iriJTPI6fE0QQTAv4emTS7N7-PxBxmzeijMioTbcc43T_ZVLGwdfJO2lJ0uULRogBJDhKblMWjECNt"
+                    src="/images/vulnerable-child-care.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md text-white font-label-sm font-bold shadow-sm uppercase tracking-wider bg-oceanic-teal-deep">
@@ -644,7 +649,7 @@ export default function AppealsPage() {
                   <img
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     data-alt="Newly constructed brick and cement sanitation block and clean water washroom in rural Bakerganj Barishal with engraved metallic doors under clear daytime sky"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOEa3RP-CDg4zWZnSd0-DZ4yUdZa-myzhOJjDe8m-1emBWiqfex79yo6cN-_QxYF7ZuZnEYEBOb9SgQ9Qp9sLkCWoLiyKN68xGrjOOhQg8JvD2ZzeAczdKys7EqjMci8c82zdkMViD8A4nUIvZQ5qZERJAmNppPefELuuZmwRqLWtgMa7OOqNH_lDOaKCDBaTQxW-G1-Kpgf57cRsim_d_iYT3GtDJY4WScVC97zrh"
+                    src="/images/rural-sanitation-block.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md bg-oceanic-teal-deep text-white font-label-sm font-bold shadow-sm uppercase tracking-wider">
@@ -766,7 +771,7 @@ export default function AppealsPage() {
                   <img
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     data-alt="A large group of rural madrasa orphan boys standing in colorful thobes holding boxed warm blankets and gift packages behind a blue campaign banner"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYhdyYrrWBE54KQtT24Rfx4SMjcn7v9FCi28N9IbUjNCkE5WI85kauAAxpBjSJ8JjBzv7AbFJR7qaolMtsoPPDIE_TFErzTTqfBtK10c8LNSIzFby9_DVToQKlWn6RX8Rfwyc0qu008dynNA5TN9jMsxklI3404hPwWjJ3Yzu_Vee5e1Boy9ogYnkfX5hOQ3b9h6l1uvI2W9R0p5UYZZteo_medmqGzNfWuyxIekhI"
+                    src="/images/rural-madrasa-children.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md bg-oceanic-teal-deep text-white font-label-sm font-bold shadow-sm uppercase tracking-wider">
@@ -890,7 +895,7 @@ export default function AppealsPage() {
                   <img
                     alt="Pediatric emergency healthcare ward care for vulnerable Bangladeshi youth"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1XtMSIs0rUiirhFxI8AV6QoruaV4BrXXOPtnre6YKL36vorKqr8QB-wJtwcg79lOxYBmMc_oW0sE9HJodtrqvQtYKj3Lnhbx4w8mirv-ij8zBU2TM1m5E1sivQ52ZA5gz8rlQH5Ofc4s_0iRjUuzdyTvSSCRxWwDYCai1nkx7SmnqtGRblAANqm87Y3cjGQEgcshryJI1v_rdwujMGTvzi3lFPiFfpY7U3Z6V3rCKVv"
+                    src="/images/pediatric-hope-saifan.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md text-white font-label-sm font-bold shadow-sm uppercase tracking-wider bg-oceanic-teal-deep">
@@ -1012,7 +1017,7 @@ export default function AppealsPage() {
                   <img
                     alt="Inclusive medical equipment, physical therapy, and cognitive educational support for children with developmental challenges"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida/AEtjO1WmEuUcuSHGMr4WpdYsAZIXovnCcmfSc1ViCvWhhzSWfoekDZADNOzbhOaPk47CqR3vxf63vixMdlfh7Qh9C8zjupMqwxQsOqX5Bt_H9oQeGHnd3s_9U4DFOazeTlC76AsGaXdyn9ppYaKwWmqt569q9Vi01HLV8qtnQY794paAMbN3DbGoJrZXZ8Hsb0aEsre95V7YSFsK8B3CoUuSHw4d-BENTAQ74lLQkaA-YihUjQ"
+                    src="/images/special-care-therapy.jpg"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                     <span className="px-2.5 py-1 rounded-md bg-oceanic-teal-deep text-white font-label-sm font-bold shadow-sm uppercase tracking-wider">

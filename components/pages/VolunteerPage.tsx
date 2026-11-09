@@ -63,7 +63,7 @@ export default function VolunteerPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-32 sm:pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Top Ambient Banner / Breadcrumb & Motivation Ribbon */}
 
@@ -160,7 +160,7 @@ export default function VolunteerPage() {
                     <img
                       className="w-full h-72 object-cover object-center"
                       data-alt="A large, united group of young Bangladeshi humanitarian volunteers in light blue t-shirts gathered around a polished wooden conference table during an official field planning orientation. The atmosphere is warm, disciplined, and optimistic, with green indoor foliage in the foreground."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCD4oikKPQekhD5YJ5kd4Gxlit2S0wUTFMfVMT1Vxvj5ZQybKGtLzVsqa65voQzeHh1esliTyTEsz1zkAWr22LS6apsjy5xIrnl87pDrJrGBSNy9NLICCMHhOGV_g41bzUs9dQ55uzOZl92jtXwJrGWxlaeSNFrrDc_Ma_26sDJjjQEmqnbyusP3w3FKU9J5Mg3iWS23t1bSrEI3ecY9HQhkBpzLaL3R9KJ3qdt2XV"
+                      src="/images/youth-volunteer-group.jpg"
                     />
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-emerald-dark/90 via-emerald-dark/40 to-transparent p-5 text-on-primary">
                       <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-vibrant text-surface-clean font-label-sm text-label-sm uppercase font-bold mb-1">
@@ -307,7 +307,7 @@ export default function VolunteerPage() {
                     <img
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="Dozens of young street children seated in organized rows along an open railway platform in Dhaka holding up hygienic food boxes and fresh orange fruit juice bottles with wide smiles, captured during daytime food relief distribution."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeJyHYQc1dywAh89QF-p_5C8sG_uQlEU_lR9ItvgL86SzZtnuAaZz9JWw_lEw9EwjMDQkFj6wK05_Tei_hkfrSU9gnG7qdVKxQlncZogsKkdtNyb2FXa5lVNvRYdCZjbzOawM4wc2mRyh3nAHwqPz5r-1XMDcjSh-Dow2kv7Zry-wpx8aQq6iAwtvFFgqlCPjDQOCb5H116h8OCDSl3T17xl_kCm8IaV5mx8Bnzd68"
+                      src="/images/street-children-session.jpg"
                     />
                     <span className="absolute top-4 left-4 bg-amber-vibrant text-surface-clean px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
                       High Priority • Weekly Action
@@ -392,7 +392,7 @@ export default function VolunteerPage() {
                     <img
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="Group of impoverished railway youth holding up packages with colorful yellow and orange polka dot balloons in the foreground, seated orderly near an outdoor train track line waiting for volunteer recreational engagement."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWXQhHSUt7Xv_B9XvgvYqs1Y9jiSiy79zVCrNtMeocp4MIQ1ZIoTHAbTzfjFux-L4QSdXvNbBZeGQxTE2IqeM31fTwIH47-npWDVoonyjq996HNjC3Tm33DjEmg3zYSQZaO3IpYmBJtEmJk_D3Sai0wh-UMUmT-1rsXa2eqRPsiB-wTj-KJHLmVnlkUoWOx-mA8WLkTDXCa1IQOuFEJltYI8K3uyhc_tG57nnTGMNB"
+                      src="/images/railway-youth-outreach.jpg"
                     />
                     <span className="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
                       Medical Specialization
@@ -479,7 +479,7 @@ export default function VolunteerPage() {
                     <img
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       data-alt="Young male and female humanitarian volunteers assembled proudly wearing badges and uniform attire during a workshop seminar, smiling warmly with indoor plants and conference podium background."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMYVhfhjghyTg4n6Lc3gcIPOTRGcvGtyyX7TqcoLCkiqUsPgmcp7KqgyPNc_56hhVChcm41-zfZOlszUZDo1JPblN2htqp2Gz0aRukd9LOo8whkoDK6v9a7_eBPdOd7E46RKMA3ArMz00nPRsxrNKSoquOskfhoayv3Q-XAj4AtZpr4M27IpsDzlQQBRPrXseLuVKSEKeDoEkyhQEYkwHzM542eEPpgDknuaVkI61K"
+                      src="/images/humanitarian-volunteers.jpg"
                     />
                     <span className="absolute top-4 left-4 bg-tertiary text-on-tertiary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-md">
                       Education &amp; Care

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function NotFoundPage() {
   return (
     <>
-      <main className="not-found-page w-full bg-surface pt-32 sm:pt-36 min-h-[75vh] flex items-center justify-center px-4 sm:px-8 py-16">
+      <main className="not-found-page w-full bg-surface pt-[112px] sm:pt-[140px] min-h-[75vh] flex items-center justify-center px-4 sm:px-8 py-16">
         <div className="max-w-2xl mx-auto text-center flex flex-col items-center">
           <div className="w-24 h-24 rounded-3xl bg-surface-subtle-mint border border-primary/20 flex items-center justify-center text-primary mb-6 shadow-sm">
             <span className="material-symbols-outlined text-5xl text-amber-vibrant">

@@ -1,8 +1,0 @@
-schema_version: 1
-module_path: components
-title: Next.js Site Pages & Layout Components
-scope:
-    - components/
-source_files: []
-depends_on: []
-related_to: []

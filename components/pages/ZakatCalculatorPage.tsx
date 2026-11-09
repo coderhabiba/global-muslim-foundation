@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { useSiteSettings } from '@/lib/site-settings';
+
 const NISAB_SILVER_USD = 581.75;
 
 const EMPTY_FIELDS = {
@@ -34,6 +36,7 @@ function formatMoney(num: number) {
 }
 
 export default function ZakatCalculatorPage() {
+  const { localize } = useSiteSettings();
   const [fields, setFields] = useState({ ...EMPTY_FIELDS });
   const [openFaqs, setOpenFaqs] = useState([false, false, false, false]);
   // Legacy only adds the transition class once recompute() has run at least once.
@@ -85,13 +88,17 @@ export default function ZakatCalculatorPage() {
     setHasRecomputed(true);
     if (zakatDue > 0) {
       alert(
-        'Your calculated Zakat of ' +
-          formatMoney(zakatDue) +
-          ' has been transferred to your donation tray.',
+        localize(
+          'Your calculated Zakat of ' +
+            formatMoney(zakatDue) +
+            ' has been transferred to your donation tray.',
+        ),
       );
     } else {
       alert(
-        'Your current net wealth is below the Nisab threshold. You can still contribute voluntary Sadaqah.',
+        localize(
+          'Your current net wealth is below the Nisab threshold. You can still contribute voluntary Sadaqah.',
+        ),
       );
     }
   }
@@ -106,7 +113,7 @@ export default function ZakatCalculatorPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-32 sm:pt-36">
+      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
         <div className="flex flex-col w-full">
           {/* Section 1: Hero Banner & Trust Foundation */}
 
@@ -219,7 +226,7 @@ export default function ZakatCalculatorPage() {
                     <img
                       className="w-full h-80 sm:h-96 object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       data-alt="A portrait of a resilient mother in a soft white veil gently cradling her young child in an impoverished village setting, capturing quiet human dignity and resilience with warm daylight tones, soft greenery in the background, and deep emerald oceanic green accents reflecting the charitable foundation visual identity."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL3sGQebx4-AE21BirYCzKMLCLrDdCha1nkfy2UB9h3l73__UR9nNmzCIwuFsiZAarnGGyAlSirUYRYWz2qubO3MjfqXTURz1U2B7Z7EPTTrSAo8Zr6o_172NhqDwKBbKfFTmeQXhh2O7nVH6b1f65wp7yAEzTrYHpnF3Le0Q4NfBxOOrczREmpRNID2uwhBiTkgYGQLvYaX1F63NjOj6Lp3QrJvVqL3O5a0m4esem"
+                      src="/images/resilient-mother-portrait.jpg"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-oceanic-teal-deep/90 via-oceanic-teal-deep/30 to-transparent flex flex-col justify-end p-6 text-on-primary">
                       <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-vibrant text-on-secondary font-label-sm text-label-sm w-fit uppercase mb-2">
@@ -263,7 +270,10 @@ export default function ZakatCalculatorPage() {
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                  data-money="off"
+                >
                   {/* Silver Nisab (Recommended for Charity) */}
 
                   <div className="bg-black/25 rounded-xl p-3 flex flex-col">
@@ -825,7 +835,7 @@ export default function ZakatCalculatorPage() {
                       <img
                         className="w-full h-72 object-cover object-center"
                         data-alt="Close up documentary photograph of a young Bengali boy with a soft sterile eye bandage sitting patiently in a clinic bed, wearing a modest patterned shirt, bathed in natural light, evoking vulnerable hope and pediatric healing under humanitarian medical care."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO5ez7KwSbgDbBuTFOKOVkl1vlX2c3aJzSeKDfqVGrTaQSWlXY0I9sAS1AQx4tPVhfudHU3Tzzvl6Ir8uW0MrlKYIgGWTKTyfIqKsIg5NJp_CCjW-b_JZwROcsqsGd7lguSCbVE2SGcUhk94jmiEixnsVsW0W_BRBI23ICoSw1mB8mWKfvDFJK_ADDyK50tozSPrWQQq5YakCn5BB0DFwVqXMXQuqKCDcnLSnU4bLa"
+                        src="/images/child-portrait-documentary.jpg"
                       />
                       <div className="absolute bottom-3 left-3 bg-oceanic-teal-deep/90 text-on-primary px-3 py-1.5 rounded-lg font-label-sm text-label-sm backdrop-blur-md">
                         Verified Asnaf Case #BD-109

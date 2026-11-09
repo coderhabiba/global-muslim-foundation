@@ -1,1 +1,0 @@
-`npm run dev` / `npm run build` / `npm run start` / `npm run lint` are the only entry points; the legacy site under `legacy_site/` is not built or served by these scripts.

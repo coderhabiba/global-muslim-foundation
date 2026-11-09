@@ -1,1 +1,0 @@
-Hand-authored, single-file static marketing site for Global Muslim Charitable Foundation, deployed as-is to Netlify with in-page Tailwind and Material Symbols.

@@ -98,7 +98,7 @@ const bn: Record<string, string> = {
   'Medical Specialization': 'চিকিৎসা বিশেষায়ন',
   'Medical standby kits, high-visibility uniforms & emergency transport.':
     'চিকিৎসা স্ট্যান্ডবাই কিট, সহজে দৃশ্যমান ইউনিফর্ম ও জরুরি পরিবহন।',
-  MH: 'এমএইচ',
+  MH: 'MH',
   'Monthly Recurring': 'মাসিক নিয়মিত',
   'Monthly Sadaqah': 'মাসিক সদকা',
   'Most Popular': 'সর্বাধিক জনপ্রিয়',
@@ -107,7 +107,7 @@ const bn: Record<string, string> = {
   'Need Scholarly Consultation?': 'আলেমদের পরামর্শ প্রয়োজন?',
   'Net trade inventory value, wholesale stock, and marketable stock equities.':
     'নিট ব্যবসায়িক ইনভেন্টরি মূল্য, পাইকারি স্টক ও বাজারজাতযোগ্য শেয়ার।',
-  'Net Undistributed Rental Income ($)': 'নিট অবিতরণকৃত ভাড়া আয় ($)',
+  'Net Undistributed Rental Income ($)': 'নিট সঞ্চিত ভাড়া আয় ($)',
   'Net Wealth:': 'নিট সম্পদ:',
   'Net Zakat-Eligible Wealth': 'নিট যাকাতযোগ্য সম্পদ',
   'New York, United States': 'নিউ ইয়র্ক, যুক্তরাষ্ট্র',
@@ -201,12 +201,12 @@ const bn: Record<string, string> = {
   'Prescription eyeglass distribution & drop dispensing':
     'প্রেসক্রিপশন চশমা বিতরণ ও আইড্রপ প্রদান',
   'Principal Field Operations Hub': 'প্রধান মাঠ কার্যক্রম কেন্দ্র',
-  'Project Alo (Light)': 'প্রজেক্ট আলো (আলো)',
+  'Project Alo (Light)': 'প্রজেক্ট আলো',
   'Project Alo (Pediatric Medical & Eye Surgery)':
     'প্রজেক্ট আলো (শিশু চিকিৎসা ও চক্ষু অস্ত্রোপচার)',
-  'Project Alo (The Light)': 'প্রজেক্ট আলো (আলো)',
+  'Project Alo (The Light)': 'প্রজেক্ট আলো',
   'Project Alo (The Light) Clinical Summary':
-    'প্রজেক্ট আলো (আলো) ক্লিনিকাল সারসংক্ষেপ',
+    'প্রজেক্ট আলো ক্লিনিকাল সারসংক্ষেপ',
   'Project Alo Medical & Eye Camps': 'প্রজেক্ট আলো মেডিকেল ও চক্ষু ক্যাম্প',
   'Project Alo: Chittagong Eye Trauma': 'প্রজেক্ট আলো: চট্টগ্রাম চক্ষু আঘাত',
   'Project Alo: Eye Care & Pediatric Surgery':
@@ -237,9 +237,9 @@ const bn: Record<string, string> = {
     'উত্তরের চরাঞ্চলে হাইপোথার্মিয়ার ঝুঁকিতে থাকা হাজারো মানুষের মধ্যে মোটা ইনসুলেটেড শীতের লেপ ও সোয়েটার প্রদান।',
   'Psychosocial Care': 'মনোসামাজিক সেবা',
   'PUBLIC DISCLOSURES & LEDGERS': 'প্রকাশ্য ঘোষণা ও খতিয়ান',
-  'Purify Your Wealth with': 'আপনার সম্পদ পবিত্র করুন',
+  'Purify Your Wealth with': 'আপনার সম্পদ পবিত্র করুন —',
   'Questions About This Appeal?': 'এই আবেদন সম্পর্কে প্রশ্ন আছে?',
-  'Radical Stewardship': 'আপসহীন তত্ত্বাবধান',
+  'Radical Stewardship': 'আপসহীন দায়িত্বশীলতা',
   'Railway tracks & urban slums': 'রেললাইন ও শহরের বস্তি',
   raised: 'সংগৃহীত',
   'raised of $50,000 goal': '$50,000 লক্ষ্যের মধ্যে সংগৃহীত',
