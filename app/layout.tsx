@@ -46,10 +46,12 @@ export const metadata: Metadata = {
   applicationName: 'Global Muslim Charitable Foundation',
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon.png', type: 'image/png' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon.png', type: 'image/png' },
     ],
-    apple: [{ url: '/favicon.png', type: 'image/png' }],
+    shortcut: '/favicon.ico',
+    apple: [{ url: '/apple-icon.png', type: 'image/png' }],
   },
   // Carried over verbatim from the legacy document head.
   other: { 'shell-type': 'web_standard' },

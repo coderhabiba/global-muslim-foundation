@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { href: '/zakat-calculator', label: 'Zakat Fund' },
   { href: '/impact', label: 'Impact & Reports' },
   { href: '/gallery', label: 'Field Gallery' },
+  { href: '/members', label: 'Members & Team' },
   { href: '/about', label: 'About Us' },
   { href: '/volunteer', label: 'Volunteer Portal' },
 ] as const;

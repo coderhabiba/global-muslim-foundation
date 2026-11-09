@@ -238,6 +238,9 @@ export default function SiteFooter() {
             <Link className="hover:text-primary transition-colors" href="/gallery">
               {isBn ? 'ফিল্ড গ্যালারি' : 'Gallery'}
             </Link>
+            <Link className="hover:text-primary transition-colors" href="/members">
+              {isBn ? 'সদস্য ও ভলান্টিয়ার' : 'Members'}
+            </Link>
             <Link className="hover:text-primary transition-colors" href="/about">
               {isBn ? 'আমাদের সম্পর্কে' : 'About'}
             </Link>
