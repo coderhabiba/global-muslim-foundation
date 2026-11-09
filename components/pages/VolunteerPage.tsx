@@ -47,7 +47,7 @@ export default function VolunteerPage() {
       body.append(key, String(value));
     });
 
-    fetch('/', {
+    fetch('/api/forms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: body.toString(),
@@ -689,7 +689,6 @@ export default function VolunteerPage() {
                     id="volunteer-form"
                     name="volunteer-application"
                     method="POST"
-                    data-netlify="true"
                     onSubmit={handleVolunteerSubmit}
                   >
                     <input

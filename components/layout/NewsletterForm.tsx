@@ -35,7 +35,6 @@ export default function NewsletterForm() {
       ref={formRef}
       name="newsletter-subscription"
       method="POST"
-      data-netlify="true"
       className="flex flex-col gap-2"
       onSubmit={handleSubmit}
     >
