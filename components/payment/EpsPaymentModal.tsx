@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteSettings } from '@/lib/site-settings';
 
 type PaymentMethodType = 'bkash' | 'nagad' | 'rocket' | 'upay' | 'card' | 'bank';
 
 export default function EpsPaymentModal() {
   const { isOpen, closePaymentModal, paymentDetails } = useModalState();
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
   
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>('bkash');
   const [step, setStep] = useState<'select' | 'input' | 'otp' | 'success'>('select');
@@ -57,7 +60,7 @@ export default function EpsPaymentModal() {
           donorEmail: paymentDetails.donorEmail || 'donor@gmcf.org',
           amount: paymentDetails.amount,
           currency: paymentDetails.currency,
-          cause: paymentDetails.cause || 'Emergency Food & Water Relief',
+          cause: paymentDetails.cause || 'General Humanitarian Relief Fund',
           method: selectedMethod.toUpperCase(),
           status: 'SUCCESS',
           date: new Date().toISOString().replace('T', ' ').substring(0, 19),
@@ -110,13 +113,13 @@ export default function EpsPaymentModal() {
                 </div>
                 <p className="text-[11px] text-emerald-200/90 font-light flex items-center gap-1">
                   <span className="material-symbols-outlined text-[13px] text-emerald-400">verified</span>
-                  Bangladesh Bank Licensed PSP Payment Gateway
+                  {isBn ? 'বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে' : 'Bangladesh Bank Licensed PSP Payment Gateway'}
                 </p>
               </div>
             </div>
             <button
               onClick={handleResetAndClose}
-              className="text-white/70 hover:text-white p-1.5 rounded-xl hover:bg-white/10 transition-colors"
+              className="text-white/70 hover:text-white p-1.5 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
               aria-label="Close"
             >
               <span className="material-symbols-outlined text-2xl">close</span>
@@ -127,7 +130,7 @@ export default function EpsPaymentModal() {
           <div className="mt-4 pt-3.5 border-t border-emerald-800/60 flex items-center justify-between">
             <div>
               <span className="text-[11px] text-emerald-300/90 uppercase tracking-wider block font-semibold">
-                Donation Amount / অনুদানের পরিমাণ
+                {isBn ? 'অনুদানের পরিমাণ' : 'Donation Amount'}
               </span>
               <span className="text-2xl sm:text-3xl font-black text-amber-300 tracking-tight">
                 {amountDisplay}
@@ -154,10 +157,10 @@ export default function EpsPaymentModal() {
                 <div className="flex items-center justify-between mb-2.5">
                   <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                     <span className="material-symbols-outlined text-pink-600 text-[18px]">phone_android</span>
-                    Mobile Banking / এমএফএস
+                    {isBn ? 'মোবাইল ব্যাংকিং (MFS)' : 'Mobile Financial Services (MFS)'}
                   </span>
                   <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">
-                    Instant Transfer
+                    {isBn ? 'তাৎক্ষণিক' : 'Instant Transfer'}
                   </span>
                 </div>
                 
@@ -176,7 +179,7 @@ export default function EpsPaymentModal() {
                       />
                     </div>
                     <span className="text-[12px] font-bold text-slate-700 group-hover:text-[#E2136E]">
-                      বিকাশ (bKash)
+                      {isBn ? 'বিকাশ (bKash)' : 'bKash'}
                     </span>
                   </button>
 
@@ -194,7 +197,7 @@ export default function EpsPaymentModal() {
                       />
                     </div>
                     <span className="text-[12px] font-bold text-slate-700 group-hover:text-[#F7941D]">
-                      নগদ (Nagad)
+                      {isBn ? 'নগদ (Nagad)' : 'Nagad'}
                     </span>
                   </button>
 
@@ -212,7 +215,7 @@ export default function EpsPaymentModal() {
                       />
                     </div>
                     <span className="text-[12px] font-bold text-slate-700 group-hover:text-[#8C3494]">
-                      রকেট (Rocket)
+                      {isBn ? 'রকেট (Rocket)' : 'Rocket'}
                     </span>
                   </button>
 
@@ -230,18 +233,18 @@ export default function EpsPaymentModal() {
                       />
                     </div>
                     <span className="text-[12px] font-bold text-slate-700 group-hover:text-[#005BAA]">
-                      উপায় (Upay)
+                      {isBn ? 'উপায় (Upay)' : 'Upay'}
                     </span>
                   </button>
                 </div>
               </div>
 
-              {/* Cards Section - Redesigned, Clean, High-End */}
+              {/* Cards Section - Redesigned, Spaced, No Overflow */}
               <div>
                 <div className="flex items-center justify-between mb-2.5">
                   <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                     <span className="material-symbols-outlined text-blue-600 text-[18px]">credit_card</span>
-                    Cards &amp; Online Banking / কার্ড ও ব্যাংকিং
+                    {isBn ? 'কার্ড ও অনলাইন ব্যাংকিং' : 'Cards & Online Banking'}
                   </span>
                   <span className="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-md border border-emerald-200">
                     3D Secure Verified
@@ -253,33 +256,38 @@ export default function EpsPaymentModal() {
                   <button
                     type="button"
                     onClick={() => handleStartPayment('card')}
-                    className="p-4 bg-gradient-to-br from-white to-slate-50/60 border-2 border-slate-200 hover:border-blue-600 rounded-2xl flex flex-col justify-between gap-3 transition-all group cursor-pointer shadow-sm hover:shadow-md text-left"
+                    className="p-3.5 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-blue-600 rounded-2xl flex flex-col justify-between gap-3 transition-all group cursor-pointer shadow-xs hover:shadow-md text-left overflow-hidden"
                   >
-                    <div className="flex items-center justify-between w-full gap-2">
-                      <span className="text-sm font-bold text-slate-900 group-hover:text-blue-700 whitespace-nowrap">
-                        Visa &amp; Mastercard
-                      </span>
-                      <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
-                        Debit / Credit
+                    <div>
+                      <div className="flex items-center justify-between gap-1 w-full">
+                        <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                          Visa &amp; Mastercard
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] bg-blue-50 text-blue-700 font-bold px-1.5 py-0.5 rounded-md border border-blue-200 shrink-0">
+                          Debit / Credit
+                        </span>
+                      </div>
+                      <span className="text-[10px] sm:text-[11px] text-slate-500 block mt-0.5">
+                        {isBn ? 'সকল দেশি ও আন্তর্জাতিক কার্ড' : 'Local & Global Cards'}
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center gap-3 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
+                    <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                      <div className="flex items-center gap-2 bg-white px-2 py-1 rounded-lg border border-slate-200 shadow-2xs shrink-0">
                         <img
                           src="/images/payment/visa.png"
                           alt="Visa"
-                          className="h-6 w-auto object-contain group-hover:scale-105 transition-transform"
+                          className="h-4 sm:h-5 w-auto object-contain group-hover:scale-105 transition-transform"
                         />
-                        <div className="h-5 w-px bg-slate-200" />
+                        <div className="h-4 w-px bg-slate-200" />
                         <img
                           src="/images/payment/mastercard.png"
                           alt="Mastercard"
-                          className="h-6 w-auto object-contain group-hover:scale-105 transition-transform"
+                          className="h-4 sm:h-5 w-auto object-contain group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <span className="text-[11px] font-semibold text-slate-500 group-hover:text-blue-600 flex items-center gap-0.5 whitespace-nowrap">
-                        Pay Card
+                      <span className="text-[11px] font-semibold text-slate-600 group-hover:text-blue-600 flex items-center gap-0.5">
+                        {isBn ? 'কার্ডে দিন' : 'Pay Card'}
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
                       </span>
                     </div>
@@ -289,28 +297,28 @@ export default function EpsPaymentModal() {
                   <button
                     type="button"
                     onClick={() => handleStartPayment('bank')}
-                    className="p-4 bg-gradient-to-br from-white to-slate-50/60 border-2 border-slate-200 hover:border-emerald-600 rounded-2xl flex flex-col justify-between gap-3 transition-all group cursor-pointer shadow-sm hover:shadow-md text-left"
+                    className="p-3.5 bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-emerald-600 rounded-2xl flex flex-col justify-between gap-3 transition-all group cursor-pointer shadow-xs hover:shadow-md text-left overflow-hidden"
                   >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-700">
-                        Internet Banking
-                      </span>
-                      <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
-                        All Banks
+                    <div>
+                      <div className="flex items-center justify-between gap-1 w-full">
+                        <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 truncate">
+                          Internet Banking
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded-md border border-emerald-200 shrink-0">
+                          All Banks
+                        </span>
+                      </div>
+                      <span className="text-[10px] sm:text-[11px] text-slate-500 block mt-0.5 truncate">
+                        IBBL, City Touch, BRAC, DBBL
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-100/80 flex items-center justify-center text-emerald-800 border border-emerald-200">
-                          <span className="material-symbols-outlined text-[18px]">account_balance</span>
-                        </div>
-                        <span className="text-[11px] text-slate-500">
-                          IBBL, City, BRAC, DBBL
-                        </span>
+                    <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                      <div className="w-7 h-7 rounded-lg bg-emerald-100/80 flex items-center justify-center text-emerald-800 border border-emerald-200 shrink-0">
+                        <span className="material-symbols-outlined text-[16px]">account_balance</span>
                       </div>
-                      <span className="text-[11px] font-semibold text-slate-500 group-hover:text-emerald-600 flex items-center gap-0.5">
-                        Select
+                      <span className="text-[11px] font-semibold text-slate-600 group-hover:text-emerald-600 flex items-center gap-0.5">
+                        {isBn ? 'ব্যাংক নির্বাচন' : 'Select Bank'}
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
                       </span>
                     </div>
@@ -325,10 +333,12 @@ export default function EpsPaymentModal() {
                 </div>
                 <div>
                   <h5 className="text-xs font-bold text-slate-900">
-                    Easy Payment System (EPS) Secured Gateway
+                    {isBn ? 'ইজি পেমেন্ট সিস্টেম (EPS) নিরাপদ গেটওয়ে' : 'Easy Payment System (EPS) Secured Gateway'}
                   </h5>
                   <p className="text-[11px] leading-relaxed text-slate-600 mt-0.5">
-                    বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে। আপনার অনুদান সরাসরি গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অফিশিয়াল ব্যাংক একাউন্টে জমা হবে।
+                    {isBn
+                      ? 'বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে। আপনার অনুদান সরাসরি গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অফিশিয়াল ব্যাংক একাউন্টে জমা হবে।'
+                      : 'Bangladesh Bank licensed PSP gateway. Your generous donation directly reaches Global Muslim Charitable Foundation official relief accounts with end-to-end 256-bit encryption.'}
                   </p>
                 </div>
               </div>
@@ -339,7 +349,9 @@ export default function EpsPaymentModal() {
             <form onSubmit={handleProceedToOtp} className="space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-bold uppercase text-slate-500">Channel:</span>
+                  <span className="text-xs font-bold uppercase text-slate-500">
+                    {isBn ? 'পেমেন্ট চ্যানেল:' : 'Payment Channel:'}
+                  </span>
                   <div className="flex items-center gap-2 bg-slate-100 px-2.5 py-1 rounded-lg">
                     {selectedMethod === 'card' ? (
                       <div className="flex items-center gap-1.5">
@@ -367,10 +379,10 @@ export default function EpsPaymentModal() {
                 <button
                   type="button"
                   onClick={() => setStep('select')}
-                  className="text-xs text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-semibold hover:underline"
+                  className="text-xs text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-semibold hover:underline cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-                  Change Channel
+                  {isBn ? 'পদ্ধতি পরিবর্তন' : 'Change Channel'}
                 </button>
               </div>
 
@@ -405,7 +417,7 @@ export default function EpsPaymentModal() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Cardholder Name / কার্ডধারীর নাম
+                      {isBn ? 'কার্ডধারীর নাম' : 'Cardholder Name'}
                     </label>
                     <input
                       type="text"
@@ -419,7 +431,7 @@ export default function EpsPaymentModal() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Card Number / কার্ড নম্বর
+                      {isBn ? 'কার্ড নম্বর' : 'Card Number'}
                     </label>
                     <div className="relative">
                       <input
@@ -441,7 +453,7 @@ export default function EpsPaymentModal() {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Expiry (MM/YY)
+                        {isBn ? 'মেয়াদ (MM/YY)' : 'Expiry (MM/YY)'}
                       </label>
                       <input
                         type="text"
@@ -473,7 +485,7 @@ export default function EpsPaymentModal() {
                 <div className="space-y-3.5">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Select Bank Portal / ব্যাংক নির্বাচন করুন
+                      {isBn ? 'ব্যাংক নির্বাচন করুন' : 'Select Bank Portal'}
                     </label>
                     <select className="w-full px-3.5 py-2.5 border rounded-xl text-sm border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
                       <option>Islami Bank Bangladesh Ltd (IBBL)</option>
@@ -486,12 +498,12 @@ export default function EpsPaymentModal() {
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Account / Customer ID / ইউজার আইডি
+                      {isBn ? 'ইউজার আইডি / অ্যাকাউন্ট নম্বর' : 'Account / Customer ID'}
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Enter internet banking username or account ID"
+                      placeholder={isBn ? 'ইন্টারনেট ব্যাংকিং আইডি লিখুন' : 'Enter internet banking username or account ID'}
                       className="w-full px-3.5 py-2.5 border rounded-xl text-sm border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
@@ -506,17 +518,17 @@ export default function EpsPaymentModal() {
                     />
                     <div>
                       <span className="text-xs font-bold text-slate-800 block">
-                        {selectedMethod.toUpperCase()} Personal/Merchant Gateway
+                        {selectedMethod.toUpperCase()} {isBn ? 'ব্যক্তিগত / মার্চেন্ট গেটওয়ে' : 'Personal / Merchant Gateway'}
                       </span>
                       <span className="text-[11px] text-slate-500">
-                        Enter your active wallet number to receive OTP.
+                        {isBn ? 'ওটিপি গ্রহণের জন্য সক্রিয় অ্যাকাউন্ট নম্বর লিখুন।' : 'Enter your active wallet number to receive OTP.'}
                       </span>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      {selectedMethod.toUpperCase()} Account Number (মোবাইল নম্বর)
+                      {selectedMethod.toUpperCase()} {isBn ? 'অ্যাকাউন্ট মোবাইল নম্বর' : 'Account Mobile Number'}
                     </label>
                     <div className="relative">
                       <input
@@ -532,7 +544,9 @@ export default function EpsPaymentModal() {
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-500 mt-1">
-                      EPS will send a 6-digit confirmation OTP to verify your authorization.
+                      {isBn
+                        ? 'ভেরিফিকেশনের জন্য EPS আপনার নম্বরে ৬ ডিজিটের একটি ওটিপি পাঠাবে।'
+                        : 'EPS will send a 6-digit confirmation OTP to verify your authorization.'}
                     </p>
                   </div>
                 </div>
@@ -548,11 +562,11 @@ export default function EpsPaymentModal() {
                     <span className="animate-spin material-symbols-outlined text-[18px]">
                       progress_activity
                     </span>
-                    <span>Connecting EPS Gateway...</span>
+                    <span>{isBn ? 'EPS গেটওয়েতে সংযোগ করা হচ্ছে...' : 'Connecting EPS Gateway...'}</span>
                   </>
                 ) : (
                   <>
-                    <span>Proceed to Secure Verification</span>
+                    <span>{isBn ? 'ভেরিফিকেশন সম্পন্ন করুন' : 'Proceed to Secure Verification'}</span>
                     <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                   </>
                 )}
@@ -567,16 +581,18 @@ export default function EpsPaymentModal() {
                   <span className="material-symbols-outlined text-2xl">sms</span>
                 </div>
                 <h4 className="text-sm font-bold text-slate-900">
-                  Enter One Time Password (OTP)
+                  {isBn ? 'ওটিপি (OTP) ও পিন কোড প্রদান করুন' : 'Enter One Time Password (OTP)'}
                 </h4>
                 <p className="text-xs text-slate-500 mt-1">
-                  EPS Simulation: Enter any 4-6 digit dummy OTP (e.g. <strong>123456</strong>) and your wallet PIN.
+                  {isBn
+                    ? 'EPS টেস্ট সিমুলেশন: যেকোনো ৪-৬ ডিজিটের ওটিপি (যেমন: 123456) ও পিন লিখুন।'
+                    : 'EPS Simulation: Enter any 4-6 digit dummy OTP (e.g. 123456) and your wallet PIN.'}
                 </p>
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1 text-center">
-                  6-Digit OTP Code
+                  {isBn ? '৬ ডিজিটের ওটিপি কোড' : '6-Digit OTP Code'}
                 </label>
                 <input
                   type="text"
@@ -591,7 +607,7 @@ export default function EpsPaymentModal() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1 text-center">
-                  Enter {selectedMethod.toUpperCase()} PIN
+                  {selectedMethod.toUpperCase()} {isBn ? 'পিন নম্বর' : 'Wallet PIN'}
                 </label>
                 <input
                   type="password"
@@ -608,9 +624,9 @@ export default function EpsPaymentModal() {
                 <button
                   type="button"
                   onClick={() => setStep('input')}
-                  className="w-1/3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-50"
+                  className="w-1/3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-50 cursor-pointer"
                 >
-                  Back
+                  {isBn ? 'ফিরে যান' : 'Back'}
                 </button>
                 <button
                   type="submit"
@@ -622,12 +638,12 @@ export default function EpsPaymentModal() {
                       <span className="animate-spin material-symbols-outlined text-[18px]">
                         progress_activity
                       </span>
-                      <span>Processing...</span>
+                      <span>{isBn ? 'প্রসেসিং হচ্ছে...' : 'Processing...'}</span>
                     </>
                   ) : (
                     <>
                       <span className="material-symbols-outlined text-[18px]">check_circle</span>
-                      <span>Confirm {amountDisplay}</span>
+                      <span>{isBn ? `নিশ্চিত করুন (${amountDisplay})` : `Confirm ${amountDisplay}`}</span>
                     </>
                   )}
                 </button>
@@ -642,36 +658,38 @@ export default function EpsPaymentModal() {
               </div>
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                  Payment Completed via EPS
+                  {isBn ? 'EPS গেটওয়েতে পেমেন্ট সম্পন্ন' : 'Payment Completed via EPS'}
                 </span>
                 <h3 className="text-xl font-bold text-slate-900 mt-2 font-serif-heading">
-                  Jazakallahu Khairan!
+                  {isBn ? 'জাযাকাল্লাহু খাইরান!' : 'Jazakallahu Khairan!'}
                 </h3>
                 <p className="text-xs text-slate-600 mt-1 max-w-xs mx-auto">
-                  Your generous donation has been successfully received by Global Muslim Charitable Foundation.
+                  {isBn
+                    ? 'আপনার আন্তরিক অনুদান গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের ফান্ডে সফলভাবে গৃহীত হয়েছে।'
+                    : 'Your generous donation has been successfully received by Global Muslim Charitable Foundation.'}
                 </p>
               </div>
 
               {/* Receipt Summary Card */}
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left text-xs space-y-2 font-mono">
                 <div className="flex justify-between border-b border-slate-200 pb-1.5">
-                  <span className="text-slate-500">Transaction ID:</span>
+                  <span className="text-slate-500">{isBn ? 'ট্রানজেকশন আইডি:' : 'Transaction ID:'}</span>
                   <span className="font-bold text-slate-900">{trxId}</span>
                 </div>
                 <div className="flex justify-between border-b border-slate-200 pb-1.5">
-                  <span className="text-slate-500">Amount Paid:</span>
+                  <span className="text-slate-500">{isBn ? 'পরিশোধিত অর্থ:' : 'Amount Paid:'}</span>
                   <span className="font-bold text-emerald-700">{amountDisplay}</span>
                 </div>
                 <div className="flex justify-between border-b border-slate-200 pb-1.5">
-                  <span className="text-slate-500">Payment Gateway:</span>
+                  <span className="text-slate-500">{isBn ? 'পেমেন্ট গেটওয়ে:' : 'Payment Gateway:'}</span>
                   <span className="font-bold text-slate-900">EPS (Easy Payment System)</span>
                 </div>
                 <div className="flex justify-between border-b border-slate-200 pb-1.5">
-                  <span className="text-slate-500">Method:</span>
+                  <span className="text-slate-500">{isBn ? 'পেমেন্ট মেথড:' : 'Method:'}</span>
                   <span className="font-bold text-slate-900 uppercase">{selectedMethod}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Fund:</span>
+                  <span className="text-slate-500">{isBn ? 'তহবিলের উদ্দেশ্য:' : 'Fund:'}</span>
                   <span className="font-bold text-slate-900 truncate max-w-[170px]">{paymentDetails.cause}</span>
                 </div>
               </div>
@@ -683,7 +701,7 @@ export default function EpsPaymentModal() {
                   className="flex-1 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">print</span>
-                  Print Receipt
+                  {isBn ? 'রশিদ প্রিন্ট করুন' : 'Print Receipt'}
                 </button>
                 <button
                   type="button"
@@ -691,7 +709,7 @@ export default function EpsPaymentModal() {
                   className="flex-1 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold shadow transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">done_all</span>
-                  Close & Continue
+                  {isBn ? 'সম্পন্ন করুন' : 'Close & Continue'}
                 </button>
               </div>
             </div>
@@ -700,7 +718,7 @@ export default function EpsPaymentModal() {
 
         {/* Modal Footer Note */}
         <div className="bg-slate-100 px-5 py-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
-          <span>Chairman: Mohammad Ali Mostafa</span>
+          <span>{isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}</span>
           <span className="flex items-center gap-1.5 font-medium">
             <span className="material-symbols-outlined text-[13px] text-emerald-600">lock</span>
             EPS Sandbox v2.4 (Bangladesh Bank PSP)
