@@ -90,10 +90,14 @@ const PROJECT_TOPICS: ProjectTopic[] = [
     descEn: 'Comprehensive residential guardianship covering religious education, schooling, healthcare, nutritious food, and ethical nurturing for vulnerable orphans.',
     descBn: 'অভিভাবকহীন এতিম শিশুদের নিয়মিত লেখাপড়া, মানসম্মত খাদ্য, বস্ত্র ও নৈতিক পরিচর্যা নিশ্চিতকরণ কর্মসূচি।',
     images: [
-      '/images/drive-orphan-1.jpg',
-      '/images/drive-orphan-2.jpg',
-      '/images/drive-orphan-3.jpg',
-      '/images/drive-orphan-4.jpg',
+      '/images/orphans/Abdul-Hakim.jpg',
+      '/images/orphans/Abdullah-Fahad.jpg',
+      '/images/orphans/Ariana.jpg',
+      '/images/orphans/Arifa.jpg',
+      '/images/orphans/Fatima.jpg',
+      '/images/orphans/Hafsa.jpg',
+      '/images/orphans/Hasan.jpg',
+      '/images/orphans/Ismail.jpg',
     ],
   },
 

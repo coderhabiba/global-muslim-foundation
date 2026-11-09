@@ -147,7 +147,7 @@ const TEAM_MEMBERS: Member[] = [
     departmentBn: 'শিশু কল্যাণ ও স্পনসরশিপ শাখা',
     locationEn: 'Keraniganj & Tongi',
     locationBn: 'কেরানীগঞ্জ ও টঙ্গী কেন্দ্র',
-    image: '/images/drive-orphan-2.jpg',
+    image: '/images/humanitarian-volunteers.jpg',
     bioEn: 'Dedicated to education counseling, healthcare monitoring, and safe child shelter programs.',
     bioBn: 'এতিম ও পথশিশুদের মানসিক যত্ন, শিক্ষা সামগ্রী পৌঁছানো ও পারিবারিক পুনর্বাসনে কাজ করছেন।',
   },

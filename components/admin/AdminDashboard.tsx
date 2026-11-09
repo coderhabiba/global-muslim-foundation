@@ -603,7 +603,7 @@ export default function AdminDashboard() {
 
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4">
                   <img
-                    src="/images/drive-orphan-1.jpg"
+                    src="/images/orphans/Abdul-Hakim.jpg"
                     alt="Orphan"
                     className="w-24 h-24 object-cover rounded-xl shrink-0"
                   />

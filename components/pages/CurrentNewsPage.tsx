@@ -89,7 +89,7 @@ const NEWS_ARTICLES: NewsArticle[] = [
     readTimeBn: '৫ মিনিট পঠন',
     tagEn: 'Child Welfare',
     tagBn: 'শিশু কল্যাণ',
-    image: '/images/drive-orphan-2.jpg',
+    image: '/images/orphans/Abdullah.jpg',
     excerptEn: 'Celebrated the academic milestones of resident orphan students, presenting winter blankets, jackets, and new Quran copies at the central madrasa.',
     excerptBn: 'আবাসিক মাদরাসায় অধ্যয়নরত এতিম শিশুদের মাঝে শীতবস্ত্র, সোয়েটার, কম্বল এবং হিফজ সম্পন্নকারীদের মাঝে পবিত্র কুরআন ও সম্মাননা স্মারক তুলে দেওয়া হয়।',
     contentEn: [

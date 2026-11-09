@@ -103,7 +103,6 @@ export default function SponsorOrphanPage() {
 
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'hifz' | 'pre-hifz'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [displayCount, setDisplayCount] = useState(8);
 
   const filteredOrphans = useMemo(() => {
     return ORPHAN_PROFILES.filter(child => {
@@ -124,7 +123,7 @@ export default function SponsorOrphanPage() {
     });
   }, [selectedCategory, searchQuery]);
 
-  const visibleOrphans = filteredOrphans.slice(0, displayCount);
+  const visibleOrphans = filteredOrphans;
 
   const handleSponsorClick = (planTitle: string, amountBDT: number, amountUSD: number) => {
     const amount = currency === 'BDT' ? amountBDT : amountUSD;
@@ -211,7 +210,7 @@ export default function SponsorOrphanPage() {
           <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <button
               type="button"
-              onClick={() => { setSelectedCategory('all'); setDisplayCount(8); }}
+              onClick={() => setSelectedCategory('all')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedCategory === 'all'
                   ? 'bg-emerald-800 text-white shadow-sm'
@@ -222,7 +221,7 @@ export default function SponsorOrphanPage() {
             </button>
             <button
               type="button"
-              onClick={() => { setSelectedCategory('hifz'); setDisplayCount(8); }}
+              onClick={() => setSelectedCategory('hifz')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedCategory === 'hifz'
                   ? 'bg-emerald-800 text-white shadow-sm'
@@ -233,7 +232,7 @@ export default function SponsorOrphanPage() {
             </button>
             <button
               type="button"
-              onClick={() => { setSelectedCategory('pre-hifz'); setDisplayCount(8); }}
+              onClick={() => setSelectedCategory('pre-hifz')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedCategory === 'pre-hifz'
                   ? 'bg-emerald-800 text-white shadow-sm'
@@ -252,7 +251,7 @@ export default function SponsorOrphanPage() {
               type="text"
               placeholder={isBn ? 'নাম বা এলাকা দিয়ে খুঁজুন...' : 'Search by name or district...'}
               value={searchQuery}
-              onChange={(e) => { setSearchQuery(e.target.value); setDisplayCount(8); }}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
             />
           </div>
@@ -333,31 +332,6 @@ export default function SponsorOrphanPage() {
             </div>
           ))}
         </div>
-
-        {/* Load More Button */}
-        {visibleOrphans.length < filteredOrphans.length && (
-          <div className="mt-10 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => setDisplayCount(prev => Math.min(prev + 8, filteredOrphans.length))}
-              className="px-6 py-3 rounded-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[16px]">expand_more</span>
-              <span>
-                {isBn
-                  ? `আরও ৮ জন শিশু দেখুন (বাকি ${filteredOrphans.length - visibleOrphans.length} জন)`
-                  : `Load 8 More Children (${filteredOrphans.length - visibleOrphans.length} remaining)`}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setDisplayCount(filteredOrphans.length)}
-              className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs border border-slate-300 shadow-xs transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <span>{isBn ? `সকল ${filteredOrphans.length} জন এক সাথে দেখুন` : `View All ${filteredOrphans.length}`}</span>
-            </button>
-          </div>
-        )}
       </section>
 
       {/* Sponsorship Pricing Plans */}

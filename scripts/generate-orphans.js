@@ -185,3 +185,4 @@ export const ORPHAN_PROFILES: OrphanProfile[] = ` + JSON.stringify(list, null, 2
 
 fs.writeFileSync('lib/data/orphans.ts', tsCode, 'utf8');
 console.log('Successfully written lib/data/orphans.ts with', list.length, 'students!');
+
