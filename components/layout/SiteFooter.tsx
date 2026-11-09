@@ -3,47 +3,53 @@
 import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
 import { useModalState } from "@/lib/modal-context";
+import { useSiteSettings } from "@/lib/site-settings";
 
 export default function SiteFooter() {
   const { openLicenseModal, openPaymentModal } = useModalState();
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
 
   return (
-    <footer className="w-full bg-surface-container-low text-on-surface border-t border-border-subtle">
+    <footer className="w-full bg-[#f3f6f4] text-slate-800 border-t border-slate-200">
       {/* Top Trust Bar */}
       <div className="bg-emerald-dark text-on-primary py-6 px-4 sm:px-8">
         <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20">
+            <div className="w-11 h-11 rounded-2xl bg-primary-container flex items-center justify-center text-gold-warm border border-white/20 shrink-0">
               <span className="material-symbols-outlined text-[26px]">
                 verified
               </span>
             </div>
             <div>
               <h4 className="font-serif-heading text-lg font-bold text-white">
-                100% Zakat Guarantee &amp; Absolute Transparency
+                {isBn
+                  ? '১০০% যাকাত গ্যারান্টি ও শতভাগ স্বচ্ছতা'
+                  : '100% Zakat Guarantee & Absolute Transparency'}
               </h4>
               <p className="text-xs text-primary-fixed">
-                Every cent of your Zakat directly reaches qualified
-                beneficiaries under rigorous Shariah stewardship.
+                {isBn
+                  ? 'আপনার দেওয়া যাকাতের প্রতিটি পয়সা কঠোর শরীয়াহ তদারকিতে সরাসরি উপযুক্ত মুস্তাহিকদের হাতে পৌঁছে দেওয়া হয়।'
+                  : 'Every cent of your Zakat directly reaches qualified beneficiaries under rigorous Shariah stewardship.'}
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               type="button"
               onClick={() => openLicenseModal()}
-              className="bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
+              className="bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <span className="material-symbols-outlined text-[16px]">verified</span>
-              লাইসেন্স ও সনদপত্র দেখুন
+              {isBn ? 'লাইসেন্স ও সনদপত্র দেখুন' : 'View Official Licenses'}
             </button>
             <button
               type="button"
-              onClick={() => openPaymentModal({ amount: 1000, cause: 'General Zakat Fund' })}
-              className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
+              onClick={() => openPaymentModal({ amount: isBn ? 1000 : 25, cause: 'General Zakat Fund' })}
+              className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <span className="material-symbols-outlined text-[16px]">favorite</span>
-              EPS অনুদান
+              {isBn ? 'EPS অনুদান দিন' : 'Donate via EPS'}
             </button>
           </div>
         </div>
@@ -63,12 +69,13 @@ export default function SiteFooter() {
                 />
               </Link>
               <span className="text-xs text-text-muted font-medium">
-                Chairman: Mohammad Ali Mostafa
+                {isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}
               </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Dedicated to serving the destitute, orphans, hunger relief, and
-              community empowerment across Bangladesh and beyond.
+              {isBn
+                ? 'বাংলাদেশসহ বিশ্বজুড়ে অনাহার নিবারণ, এতিম প্রতিপালন, বিশুদ্ধ পানি সরবরাহ এবং স্থায়ী পুনর্বাসনে নিবেদিত।'
+                : 'Dedicated to serving the destitute, orphans, hunger relief, and community empowerment across Bangladesh and beyond.'}
             </p>
             <div className="pt-1 flex flex-col gap-2">
               <button
@@ -77,7 +84,11 @@ export default function SiteFooter() {
                 className="inline-flex items-center gap-1.5 text-[11px] bg-zakat-gold-light border border-amber-300 text-amber-900 hover:bg-amber-100 px-2.5 py-1.5 rounded-lg font-bold text-left transition-colors cursor-pointer w-fit"
               >
                 <span className="material-symbols-outlined text-[15px] text-amber-700">verified</span>
-                <span>সরকারি নিবন্ধন: #NGO-AB-89423 (সনদ দেখুন)</span>
+                <span>
+                  {isBn
+                    ? 'সরকারি নিবন্ধন: #NGO-AB-89423 (সনদ দেখুন)'
+                    : 'Govt Reg: #NGO-AB-89423 (View License)'}
+                </span>
               </button>
             </div>
           </div>
@@ -85,7 +96,7 @@ export default function SiteFooter() {
           {/* Appeals List */}
           <div className="space-y-3">
             <h3 className="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">
-              Featured Appeals
+              {isBn ? 'বিশেষ মানবিক আপিলসমূহ' : 'Featured Appeals'}
             </h3>
             <ul className="space-y-2 text-xs text-on-surface-variant">
               <li>
@@ -96,7 +107,7 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-amber-500">
                     campaign
                   </span>
-                  Gaza Emergency Nourishment Appeal
+                  {isBn ? 'জরুরি খাদ্য ও পুষ্টি সহায়তা' : 'Gaza Emergency Nourishment Appeal'}
                 </Link>
               </li>
               <li>
@@ -107,7 +118,7 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-primary">
                     restaurant
                   </span>
-                  One Meal One Hope (Street Food Aid)
+                  {isBn ? 'ওয়ান মিল ওয়ান হোপ (পথশিশু খাদ্য সহায়তা)' : 'One Meal One Hope (Street Food Aid)'}
                 </Link>
               </li>
               <li>
@@ -118,7 +129,7 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-primary">
                     medical_services
                   </span>
-                  Project Alo: Pediatric Surgery &amp; Eyes
+                  {isBn ? 'প্রজেক্ট আলো: শিশুদের চোখের ছানি সার্জারি' : 'Project Alo: Pediatric Surgery & Eyes'}
                 </Link>
               </li>
               <li>
@@ -129,7 +140,7 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-primary">
                     water_drop
                   </span>
-                  Deep Tube Wells &amp; Clean Water
+                  {isBn ? 'বিশুদ্ধ সুপেয় পানির গভীর নলকূপ স্থাপন' : 'Deep Tube Wells & Clean Water'}
                 </Link>
               </li>
               <li>
@@ -140,36 +151,39 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-primary">
                     ac_unit
                   </span>
-                  Project Sheetolota Winter Blankets
+                  {isBn ? 'প্রজেক্ট শীতলতা: শীতবস্ত্র ও কম্বল বিতরণ' : 'Project Sheetolota Winter Blankets'}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Global Offices */}
+          {/* Registered Office */}
           <div className="space-y-3">
             <h3 className="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">
-              Registered Office
+              {isBn ? 'প্রধান নিবন্ধিত কার্যালয়' : 'Registered Office'}
             </h3>
             <div className="space-y-2 text-xs text-on-surface-variant leading-relaxed">
               <div className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary mt-0.5">
+                <span className="material-symbols-outlined text-[16px] text-primary mt-0.5 shrink-0">
                   location_on
                 </span>
                 <span>
-                  <strong>Head Office:</strong> 99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh
+                  <strong>{isBn ? 'প্রধান কার্যালয়:' : 'Head Office:'}</strong>{' '}
+                  {isBn
+                    ? '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা, বাংলাদেশ'
+                    : '99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary">
+                <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                   person
                 </span>
                 <span>
-                  <strong>Chairman:</strong> Mohammad Ali Mostafa
+                  <strong>{isBn ? 'চেয়ারম্যান:' : 'Chairman:'}</strong> মোহাম্মদ আলী মোস্তফা
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary">
+                <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                   call
                 </span>
                 <a href="tel:01913119525" className="hover:underline font-semibold text-emerald-dark">
@@ -177,7 +191,7 @@ export default function SiteFooter() {
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary">
+                <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                   mail
                 </span>
                 <a href="mailto:gmcfoundation2022@gmail.com" className="hover:underline">
@@ -190,11 +204,12 @@ export default function SiteFooter() {
           {/* Newsletter & Updates */}
           <div className="space-y-3">
             <h3 className="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">
-              Field Bulletins
+              {isBn ? 'মাঠপর্যায়ের বুলেটিন' : 'Field Bulletins'}
             </h3>
             <p className="text-xs text-on-surface-variant">
-              Receive verified field impact dispatch reports and tax exemption
-              updates directly.
+              {isBn
+                ? 'আমাদের নিয়মিত মাঠপর্যায়ের মানবিক রিপোর্ট এবং অডিট আপডেট সরাসরি পেতে যুক্ত থাকুন।'
+                : 'Receive verified field impact dispatch reports and tax exemption updates directly.'}
             </p>
             <NewsletterForm />
           </div>
@@ -203,48 +218,34 @@ export default function SiteFooter() {
         {/* Bottom Copyright & Legal */}
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
           <p>
-            © 2025 Global Muslim Charitable Foundation (GMCF). All rights
-            reserved worldwide.
+            {isBn
+              ? '© ২০২৫ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
+              : '© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.'}
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link className="hover:text-primary transition-colors" href="/">
-              Home
+              {isBn ? 'হোম' : 'Home'}
             </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/appeals"
-            >
-              Appeals
+            <Link className="hover:text-primary transition-colors" href="/appeals">
+              {isBn ? 'আপিলসমূহ' : 'Appeals'}
             </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/zakat-calculator"
-            >
-              Zakat Calculator
+            <Link className="hover:text-primary transition-colors" href="/zakat-calculator">
+              {isBn ? 'যাকাত ক্যালকুলেটর' : 'Zakat Calculator'}
             </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/impact"
-            >
-              Impact
+            <Link className="hover:text-primary transition-colors" href="/impact">
+              {isBn ? 'প্রভাব ও রিপোর্ট' : 'Impact'}
             </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/gallery"
-            >
-              Gallery
+            <Link className="hover:text-primary transition-colors" href="/gallery">
+              {isBn ? 'ফিল্ড গ্যালারি' : 'Gallery'}
             </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/about"
-            >
-              About &amp; Governance
+            <Link className="hover:text-primary transition-colors" href="/about">
+              {isBn ? 'আমাদের সম্পর্কে' : 'About'}
             </Link>
             <Link
               className="hover:text-primary transition-colors font-semibold text-emerald-800"
               href="/login"
             >
-              Admin Portal
+              {isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal'}
             </Link>
           </div>
         </div>

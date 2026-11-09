@@ -31,7 +31,7 @@ const config: Config = {
         outline: '#6e7a75',
         'surface-dim': '#d0dbed',
         'surface-variant': '#d9e3f6',
-        'surface-container-low': '#eff4ff',
+        'surface-container-low': '#f3f6f4',
         'tertiary-fixed-dim': '#95d2c6',
         'surface-subtle-mint': '#EEF8F2',
         'amber-vibrant': '#D97706',

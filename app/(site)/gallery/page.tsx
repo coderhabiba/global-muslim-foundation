@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import GalleryPage from '@/components/pages/GalleryPage';
 
 export const metadata: Metadata = {
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <GalleryPage />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading Gallery...</div>}>
+      <GalleryPage />
+    </Suspense>
+  );
 }
-

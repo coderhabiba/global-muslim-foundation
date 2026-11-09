@@ -205,24 +205,30 @@ export default function HomePage() {
 
                 {/* Primary Action Buttons */}
 
-                <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                  <Link
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5"
-                    href="/zakat-calculator"
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2 w-full">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openPaymentModal({
+                        amount: currency === 'BDT' ? 1000 : 25,
+                        cause: 'General Humanitarian & Relief Fund',
+                      })
+                    }
+                    className="w-full sm:w-[260px] h-[52px] rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer shrink-0"
                   >
                     <span className="material-symbols-outlined text-[20px] text-error">
                       favorite
                     </span>
-                    <span className="">Make an Immediate Donation</span>
-                  </Link>
+                    <span>Make an Immediate Donation</span>
+                  </button>
                   <Link
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-surface-clean hover:bg-surface-subtle-mint text-primary font-bold text-sm border border-primary/20 shadow-sm transition-all"
+                    className="w-full sm:w-[260px] h-[52px] rounded-xl bg-surface-clean hover:bg-surface-subtle-mint text-primary font-bold text-sm border border-primary/20 shadow-sm transition-all flex items-center justify-center gap-2 shrink-0 text-center"
                     href="/appeals"
                   >
                     <span className="material-symbols-outlined text-[20px]">
                       explore
                     </span>
-                    <span className="">View Active Appeals &amp; Impact</span>
+                    <span>View Active Appeals &amp; Impact</span>
                   </Link>
                 </div>
 
