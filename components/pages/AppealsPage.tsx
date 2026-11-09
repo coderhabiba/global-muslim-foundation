@@ -158,7 +158,7 @@ export default function AppealsPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
+      <main className="w-full bg-surface pt-[96px] sm:pt-[116px]">
         <div className="flex flex-col w-full">
           {/* Interactive Quick Donation Modal (Hidden by default, triggered via JS) */}
 

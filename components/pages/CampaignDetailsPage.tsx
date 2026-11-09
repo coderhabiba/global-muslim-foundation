@@ -58,7 +58,7 @@ export default function CampaignDetailsPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
+      <main className="w-full bg-surface pt-[96px] sm:pt-[116px]">
         <div className="flex flex-col w-full">
           {/* Sub-Header Breadcrumb & Status Ribbon */}
 

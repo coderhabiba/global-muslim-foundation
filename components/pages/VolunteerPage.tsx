@@ -63,7 +63,7 @@ export default function VolunteerPage() {
 
   return (
     <>
-      <main className="w-full bg-surface pt-[112px] sm:pt-[140px]">
+      <main className="w-full bg-surface pt-[96px] sm:pt-[116px]">
         <div className="flex flex-col w-full">
           {/* Top Ambient Banner / Breadcrumb & Motivation Ribbon */}
 
