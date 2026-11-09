@@ -184,14 +184,14 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         </nav>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <Link
-            className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-[12px] sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 ${
+            className={`inline-flex items-center justify-center gap-1 sm:gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-[11px] xs:text-xs sm:text-sm px-2.5 xs:px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 ${
               isSimple
                 ? 'shadow-md hover:shadow-lg transition-all'
                 : 'shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5'
             }`}
             href="/appeals"
           >
-            <span className="material-symbols-outlined text-[15px] sm:text-[18px]">
+            <span className="material-symbols-outlined text-[13px] xs:text-[15px] sm:text-[18px]">
               favorite
             </span>
             <span>Donate Now</span>
