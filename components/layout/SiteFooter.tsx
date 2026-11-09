@@ -102,34 +102,23 @@ export default function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/appeals"
+                  href="/sponsor-orphan"
                 >
                   <span className="material-symbols-outlined text-[15px] text-amber-500">
-                    campaign
+                    child_care
                   </span>
-                  {isBn ? 'জরুরি খাদ্য ও পুষ্টি সহায়তা' : 'Gaza Emergency Nourishment Appeal'}
+                  {isBn ? 'এতিম শিশু স্পনসর ও হেফজ সহায়তা' : 'Sponsor An Orphan & Quran Hifz'}
                 </Link>
               </li>
               <li>
                 <Link
                   className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/campaign-details"
+                  href="/news"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    restaurant
+                  <span className="material-symbols-outlined text-[15px] text-emerald-600">
+                    newspaper
                   </span>
-                  {isBn ? 'ওয়ান মিল ওয়ান হোপ (পথশিশু খাদ্য সহায়তা)' : 'One Meal One Hope (Street Food Aid)'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/appeals"
-                >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    medical_services
-                  </span>
-                  {isBn ? 'প্রজেক্ট আলো: শিশুদের চোখের ছানি সার্জারি' : 'Project Alo: Pediatric Surgery & Eyes'}
+                  {isBn ? 'সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট' : 'Current News & Field Reports'}
                 </Link>
               </li>
               <li>
@@ -146,12 +135,23 @@ export default function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/appeals"
+                  href="/gallery"
                 >
                   <span className="material-symbols-outlined text-[15px] text-primary">
-                    ac_unit
+                    photo_library
                   </span>
-                  {isBn ? 'প্রজেক্ট শীতলতা: শীতবস্ত্র ও কম্বল বিতরণ' : 'Project Sheetolota Winter Blankets'}
+                  {isBn ? 'মাঠপর্যায়ের স্থিরচিত্র গ্যালারি' : 'Verified Field Photo Gallery'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  href="/members"
+                >
+                  <span className="material-symbols-outlined text-[15px] text-primary">
+                    groups
+                  </span>
+                  {isBn ? 'পরিচালনা পর্ষদ ও স্বেচ্ছাসেবী টিম' : 'Governing Board & Volunteer Team'}
                 </Link>
               </li>
             </ul>

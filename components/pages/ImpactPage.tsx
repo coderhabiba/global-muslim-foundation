@@ -40,13 +40,13 @@ export default function ImpactPage() {
 
   return (
     <>
-      <main className="w-full bg-surface-clean pt-[96px] sm:pt-[116px]">
+      <main className="w-full bg-surface-clean pt-16 sm:pt-20">
         <div className="flex flex-col w-full">
           {/* Editorial Hero & Narrative Header */}
 
           <section className="relative w-full bg-surface-clean overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-surface-subtle-mint/40 via-transparent to-surface pointer-events-none"></div>
-            <div className="relative max-w-[1280px] mx-auto px-4 sm:px-8 pt-10 pb-16">
+            <div className="relative max-w-[1280px] mx-auto px-4 sm:px-8 pt-4 pb-10 sm:pt-6 sm:pb-12">
               {/* Verified Badge & Status Overline */}
 
               <div className="flex items-center gap-3">
