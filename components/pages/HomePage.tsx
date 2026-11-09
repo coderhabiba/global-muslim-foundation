@@ -93,7 +93,7 @@ export default function HomePage() {
 
   return (
     <>
-      <main className="w-full bg-surface-subtle-mint pt-[96px] sm:pt-[116px]">
+      <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[96px] sm:pt-[116px]">
         {/* Top Announcement Pill Bar */}
 
         <div className="w-full bg-surface-subtle-mint border-b border-border-subtle py-2.5 px-4 sm:px-8">
@@ -111,7 +111,7 @@ export default function HomePage() {
               </span>
             </div>
             <div className="flex items-center gap-4 text-xs font-semibold">
-              <span className="inline-flex items-center gap-1 text-emerald-dark">
+              <span suppressHydrationWarning className="inline-flex items-center gap-1 text-emerald-dark">
                 <span className="material-symbols-outlined text-[15px] text-amber-vibrant">
                   verified
                 </span>
