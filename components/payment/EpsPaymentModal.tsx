@@ -255,11 +255,11 @@ export default function EpsPaymentModal() {
                     onClick={() => handleStartPayment('card')}
                     className="p-4 bg-gradient-to-br from-white to-slate-50/60 border-2 border-slate-200 hover:border-blue-600 rounded-2xl flex flex-col justify-between gap-3 transition-all group cursor-pointer shadow-sm hover:shadow-md text-left"
                   >
-                    <div className="flex items-center justify-between w-full">
-                      <span className="text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                    <div className="flex items-center justify-between w-full gap-2">
+                      <span className="text-sm font-bold text-slate-900 group-hover:text-blue-700 whitespace-nowrap">
                         Visa &amp; Mastercard
                       </span>
-                      <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full border border-blue-200">
+                      <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
                         Debit / Credit
                       </span>
                     </div>
@@ -278,7 +278,7 @@ export default function EpsPaymentModal() {
                           className="h-6 w-auto object-contain group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <span className="text-[11px] font-semibold text-slate-500 group-hover:text-blue-600 flex items-center gap-0.5">
+                      <span className="text-[11px] font-semibold text-slate-500 group-hover:text-blue-600 flex items-center gap-0.5 whitespace-nowrap">
                         Pay Card
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
                       </span>
