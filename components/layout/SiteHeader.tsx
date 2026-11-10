@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   // { href: '/appeals', en: 'Appeals', bn: 'আবেদনসমূহ' },
   { href: '/about', en: 'About Us', bn: 'আমাদের সম্পর্কে' },
   { href: '/sponsor-orphan', en: 'Sponsor Child', bn: 'দুস্থ শিশু স্পনসর' },
+  { href: '/upcoming-projects', en: 'Upcoming', bn: 'আসন্ন প্রকল্প' },
   { href: '/news', en: 'News', bn: 'সংবাদ' },
   { href: '/zakat-calculator', en: 'Zakat', bn: 'যাকাত' },
   { href: '/impact', en: 'Impact', bn: 'কার্যক্রম' },

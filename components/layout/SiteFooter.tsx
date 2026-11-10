@@ -255,6 +255,9 @@ export default function SiteFooter() {
             <Link className="hover:text-primary transition-colors" href="/about">
               {isBn ? 'আমাদের সম্পর্কে' : 'About'}
             </Link>
+            <Link className="hover:text-primary transition-colors" href="/upcoming-projects">
+              {isBn ? 'আসন্ন প্রকল্প' : 'Upcoming Projects'}
+            </Link>
             <Link
               className="hover:text-primary transition-colors font-semibold text-emerald-800"
               href="/login"
