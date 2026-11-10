@@ -94,39 +94,6 @@ export default function HomePage() {
   return (
     <>
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
-        {/* Top Announcement Pill Bar */}
-
-        <div className="w-full bg-surface-subtle-mint border-b border-border-subtle py-2.5 px-4 sm:px-8">
-          <div className="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-primary">
-            <div className="flex items-center gap-2 font-medium">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-[12px] shadow-sm">
-                <span className="material-symbols-outlined text-[13px]">
-                  emergency_home
-                </span>
-              </span>
-              <span className="" suppressHydrationWarning>
-                <strong suppressHydrationWarning>Ramadan &amp; Emergency Appeal:</strong> 100% of your
-                Zakat funds provide immediate warm meals and urgent pediatric
-                healthcare for destitute children.
-              </span>
-            </div>
-            <div className="flex items-center gap-4 text-xs font-semibold">
-              <span suppressHydrationWarning className="inline-flex items-center gap-1 text-emerald-dark">
-                <span className="material-symbols-outlined text-[15px] text-amber-vibrant">
-                  verified
-                </span>
-                Govt. Registered NGO No: NGO-AB-89423
-              </span>
-              <Link
-                className="hidden sm:inline-flex items-center gap-1 text-primary hover:text-emerald-dark underline font-bold"
-                href="/zakat-calculator"
-              >
-                Instant Zakat Calculator →
-              </Link>
-            </div>
-          </div>
-        </div>
-
         {/* Hero Section with Dual Column & Floating Interactive Donation Card */}
 
         <section className="relative w-full bg-gradient-to-b from-surface-subtle-mint/50 via-surface to-surface overflow-hidden py-12 lg:py-16">
