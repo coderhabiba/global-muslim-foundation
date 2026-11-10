@@ -303,9 +303,9 @@ export default function SponsorOrphanPage() {
                     : 'border-slate-200'
                 }`}
               >
-                {/* Photo Container with Full Visibility of Child's Face (No dark mask on face) */}
+                {/* Photo Container with Border Line & Overlapping Circular Emblem (Exact Screenshot Match) */}
                 <div className="relative">
-                  <div className="relative h-72 w-full overflow-hidden bg-slate-100">
+                  <div className="relative h-72 w-full overflow-hidden bg-slate-100 rounded-t-2xl border-b-[2.5px] border-[#0a3d40]">
                     <img
                       src={child.image}
                       alt={isBn ? child.nameBn : child.nameEn}
@@ -313,26 +313,23 @@ export default function SponsorOrphanPage() {
                       loading="lazy"
                     />
 
-                    {/* Very subtle bottom-only gradient for clean contrast */}
-                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-
-                    {/* Status Badges */}
+                    {/* Top Status Badges */}
                     {isSponsored ? (
-                      <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
-                        <span className="bg-[#0e4d36]/95 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-md flex items-center gap-1">
+                      <div className="absolute top-3 left-3 flex flex-col gap-1 items-start z-10">
+                        <span className="bg-[#0a3d40] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-md flex items-center gap-1">
                           <span className="material-symbols-outlined text-[13px] text-emerald-200">check_circle</span>
                           <span>{isBn ? child.statusBn : child.statusEn}</span>
                         </span>
                         {child.remainingTimeBn && (
-                          <span className="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 border border-amber-600/30">
+                          <span className="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 border border-amber-500">
                             <span className="material-symbols-outlined text-[12px]">schedule</span>
                             <span>{isBn ? child.remainingTimeBn : child.remainingTimeEn}</span>
                           </span>
                         )}
                       </div>
                     ) : (
-                      <div className="absolute top-3 left-3">
-                        <span className="bg-red-600/95 backdrop-blur-xs text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md flex items-center gap-1.5 animate-pulse">
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md flex items-center gap-1.5 animate-pulse">
                           <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                           <span>{isBn ? child.statusBn : child.statusEn}</span>
                         </span>
@@ -340,12 +337,9 @@ export default function SponsorOrphanPage() {
                     )}
                   </div>
 
-                  {/* Dark Green Horizontal Divider Bar (As in user screenshot) */}
-                  <div className="w-full h-1.5 bg-[#0e4d36]" />
-
-                  {/* Circular Emblem Badge (As in user screenshot: circular badge overlapping bottom-right corner) */}
+                  {/* Circular Emblem Badge (Centered on the bottom divider border, exactly as in user screenshot) */}
                   <div
-                    className="absolute -bottom-5 right-3 w-12 h-12 rounded-full bg-white border-[2.5px] border-[#0e4d36] shadow-md flex items-center justify-center p-1 z-20 group-hover:scale-110 transition-transform duration-300"
+                    className="absolute -bottom-7 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0a3d40] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
                     title="GMCF Verified Child"
                   >
                     <img
@@ -356,39 +350,44 @@ export default function SponsorOrphanPage() {
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="p-5 pt-4 flex-1 flex flex-col justify-between space-y-3">
+                {/* Card Content with Exact "প্রজেক্ট নং" Heading Below Image */}
+                <div className="p-5 pt-6 flex-1 flex flex-col justify-between space-y-3">
                   <div>
-                    {/* ID Tag directly below the green bar */}
-                    <div className="flex items-center gap-2 mb-1.5 pr-14">
-                      <span className="text-xs font-black text-[#0e4d36] tracking-wider uppercase font-mono">
-                        {isBn ? `আইডি নং : ${child.id}` : `ID No : ${child.id}`}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#0e4d36] transition-colors">
-                        {isBn ? child.nameBn : child.nameEn}
-                      </h3>
-                      <span className="text-xs font-semibold text-[#0e4d36] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                    {/* Prominent "প্রজেক্ট নং" Heading (Exactly matching user's screenshot layout) */}
+                    <div className="flex items-center justify-between mb-2 pr-16">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                          {isBn ? 'প্রজেক্ট নং' : 'Project No'}
+                        </span>
+                        <span className="text-base sm:text-lg font-black text-[#0a3d40]">
+                          : {child.id.replace('GMCF-ORP-', '')}
+                        </span>
+                      </div>
+                      <span className="text-xs font-semibold text-[#0a3d40] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                         {isBn ? `${child.age} বছর` : `Age ${child.age}`}
                       </span>
                     </div>
 
-                    <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-1">
-                      <span className="material-symbols-outlined text-[14px] text-amber-600">location_on</span>
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#0a3d40] transition-colors">
+                        {isBn ? child.nameBn : child.nameEn}
+                      </h3>
+                    </div>
+
+                    <p className="text-[12px] text-slate-500 flex items-center gap-1 mt-1">
+                      <span className="material-symbols-outlined text-[15px] text-amber-600">location_on</span>
                       {isBn ? child.locationBn : child.locationEn}
                     </p>
 
                     {/* Duration badge if sponsored */}
                     {isSponsored && (
-                      <div className="mt-2 text-[11px] font-semibold text-[#0e4d36] bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 flex flex-col gap-0.5">
+                      <div className="mt-2 text-[11px] font-semibold text-[#0a3d40] bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200 flex flex-col gap-0.5">
                         <div className="flex items-center gap-1">
                           <span className="material-symbols-outlined text-[13px] text-emerald-700">history</span>
                           <span>{isBn ? child.durationBn : child.durationEn}</span>
                         </div>
                         {child.remainingTimeBn && (
-                          <div className="text-[10px] text-amber-800 font-bold flex items-center gap-1">
+                          <div className="text-[10px] text-amber-800 font-bold flex items-center gap-1 mt-0.5">
                             <span className="material-symbols-outlined text-[12px] text-amber-600">hourglass_top</span>
                             <span>{isBn ? `মেয়াদ বাকি: ${child.remainingTimeBn}` : `Remaining: ${child.remainingTimeEn}`}</span>
                           </div>

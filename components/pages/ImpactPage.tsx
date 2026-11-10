@@ -498,7 +498,7 @@ export default function ImpactPage() {
                 {/* Image Header with Dark Green Divider Bar & Circular Emblem (EXACT User Screenshot Design) */}
                 <div className="relative">
                   {/* Photo Container */}
-                  <div className="relative h-60 w-full overflow-hidden bg-slate-100">
+                  <div className="relative h-60 w-full overflow-hidden bg-slate-100 rounded-t-2xl border-b-[2.5px] border-[#0a3d40]">
                     <img
                       src={project.image}
                       alt={isBn ? project.titleBn : project.titleEn}
@@ -506,30 +506,24 @@ export default function ImpactPage() {
                       loading="lazy"
                     />
 
-                    {/* Gradient overlay for contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
                     {/* Top Left: Category Badge */}
-                    <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-                      <span className="bg-[#0e4d36]/95 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
+                    <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
+                      <span className="bg-[#0a3d40] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
                         {isBn ? project.categoryBn : project.categoryEn}
                       </span>
                     </div>
 
                     {/* Top Right: Status Badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow">
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow">
                         {isBn ? project.statusBn : project.statusEn}
                       </span>
                     </div>
                   </div>
 
-                  {/* Dark Green Horizontal Divider Bar (As in user screenshot) */}
-                  <div className="w-full h-1.5 bg-[#0e4d36]" />
-
-                  {/* Circular Emblem Badge (As in user screenshot: circular badge overlapping bottom-right corner) */}
+                  {/* Circular Emblem Badge (Centered on the bottom divider border, exactly as in user screenshot) */}
                   <div
-                    className="absolute -bottom-6 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0e4d36] shadow-lg flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
+                    className="absolute -bottom-7 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0a3d40] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
                     title="GMCF Verified Project"
                   >
                     <img
@@ -541,12 +535,15 @@ export default function ImpactPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-5 pt-5 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-5 pt-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
                     {/* Prominent "প্রজেক্ট নং" label exactly as in user screenshot */}
-                    <div className="flex items-center gap-2 mb-1.5 pr-16">
-                      <span className="text-base sm:text-lg font-black text-[#0e4d36] tracking-wide">
-                        {isBn ? `প্রজেক্ট নং : ${project.projectNoBn}` : `Project No : ${project.projectNoEn}`}
+                    <div className="flex items-center gap-1.5 mb-2 pr-16">
+                      <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                        {isBn ? 'প্রজেক্ট নং' : 'Project No'}
+                      </span>
+                      <span className="text-base sm:text-lg font-black text-[#0a3d40]">
+                        : {project.projectNoBn}
                       </span>
                     </div>
 

@@ -300,33 +300,29 @@ export default function UpcomingProjectsPage() {
               >
                 {/* Image Header with Dark Green Divider Bar & Circular Emblem (Exact User Screenshot Design) */}
                 <div className="relative">
-                  <div className="relative h-64 w-full overflow-hidden bg-slate-100">
+                  <div className="relative h-64 w-full overflow-hidden bg-slate-100 rounded-t-2xl border-b-[2.5px] border-[#0a3d40]">
                     <img
                       src={project.image}
                       alt={isBn ? project.titleBn : project.titleEn}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                    <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-                      <span className="bg-[#0e4d36]/95 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                    <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
+                      <span className="bg-[#0a3d40] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
                         {isBn ? project.categoryBn : project.categoryEn}
                       </span>
                     </div>
 
-                    <div className="absolute top-3 right-3">
+                    <div className="absolute top-3 right-3 z-10">
                       <span className="bg-amber-500 text-slate-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow">
                         {isBn ? project.statusBn : project.statusEn}
                       </span>
                     </div>
                   </div>
 
-                  {/* Dark Green Horizontal Divider Bar */}
-                  <div className="w-full h-1.5 bg-[#0e4d36]" />
-
-                  {/* Circular Emblem Badge overlapping bottom-right corner */}
+                  {/* Circular Emblem Badge overlapping bottom-right corner (Exact User Screenshot Design) */}
                   <div
-                    className="absolute -bottom-6 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0e4d36] shadow-lg flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
+                    className="absolute -bottom-7 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0a3d40] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
                     title="GMCF Verified Project"
                   >
                     <img
@@ -338,12 +334,15 @@ export default function UpcomingProjectsPage() {
                 </div>
 
                 {/* Content Details */}
-                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-6 sm:p-7 pt-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-3">
                     {/* Prominent "প্রজেক্ট নং" exactly as in screenshot */}
-                    <div className="flex items-center gap-2 pr-16">
-                      <span className="text-base sm:text-lg font-black text-[#0e4d36] tracking-wide">
-                        {isBn ? `প্রজেক্ট নং : ${project.id.toUpperCase()}` : `Project No : ${project.id.toUpperCase()}`}
+                    <div className="flex items-center gap-1.5 pr-16 mb-2">
+                      <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                        {isBn ? 'প্রজেক্ট নং' : 'Project No'}
+                      </span>
+                      <span className="text-base sm:text-lg font-black text-[#0a3d40]">
+                        : {project.id.toUpperCase().replace('PROJ-', '')}
                       </span>
                     </div>
 
