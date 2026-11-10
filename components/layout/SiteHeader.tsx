@@ -10,15 +10,15 @@ import {
 import { useModalState } from '@/lib/modal-context';
 
 const NAV_ITEMS = [
-  { href: '/appeals', en: 'Appeals', bn: 'আবেদনসমূহ' },
-  { href: '/sponsor-orphan', en: 'Orphans', bn: 'এতিম স্পনসর' },
+  // { href: '/appeals', en: 'Appeals', bn: 'আবেদনসমূহ' },
+  { href: '/about', en: 'About Us', bn: 'আমাদের সম্পর্কে' },
+  { href: '/sponsor-orphan', en: 'Sponsor Child', bn: 'দুস্থ শিশু স্পনসর' },
   { href: '/news', en: 'News', bn: 'সংবাদ' },
   { href: '/zakat-calculator', en: 'Zakat', bn: 'যাকাত' },
   { href: '/impact', en: 'Impact', bn: 'কার্যক্রম' },
   { href: '/gallery', en: 'Gallery', bn: 'গ্যালারি' },
-  { href: '/members', en: 'Team', bn: 'টিম ও মেম্বার' },
+  // { href: '/members', en: 'Team', bn: 'টিম ও মেম্বার' },
   { href: '/volunteer', en: 'Volunteer', bn: 'স্বেচ্ছাসেবক' },
-  { href: '/about', en: 'About', bn: 'পরিচিতি' },
 ] as const;
 
 type SiteHeaderProps = {
@@ -222,37 +222,6 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           })}
         </nav>
         <div className="border-t border-border-subtle px-3 py-3 space-y-2">
-          {/* Mobile Language Switcher */}
-          <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-xs font-semibold text-slate-700">
-              {isBn ? 'ভাষা নির্বাচন / Language' : 'Language'}
-            </span>
-            <div className="flex items-center bg-white p-0.5 rounded-full border border-slate-300">
-              <button
-                type="button"
-                className={`px-3 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
-                  language === 'en'
-                    ? 'bg-emerald-800 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                onClick={() => setLanguage('en')}
-              >
-                English
-              </button>
-              <button
-                type="button"
-                className={`px-3 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
-                  language === 'bn'
-                    ? 'bg-emerald-800 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                onClick={() => setLanguage('bn')}
-              >
-                বাংলা
-              </button>
-            </div>
-          </div>
-
           <button
             type="button"
             className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-sm px-4 py-3 rounded-xl shadow-md whitespace-nowrap cursor-pointer"

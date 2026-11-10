@@ -107,7 +107,7 @@ export default function SiteFooter() {
                   <span className="material-symbols-outlined text-[15px] text-amber-500">
                     child_care
                   </span>
-                  {isBn ? 'এতিম শিশু স্পনসর ও হেফজ সহায়তা' : 'Sponsor An Orphan & Quran Hifz'}
+                  {isBn ? 'দুস্থ শিশু স্পনসর ও হেফজ সহায়তা' : 'Sponsor Vulnerable Children & Quran Hifz'}
                 </Link>
               </li>
               <li>

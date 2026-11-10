@@ -153,12 +153,12 @@ export default function SponsorOrphanPage() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
               <>
-                একটি এতিম শিশুর মুখে হাসি ফোটান,{' '}
+                একটি দুস্থ শিশুর মুখে হাসি ফোটান,{' '}
                 <span className="text-amber-600">জান্নাতে রাসূল (ﷺ)-এর সঙ্গী হোন</span>
               </>
             ) : (
               <>
-                Sponsor a Vulnerable Orphan &amp;{' '}
+                Sponsor a Vulnerable Child &amp;{' '}
                 <span className="text-amber-600">Earn Eternal Jannah with the Prophet (ﷺ)</span>
               </>
             )}
