@@ -303,13 +303,13 @@ export default function SponsorOrphanPage() {
                     : 'border-slate-200'
                 }`}
               >
-                {/* Photo Container with Border Line & Overlapping Circular Emblem (Exact Screenshot Match) */}
+                {/* Photo Container with Exact 285/337 Aspect Ratio so 100% of the photo is visible with 0 cropping & 0 space */}
                 <div className="relative">
-                  <div className="relative h-72 w-full overflow-hidden bg-slate-50 rounded-t-2xl border-b-[2.5px] border-[#0a3d40] flex items-center justify-center">
+                  <div className="relative aspect-[285/337] w-full overflow-hidden bg-slate-100 rounded-t-2xl border-b-[2.5px] border-[#0a3d40]">
                     <img
                       src={child.image}
                       alt={isBn ? child.nameBn : child.nameEn}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-fill block"
                       loading="lazy"
                     />
 
