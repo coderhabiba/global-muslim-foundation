@@ -15,7 +15,6 @@ const NAV_ITEMS = [
   { href: '/sponsor-orphan', en: 'Sponsor Child', bn: 'দুস্থ শিশু স্পনসর' },
   { href: '/upcoming-projects', en: 'Upcoming', bn: 'আসন্ন প্রকল্প' },
   { href: '/impact', en: 'Our Projects', bn: 'আমাদের প্রজেক্ট সমূহ' },
-  { href: '/news', en: 'News', bn: 'সংবাদ' },
   { href: '/zakat-calculator', en: 'Zakat', bn: 'যাকাত' },
   { href: '/gallery', en: 'Gallery', bn: 'গ্যালারি' },
   // { href: '/members', en: 'Team', bn: 'টিম ও মেম্বার' },
@@ -62,18 +61,23 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
     >
       {/* Main Navigation Bar */}
       <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-3 sm:px-6 flex items-center justify-between gap-2 lg:gap-4">
-        {/* Brand Logo */}
-        <Link
-          className="flex items-center shrink-0 group py-1"
-          href="/"
-          title="Global Muslim Charitable Foundation"
-        >
-          <img
-            src="/images/gmcf-logo-full.png"
-            alt="Global Muslim Charitable Foundation Logo"
-            className="h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[240px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
-          />
-        </Link>
+        {/* Brand Logo & Slogan */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link
+            className="flex items-center shrink-0 group py-1"
+            href="/"
+            title="Global Muslim Charitable Foundation"
+          >
+            <img
+              src="/images/gmcf-logo-full.png"
+              alt="Global Muslim Charitable Foundation Logo"
+              className="h-10 sm:h-12 w-auto max-w-[190px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
+            />
+          </Link>
+          <span className="hidden 2xl:inline-block text-[11px] font-semibold text-emerald-800 italic border-l border-slate-300 pl-3">
+            “Your Kindness is someone&apos;s hope”
+          </span>
+        </div>
 
         {/* Clean, Compact Desktop Menu */}
         <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[13px] xl:text-[14px] font-semibold text-slate-700">

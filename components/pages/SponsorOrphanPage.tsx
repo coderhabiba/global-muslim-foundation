@@ -305,11 +305,11 @@ export default function SponsorOrphanPage() {
               >
                 {/* Photo Container with Border Line & Overlapping Circular Emblem (Exact Screenshot Match) */}
                 <div className="relative">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-white rounded-t-2xl border-b-[2.5px] border-[#0a3d40] flex items-center justify-center">
+                  <div className="relative h-72 w-full overflow-hidden bg-slate-50 rounded-t-2xl border-b-[2.5px] border-[#0a3d40] flex items-center justify-center">
                     <img
                       src={child.image}
                       alt={isBn ? child.nameBn : child.nameEn}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-top"
                       loading="lazy"
                     />
 

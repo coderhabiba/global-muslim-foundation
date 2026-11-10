@@ -68,6 +68,9 @@ export default function SiteFooter() {
                   className="h-10 sm:h-12 w-auto object-contain"
                 />
               </Link>
+              <p className="text-xs font-semibold text-emerald-800 italic">
+                “Your Kindness is someone&apos;s hope”
+              </p>
               <span className="text-xs text-text-muted font-medium">
                 {isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}
               </span>
