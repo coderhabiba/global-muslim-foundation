@@ -5,8 +5,6 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import {
-  CURRENCIES,
-  CURRENCY_CODES,
   useSiteSettings,
 } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
@@ -61,108 +59,8 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
       data-l10n="off"
       className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
     >
-      {/* International Meta Strip */}
-      <div className="bg-emerald-dark text-on-primary">
-        <div className="max-w-[1280px] mx-auto h-8 px-3 sm:px-8 flex items-center justify-between gap-2 text-[11px] sm:text-xs font-medium">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className="material-symbols-outlined text-[14px] text-gold-warm shrink-0">
-              call
-            </span>
-            <span className="flex items-baseline gap-1 whitespace-nowrap truncate">
-              <span className="hidden sm:inline">{isBn ? 'জরুরি হেল্পলাইন:' : '24/7 Helpline:'}</span>
-              <strong className="text-white">+880 1913-119525</strong>
-            </span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-1.5 text-primary-fixed shrink-0">
-            <button
-              type="button"
-              onClick={() => openLicenseModal()}
-              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors cursor-pointer bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15"
-              title="সরকারি নিবন্ধন ও শরীয়াহ সনদপত্র দেখুন"
-            >
-              <span className="material-symbols-outlined text-[14px] text-gold-warm">
-                verified_user
-              </span>
-              <span>{isBn ? 'সরকারি লাইসেন্স ও সনদ (#NGO-AB-89423)' : 'Govt. License & Certificate (#NGO-AB-89423)'}</span>
-            </button>
-          </div>
-
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            <Link
-              className="hidden md:flex items-center gap-1 hover:text-gold-warm transition-colors whitespace-nowrap text-[11px]"
-              href="/zakat-calculator"
-            >
-              <span className="material-symbols-outlined text-[14px]">
-                calculate
-              </span>
-              <span>{isBn ? 'যাকাত ক্যালকুলেটর' : 'Zakat Calculator'}</span>
-            </Link>
-
-            {!isSimple && (
-              <div
-                className="flex items-center gap-1 bg-black/20 px-1.5 py-0.5 rounded border border-white/10"
-                data-l10n="off"
-              >
-                <span className="material-symbols-outlined text-[12px] text-gold-warm">
-                  currency_exchange
-                </span>
-                <select
-                  className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
-                  value={currency}
-                  onChange={event =>
-                    setCurrency(event.target.value as typeof currency)
-                  }
-                  aria-label="Select currency"
-                >
-                  {CURRENCY_CODES.map(code => (
-                    <option
-                      key={code}
-                      className="text-slate-900 bg-white"
-                      value={code}
-                    >
-                      {CURRENCIES[code].label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            <div
-              className="flex items-center gap-0.5 bg-black/20 p-0.5 rounded border border-white/10"
-              data-l10n="off"
-            >
-              <button
-                type="button"
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold leading-tight transition-colors ${
-                  language === 'en'
-                    ? 'bg-gold-warm text-emerald-dark'
-                    : 'text-white/70 hover:text-white'
-                }`}
-                aria-pressed={language === 'en'}
-                onClick={() => setLanguage('en')}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold leading-tight transition-colors ${
-                  language === 'bn'
-                    ? 'bg-gold-warm text-emerald-dark'
-                    : 'text-white/70 hover:text-white'
-                }`}
-                aria-pressed={language === 'bn'}
-                onClick={() => setLanguage('bn')}
-              >
-                বাং
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navigation Bar */}
-      <div className="max-w-[1280px] mx-auto h-16 sm:h-18 px-3 sm:px-6 flex items-center justify-between gap-2 lg:gap-4">
+      <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-3 sm:px-6 flex items-center justify-between gap-2 lg:gap-4">
         {/* Brand Logo */}
         <Link
           className="flex items-center shrink-0 group py-1"
@@ -172,7 +70,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           <img
             src="/images/gmcf-logo-full.png"
             alt="Global Muslim Charitable Foundation Logo"
-            className="h-9 sm:h-11 w-auto max-w-[200px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
+            className="h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[240px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
           />
         </Link>
 
@@ -199,7 +97,38 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         </nav>
 
         {/* Right Action Buttons */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Language Switcher */}
+          <div
+            className="flex items-center bg-slate-100 p-0.5 rounded-full border border-slate-200/90 shadow-2xs"
+            data-l10n="off"
+          >
+            <button
+              type="button"
+              className={`px-2.5 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+                language === 'en'
+                  ? 'bg-emerald-800 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              aria-pressed={language === 'en'}
+              onClick={() => setLanguage('en')}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              className={`px-2.5 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+                language === 'bn'
+                  ? 'bg-emerald-800 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              aria-pressed={language === 'bn'}
+              onClick={() => setLanguage('bn')}
+            >
+              বাং
+            </button>
+          </div>
+
           <button
             type="button"
             onClick={() =>
@@ -208,7 +137,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
                 cause: 'General Humanitarian Relief Fund',
               })
             }
-            className={`inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
               isSimple
                 ? 'shadow-md hover:shadow-lg transition-all'
                 : 'shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5'
@@ -293,6 +222,37 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
           })}
         </nav>
         <div className="border-t border-border-subtle px-3 py-3 space-y-2">
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200">
+            <span className="text-xs font-semibold text-slate-700">
+              {isBn ? 'ভাষা নির্বাচন / Language' : 'Language'}
+            </span>
+            <div className="flex items-center bg-white p-0.5 rounded-full border border-slate-300">
+              <button
+                type="button"
+                className={`px-3 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+                  language === 'en'
+                    ? 'bg-emerald-800 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                onClick={() => setLanguage('en')}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                className={`px-3 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+                  language === 'bn'
+                    ? 'bg-emerald-800 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                onClick={() => setLanguage('bn')}
+              >
+                বাংলা
+              </button>
+            </div>
+          </div>
+
           <button
             type="button"
             className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-sm px-4 py-3 rounded-xl shadow-md whitespace-nowrap cursor-pointer"

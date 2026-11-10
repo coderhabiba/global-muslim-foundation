@@ -158,7 +158,7 @@ export default function AppealsPage() {
 
   return (
     <>
-      <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[96px] sm:pt-[116px]">
+      <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Interactive Quick Donation Modal (Hidden by default, triggered via JS) */}
 

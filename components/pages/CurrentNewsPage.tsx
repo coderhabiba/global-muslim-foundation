@@ -141,7 +141,7 @@ export default function CurrentNewsPage() {
   });
 
   return (
-    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[89px] sm:pt-[97px] min-h-screen">
+    <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">

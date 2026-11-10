@@ -113,7 +113,7 @@ export default function ZakatCalculatorPage() {
 
   return (
     <>
-      <main suppressHydrationWarning className="w-full bg-surface-container-low pt-[96px] sm:pt-[116px]">
+      <main suppressHydrationWarning className="w-full bg-surface-container-low pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Section 1: Hero Banner & Trust Foundation */}
 

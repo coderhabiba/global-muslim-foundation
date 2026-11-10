@@ -40,7 +40,7 @@ export default function ImpactPage() {
 
   return (
     <>
-      <main suppressHydrationWarning className="w-full bg-surface-clean pt-[89px] sm:pt-[97px]">
+      <main suppressHydrationWarning className="w-full bg-surface-clean pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Editorial Hero & Narrative Header */}
 
