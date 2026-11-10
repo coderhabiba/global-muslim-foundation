@@ -574,50 +574,67 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Campaign 1: One Meal One Hope */}
-
               <div className="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    alt="One Meal One Hope food distribution"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="/images/one-meal-one-hope.jpg"
-                  />
-                  <div className="absolute top-3 left-3 bg-amber-vibrant text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                    Food Relief
+                <div className="relative">
+                  <div className="relative h-52 overflow-hidden bg-slate-100">
+                    <img
+                      alt="One Meal One Hope food distribution"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      src="/images/one-meal-one-hope.jpg"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#0e4d36] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                      {isBn ? 'খাদ্য সহায়তা' : 'Food Relief'}
+                    </div>
+                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                      {isBn ? 'যাকাত উপযুক্ত' : 'Zakat Eligible'}
+                    </div>
                   </div>
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
-                    Zakat Eligible
+                  <div className="w-full h-1.5 bg-[#0e4d36]" />
+                  <div
+                    className="absolute -bottom-5 right-3 w-12 h-12 rounded-full bg-white border-[2px] border-[#0e4d36] shadow-md flex items-center justify-center p-1 z-20 group-hover:scale-105 transition-transform duration-300"
+                    title="GMCF Verified Project"
+                  >
+                    <img
+                      src="/images/gmcf-logo-emblem.png"
+                      alt="GMCF Badge"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
+
+                <div className="p-5 pt-4 flex flex-col flex-grow justify-between space-y-4">
                   <div>
+                    <div className="flex items-center gap-2 mb-1.5 pr-14">
+                      <span className="text-xs font-black text-[#0e4d36] tracking-wider uppercase">
+                        {isBn ? 'প্রজেক্ট নং : ০২' : 'Project No : 02'}
+                      </span>
+                    </div>
                     <Link
-                      href="/campaign-details"
+                      href="/impact"
                       className="block hover:underline"
                     >
                       <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
-                        One Meal One Hope
+                        {isBn ? 'ওয়ান মিল ওয়ান হোপ' : 'One Meal One Hope'}
                       </h3>
                     </Link>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
-                      Daily hot nutritious meals and essential supplements for
-                      abandoned street children and railway families across
-                      Dhaka hubs.
+                      {isBn
+                        ? 'রাজধানীর বিভিন্ন রেলওয়ে স্টেশন ও ফুটপাতে অভুক্ত থাকা পথশিশু ও ছিন্নমূল মানুষের মুখে প্রতিদিন পুষ্টিকর গরম খাবার বিতরণ।'
+                        : 'Daily hot nutritious meals and essential supplements for abandoned street children across Dhaka transit hubs.'}
                     </p>
                   </div>
 
                   {/* Progress Bar */}
-
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-primary">
-                        Raised: $38,500
+                        {isBn ? 'সংগৃহীত: $৩৮,৫০০' : 'Raised: $38,500'}
                       </span>
-                      <span className="text-text-muted">Goal: $50,000</span>
+                      <span className="text-text-muted">{isBn ? 'লক্ষ্য: $৫০,০০০' : 'Goal: $50,000'}</span>
                     </div>
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-primary rounded-full"
+                        className="h-full bg-[#0e4d36] rounded-full"
                         style={{ width: '77%' }}
                       ></div>
                     </div>
@@ -626,60 +643,81 @@ export default function HomePage() {
                         <span className="material-symbols-outlined text-[14px] text-amber-500">
                           group
                         </span>
-                        620 Donors
+                        {isBn ? '৬২০ জন দাতা' : '620 Donors'}
                       </span>
-                      <span className="font-bold text-primary">77% funded</span>
+                      <span className="font-bold text-primary">77%</span>
                     </div>
                   </div>
-                  <Link
-                    href="/campaign-details"
-                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                  <button
+                    type="button"
+                    onClick={() => openPaymentModal({ amount: isBn ? 1000 : 25, cause: 'One Meal One Hope' })}
+                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-[#0e4d36] text-[#0e4d36] hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[18px]">
                       volunteer_activism
                     </span>
-                    <span>View Appeal & Sponsor</span>
-                  </Link>
+                    <span>{isBn ? 'আপিলে দান করুন' : 'View Appeal & Sponsor'}</span>
+                  </button>
                 </div>
               </div>
 
               {/* Campaign 2: Project Alo: Eye Care & Pediatric Surgery */}
-
               <div className="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    alt="Project Alo: Eye Care &amp; Pediatric Surgery"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="/images/project-alo-eye-care.jpg"
-                  />
-                  <div className="absolute top-3 left-3 bg-oceanic-teal-deep text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                    Pediatric Care
+                <div className="relative">
+                  <div className="relative h-52 overflow-hidden bg-slate-100">
+                    <img
+                      alt="Project Alo: Eye Care &amp; Pediatric Surgery"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      src="/images/project-alo-eye-care.jpg"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#0e4d36] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                      {isBn ? 'চিকিৎসাসেবা' : 'Pediatric Care'}
+                    </div>
+                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                      {isBn ? 'যাকাত উপযুক্ত' : 'Zakat Eligible'}
+                    </div>
                   </div>
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
-                    Zakat Eligible
+                  <div className="w-full h-1.5 bg-[#0e4d36]" />
+                  <div
+                    className="absolute -bottom-5 right-3 w-12 h-12 rounded-full bg-white border-[2px] border-[#0e4d36] shadow-md flex items-center justify-center p-1 z-20 group-hover:scale-105 transition-transform duration-300"
+                    title="GMCF Verified Project"
+                  >
+                    <img
+                      src="/images/gmcf-logo-emblem.png"
+                      alt="GMCF Badge"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
+
+                <div className="p-5 pt-4 flex flex-col flex-grow justify-between space-y-4">
                   <div>
-                    <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
-                      Project Alo: Eye Care &amp; Pediatric Surgery
-                    </h3>
+                    <div className="flex items-center gap-2 mb-1.5 pr-14">
+                      <span className="text-xs font-black text-[#0e4d36] tracking-wider uppercase">
+                        {isBn ? 'প্রজেক্ট নং : ০৩' : 'Project No : 03'}
+                      </span>
+                    </div>
+                    <Link href="/impact" className="block hover:underline">
+                      <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        {isBn ? 'প্রজেক্ট আলো — চক্ষু ছানি অপারেশন' : 'Project Alo: Eye Care & Surgery'}
+                      </h3>
+                    </Link>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
-                      Sight-restoring cataract surgery, chronic infection
-                      treatments, and emergency prescription pharmaceuticals for
-                      impoverished children.
+                      {isBn
+                        ? 'দৃষ্টিহীনতার ঝুঁকিতে থাকা দরিদ্র প্রবীণ ও শিশুদের বিনামূল্যে আধুনিক ফ্যাকো ছানি অপারেশন ও লেন্স প্রতিস্থাপন।'
+                        : 'Sight-restoring cataract surgery and emergency medical procedures for impoverished children and elders.'}
                     </p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-primary">
-                        Raised: $29,000
+                        {isBn ? 'সংগৃহীত: $২৯,০০০' : 'Raised: $29,000'}
                       </span>
-                      <span className="text-text-muted">Goal: $35,000</span>
+                      <span className="text-text-muted">{isBn ? 'লক্ষ্য: $৩৫,০০০' : 'Goal: $35,000'}</span>
                     </div>
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-primary rounded-full"
+                        className="h-full bg-[#0e4d36] rounded-full"
                         style={{ width: '83%' }}
                       ></div>
                     </div>
@@ -688,60 +726,81 @@ export default function HomePage() {
                         <span className="material-symbols-outlined text-[14px] text-amber-500">
                           group
                         </span>
-                        410 Donors
+                        {isBn ? '৪১০ জন দাতা' : '410 Donors'}
                       </span>
-                      <span className="font-bold text-primary">83% funded</span>
+                      <span className="font-bold text-primary">83%</span>
                     </div>
                   </div>
                   <button
-                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
                     type="button"
+                    onClick={() => openPaymentModal({ amount: isBn ? 5500 : 50, cause: 'Project Alo Eye Surgery' })}
+                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-[#0e4d36] text-[#0e4d36] hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[18px]">
                       medical_services
                     </span>
-                    <span className="">Fund Pediatric Surgery</span>
+                    <span>{isBn ? 'অপারেশনে অনুদান দিন' : 'Fund Pediatric Surgery'}</span>
                   </button>
                 </div>
               </div>
 
               {/* Campaign 3: Project Sheetolota: Winter Blanket & Shelter */}
-
               <div className="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    alt="Project Sheetolota winter blanket relief"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="/images/project-sheetolota-blankets.jpg"
-                  />
-                  <div className="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                    Winter Warmth
+                <div className="relative">
+                  <div className="relative h-52 overflow-hidden bg-slate-100">
+                    <img
+                      alt="Project Sheetolota winter blanket relief"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      src="/images/project-sheetolota-blankets.jpg"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#0e4d36] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                      {isBn ? 'শীতকালীন ত্রাণ' : 'Winter Warmth'}
+                    </div>
+                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                      {isBn ? 'সদকাহ' : 'Sadaqah'}
+                    </div>
                   </div>
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
-                    Sadaqah
+                  <div className="w-full h-1.5 bg-[#0e4d36]" />
+                  <div
+                    className="absolute -bottom-5 right-3 w-12 h-12 rounded-full bg-white border-[2px] border-[#0e4d36] shadow-md flex items-center justify-center p-1 z-20 group-hover:scale-105 transition-transform duration-300"
+                    title="GMCF Verified Project"
+                  >
+                    <img
+                      src="/images/gmcf-logo-emblem.png"
+                      alt="GMCF Badge"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
+
+                <div className="p-5 pt-4 flex flex-col flex-grow justify-between space-y-4">
                   <div>
-                    <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
-                      Project Sheetolota: Winter Blanket &amp; Shelter
-                    </h3>
+                    <div className="flex items-center gap-2 mb-1.5 pr-14">
+                      <span className="text-xs font-black text-[#0e4d36] tracking-wider uppercase">
+                        {isBn ? 'প্রজেক্ট নং : ০৫' : 'Project No : 05'}
+                      </span>
+                    </div>
+                    <Link href="/impact" className="block hover:underline">
+                      <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        {isBn ? 'প্রজেক্ট শীতলতা — শীতবস্ত্র ও কম্বল' : 'Project Sheetolota: Winter Relief'}
+                      </h3>
+                    </Link>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
-                      Heavy wool blankets, thermal jackets, and
-                      weather-resistant bedding distributed to rural orphanages
-                      and cold-struck families.
+                      {isBn
+                        ? 'উত্তরাঞ্চলের তীব্র শীতে ছিন্নমূল প্রবীণ ও এতিম শিশুদের মাঝে উন্নত মানের ডাবল পার্টের উষ্ণ কম্বল ও শীতের পোশাক বিতরণ।'
+                        : 'Heavy wool blankets and weather-resistant warm bedding distributed to rural cold-struck families.'}
                     </p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-primary">
-                        Raised: $31,000
+                        {isBn ? 'সংগৃহীত: $৩১,০০০' : 'Raised: $31,000'}
                       </span>
-                      <span className="text-text-muted">Goal: $40,000</span>
+                      <span className="text-text-muted">{isBn ? 'লক্ষ্য: $৪০,০০০' : 'Goal: $40,000'}</span>
                     </div>
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-primary rounded-full"
+                        className="h-full bg-[#0e4d36] rounded-full"
                         style={{ width: '78%' }}
                       ></div>
                     </div>
@@ -750,61 +809,82 @@ export default function HomePage() {
                         <span className="material-symbols-outlined text-[14px] text-amber-500">
                           group
                         </span>
-                        535 Donors
+                        {isBn ? '৫৩৫ জন দাতা' : '535 Donors'}
                       </span>
-                      <span className="font-bold text-primary">78% funded</span>
+                      <span className="font-bold text-primary">78%</span>
                     </div>
                   </div>
                   <button
-                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
                     type="button"
+                    onClick={() => openPaymentModal({ amount: isBn ? 1200 : 20, cause: 'Project Sheetolota Winter Blankets' })}
+                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-[#0e4d36] text-[#0e4d36] hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[18px]">
                       ac_unit
                     </span>
-                    <span className="">Send Winter Blankets</span>
+                    <span>{isBn ? 'কম্বল উপহার দিন' : 'Send Winter Blankets'}</span>
                   </button>
                 </div>
               </div>
 
               {/* Campaign 4: Clean Water & Dignified Sanitation */}
-
               <div className="bg-surface-clean rounded-2xl overflow-hidden border border-border-subtle shadow-sm hover:shadow-xl transition-all flex flex-col group">
-                <div className="relative h-52 overflow-hidden">
-                  <img
-                    alt="Clean water and sanitation facility"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    src="/images/clean-water-well.jpg"
-                  />
-                  <div className="absolute top-3 left-3 bg-primary-container text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
-                    Clean Water &amp; Wash
+                <div className="relative">
+                  <div className="relative h-52 overflow-hidden bg-slate-100">
+                    <img
+                      alt="Clean water and sanitation facility"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      src="/images/clean-water-well.jpg"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#0e4d36] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                      {isBn ? 'বিশুদ্ধ পানি' : 'Clean Water'}
+                    </div>
+                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                      {isBn ? 'সদকায়ে জারিয়াহ' : 'Sadaqah Jariyah'}
+                    </div>
                   </div>
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full">
-                    Sadaqah Jariyah
+                  <div className="w-full h-1.5 bg-[#0e4d36]" />
+                  <div
+                    className="absolute -bottom-5 right-3 w-12 h-12 rounded-full bg-white border-[2px] border-[#0e4d36] shadow-md flex items-center justify-center p-1 z-20 group-hover:scale-105 transition-transform duration-300"
+                    title="GMCF Verified Project"
+                  >
+                    <img
+                      src="/images/gmcf-logo-emblem.png"
+                      alt="GMCF Badge"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
-                <div className="p-5 flex flex-col flex-grow justify-between space-y-4">
+
+                <div className="p-5 pt-4 flex flex-col flex-grow justify-between space-y-4">
                   <div>
-                    <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
-                      Clean Water &amp; Dignified Sanitation
-                    </h3>
+                    <div className="flex items-center gap-2 mb-1.5 pr-14">
+                      <span className="text-xs font-black text-[#0e4d36] tracking-wider uppercase">
+                        {isBn ? 'প্রজেক্ট নং : ০৪' : 'Project No : 04'}
+                      </span>
+                    </div>
+                    <Link href="/impact" className="block hover:underline">
+                      <h3 className="font-serif-heading text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+                        {isBn ? 'গভীর নলকূপ ও নিরাপদ পানি গ্রিড' : 'Clean Water & Deep Tube Wells'}
+                      </h3>
+                    </Link>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-2 line-clamp-3 leading-relaxed">
-                      Installing deep arsenic-free tube wells and hygienic
-                      communal washrooms across disaster-prone and
-                      water-stressed communities.
+                      {isBn
+                        ? 'আর্সেনিক ও রোগমুক্ত সুপেয় পানির জন্য প্রত্যন্ত হাওর ও চরাঞ্চলে ৬৫০-৮০০ ফুট গভীর নলকূপ ও সোলার ওজুখানা স্থাপন।'
+                        : 'Permanent arsenic-free deep water wells and hygiene sanitation blocks across remote river delta villages.'}
                     </p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-primary">
-                        Raised: $19,500
+                        {isBn ? 'সংগৃহীত: $৪৫,০০০' : 'Raised: $45,000'}
                       </span>
-                      <span className="text-text-muted">Goal: $25,000</span>
+                      <span className="text-text-muted">{isBn ? 'লক্ষ্য: $৫০,০০০' : 'Goal: $50,000'}</span>
                     </div>
                     <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-primary rounded-full"
-                        style={{ width: '78%' }}
+                        className="h-full bg-[#0e4d36] rounded-full"
+                        style={{ width: '90%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-xs text-text-muted">
@@ -812,19 +892,20 @@ export default function HomePage() {
                         <span className="material-symbols-outlined text-[14px] text-amber-500">
                           group
                         </span>
-                        290 Donors
+                        {isBn ? '৭৮০ জন দাতা' : '780 Donors'}
                       </span>
-                      <span className="font-bold text-primary">78% funded</span>
+                      <span className="font-bold text-primary">90%</span>
                     </div>
                   </div>
                   <button
-                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
                     type="button"
+                    onClick={() => openPaymentModal({ amount: isBn ? 5000 : 50, cause: 'Clean Water Deep Tube Well' })}
+                    className="w-full py-2.5 rounded-xl bg-surface-subtle-mint hover:bg-[#0e4d36] text-[#0e4d36] hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[18px]">
                       water_drop
                     </span>
-                    <span className="">Build a Water Well</span>
+                    <span>{isBn ? 'নলকূপে সদকা দিন' : 'Sponsor Deep Well'}</span>
                   </button>
                 </div>
               </div>

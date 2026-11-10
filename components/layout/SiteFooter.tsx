@@ -124,12 +124,23 @@ export default function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/appeals"
+                  href="/impact"
                 >
                   <span className="material-symbols-outlined text-[15px] text-primary">
-                    water_drop
+                    volunteer_activism
                   </span>
-                  {isBn ? 'বিশুদ্ধ সুপেয় পানির গভীর নলকূপ স্থাপন' : 'Deep Tube Wells & Clean Water'}
+                  {isBn ? 'আমাদের প্রজেক্ট সমূহ' : 'Our Foundation Projects'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  href="/upcoming-projects"
+                >
+                  <span className="material-symbols-outlined text-[15px] text-primary">
+                    construction
+                  </span>
+                  {isBn ? 'আসন্ন প্রকল্পসমূহ' : 'Upcoming Strategic Projects'}
                 </Link>
               </li>
               <li>
@@ -141,17 +152,6 @@ export default function SiteFooter() {
                     photo_library
                   </span>
                   {isBn ? 'মাঠপর্যায়ের স্থিরচিত্র গ্যালারি' : 'Verified Field Photo Gallery'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
-                  href="/members"
-                >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    groups
-                  </span>
-                  {isBn ? 'পরিচালনা পর্ষদ ও স্বেচ্ছাসেবী টিম' : 'Governing Board & Volunteer Team'}
                 </Link>
               </li>
             </ul>

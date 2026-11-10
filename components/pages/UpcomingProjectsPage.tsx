@@ -296,62 +296,88 @@ export default function UpcomingProjectsPage() {
             return (
               <div
                 key={project.id}
-                className="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
               >
-                {/* Image Cover */}
-                <div className="relative h-64 w-full overflow-hidden bg-slate-100">
-                  <img
-                    src={project.image}
-                    alt={isBn ? project.titleBn : project.titleEn}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* Image Header with Dark Green Divider Bar & Circular Emblem (Exact User Screenshot Design) */}
+                <div className="relative">
+                  <div className="relative h-64 w-full overflow-hidden bg-slate-100">
+                    <img
+                      src={project.image}
+                      alt={isBn ? project.titleBn : project.titleEn}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    <span className="bg-emerald-800/90 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
-                      {isBn ? project.categoryBn : project.categoryEn}
-                    </span>
-                    <span className="bg-amber-500 text-slate-950 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow">
-                      {isBn ? project.statusBn : project.statusEn}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <div className="flex items-center gap-3 text-xs text-slate-200 mb-1">
-                      <span className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[15px] text-amber-400">location_on</span>
-                        {isBn ? project.locationBn : project.locationEn}
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[15px] text-amber-400">calendar_month</span>
-                        {isBn ? `টার্গেট: ${project.targetDateBn}` : `Target: ${project.targetDateEn}`}
+                    <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                      <span className="bg-[#0e4d36]/95 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                        {isBn ? project.categoryBn : project.categoryEn}
                       </span>
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold font-serif-heading leading-tight drop-shadow-sm">
-                      {isBn ? project.titleBn : project.titleEn}
-                    </h3>
+
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-amber-500 text-slate-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow">
+                        {isBn ? project.statusBn : project.statusEn}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Dark Green Horizontal Divider Bar */}
+                  <div className="w-full h-1.5 bg-[#0e4d36]" />
+
+                  {/* Circular Emblem Badge overlapping bottom-right corner */}
+                  <div
+                    className="absolute -bottom-6 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0e4d36] shadow-lg flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
+                    title="GMCF Verified Project"
+                  >
+                    <img
+                      src="/images/gmcf-logo-emblem.png"
+                      alt="GMCF"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
 
                 {/* Content Details */}
-                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
-                  <div className="space-y-4">
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    {/* Prominent "প্রজেক্ট নং" exactly as in screenshot */}
+                    <div className="flex items-center gap-2 pr-16">
+                      <span className="text-base sm:text-lg font-black text-[#0e4d36] tracking-wide">
+                        {isBn ? `প্রজেক্ট নং : ${project.id.toUpperCase()}` : `Project No : ${project.id.toUpperCase()}`}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-bold font-serif-heading text-slate-900 group-hover:text-[#0e4d36] transition-colors leading-snug">
+                      {isBn ? project.titleBn : project.titleEn}
+                    </h3>
+
+                    <div className="flex items-center gap-3 text-xs text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[15px] text-amber-600">location_on</span>
+                        {isBn ? project.locationBn : project.locationEn}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[15px] text-amber-600">calendar_month</span>
+                        {isBn ? `টার্গেট: ${project.targetDateBn}` : `Target: ${project.targetDateEn}`}
+                      </span>
+                    </div>
+
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                       {isBn ? project.descriptionBn : project.descriptionEn}
                     </p>
 
                     <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
                       <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-1.5">
-                        <span className="flex items-center gap-1 text-emerald-800">
+                        <span className="flex items-center gap-1 text-[#0e4d36]">
                           <span className="material-symbols-outlined text-[15px]">groups</span>
                           {isBn ? `উপকারভোগী: ${project.beneficiaryCountBn}` : `Beneficiaries: ${project.beneficiaryCountEn}`}
                         </span>
-                        <span className="text-amber-700">{percentage}% সংগ্রহ হয়েছে</span>
+                        <span className="text-[#0e4d36]">{percentage}% সংগ্রহ হয়েছে</span>
                       </div>
                       <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-emerald-600 to-amber-500 rounded-full transition-all duration-1000"
+                          className="h-full bg-gradient-to-r from-[#0e4d36] to-amber-500 rounded-full transition-all duration-1000"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
@@ -369,7 +395,7 @@ export default function UpcomingProjectsPage() {
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
                         {(isBn ? project.highlightsBn : project.highlightsEn).map((h, idx) => (
                           <li key={idx} className="flex items-start gap-1.5">
-                            <span className="material-symbols-outlined text-emerald-600 text-[16px] shrink-0 mt-0.5">
+                            <span className="material-symbols-outlined text-[#0e4d36] text-[16px] shrink-0 mt-0.5">
                               check_circle
                             </span>
                             <span>{h}</span>
@@ -384,17 +410,17 @@ export default function UpcomingProjectsPage() {
                     <button
                       type="button"
                       onClick={() => handlePledgeClick(isBn ? project.titleBn : project.titleEn)}
-                      className="w-full sm:flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-800 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full sm:flex-1 py-3 rounded-xl bg-gradient-to-r from-[#0e4d36] to-teal-800 hover:from-emerald-950 hover:to-teal-900 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
                       <span>{isBn ? 'এই প্রকল্পে সদকা/দান করুন' : 'Contribute to this Project'}</span>
                     </button>
                     <Link
-                      href="/contact"
+                      href="/gallery"
                       className="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
                     >
-                      <span className="material-symbols-outlined text-[16px]">contact_support</span>
-                      <span>{isBn ? 'বিস্তারিত জানুন' : 'Inquire'}</span>
+                      <span className="material-symbols-outlined text-[16px]">photo_library</span>
+                      <span>{isBn ? 'ছবির গ্যালারি' : 'Gallery'}</span>
                     </Link>
                   </div>
                 </div>
@@ -446,3 +472,4 @@ export default function UpcomingProjectsPage() {
     </main>
   );
 }
+
