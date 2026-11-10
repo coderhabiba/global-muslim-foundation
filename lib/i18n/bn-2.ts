@@ -269,7 +269,7 @@ const bn: Record<string, string> = {
   'Gold, Silver & Precious Bullion': 'স্বর্ণ, রুপ্য ও মূল্যবান ধাতু',
   'Got Questions?': 'প্রশ্ন আছে?',
   'Govt. Registered NGO No: NGO-AB-89423':
-    'সরকার নিবন্ধিত এনজিও নং: NGO-AB-89423',
+    'সরকারি নিবন্ধিত সংস্থা নং: S-14086/2023',
   'GPS Time-Stamped Audits': 'জিপিএস সময়-সিলযুক্ত নিরীক্ষা',
   'Grade A': 'গ্রেড এ',
   'Ground Operations': 'মাঠ কার্যক্রম',

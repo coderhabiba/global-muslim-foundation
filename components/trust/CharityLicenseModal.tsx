@@ -64,21 +64,21 @@ export default function CharityLicenseModal() {
           <div className="mt-4 pt-4 border-t border-emerald-800/80 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
             <div className="bg-white/10 rounded-xl p-2 border border-white/10">
               <span className="text-[10px] text-emerald-300 block">
-                {isBn ? 'এনজিও বিষয়ক ব্যুরো' : 'NGO Affairs Bureau'}
+                {isBn ? 'সরকারি নিবন্ধন (RJSC)' : 'Govt. Registration (RJSC)'}
               </span>
-              <strong className="text-white text-[11px] font-mono">#NGO-AB-89423</strong>
+              <strong className="text-white text-[11px] font-mono">#S-14086/2023</strong>
             </div>
             <div className="bg-white/10 rounded-xl p-2 border border-white/10">
               <span className="text-[10px] text-emerald-300 block">
-                {isBn ? 'সমাজকল্যাণ মন্ত্রণালয়' : 'Social Welfare Ministry'}
+                {isBn ? 'ইস্যু নম্বর ও তারিখ' : 'Issue No. & Date'}
               </span>
-              <strong className="text-white text-[11px] font-mono">#SWM-DH-2022-77</strong>
+              <strong className="text-white text-[11px] font-mono">#409371 • 26/12/23</strong>
             </div>
             <div className="bg-white/10 rounded-xl p-2 border border-white/10">
               <span className="text-[10px] text-emerald-300 block">
-                {isBn ? 'NBR কর অব্যাহতি' : 'NBR Tax Exemption'}
+                {isBn ? 'আইন ও বিধি' : 'Governing Law'}
               </span>
-              <strong className="text-white text-[11px] font-mono">SRO No. 182-Act/2021</strong>
+              <strong className="text-white text-[11px]">Act XXI of 1860</strong>
             </div>
             <div className="bg-white/10 rounded-xl p-2 border border-white/10">
               <span className="text-[10px] text-emerald-300 block">
@@ -104,7 +104,7 @@ export default function CharityLicenseModal() {
               }`}
             >
               <span className="material-symbols-outlined text-[17px] shrink-0">verified</span>
-              <span className="truncate">{isBn ? 'NGO ব্যুরো সনদ' : 'NGO Bureau Reg'}</span>
+              <span className="truncate">{isBn ? 'সরকারি লাইসেন্স (Permit)' : 'Govt License (Permit)'}</span>
             </button>
 
             <button
@@ -151,72 +151,121 @@ export default function CharityLicenseModal() {
         {/* Tab Content Body */}
         <div className="p-5 sm:p-7 overflow-y-auto space-y-6">
           {activeTab === 'ngo' && (
-            <div className="space-y-4">
-              {/* Certificate Frame Preview */}
-              <div className="border-4 border-double border-amber-600/40 rounded-3xl p-6 sm:p-8 bg-amber-50/25 shadow-inner relative text-center">
-                <div className="absolute top-4 right-4 flex items-center gap-1 text-[11px] text-emerald-800 bg-emerald-100 font-bold px-3 py-1 rounded-full border border-emerald-300">
-                  <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                  {isBn ? 'অফিসিয়ালি নিবন্ধিত' : 'Officially Registered'}
-                </div>
-                <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                  <img src="/images/gmcf-logo-emblem.png" alt="Emblem" className="w-14 h-14 object-contain" />
-                </div>
-                <h4 className="text-lg font-serif-heading font-black text-slate-900 tracking-wide">
-                  {isBn ? 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার' : "Government of the People's Republic of Bangladesh"}
-                </h4>
-                <p className="text-xs text-slate-600 uppercase tracking-widest font-bold mt-1">
-                  {isBn
-                    ? 'এনজিও বিষয়ক ব্যুরো, প্রধানমন্ত্রীর কার্যালয়'
-                    : "NGO Affairs Bureau, Prime Minister's Office"}
-                </p>
-                <div className="my-4 h-0.5 w-32 bg-amber-500/50 mx-auto" />
-
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-xl mx-auto">
-                  {isBn
-                    ? 'প্রত্যয়ন করা যাইতেছে যে, Global Muslim Charitable Foundation (GMCF) বাংলাদেশের দারিদ্র্য বিমোচন, এতিম ও বিধবা পুনর্বাসন, জরুরি খাদ্য ও সুপেয় পানি সরবরাহ কর্মসূচির জন্য সরকার কর্তৃক অনুমোদিত ও নিবন্ধিত।'
-                    : 'This is to officially certify that Global Muslim Charitable Foundation (GMCF) is statutory accredited and registered to execute nationwide humanitarian relief, orphan guardianship, water infrastructure, and rehabilitation under government compliance.'}
-                </p>
-
-                <div className="mt-6 pt-4 border-t border-amber-200/60 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left text-xs text-slate-700">
-                  <div className="bg-white/90 p-3 rounded-xl border border-amber-200/50 shadow-xs">
-                    <span className="text-slate-500 block text-[10px]">
-                      {isBn ? 'নিবন্ধন নম্বর:' : 'Registration No:'}
-                    </span>
-                    <strong className="font-mono text-emerald-900 font-bold text-sm">
-                      NGO-AB-89423
-                    </strong>
+            <div className="space-y-5">
+              {/* Top Action Bar for Permit */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-4 shadow-xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-800 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <span className="material-symbols-outlined text-xl">description</span>
                   </div>
-                  <div className="bg-white/90 p-3 rounded-xl border border-amber-200/50 shadow-xs">
-                    <span className="text-slate-500 block text-[10px]">
-                      {isBn ? 'চেয়ারম্যান:' : 'Chairman:'}
-                    </span>
-                    <strong className="text-slate-900 font-bold">Mohammad Ali Mostafa</strong>
-                  </div>
-                  <div className="bg-white/90 p-3 rounded-xl border border-amber-200/50 shadow-xs">
-                    <span className="text-slate-500 block text-[10px]">
-                      {isBn ? 'প্রধান কার্যালয়:' : 'Headquarters:'}
-                    </span>
-                    <strong className="text-slate-900 font-semibold text-[11px]">
+                  <div>
+                    <h5 className="font-bold text-slate-900 text-sm flex items-center gap-1.5 flex-wrap">
+                      <span>{isBn ? 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার অনুমোদিত নিবন্ধন সনদপত্র' : 'Govt. Approved Societies Registration Certificate'}</span>
+                      <span className="bg-emerald-700 text-white text-[10px] font-mono px-2 py-0.5 rounded-full">
+                        #S-14086/2023
+                      </span>
+                    </h5>
+                    <p className="text-xs text-slate-600 mt-0.5">
                       {isBn
-                        ? '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা'
-                        : '99, Kaisharchor, Vakurta, Savar, Dhaka'}
-                    </strong>
+                        ? 'রেজিস্ট্রার অব জয়েন্ট স্টক কোম্পানিজ অ্যান্ড ফার্মস (RJSC) • Societies Registration Act, 1860'
+                        : 'Registrar of Joint Stock Companies & Firms (RJSC) • Societies Registration Act, 1860'}
+                    </p>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-100 text-emerald-900 border border-emerald-300 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                    <span>{isBn ? 'নতুন ট্যাবে দেখুন' : 'View Fullscreen'}</span>
+                  </a>
+                  <a
+                    href="/images/permit.pdf"
+                    download="GMCF-Government-Registration-Permit.pdf"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">download</span>
+                    <span>{isBn ? 'লাইসেন্স PDF ডাউনলোড' : 'Download PDF'}</span>
+                  </a>
                 </div>
               </div>
 
+              {/* Real PDF Embed Container */}
+              <div className="w-full bg-slate-900 rounded-2xl overflow-hidden shadow-lg border border-slate-300">
+                <div className="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between text-xs border-b border-slate-700">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-amber-400 text-base">picture_as_pdf</span>
+                    <span className="font-mono text-slate-200 font-semibold text-[11px] sm:text-xs">
+                      permit.pdf • Certificate of Registration of Societies
+                    </span>
+                  </div>
+                  <span className="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded-full">
+                    {isBn ? 'ডিজিটাল স্বাক্ষরিত কপি' : 'Digitally Signed'}
+                  </span>
+                </div>
+                <iframe
+                  src="/images/permit.pdf#toolbar=1&navpanes=0"
+                  className="w-full h-[520px] bg-slate-100"
+                  title="Global Muslim Charitable Foundation Government Registration Permit (RJSC)"
+                />
+              </div>
+
+              {/* Exact Metadata Grid matching permit.pdf */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs">
+                  <span className="text-slate-500 block text-[10px] font-semibold uppercase tracking-wider">
+                    {isBn ? 'নিবন্ধন নম্বর (Reg No)' : 'Registration No'}
+                  </span>
+                  <strong className="text-emerald-950 font-mono text-sm block mt-0.5">
+                    S-14086/2023
+                  </strong>
+                </div>
+
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs">
+                  <span className="text-slate-500 block text-[10px] font-semibold uppercase tracking-wider">
+                    {isBn ? 'ইস্যু নম্বর ও তারিখ' : 'Issue No & Date'}
+                  </span>
+                  <strong className="text-slate-900 font-mono text-sm block mt-0.5">
+                    #409371 • 26/12/2023
+                  </strong>
+                </div>
+
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs">
+                  <span className="text-slate-500 block text-[10px] font-semibold uppercase tracking-wider">
+                    {isBn ? 'আইন ও বিধিমালা' : 'Governing Act'}
+                  </span>
+                  <strong className="text-slate-900 font-semibold text-xs block mt-0.5">
+                    Societies Registration Act, 1860 (Act XXI)
+                  </strong>
+                </div>
+
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs">
+                  <span className="text-slate-500 block text-[10px] font-semibold uppercase tracking-wider">
+                    {isBn ? 'নিবন্ধনকারী কর্তৃপক্ষ' : 'Issuing Authority'}
+                  </span>
+                  <strong className="text-slate-900 font-semibold text-xs block mt-0.5">
+                    RJSC, গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                  </strong>
+                </div>
+              </div>
+
+              {/* Organization & Integrity Note */}
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-start gap-3">
                 <span className="material-symbols-outlined text-emerald-700 text-2xl shrink-0 mt-0.5">
                   policy
                 </span>
                 <div className="text-xs text-slate-600 space-y-1">
                   <strong className="text-slate-900 block font-bold text-sm">
-                    {isBn ? 'আইনগত স্বচ্ছতা ও বার্ষিক নিরীক্ষা' : 'Legal Integrity & Annual Audits'}
+                    {isBn ? 'আইনগত স্বীকৃতি ও স্বচ্ছ পরিচালনা' : 'Statutory Registration & Transparency'}
                   </strong>
-                  <p>
+                  <p className="leading-relaxed">
                     {isBn
-                      ? 'প্রতিষ্ঠানের যাবতীয় আয়-ব্যয় হিসাব আন্তর্জাতিক চার্টার্ড অ্যাকাউন্ট্যান্টস ফার্ম দ্বারা প্রতি অর্থবছর স্বাধীনভাবে অডিট করা হয় এবং এনজিও ব্যুরোতে এফডি-৪ ফরমসহ দাখিল করা হয়।'
-                      : 'All financial dispatches and donations are independently audited annually by registered Chartered Accountants in full compliance with NGO Affairs Bureau regulations and FD-4 statutory filings.'}
+                      ? 'Global Muslim Charitable Foundation গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের যৌথ মূলধন কোম্পানি ও ফার্মসমূহের পরিদপ্তর (RJSC)-এর অধীনে ১৮৬০ সালের ২১ নং আইনের আওতায় নিবন্ধিত একটি বৈধ ও স্বীকৃত দাতব্য সংস্থা (রেজিস্ট্রেশন নং: S-14086/2023)।'
+                      : 'Global Muslim Charitable Foundation is officially registered under the Societies Registration Act, 1860 (Act XXI of 1860) with the Registrar of Joint Stock Companies & Firms (RJSC), Government of Bangladesh (Registration No: S-14086/2023).'}
                   </p>
                 </div>
               </div>

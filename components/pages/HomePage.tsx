@@ -437,8 +437,8 @@ export default function HomePage() {
                       </span>
                       <span className="underline">
                         {isBn
-                          ? 'Govt Reg #NGO-AB-89423 (সনদ দেখুন)'
-                          : 'Govt Reg #NGO-AB-89423 (View Licenses)'}
+                          ? 'Govt Reg #S-14086/2023 (সনদ দেখুন)'
+                          : 'Govt Reg #S-14086/2023 (View Permit)'}
                       </span>
                     </button>
                     <div className="flex items-center gap-2 flex-wrap">

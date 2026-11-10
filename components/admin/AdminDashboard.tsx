@@ -314,17 +314,28 @@ export default function AdminDashboard() {
               <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
                 সরকারি নিবন্ধন স্ট্যাটাস
               </span>
-              <h3 className="text-base font-bold text-slate-900 mt-1">
-                NGO-AB-89423
+              <h3 className="text-base font-bold text-slate-900 mt-1 font-mono">
+                S-14086/2023
               </h3>
-              <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-0.5 mt-1">
+              <a
+                href="/images/permit.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-0.5 mt-1 underline"
+              >
                 <span className="material-symbols-outlined text-[14px]">verified</span>
-                স্বীকৃত ও অডিটকৃত
-              </span>
+                স্বীকৃত লাইসেন্স (Permit PDF)
+              </a>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center">
+            <a
+              href="/images/permit.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-2xl bg-teal-100 hover:bg-teal-200 text-teal-800 flex items-center justify-center transition-colors cursor-pointer"
+              title="View Government License Permit"
+            >
               <span className="material-symbols-outlined text-2xl">verified_user</span>
-            </div>
+            </a>
           </div>
         </div>
 

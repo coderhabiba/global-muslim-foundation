@@ -358,12 +358,38 @@ export default function AboutPage() {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {/* Document Card 1 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Document Card: Official Government Registration Permit (permit.pdf) */}
+                  <a
+                    className="group flex items-center justify-between p-5 bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 rounded-xl transition-all shadow-sm"
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="material-symbols-outlined text-[32px] text-amber-300">
+                        workspace_premium
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="font-title-md text-title-md text-white font-bold group-hover:text-amber-300 transition-colors">
+                          সরকারি নিবন্ধন সনদ (Permit)
+                        </span>
+                        <span className="font-label-sm text-label-sm text-amber-200/90 font-mono">
+                          RJSC Reg #S-14086/2023 (PDF)
+                        </span>
+                      </div>
+                    </div>
+                    <span className="material-symbols-outlined text-[20px] text-amber-300 group-hover:scale-110 transition-transform">
+                      open_in_new
+                    </span>
+                  </a>
 
+                  {/* Document Card 1 */}
                   <a
                     className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="#"
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
@@ -374,7 +400,7 @@ export default function AboutPage() {
                           2024 Shariah Compliance Fatwa
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Signed by Advisory Council (PDF, 2.4MB)
+                          Signed by Advisory Council (PDF)
                         </span>
                       </div>
                     </div>
@@ -384,10 +410,11 @@ export default function AboutPage() {
                   </a>
 
                   {/* Document Card 2 */}
-
                   <a
                     className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="#"
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
@@ -398,7 +425,7 @@ export default function AboutPage() {
                           100% Zakat Policy Ledger
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Tamleek Operating Manual (PDF, 1.8MB)
+                          Tamleek Operating Manual (PDF)
                         </span>
                       </div>
                     </div>
@@ -408,10 +435,11 @@ export default function AboutPage() {
                   </a>
 
                   {/* Document Card 3 */}
-
                   <a
                     className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="#"
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
@@ -422,7 +450,7 @@ export default function AboutPage() {
                           Independent Audit Statement
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Annual Financials 2023-2024 (PDF, 4.1MB)
+                          Annual Financials 2023-2024 (PDF)
                         </span>
                       </div>
                     </div>

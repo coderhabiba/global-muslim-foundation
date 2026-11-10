@@ -113,7 +113,7 @@ const bn: Record<string, string> = {
   'New York, United States': 'নিউ ইয়র্ক, যুক্তরাষ্ট্র',
   'Next Deployment Briefing': 'পরবর্তী মোতায়েন ব্রিফিং',
   'NGO Affairs Bureau Reg #NGO-AB-89423':
-    'এনজিও অ্যাফেয়ার্স ব্যুরো নিবন্ধন #NGO-AB-89423',
+    'সরকারি নিবন্ধন সনদ #S-14086/2023 (RJSC)',
   'No Child Should Sleep with an Empty Stomach on the Cold Concrete':
     'কোনো শিশু যেন ঠান্ডা কংক্রিটে খালি পেটে ঘুমিয়ে না পড়ে',
   'No prior experience required. Compassion and commitment are all you need.':

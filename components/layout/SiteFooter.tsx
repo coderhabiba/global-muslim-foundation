@@ -89,10 +89,19 @@ export default function SiteFooter() {
                 <span className="material-symbols-outlined text-[15px] text-amber-700">verified</span>
                 <span>
                   {isBn
-                    ? 'সরকারি নিবন্ধন: #NGO-AB-89423 (সনদ দেখুন)'
-                    : 'Govt Reg: #NGO-AB-89423 (View License)'}
+                    ? 'সরকারি নিবন্ধন: #S-14086/2023 (সনদ দেখুন)'
+                    : 'Govt Reg: #S-14086/2023 (View License)'}
                 </span>
               </button>
+              <a
+                href="/images/permit.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[11px] text-emerald-800 hover:text-emerald-950 font-bold hover:underline w-fit"
+              >
+                <span className="material-symbols-outlined text-[15px] text-emerald-700">picture_as_pdf</span>
+                <span>{isBn ? 'মূল সরকারি লাইসেন্স PDF দেখুন' : 'View Govt License PDF'}</span>
+              </a>
             </div>
           </div>
 
