@@ -521,20 +521,32 @@ export default function ImpactPage() {
                     </div>
                   </div>
 
-                  {/* Screenshot-Identical Bottom Divider: Horizontal line from left, wrapping around circular badge, and sweeping upward to right corner */}
+                  {/* Screenshot-Identical Bottom Divider: 1px slim line curving steeply upward around circular badge to the right edge */}
                   <div className="relative w-full h-0">
                     <svg
                       viewBox="0 0 400 40"
                       className="absolute -top-[20px] left-0 w-full h-[40px] pointer-events-none z-10 overflow-visible"
                       preserveAspectRatio="none"
                     >
-                      <line x1="0" y1="20" x2="326" y2="20" stroke="#144d46" strokeWidth="2.5" />
-                      <path d="M 374 20 Q 387 20 400 8" fill="none" stroke="#144d46" strokeWidth="2.5" />
+                      {/* White mask underneath line and curve so image corner is cleanly cut */}
+                      <path
+                        d="M 0 20 L 324 20 A 26 26 0 0 0 376 20 C 384 20, 394 10, 400 -6 L 400 40 L 0 40 Z"
+                        fill="#ffffff"
+                      />
+                      {/* Straight horizontal teal-green line (1px) from left to badge */}
+                      <line x1="0" y1="20" x2="324" y2="20" stroke="#144d46" strokeWidth="1" />
+                      {/* Deep sweeping upward curve (1px) bending steeply up to top-right corner */}
+                      <path
+                        d="M 376 20 C 384 20, 394 10, 400 -6"
+                        fill="none"
+                        stroke="#144d46"
+                        strokeWidth="1"
+                      />
                     </svg>
 
-                    {/* Circular Logo Badge */}
+                    {/* Circular Logo Badge (with 1px slim border) */}
                     <div
-                      className="absolute -top-7 right-3 w-14 h-14 rounded-full bg-white border-[2.5px] border-[#144d46] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-105 transition-transform duration-300"
+                      className="absolute -top-7 right-3 w-14 h-14 rounded-full bg-white border border-[#144d46] shadow-sm flex items-center justify-center p-1.5 z-20 group-hover:scale-105 transition-transform duration-300"
                       title="GMCF Verified Project"
                     >
                       <img
