@@ -498,7 +498,7 @@ export default function ImpactPage() {
                 {/* Image Header with Dark Green Divider Bar & Circular Emblem (EXACT User Screenshot Design) */}
                 <div className="relative">
                   {/* Photo Container */}
-                  <div className="relative h-60 w-full overflow-hidden bg-slate-100 rounded-t-2xl border-b-[2.5px] border-[#0a3d40]">
+                  <div className="relative h-60 w-full overflow-hidden bg-slate-100 rounded-t-2xl">
                     <img
                       src={project.image}
                       alt={isBn ? project.titleBn : project.titleEn}
@@ -508,7 +508,7 @@ export default function ImpactPage() {
 
                     {/* Top Left: Category Badge */}
                     <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
-                      <span className="bg-[#0a3d40] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
+                      <span className="bg-[#144d46] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
                         {isBn ? project.categoryBn : project.categoryEn}
                       </span>
                     </div>
@@ -521,16 +521,28 @@ export default function ImpactPage() {
                     </div>
                   </div>
 
-                  {/* Circular Emblem Badge (Centered on the bottom divider border, exactly as in user screenshot) */}
-                  <div
-                    className="absolute -bottom-7 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-[2.5px] border-[#0a3d40] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-110 transition-transform duration-300"
-                    title="GMCF Verified Project"
-                  >
-                    <img
-                      src="/images/gmcf-logo-emblem.png"
-                      alt="GMCF Badge"
-                      className="w-full h-full object-contain"
-                    />
+                  {/* Screenshot-Identical Bottom Divider: Horizontal line from left, wrapping around circular badge, and sweeping upward to right corner */}
+                  <div className="relative w-full h-0">
+                    <svg
+                      viewBox="0 0 400 40"
+                      className="absolute -top-[20px] left-0 w-full h-[40px] pointer-events-none z-10 overflow-visible"
+                      preserveAspectRatio="none"
+                    >
+                      <line x1="0" y1="20" x2="326" y2="20" stroke="#144d46" strokeWidth="2.5" />
+                      <path d="M 374 20 Q 387 20 400 8" fill="none" stroke="#144d46" strokeWidth="2.5" />
+                    </svg>
+
+                    {/* Circular Logo Badge */}
+                    <div
+                      className="absolute -top-7 right-3 w-14 h-14 rounded-full bg-white border-[2.5px] border-[#144d46] shadow-md flex items-center justify-center p-1.5 z-20 group-hover:scale-105 transition-transform duration-300"
+                      title="GMCF Verified Project"
+                    >
+                      <img
+                        src="/images/gmcf-logo-emblem.png"
+                        alt="GMCF Badge"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                   </div>
                 </div>
 
