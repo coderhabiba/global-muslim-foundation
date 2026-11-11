@@ -718,7 +718,7 @@ export default function AdminDashboard() {
 
       {/* Modern Fixed Left Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:h-screen lg:sticky lg:top-0 shrink-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 shrink-0 ${
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -1019,14 +1019,14 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="min-w-0">
-                  <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight leading-snug truncate">
+                  <div className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug truncate">
                     {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
                     {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
                     {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
                     {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
                     {activeTab === 'campaigns' && 'চলমান মানবিক ক্যাম্পেইনসমূহ'}
                     {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস'}
-                  </h2>
+                  </div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <p className="text-xs sm:text-sm text-slate-500 font-medium truncate">
