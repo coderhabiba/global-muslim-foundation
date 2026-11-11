@@ -5,10 +5,44 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
-import AdminPageCmsEditor from '@/components/admin/AdminPageCmsEditor';
 import AdminCardManager from '@/components/admin/AdminCardManager';
 import AdminSectionEditor from '@/components/admin/AdminSectionEditor';
 import { supabase } from '@/lib/supabase';
+import { cn } from '@/lib/utils';
+import {
+  LayoutDashboard,
+  Layers,
+  HeartHandshake,
+  Users,
+  HandHeart,
+  FolderKanban,
+  Settings,
+  Search,
+  Download,
+  Plus,
+  Trash2,
+  Edit3,
+  ExternalLink,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  Clock,
+  LogOut,
+  X,
+  FileText,
+  BadgeCheck,
+  Menu,
+  CreditCard,
+  Building2,
+  Phone,
+  Mail,
+  MapPin,
+  AlertTriangle,
+  TrendingUp,
+  PieChart,
+  History,
+  Check,
+} from 'lucide-react';
 
 type DonationRecord = {
   id: string;
@@ -272,11 +306,7 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
 export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
-  const { cms, updatePageContent, resetPageContent, isSaving } = useSiteCMS();
   const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
-  const [selectedCmsPage, setSelectedCmsPage] = useState<SitePageKey>('header_footer');
-  const [cmsDraft, setCmsDraft] = useState<any>({});
-  const [cmsSaveSuccess, setCmsSaveSuccess] = useState(false);
   
   const [donations, setDonations] = useState<DonationRecord[]>(DEFAULT_DONATIONS);
   const [members, setMembers] = useState<MemberRecord[]>(DEFAULT_MEMBERS);
@@ -315,6 +345,8 @@ export default function AdminDashboard() {
     id: '',
     name: '',
   });
+
+  // Volunteer Modal State
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
   const [editingVolunteerId, setEditingVolunteerId] = useState<string | null>(null);
   const [volunteerForm, setVolunteerForm] = useState<Omit<VolunteerCandidate, 'id' | 'date'>>({
@@ -327,6 +359,8 @@ export default function AdminDashboard() {
     image: '/images/youth-volunteers.jpg',
     status: 'PENDING',
   });
+
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Check authentication
@@ -631,25 +665,25 @@ export default function AdminDashboard() {
           if (error) console.error('Supabase update member:', error.message);
         });
     } else {
-      const newMember: MemberRecord = {
+      const newMem: MemberRecord = {
         ...memberForm,
-        id: 'm-' + Date.now(),
+        id: 'm' + Date.now().toString().slice(-4),
       };
-      updated = [newMember, ...members];
+      updated = [newMem, ...members];
       supabase
         .from('members')
         .insert({
-          name_bn: newMember.nameBn,
-          name_en: newMember.nameEn,
-          role_bn: newMember.roleBn,
-          role_en: newMember.roleEn,
-          category: newMember.category,
-          department_bn: newMember.departmentBn,
-          image: newMember.image,
-          phone: newMember.phone,
-          email: newMember.email,
-          location_bn: newMember.locationBn,
-          bio_bn: newMember.bioBn,
+          name_bn: newMem.nameBn,
+          name_en: newMem.nameEn,
+          role_bn: newMem.roleBn,
+          role_en: newMem.roleEn,
+          category: newMem.category,
+          department_bn: newMem.departmentBn,
+          image: newMem.image,
+          phone: newMem.phone,
+          email: newMem.email,
+          location_bn: newMem.locationBn,
+          bio_bn: newMem.bioBn,
         })
         .then(({ error }) => {
           if (error) console.error('Supabase insert member:', error.message);
@@ -674,9 +708,7 @@ export default function AdminDashboard() {
   };
 
   const confirmDeleteAction = () => {
-    const { id, type } = deleteConfirmation;
-    if (!id) return;
-
+    const { type, id } = deleteConfirmation;
     if (type === 'member') {
       const updated = members.filter(m => m.id !== id);
       setMembers(updated);
@@ -742,45 +774,98 @@ export default function AdminDashboard() {
       v.category.toLowerCase().includes(volunteerSearchTerm.toLowerCase())
   );
 
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const NAV_ITEMS = [
+    {
+      id: 'overview' as const,
+      label: 'ড্যাশবোর্ড ওভারভিউ',
+      icon: LayoutDashboard,
+      badge: 'লাইভ',
+      badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    },
+    {
+      id: 'section_editor' as const,
+      label: 'সেকশন এডিটর (WP-স্টাইল)',
+      icon: Layers,
+      badge: 'WP-Live',
+      badgeColor: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    },
+    {
+      id: 'donations' as const,
+      label: 'অনলাইন অনুদান তালিকা',
+      icon: HeartHandshake,
+      badge: donations.length.toString(),
+      badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
+    },
+    {
+      id: 'members' as const,
+      label: 'সদস্য ও ট্রাস্টি বোর্ড',
+      icon: Users,
+      badge: members.length.toString(),
+      badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
+    },
+    {
+      id: 'volunteers' as const,
+      label: 'স্বেচ্ছাসেবক আবেদনপত্র',
+      icon: HandHeart,
+      badge: volunteers.length.toString(),
+      badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
+    },
+    {
+      id: 'campaigns' as const,
+      label: 'সকল কার্ড ও প্রজেক্ট',
+      icon: FolderKanban,
+      badge: 'CRUD',
+      badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    },
+    {
+      id: 'settings' as const,
+      label: 'প্রাতিষ্ঠানিক সেটিংস',
+      icon: Settings,
+      badge: 'GMCF',
+      badgeColor: 'bg-zinc-800 text-zinc-400 border-zinc-700/60',
+    },
+  ];
 
   return (
-    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-row items-stretch">
+    <div data-l10n="off" className="min-h-screen bg-zinc-50/70 text-zinc-900 flex flex-row items-stretch antialiased selection:bg-zinc-900 selection:text-white">
       {/* Mobile Sidebar Backdrop */}
       {isMobileSidebarOpen && (
         <div
           onClick={() => setIsMobileSidebarOpen(false)}
-          className="fixed inset-0 bg-slate-950/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
         />
       )}
 
-      {/* Modern Fixed Left Sidebar */}
+      {/* ============================================================== */}
+      {/* Ultra-Clean shadcn Left Sidebar */}
+      {/* ============================================================== */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 shrink-0 ${
+        className={cn(
+          'fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-zinc-950 text-zinc-100 flex flex-col h-screen border-r border-zinc-800/80 shadow-2xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 shrink-0',
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
+        )}
       >
-        {/* Sidebar Brand Header with Emblem, Title & Reg Badge */}
-        <div className="p-4 border-b border-emerald-900/80 shrink-0 bg-emerald-950">
+        {/* Brand Header */}
+        <div className="p-4 border-b border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-sm">
           <div className="flex items-center justify-between gap-2">
             <Link href="/" className="flex items-center gap-3 group min-w-0">
-              <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex items-center justify-center shrink-0 shadow-xs group-hover:border-zinc-700 transition-colors">
                 <img
                   src="/images/gmcf-logo-emblem.png"
-                  alt="GMCF Emblem Logo"
+                  alt="GMCF Emblem"
                   className="w-full h-full object-contain"
                 />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-extrabold text-white leading-tight truncate">
+                <p className="text-sm font-semibold text-zinc-100 tracking-tight leading-tight truncate">
                   Global Muslim
                 </p>
-                <p className="text-[10px] text-emerald-300 uppercase tracking-wider font-bold truncate">
+                <p className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium truncate">
                   Charitable Foundation
                 </p>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-                  <span className="text-[10px] text-emerald-400 font-mono font-semibold truncate">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                  <span className="text-[10px] text-emerald-400 font-mono font-medium truncate">
                     Reg: S-14086/2023
                   </span>
                 </div>
@@ -789,877 +874,528 @@ export default function AdminDashboard() {
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(false)}
-              className="lg:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 cursor-pointer shrink-0"
+              className="lg:hidden p-1.5 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-900 cursor-pointer shrink-0 transition-colors"
             >
-              <span className="material-symbols-outlined text-[24px]">close</span>
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Sidebar Navigation Items (Scrolls internally so footer is ALWAYS locked visible) */}
-        <nav className="p-3.5 flex-1 space-y-1.5 overflow-y-auto">
-          <div className="px-3 pb-1 text-xs font-bold uppercase tracking-wider text-emerald-400">
+        {/* Sidebar Nav Items */}
+        <nav className="p-3 flex-1 space-y-1 overflow-y-auto">
+          <div className="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
             প্রধান মেনু
           </div>
 
-          <button
-            onClick={() => {
-              setActiveTab('overview');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'overview'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">ড্যাশবোর্ড ওভারভিউ</span>
-            <span className="bg-emerald-500/25 text-emerald-300 text-xs font-bold px-2 py-0.5 rounded-full shrink-0">
-              লাইভ
-            </span>
-          </button>
-
-          {/* WordPress-style Live Section Editor */}
-          <button
-            onClick={() => {
-              setActiveTab('section_editor');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'section_editor'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/25 text-indigo-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">সেকশন এডিটর (WP-স্টাইল)</span>
-            <span className="bg-indigo-500/30 text-indigo-200 text-xs font-bold px-2 py-0.5 rounded-full shrink-0">
-              WP-Live
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('donations');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'donations'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">অনুদান তালিকা</span>
-            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold shrink-0">
-              {donations.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('members');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'members'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">সদস্য তালিকা</span>
-            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold shrink-0">
-              {members.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('volunteers');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'volunteers'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">স্বেচ্ছাসেবক আবেদনপত্র</span>
-            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold shrink-0">
-              {volunteers.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('campaigns');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'campaigns'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">সকল কার্ড ও প্রজেক্ট ম্যানেজার</span>
-            <span className="bg-amber-400/30 text-amber-200 text-xs px-2 py-0.5 rounded-full font-bold shrink-0">
-              CRUD
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('settings');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer text-left ${
-              activeTab === 'settings'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-slate-500/20 text-slate-300 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <span className="text-sm tracking-wide flex-1 truncate text-left">প্রাতিষ্ঠানিক সেটিংস</span>
-          </button>
-
-          <div className="pt-3 px-3 pb-1 text-xs font-bold uppercase tracking-wider text-emerald-400">
-            অফিসিয়াল শর্টকাট
-          </div>
-
-          <a
-            href="/images/permit.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/70 hover:text-white transition-colors"
-          >
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <span>সরকারি লাইসেন্স (PDF)</span>
-          </a>
-
-          <Link
-            href="/"
-            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/70 hover:text-white transition-colors"
-          >
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-            </div>
-            <span>মূল ওয়েবসাইটে যান</span>
-          </Link>
+          {NAV_ITEMS.map(item => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setIsMobileSidebarOpen(false);
+                }}
+                className={cn(
+                  'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all cursor-pointer text-left',
+                  isActive
+                    ? 'bg-zinc-800 text-white shadow-xs border border-zinc-700/70 font-semibold'
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/70'
+                )}
+              >
+                <div
+                  className={cn(
+                    'w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors',
+                    isActive ? 'text-emerald-400' : 'text-zinc-400'
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                </div>
+                <span className="flex-1 truncate text-left">{item.label}</span>
+                <span
+                  className={cn(
+                    'text-[10px] px-2 py-0.5 rounded-md border shrink-0',
+                    item.badgeColor
+                  )}
+                >
+                  {item.badge}
+                </span>
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Sidebar Footer User Info & Logout (FIXED & ALWAYS VISIBLE without scrolling) */}
-        <div className="p-3.5 border-t border-emerald-900 bg-emerald-950 shrink-0">
-          <div className="flex items-center justify-between gap-3 bg-emerald-900/60 p-3 rounded-2xl border border-emerald-800 shadow-md">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-inner">
-                MA
-              </div>
-              <div className="min-w-0">
-                <p className="font-bold text-white text-sm truncate">Mohammad Ali Mostafa</p>
-                <p className="text-xs text-emerald-300 truncate font-medium">Chairman (Super Admin)</p>
-              </div>
+        {/* Locked Footer */}
+        <div className="p-3 border-t border-zinc-800/80 shrink-0 bg-zinc-950/90">
+          <div className="rounded-lg bg-zinc-900/80 border border-zinc-800/80 p-3">
+            <div className="flex items-center justify-between text-xs text-zinc-400">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                ক্লাউড সিঙ্ক সক্রিয়
+              </span>
+              <span className="text-[10px] font-mono text-zinc-500">v2.5.0</span>
             </div>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-md active:scale-95 text-xs font-bold"
-              title="লগআউট করুন"
+            <Link
+              href="/"
+              target="_blank"
+              className="mt-2.5 flex items-center justify-between text-xs font-medium text-zinc-300 hover:text-white transition-colors"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span>লগআউট</span>
-            </button>
+              <span>লাইভ সাইট ভিজিট করুন</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 bg-slate-100/80">
-        {/* Sleek, Premium Glassmorphic Top Bar */}
-        <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-30 shadow-xs">
-          <div className="px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
-            {/* Left: Mobile hamburger & Active Section Title */}
-            <div className="flex items-center gap-3 min-w-0">
-              <button
-                type="button"
-                onClick={() => setIsMobileSidebarOpen(true)}
-                className="lg:hidden p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900 cursor-pointer transition-colors"
-                aria-label="Open Sidebar"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
+      {/* ============================================================== */}
+      {/* Right Column Workspace */}
+      {/* ============================================================== */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Topbar */}
+        <header className="sticky top-0 z-30 h-16 border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              type="button"
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="lg:hidden p-2 rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
 
-              <div className="flex items-center gap-2.5 min-w-0">
-                {/* Section Icon Badge */}
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 text-white flex items-center justify-center shadow-md shadow-emerald-950/20 ring-1 ring-white/20 shrink-0">
-                  {activeTab === 'overview' && (
-                    <svg className="w-5 h-5 text-emerald-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                    </svg>
-                  )}
-                  {activeTab === 'section_editor' && (
-                    <svg className="w-5 h-5 text-indigo-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.813 15.904L9 18.75l2.846-.813a4.5 4.5 0 003.09-3.09L21.75 8.033a2.25 2.25 0 00-3.182-3.182l-6.814 6.814a4.5 4.5 0 00-1.944 4.239z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.5 6.75l3 3" />
-                    </svg>
-                  )}
-                  {activeTab === 'donations' && (
-                    <svg className="w-5 h-5 text-amber-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-                    </svg>
-                  )}
-                  {activeTab === 'members' && (
-                    <svg className="w-5 h-5 text-teal-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                    </svg>
-                  )}
-                  {activeTab === 'volunteers' && (
-                    <svg className="w-5 h-5 text-rose-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                    </svg>
-                  )}
-                  {activeTab === 'campaigns' && (
-                    <svg className="w-5 h-5 text-amber-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.115-1.527-.468a18.267 18.267 0 01-1.04-2.836m2.702-1.37a24.167 24.167 0 005.656-.63l.635-.162a1.5 1.5 0 001.077-1.076l.162-.635a24.167 24.167 0 000-11.312l-.162-.635a1.5 1.5 0 00-1.077-1.076l-.635-.162a24.167 24.167 0 00-5.656-.63m0 9.18V6.66" />
-                    </svg>
-                  )}
-                  {activeTab === 'settings' && (
-                    <svg className="w-5 h-5 text-slate-100 drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  )}
-                </div>
-
-                <div className="min-w-0">
-                  <div className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug truncate">
-                    {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
-                    {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
-                    {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
-                    {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
-                    {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
-                    {activeTab === 'campaigns' && 'চলমান মানবিক ক্যাম্পেইনসমূহ'}
-                    {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস'}
-                  </div>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium truncate">
-                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজি: S-14086/2023
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-base font-semibold text-zinc-900 tracking-tight truncate">
+                {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
+                {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
+                {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
+                {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
+                {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
+                {activeTab === 'campaigns' && 'চলমান মানবিক কার্ড ও ক্যাম্পেইনসমূহ'}
+                {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস'}
+              </h1>
+              <p className="text-xs text-zinc-500 font-medium flex items-center gap-1.5 mt-0.5 truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজি: S-14086/2023
+              </p>
             </div>
+          </div>
 
-            {/* Right: Quick Action Controls - Compact, Elegant & Perfectly Sized */}
-            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-              <button
-                onClick={() => openLicenseModal()}
-                className="hidden md:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200/90 text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95"
-              >
-                <svg className="w-3.5 h-3.5 text-emerald-700 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span className="whitespace-nowrap">লাইসেন্স সনদ</span>
-              </button>
+          {/* Quick Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => openLicenseModal()}
+              className="hidden md:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md border border-zinc-200 bg-white text-zinc-800 hover:bg-zinc-50 text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-zinc-600" />
+              <span>লাইসেন্স সনদ</span>
+            </button>
 
-              <button
-                onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-                className="hidden sm:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-2xs transition-all cursor-pointer active:scale-95"
-              >
-                <svg className="w-3.5 h-3.5 text-emerald-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-                <span className="whitespace-nowrap">EPS টেস্ট অনুদান</span>
-              </button>
+            <button
+              type="button"
+              onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+            >
+              <CreditCard className="w-3.5 h-3.5 text-emerald-100" />
+              <span>EPS টেস্ট অনুদান</span>
+            </button>
 
-              {/* Direct Top-Bar Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all shadow-2xs cursor-pointer active:scale-95"
-                title="ড্যাশবোর্ড থেকে লগআউট করুন"
-              >
-                <svg className="w-3.5 h-3.5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-                <span className="whitespace-nowrap">লগআউট</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md border border-red-200/80 bg-red-50/50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors cursor-pointer active:scale-95"
+              title="লগআউট করুন"
+            >
+              <LogOut className="w-3.5 h-3.5 text-red-600" />
+              <span>লগআউট</span>
+            </button>
           </div>
         </header>
 
-        {/* Dashboard Main Workspace */}
-        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full text-base">
-          {/* KPI Summary Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Card 1: Total Donations */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
-              <div>
-                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
+        {/* Main Content View */}
+        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-7xl w-full mx-auto">
+          {/* KPI Summary Cards (shadcn Card style) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* KPI 1 */}
+            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                   সর্বমোট অনুদান সংগ্রহ
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
-                  ৳{totalDonationsBdt.toLocaleString()}
-                </h3>
-                <span className="text-xs sm:text-sm text-emerald-700 font-bold flex items-center gap-1.5 mt-2">
-                  <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                  ১০০% যাকাত পলিসি নিশ্চিত
-                </span>
+                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
+                  <HeartHandshake className="w-4 h-4 text-emerald-600" />
+                </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shadow-md shadow-emerald-900/20 shrink-0">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+                ৳{totalDonationsBdt.toLocaleString()}
               </div>
+              <p className="text-xs font-medium text-emerald-600 flex items-center gap-1 mt-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                ১০০% যাকাত পলিসি নিশ্চিত
+              </p>
             </div>
 
-            {/* Card 2: Members & Trustees */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
-              <div>
-                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
+            {/* KPI 2 */}
+            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                   সদস্য ও ট্রাস্টি সংখ্যা
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
-                  {members.length} জন
-                </h3>
-                <span className="text-xs sm:text-sm text-teal-700 font-bold flex items-center gap-1.5 mt-2">
-                  <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  পরিচালনা ও ট্রাস্টি বোর্ড
-                </span>
+                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
+                  <Users className="w-4 h-4 text-zinc-800" />
+                </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-700 text-white flex items-center justify-center shadow-md shadow-teal-900/20 shrink-0">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+                {members.length} জন
               </div>
+              <p className="text-xs font-medium text-zinc-500 flex items-center gap-1 mt-1.5">
+                <BadgeCheck className="w-3.5 h-3.5 text-zinc-600" />
+                পরিচালনা ও ট্রাস্টি বোর্ড
+              </p>
             </div>
 
-            {/* Card 3: Volunteer Team */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
-              <div>
-                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
+            {/* KPI 3 */}
+            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                   স্বেচ্ছাসেবক টিম
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
-                  {volunteers.length} জন
-                </h3>
-                <span className="text-xs sm:text-sm text-amber-700 font-bold flex items-center gap-1.5 mt-2">
-                  <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
-                </span>
+                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
+                  <HandHeart className="w-4 h-4 text-amber-600" />
+                </div>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shadow-md shadow-amber-900/20 shrink-0">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+                {volunteers.length} জন
               </div>
+              <p className="text-xs font-medium text-amber-600 flex items-center gap-1 mt-1.5">
+                <Clock className="w-3.5 h-3.5" />
+                {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
+              </p>
             </div>
 
-            {/* Card 4: Government Registration */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
-              <div>
-                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
-                  সরকারি নিবন্ধন স্ট্যাটাস
+            {/* KPI 4 */}
+            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                  সরকারি নিবন্ধন
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1 font-mono tracking-tight">
-                  S-14086/2023
-                </h3>
-                <a
-                  href="/images/permit.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs sm:text-sm text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-1.5 mt-2 underline"
-                >
-                  <svg className="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  স্বীকৃত লাইসেন্স (Permit PDF)
-                </a>
+                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                </div>
+              </div>
+              <div className="text-xl font-bold tracking-tight text-zinc-900 font-mono">
+                S-14086/2023
               </div>
               <a
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white flex items-center justify-center shadow-md shadow-emerald-950/20 hover:scale-105 transition-transform cursor-pointer shrink-0"
-                title="View Government License Permit"
+                className="text-xs font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1 mt-1.5 hover:underline"
               >
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <span>অফিসিয়াল পারমিট সনদ (PDF)</span>
+                <ExternalLink className="w-3 h-3" />
               </a>
             </div>
           </div>
 
-          {/* Active Content Panel */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
-          <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50/80 overflow-x-auto">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'overview'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-              </svg>
-              ওভারভিউ ড্যাশবোর্ড
-            </button>
-
-            {/* Section Editor Tab */}
-            <button
-              onClick={() => setActiveTab('section_editor')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'section_editor'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-              </svg>
-              সেকশন এডিটর (WP-স্টাইল)
-            </button>
-
-            <button
-              onClick={() => setActiveTab('donations')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'donations'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              অনুদান তালিকা ({donations.length})
-            </button>
-
-            <button
-              onClick={() => setActiveTab('members')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'members'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              সদস্য তালিকা ({members.length})
-            </button>
-
-            <button
-              onClick={() => setActiveTab('volunteers')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'volunteers'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              স্বেচ্ছাসেবক আবেদনপত্র ({volunteers.length})
-            </button>
-
-            <button
-              onClick={() => setActiveTab('campaigns')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'campaigns'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-              </svg>
-              চলমান ক্যাম্পেইন ওভারভিউ
-            </button>
-
-            <button
-              onClick={() => setActiveTab('settings')}
-              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'settings'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              প্রাতিষ্ঠানিক তথ্য ও সেটিংস
-            </button>
-          </div>
-
-          {/* Tab 0: Modern Overview Dashboard */}
-          {activeTab === 'overview' && (
-            <div className="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 bg-slate-50/60">
-              {/* Live Status Banner */}
-              <div className="rounded-2xl bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 p-6 text-white shadow-lg relative overflow-hidden">
-                <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[180px]">volunteer_activism</span>
-                </div>
-                <div className="relative z-10 max-w-2xl">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-sm font-bold border border-emerald-400/30 mb-3 backdrop-blur-xs">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span>গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — লাইভ এডমিন কনসোল</span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black font-serif-heading">
-                    স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা
-                  </h3>
-                  <p className="text-sm sm:text-base text-emerald-100/90 mt-1.5 leading-relaxed">
-                    আপনার মানবিক ত্রাণ ও অনুদান পোর্টালটি সরাসরি Supabase ক্লাউড ও EPS পেমেন্ট গেটওয়ের সাথে সুসংগঠিতভাবে সংযুক্ত। সাম্প্রতিক সকল তথ্য নিচের অ্যানালিটিক্সে পর্যবেক্ষণ করুন।
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3 mt-4 pt-1">
+          {/* Main Card with Segmented Tabs Header */}
+          <div className="rounded-xl border border-zinc-200/80 bg-white shadow-xs overflow-hidden flex-1 flex flex-col">
+            {/* shadcn Tabs List Bar */}
+            <div className="p-2 border-b border-zinc-200/80 bg-zinc-50/70">
+              <div className="inline-flex h-9 items-center justify-start rounded-lg bg-zinc-200/60 p-1 text-zinc-600 w-full overflow-x-auto gap-1">
+                {NAV_ITEMS.map(tab => {
+                  const Icon = tab.icon;
+                  const isCurrent = activeTab === tab.id;
+                  return (
                     <button
-                      onClick={() => setActiveTab('donations')}
-                      className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 rounded-xl text-sm font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={cn(
+                        'inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-all whitespace-nowrap cursor-pointer',
+                        isCurrent
+                          ? 'bg-white text-zinc-950 shadow-2xs font-semibold'
+                          : 'text-zinc-600 hover:text-zinc-950 hover:bg-white/50'
+                      )}
                     >
-                      <span className="material-symbols-outlined text-[18px]">payments</span>
-                      <span>সকল অনুদান দেখুন ({donations.length})</span>
+                      <Icon className="w-3.5 h-3.5" />
+                      <span>{tab.label}</span>
                     </button>
-                    <button
-                      onClick={() => openAddMemberModal()}
-                      className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer backdrop-blur-xs"
-                    >
-                      <span className="material-symbols-outlined text-[18px]">person_add</span>
-                      <span>নতুন সদস্য যুক্ত করুন</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3-Column Visual Metrics & Realtime Insights */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* 1. Payment Methods Breakdown */}
-                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-emerald-700 text-[20px]">account_balance</span>
-                        পেমেন্ট মেথড বিভাজন
-                      </h4>
-                      <span className="text-xs text-slate-500 font-bold uppercase">EPS গেটওয়ে</span>
-                    </div>
-
-                    <div className="space-y-4 mt-5">
-                      {/* bKash */}
-                      <div>
-                        <div className="flex justify-between text-sm font-bold mb-1.5">
-                          <span className="text-slate-800 flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-pink-500"></span>
-                            বিকাশ (bKash)
-                          </span>
-                          <span className="font-mono text-slate-900 text-base">৬০%</span>
-                        </div>
-                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
-                          <div className="h-full bg-pink-500 rounded-full w-[60%] transition-all"></div>
-                        </div>
-                      </div>
-
-                      {/* Nagad */}
-                      <div>
-                        <div className="flex justify-between text-sm font-bold mb-1.5">
-                          <span className="text-slate-800 flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-orange-500"></span>
-                            নগদ (Nagad)
-                          </span>
-                          <span className="font-mono text-slate-900 text-base">২৫%</span>
-                        </div>
-                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
-                          <div className="h-full bg-orange-500 rounded-full w-[25%] transition-all"></div>
-                        </div>
-                      </div>
-
-                      {/* Bank / Card / Rocket */}
-                      <div>
-                        <div className="flex justify-between text-sm font-bold mb-1.5">
-                          <span className="text-slate-800 flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-emerald-600"></span>
-                            কার্ড ও ব্যাংক ট্রান্সফার
-                          </span>
-                          <span className="font-mono text-slate-900 text-base">১৫%</span>
-                        </div>
-                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
-                          <div className="h-full bg-emerald-600 rounded-full w-[15%] transition-all"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm text-slate-600">
-                    <span>সফল ট্রানজেকশন রেট</span>
-                    <span className="font-bold text-emerald-700 font-mono text-sm">৯৯.৮% শতভাগ স্বচ্ছ</span>
-                  </div>
-                </div>
-
-                {/* 2. Top Humanitarian Causes */}
-                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-teal-700 text-[20px]">pie_chart</span>
-                        শীর্ষ মানবিক খাতসমূহ
-                      </h4>
-                      <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded">
-                        ১০০% যাকাত
-                      </span>
-                    </div>
-
-                    <div className="space-y-3.5 mt-4 text-sm">
-                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
-                          <span className="font-semibold text-slate-800 line-clamp-1">সুপেয় পানি ও নলকূপ প্রকল্প</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-900 text-base">৳১,০৫,০০০</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-teal-600 shrink-0"></span>
-                          <span className="font-semibold text-slate-800 line-clamp-1">বাৎসরিক ফরজ যাকাত ফান্ড</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-900 text-base">৳৫০,০০০</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
-                          <span className="font-semibold text-slate-800 line-clamp-1">ওয়ান মিল ওয়ান হোপ (খাদ্য)</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-900 text-base">৳১৮,৫০০</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0"></span>
-                          <span className="font-semibold text-slate-800 line-clamp-1">প্রজেক্ট আলো (চিকিৎসা সহায়তা)</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-900 text-base">৳৩,৫০০</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setActiveTab('campaigns')}
-                    className="mt-4 pt-3.5 border-t border-slate-100 text-sm font-bold text-emerald-700 hover:text-emerald-900 flex items-center justify-between cursor-pointer w-full"
-                  >
-                    <span>ক্যাম্পেইন অগ্রগতি দেখুন</span>
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </button>
-                </div>
-
-                {/* 3. Fast Audit & Quick Actions */}
-                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-amber-600 text-[20px]">verified</span>
-                        সরকারি অডিট ও দ্রুত শর্টকাট
-                      </h4>
-                      <span className="text-xs text-teal-700 font-bold bg-teal-50 px-2.5 py-0.5 rounded">
-                        এনজিও লাইসেন্স
-                      </span>
-                    </div>
-
-                    <div className="space-y-3 mt-4">
-                      <a
-                        href="/images/permit.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 hover:bg-emerald-100/70 flex items-center justify-between group transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white flex items-center justify-center shrink-0">
-                            <span className="material-symbols-outlined text-[20px]">picture_as_pdf</span>
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-slate-900 group-hover:text-emerald-800">সরকারি লাইসেন্স পারমিট</p>
-                            <p className="text-xs text-slate-500 font-mono">Reg: S-14086/2023</p>
-                          </div>
-                        </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-emerald-700 text-[20px]">open_in_new</span>
-                      </a>
-
-                      <button
-                        onClick={() => openAddVolunteerModal()}
-                        className="w-full p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-between group transition-colors cursor-pointer text-left"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center shrink-0">
-                            <span className="material-symbols-outlined text-[20px]">person_add</span>
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-slate-900 group-hover:text-amber-800">নতুন ভলান্টিয়ার তালিকাভুক্তি</p>
-                            <p className="text-xs text-slate-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
-                          </div>
-                        </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-amber-700 text-[20px]">add_circle</span>
-                      </button>
-
-                      <button
-                        onClick={() => setActiveTab('settings')}
-                        className="w-full p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-between group transition-colors cursor-pointer text-left"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-slate-700 text-white flex items-center justify-center shrink-0">
-                            <span className="material-symbols-outlined text-[20px]">settings</span>
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-slate-900 group-hover:text-slate-800">প্রতিষ্ঠানের অফিসিয়াল প্রোফাইল</p>
-                            <p className="text-xs text-slate-500">সাভার প্রধান কার্যালয় ও হটলাইন</p>
-                          </div>
-                        </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-slate-700 text-[20px]">arrow_forward</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm text-slate-600">
-                    <span>শরীয়াহ অডিট বোর্ড</span>
-                    <span className="font-bold text-slate-800">অনুমোদিত ও সক্রিয়</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recent Activity Table Preview in Overview */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-                <div className="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100">
-                  <div className="flex items-center gap-2.5">
-                    <span className="material-symbols-outlined text-emerald-700 text-[22px]">history</span>
-                    <h4 className="text-base font-bold text-slate-900">সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)</h4>
-                  </div>
-                  <button
-                    onClick={() => setActiveTab('donations')}
-                    className="text-sm font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <span>সম্পূর্ণ তালিকা দেখুন</span>
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </button>
-                </div>
-
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-slate-50 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200 text-xs">
-                      <tr>
-                        <th className="py-3.5 px-4">ট্রানজেকশন ID</th>
-                        <th className="py-3.5 px-4">দাতার নাম ও যোগাযোগ</th>
-                        <th className="py-3.5 px-4">মানবিক খাত</th>
-                        <th className="py-3.5 px-4">পরিমাণ</th>
-                        <th className="py-3.5 px-4">পদ্ধতি</th>
-                        <th className="py-3.5 px-4">স্ট্যাটাস</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 font-medium">
-                      {donations.slice(0, 4).map(d => (
-                        <tr key={d.id} className="hover:bg-slate-50/60 transition-colors">
-                          <td className="py-3.5 px-4 font-mono font-bold text-emerald-800 text-sm">{d.id}</td>
-                          <td className="py-3.5 px-4">
-                            <p className="font-bold text-slate-900 text-sm">{d.donorName}</p>
-                            <p className="text-xs text-slate-500 font-mono">{d.donorPhone}</p>
-                          </td>
-                          <td className="py-3.5 px-4 text-slate-800 font-medium text-sm">{d.cause}</td>
-                          <td className="py-3.5 px-4 font-mono font-black text-emerald-800 text-base">৳{d.amount.toLocaleString()}</td>
-                          <td className="py-3.5 px-4">
-                            <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200">
-                              {d.method}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-4">
-                            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs inline-flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-                              {d.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                  );
+                })}
               </div>
             </div>
-          )}
 
-          {/* Tab: WordPress-style Live Section Editor */}
-          {activeTab === 'section_editor' && (
-            <AdminSectionEditor />
-          )}
-
-          {/* Tab 1: Donations List */}
-          {activeTab === 'donations' && (
-            <div className="p-4 sm:p-6 space-y-4 flex-1">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <div className="relative flex-1 max-w-md">
-                  <input
-                    type="text"
-                    placeholder="দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
-                  />
-                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
-                    search
-                  </span>
+            {/* TAB CONTENT 0: Overview */}
+            {activeTab === 'overview' && (
+              <div className="p-5 sm:p-6 space-y-6 flex-1">
+                {/* Welcome Card */}
+                <div className="rounded-xl border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 p-6 text-white shadow-xs relative overflow-hidden">
+                  <div className="relative z-10 max-w-2xl space-y-3">
+                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300 text-xs font-medium border border-zinc-700/60">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span>লাইভ এডমিন কন্ট্রোল সেন্টার</span>
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                      স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা
+                    </h2>
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অনুদান, সদস্য, ভলান্টিয়ার এবং চলমান প্রজেক্টের রিয়েলটাইম তথ্যাদি সম্পূর্ণ স্বয়ংক্রিয়ভাবে সংরক্ষিত রয়েছে।
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2.5 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('donations')}
+                        className="h-9 px-3.5 bg-white text-zinc-900 hover:bg-zinc-100 rounded-md text-xs font-semibold shadow-xs transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <HeartHandshake className="w-4 h-4 text-zinc-700" />
+                        <span>সকল অনুদান দেখুন ({donations.length})</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openAddMemberModal()}
+                        className="h-9 px-3.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 rounded-md text-xs font-medium transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <Plus className="w-4 h-4" />
+                        <span>নতুন সদস্য যুক্ত করুন</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                {/* 3 Metric Insight Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                  {/* Insight 1: Payment Method Breakdown */}
+                  <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
+                          <CreditCard className="w-4 h-4 text-zinc-700" />
+                          পেমেন্ট মেথড বিভাজন
+                        </h3>
+                        <span className="text-[11px] font-mono text-zinc-500 uppercase">EPS Gateway</span>
+                      </div>
+
+                      <div className="space-y-4 mt-4">
+                        <div>
+                          <div className="flex justify-between text-xs font-medium mb-1">
+                            <span className="text-zinc-700">বিকাশ (bKash)</span>
+                            <span className="font-mono text-zinc-900 font-bold">৬০%</span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
+                            <div className="h-full bg-pink-500 rounded-full w-[60%]"></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="flex justify-between text-xs font-medium mb-1">
+                            <span className="text-zinc-700">নগদ (Nagad)</span>
+                            <span className="font-mono text-zinc-900 font-bold">২৫%</span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
+                            <div className="h-full bg-orange-500 rounded-full w-[25%]"></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="flex justify-between text-xs font-medium mb-1">
+                            <span className="text-zinc-700">কার্ড ও ব্যাংক ট্রান্সফার</span>
+                            <span className="font-mono text-zinc-900 font-bold">১৫%</span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
+                            <div className="h-full bg-emerald-600 rounded-full w-[15%]"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                      <span>সফল ট্রানজেকশন রেট</span>
+                      <span className="font-semibold text-emerald-600 font-mono">৯৯.৮% শতভাগ স্বচ্ছ</span>
+                    </div>
+                  </div>
+
+                  {/* Insight 2: Top Causes */}
+                  <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
+                          <PieChart className="w-4 h-4 text-zinc-700" />
+                          শীর্ষ মানবিক খাতসমূহ
+                        </h3>
+                        <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
+                          ১০০% যাকাত
+                        </span>
+                      </div>
+
+                      <div className="space-y-2.5 mt-3.5 text-xs">
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
+                          <span className="font-medium text-zinc-800">সুপেয় পানি ও নলকূপ প্রকল্প</span>
+                          <span className="font-mono font-bold text-zinc-900">৳১,০৫,০০০</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
+                          <span className="font-medium text-zinc-800">বাৎসরিক ফরজ যাকাত ফান্ড</span>
+                          <span className="font-mono font-bold text-zinc-900">৳৫০,০০০</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
+                          <span className="font-medium text-zinc-800">ওয়ান মিল ওয়ান হোপ (খাদ্য)</span>
+                          <span className="font-mono font-bold text-zinc-900">৳১৮,৫০০</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
+                          <span className="font-medium text-zinc-800">প্রজেক্ট আলো (চিকিৎসা)</span>
+                          <span className="font-mono font-bold text-zinc-900">৳৩,৫০০</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('campaigns')}
+                      className="mt-4 pt-3 border-t border-zinc-100 text-xs font-semibold text-zinc-800 hover:text-zinc-950 flex items-center justify-between cursor-pointer w-full"
+                    >
+                      <span>ক্যাম্পেইন অগ্রগতি দেখুন</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {/* Insight 3: Audit & Shortcuts */}
+                  <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
+                          <ShieldCheck className="w-4 h-4 text-zinc-700" />
+                          সরকারি অডিট ও শর্টকাট
+                        </h3>
+                        <span className="text-[11px] font-semibold text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
+                          এনজিও সনদ
+                        </span>
+                      </div>
+
+                      <div className="space-y-2.5 mt-3.5">
+                        <a
+                          href="/images/permit.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2.5 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 flex items-center justify-center shrink-0">
+                              <FileText className="w-3.5 h-3.5" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-zinc-900">সরকারি লাইসেন্স পারমিট</p>
+                              <p className="text-[10px] text-zinc-500 font-mono">Reg: S-14086/2023</p>
+                            </div>
+                          </div>
+                          <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
+                        </a>
+
+                        <button
+                          type="button"
+                          onClick={() => openAddVolunteerModal()}
+                          className="w-full p-2.5 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors cursor-pointer text-left"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 flex items-center justify-center shrink-0">
+                              <Plus className="w-3.5 h-3.5" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-zinc-900">নতুন ভলান্টিয়ার এন্ট্রি</p>
+                              <p className="text-[10px] text-zinc-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                      <span>শরীয়াহ অডিট বোর্ড</span>
+                      <span className="font-semibold text-zinc-800">অনুমোদিত ও সক্রিয়</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Donations Table */}
+                <div className="rounded-xl border border-zinc-200/80 bg-white shadow-xs overflow-hidden">
+                  <div className="p-4 flex items-center justify-between border-b border-zinc-100">
+                    <div className="flex items-center gap-2">
+                      <History className="w-4 h-4 text-zinc-700" />
+                      <h3 className="text-sm font-semibold text-zinc-900">সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)</h3>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('donations')}
+                      className="text-xs font-medium text-zinc-700 hover:text-zinc-900 flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>সম্পূর্ণ তালিকা দেখুন</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200/80 text-[11px]">
+                        <tr>
+                          <th className="py-3 px-4">ট্রানজেকশন ID</th>
+                          <th className="py-3 px-4">দাতার নাম ও যোগাযোগ</th>
+                          <th className="py-3 px-4">মানবিক খাত</th>
+                          <th className="py-3 px-4">পরিমাণ</th>
+                          <th className="py-3 px-4">পদ্ধতি</th>
+                          <th className="py-3 px-4">স্ট্যাটাস</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-zinc-100 font-normal">
+                        {donations.slice(0, 4).map(d => (
+                          <tr key={d.id} className="hover:bg-zinc-50/70 transition-colors">
+                            <td className="py-3 px-4 font-mono font-semibold text-zinc-900">{d.id}</td>
+                            <td className="py-3 px-4">
+                              <p className="font-semibold text-zinc-900">{d.donorName}</p>
+                              <p className="text-[11px] text-zinc-500 font-mono">{d.donorPhone}</p>
+                            </td>
+                            <td className="py-3 px-4 text-zinc-700">{d.cause}</td>
+                            <td className="py-3 px-4 font-mono font-bold text-zinc-900 text-sm">৳{d.amount.toLocaleString()}</td>
+                            <td className="py-3 px-4">
+                              <span className="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-800 text-[11px] font-mono border border-zinc-200">
+                                {d.method}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4">
+                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-medium text-[11px] inline-flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                {d.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB CONTENT: WP-Style Section Editor */}
+            {activeTab === 'section_editor' && (
+              <AdminSectionEditor />
+            )}
+
+            {/* TAB CONTENT: Donations */}
+            {activeTab === 'donations' && (
+              <div className="p-5 sm:p-6 space-y-4 flex-1">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                    <input
+                      type="text"
+                      placeholder="দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..."
+                      value={searchTerm}
+                      onChange={e => setSearchTerm(e.target.value)}
+                      className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
+                    />
+                  </div>
+
                   <button
+                    type="button"
                     onClick={() => {
                       const csv = [
                         ['Transaction ID', 'Donor Name', 'Phone', 'Email', 'Amount', 'Currency', 'Cause', 'Method', 'Status', 'Date'],
@@ -1673,503 +1409,489 @@ export default function AdminDashboard() {
                       link.click();
                       document.body.removeChild(link);
                     }}
-                    className="px-4 py-2.5 border border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-bold text-slate-700 flex items-center gap-2 transition-colors cursor-pointer"
+                    className="h-9 px-3 border border-zinc-200 hover:bg-zinc-50 rounded-md text-xs font-medium text-zinc-800 flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                   >
-                    <span className="material-symbols-outlined text-[18px]">download</span>
-                    CSV এক্সপোর্ট
+                    <Download className="w-3.5 h-3.5" />
+                    <span>CSV এক্সপোর্ট</span>
                   </button>
                 </div>
-              </div>
 
-              {/* Transactions Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
-                    <tr>
-                      <th className="p-4">ট্রানজেকশন ID</th>
-                      <th className="p-4">দাতার নাম ও যোগাযোগ</th>
-                      <th className="p-4">উদ্দেশ্য / খাত</th>
-                      <th className="p-4">পরিমাণ</th>
-                      <th className="p-4">পেমেন্ট মাধ্যম</th>
-                      <th className="p-4">স্ট্যাটাস</th>
-                      <th className="p-4">তারিখ ও সময়</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
-                    {filteredDonations.length === 0 ? (
+                <div className="rounded-lg border border-zinc-200 overflow-x-auto shadow-2xs">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
                       <tr>
-                        <td colSpan={7} className="p-8 text-center text-slate-500 text-sm">
-                          কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।
-                        </td>
+                        <th className="p-3.5">ট্রানজেকশন ID</th>
+                        <th className="p-3.5">দাতার নাম ও যোগাযোগ</th>
+                        <th className="p-3.5">উদ্দেশ্য / খাত</th>
+                        <th className="p-3.5">পরিমাণ</th>
+                        <th className="p-3.5">পেমেন্ট মাধ্যম</th>
+                        <th className="p-3.5">স্ট্যাটাস</th>
+                        <th className="p-3.5">তারিখ ও সময়</th>
                       </tr>
-                    ) : (
-                      filteredDonations.map(d => (
-                        <tr key={d.id} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="p-4 font-mono text-emerald-800 font-bold text-sm">{d.id}</td>
-                          <td className="p-4">
-                            <span className="font-bold text-slate-900 block text-sm">{d.donorName}</span>
-                            <span className="text-slate-500 font-mono text-xs">{d.donorPhone}</span>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-100 text-zinc-700">
+                      {filteredDonations.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="p-8 text-center text-zinc-400">
+                            কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।
                           </td>
-                          <td className="p-4">
-                            <span className="text-slate-800 font-medium text-sm line-clamp-1">{d.cause}</span>
-                          </td>
-                          <td className="p-4">
-                            <span className="font-mono font-black text-emerald-800 text-base">
+                        </tr>
+                      ) : (
+                        filteredDonations.map(d => (
+                          <tr key={d.id} className="hover:bg-zinc-50/70 transition-colors">
+                            <td className="p-3.5 font-mono text-zinc-900 font-semibold">{d.id}</td>
+                            <td className="p-3.5">
+                              <span className="font-semibold text-zinc-900 block">{d.donorName}</span>
+                              <span className="text-zinc-500 font-mono text-[11px]">{d.donorPhone}</span>
+                            </td>
+                            <td className="p-3.5 text-zinc-700">{d.cause}</td>
+                            <td className="p-3.5 font-mono font-bold text-zinc-900 text-sm">
                               ৳{d.amount.toLocaleString()}
-                            </span>
-                          </td>
-                          <td className="p-4">
-                            <span className="inline-block px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-slate-100 text-slate-800 border border-slate-200">
-                              {d.method}
-                            </span>
-                          </td>
-                          <td className="p-4">
-                            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                              <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                              {d.status}
-                            </span>
-                          </td>
-                          <td className="p-4 text-slate-500 font-mono text-xs">
-                            {d.date}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* Tab 2: Members Management (Full CRUD with Photo) */}
-          {activeTab === 'members' && (
-            <div className="p-4 sm:p-6 space-y-4 flex-1">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <div className="relative flex-1 max-w-md">
-                  <input
-                    type="text"
-                    placeholder="সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..."
-                    value={memberSearchTerm}
-                    onChange={e => setMemberSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
-                  />
-                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
-                    search
-                  </span>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-800 text-[11px] font-mono border border-zinc-200">
+                                {d.method}
+                              </span>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/80">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                {d.status}
+                              </span>
+                            </td>
+                            <td className="p-3.5 text-zinc-500 font-mono text-[11px]">{d.date}</td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={openAddMemberModal}
-                  className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow transition-colors cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[20px]">add</span>
-                  <span>নতুন সদস্য যুক্ত করুন</span>
-                </button>
               </div>
+            )}
 
-              {/* Members Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
-                    <tr>
-                      <th className="p-4 w-16 text-center">ছবি</th>
-                      <th className="p-4">নাম ও পরিচিতি</th>
-                      <th className="p-4">পদবী ও দায়িত্ব</th>
-                      <th className="p-4">ক্যাটাগরি</th>
-                      <th className="p-4">মোবাইল ও ইমেইল</th>
-                      <th className="p-4">অবস্থান / জেলা</th>
-                      <th className="p-4 text-right">অ্যাকশন</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
-                    {filteredMembers.length === 0 ? (
-                      <tr>
-                        <td colSpan={7} className="p-8 text-center text-slate-500 text-sm">
-                          কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।
-                        </td>
-                      </tr>
-                    ) : (
-                      filteredMembers.map(m => (
-                        <tr key={m.id} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="p-4 text-center">
-                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 mx-auto bg-slate-100 flex items-center justify-center shadow-xs">
-                              {m.image ? (
-                                <img
-                                  src={m.image}
-                                  alt={m.nameBn}
-                                  className="w-full h-full object-cover"
-                                  onError={e => {
-                                    (e.target as HTMLElement).style.display = 'none';
-                                  }}
-                                />
-                              ) : (
-                                <span className="material-symbols-outlined text-slate-400 text-[24px]">
-                                  person
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="p-4">
-                            <span className="font-bold text-slate-900 block text-base">{m.nameBn}</span>
-                            <span className="text-slate-500 text-xs">{m.nameEn}</span>
-                          </td>
-                          <td className="p-4">
-                            <span className="font-bold text-emerald-900 block text-sm">{m.roleBn}</span>
-                            <span className="text-slate-600 text-xs">{m.departmentBn || m.roleEn}</span>
-                          </td>
-                          <td className="p-4">
-                            <span
-                              className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
-                                m.category === 'board'
-                                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                                  : m.category === 'advisor'
-                                  ? 'bg-purple-100 text-purple-900 border border-purple-300'
-                                  : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                              }`}
-                            >
-                              {m.category === 'board'
-                                ? 'ট্রাস্টি বোর্ড'
-                                : m.category === 'advisor'
-                                ? 'উপদেষ্টা'
-                                : 'ব্যবস্থাপনা'}
-                            </span>
-                          </td>
-                          <td className="p-4">
-                            <span className="font-mono text-slate-800 font-semibold block text-sm">{m.phone || '—'}</span>
-                            <span className="text-slate-500 text-xs block">{m.email || '—'}</span>
-                          </td>
-                          <td className="p-4 text-slate-700 text-sm max-w-[180px] truncate">
-                            {m.locationBn || 'ঢাকা, বাংলাদেশ'}
-                          </td>
-                          <td className="p-4 text-right space-x-2 whitespace-nowrap">
-                            <button
-                              type="button"
-                              onClick={() => openEditMemberModal(m)}
-                              className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-sm font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-                              title="সম্পাদনা করুন"
-                            >
-                              <span className="material-symbols-outlined text-[18px]">edit</span>
-                              <span>এডিট</span>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteMember(m.id, m.nameBn)}
-                              className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-sm font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-                              title="মুছে ফেলুন"
-                            >
-                              <span className="material-symbols-outlined text-[18px]">delete</span>
-                              <span>ডিলিট</span>
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* Tab 3: Volunteer Applications (Full CRUD with Photo) */}
-          {activeTab === 'volunteers' && (
-            <div className="p-4 sm:p-6 space-y-4 flex-1">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <div className="relative flex-1 max-w-md">
-                  <input
-                    type="text"
-                    placeholder="স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..."
-                    value={volunteerSearchTerm}
-                    onChange={e => setVolunteerSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
-                  />
-                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
-                    search
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={openAddVolunteerModal}
-                  className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow transition-colors cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[20px]">person_add</span>
-                  <span>নতুন স্বেচ্ছাসেবক যুক্ত করুন</span>
-                </button>
-              </div>
-
-              {/* Volunteers Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
-                    <tr>
-                      <th className="p-4 w-16 text-center">ছবি</th>
-                      <th className="p-4">আইডি ও নাম</th>
-                      <th className="p-4">মোবাইল ও ইমেইল</th>
-                      <th className="p-4">ঠিকানা / জেলা</th>
-                      <th className="p-4">পছন্দের মানবিক খাত</th>
-                      <th className="p-4">দক্ষতা ও অভিজ্ঞতা</th>
-                      <th className="p-4">স্ট্যাটাস</th>
-                      <th className="p-4 text-right">পদক্ষেপ</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
-                    {filteredVolunteers.length === 0 ? (
-                      <tr>
-                        <td colSpan={8} className="p-8 text-center text-slate-500 text-sm">
-                          কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।
-                        </td>
-                      </tr>
-                    ) : (
-                      filteredVolunteers.map(v => (
-                        <tr key={v.id} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="p-4 text-center">
-                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 mx-auto bg-slate-100 flex items-center justify-center shadow-xs">
-                              {v.image ? (
-                                <img
-                                  src={v.image}
-                                  alt={v.name}
-                                  className="w-full h-full object-cover"
-                                  onError={e => {
-                                    (e.target as HTMLElement).style.display = 'none';
-                                  }}
-                                />
-                              ) : (
-                                <span className="material-symbols-outlined text-slate-400 text-[24px]">
-                                  volunteer_activism
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="p-4">
-                            <span className="font-bold text-slate-900 block text-base">{v.name}</span>
-                            <span className="font-mono text-slate-500 text-xs">{v.id}</span>
-                          </td>
-                          <td className="p-4">
-                            <span className="text-slate-800 font-mono font-semibold block text-sm">{v.phone}</span>
-                            <span className="text-slate-500 text-xs block">{v.email || '—'}</span>
-                          </td>
-                          <td className="p-4 text-slate-700 text-sm">{v.district}</td>
-                          <td className="p-4">
-                            <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-md border border-emerald-200 font-bold text-xs inline-block">
-                              {v.category}
-                            </span>
-                          </td>
-                          <td className="p-4 text-slate-700 text-sm max-w-xs">{v.skills}</td>
-                          <td className="p-4">
-                            <span
-                              className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
-                                v.status === 'APPROVED'
-                                  ? 'bg-emerald-100 text-emerald-800'
-                                  : v.status === 'PENDING'
-                                  ? 'bg-amber-100 text-amber-800'
-                                  : 'bg-red-100 text-red-800'
-                              }`}
-                            >
-                              {v.status}
-                            </span>
-                          </td>
-                          <td className="p-4 text-right space-x-1.5 whitespace-nowrap">
-                            {v.status !== 'APPROVED' && (
-                              <button
-                                onClick={() => handleStatusChange(v.id, 'APPROVED')}
-                                className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold cursor-pointer transition-colors shadow-xs"
-                              >
-                                অনুমোদন
-                              </button>
-                            )}
-                            {v.status !== 'REJECTED' && (
-                              <button
-                                onClick={() => handleStatusChange(v.id, 'REJECTED')}
-                                className="px-3.5 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
-                              >
-                                বাতিল
-                              </button>
-                            )}
-                            <button
-                              type="button"
-                              onClick={() => openEditVolunteerModal(v)}
-                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
-                              title="সম্পাদনা"
-                            >
-                              <span className="material-symbols-outlined text-[18px] align-middle">edit</span>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteVolunteer(v.id, v.name)}
-                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
-                              title="মুছুন"
-                            >
-                              <span className="material-symbols-outlined text-[18px] align-middle">delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* Tab 4: All Dynamic Cards, Projects & Campaigns Manager */}
-          {activeTab === 'campaigns' && (
-            <AdminCardManager />
-          )}
-
-          {/* Tab 5: Institutional Settings */}
-          {activeTab === 'settings' && (
-            <div className="p-4 sm:p-6 space-y-6 max-w-3xl">
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-5">
-                <h4 className="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
-                  প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <label className="text-slate-600 font-bold block mb-1.5">চেয়ারম্যানের নাম</label>
+            {/* TAB CONTENT: Members */}
+            {activeTab === 'members' && (
+              <div className="p-5 sm:p-6 space-y-4 flex-1">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                     <input
                       type="text"
-                      readOnly
-                      value="Mohammad Ali Mostafa"
-                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
+                      placeholder="সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..."
+                      value={memberSearchTerm}
+                      onChange={e => setMemberSearchTerm(e.target.value)}
+                      className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
                     />
                   </div>
 
-                  <div>
-                    <label className="text-slate-600 font-bold block mb-1.5">ফাউন্ডেশনের পূর্ণ নাম</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value="Global Muslim Charitable Foundation"
-                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-slate-600 font-bold block mb-1.5">অফিসিয়াল ইমেইল</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value="gmcfoundation2022@gmail.com"
-                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-slate-600 font-bold block mb-1.5">অফিসিয়াল হটলাইন</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value="01913119525"
-                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-slate-600 font-bold block mb-1.5 text-sm">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
-                  <input
-                    type="text"
-                    readOnly
-                    value="House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh"
-                    className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800 text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
-                <h4 className="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
-                  সরকারি অনুদান ও অডিট কমপ্লায়েন্স
-                </h4>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।
-                </p>
-                <div className="pt-2">
-                  <a
-                    href="/images/permit.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-800 text-white rounded-xl text-sm font-bold shadow hover:bg-emerald-900 transition-colors"
+                  <button
+                    type="button"
+                    onClick={openAddMemberModal}
+                    className="h-9 px-3.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-[18px]">file_download</span>
-                    অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন
-                  </a>
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>নতুন সদস্য যুক্ত করুন</span>
+                  </button>
+                </div>
+
+                <div className="rounded-lg border border-zinc-200 overflow-x-auto shadow-2xs">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
+                      <tr>
+                        <th className="p-3.5 w-14 text-center">ছবি</th>
+                        <th className="p-3.5">নাম ও পরিচিতি</th>
+                        <th className="p-3.5">পদবী ও দায়িত্ব</th>
+                        <th className="p-3.5">ক্যাটাগরি</th>
+                        <th className="p-3.5">যোগাযোগ</th>
+                        <th className="p-3.5">অবস্থান</th>
+                        <th className="p-3.5 text-right">অ্যাকশন</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-100 text-zinc-700">
+                      {filteredMembers.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="p-8 text-center text-zinc-400">
+                            কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredMembers.map(m => (
+                          <tr key={m.id} className="hover:bg-zinc-50/70 transition-colors">
+                            <td className="p-3.5 text-center">
+                              <div className="w-9 h-9 rounded-full overflow-hidden border border-zinc-200 mx-auto bg-zinc-100 flex items-center justify-center">
+                                {m.image ? (
+                                  <img
+                                    src={m.image}
+                                    alt={m.nameBn}
+                                    className="w-full h-full object-cover"
+                                    onError={e => {
+                                      (e.target as HTMLElement).style.display = 'none';
+                                    }}
+                                  />
+                                ) : (
+                                  <Users className="w-4 h-4 text-zinc-400" />
+                                )}
+                              </div>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="font-semibold text-zinc-900 block">{m.nameBn}</span>
+                              <span className="text-zinc-500 text-[11px]">{m.nameEn}</span>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="font-medium text-zinc-900 block">{m.roleBn}</span>
+                              <span className="text-zinc-500 text-[11px]">{m.departmentBn || m.roleEn}</span>
+                            </td>
+                            <td className="p-3.5">
+                              <span
+                                className={cn(
+                                  'inline-block text-[11px] font-medium px-2 py-0.5 rounded-full border',
+                                  m.category === 'board'
+                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                    : m.category === 'advisor'
+                                    ? 'bg-purple-50 text-purple-800 border-purple-200'
+                                    : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                )}
+                              >
+                                {m.category === 'board'
+                                  ? 'ট্রাস্টি বোর্ড'
+                                  : m.category === 'advisor'
+                                  ? 'উপদেষ্টা'
+                                  : 'ব্যবস্থাপনা'}
+                              </span>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="font-mono text-zinc-800 block text-xs">{m.phone || '—'}</span>
+                              <span className="text-zinc-500 text-[11px] block">{m.email || '—'}</span>
+                            </td>
+                            <td className="p-3.5 text-zinc-600 max-w-[160px] truncate">
+                              {m.locationBn || 'ঢাকা, বাংলাদেশ'}
+                            </td>
+                            <td className="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+                              <button
+                                type="button"
+                                onClick={() => openEditMemberModal(m)}
+                                className="h-7 px-2.5 bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-700 rounded-md text-xs font-medium inline-flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
+                                title="সম্পাদনা করুন"
+                              >
+                                <Edit3 className="w-3 h-3" />
+                                <span>এডিট</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteMember(m.id, m.nameBn)}
+                                className="h-7 px-2.5 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-md text-xs font-medium inline-flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
+                                title="মুছে ফেলুন"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                                <span>ডিলিট</span>
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+
+            {/* TAB CONTENT: Volunteers */}
+            {activeTab === 'volunteers' && (
+              <div className="p-5 sm:p-6 space-y-4 flex-1">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                    <input
+                      type="text"
+                      placeholder="স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..."
+                      value={volunteerSearchTerm}
+                      onChange={e => setVolunteerSearchTerm(e.target.value)}
+                      className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={openAddVolunteerModal}
+                    className="h-9 px-3.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>নতুন স্বেচ্ছাসেবক যুক্ত করুন</span>
+                  </button>
+                </div>
+
+                <div className="rounded-lg border border-zinc-200 overflow-x-auto shadow-2xs">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
+                      <tr>
+                        <th className="p-3.5 w-14 text-center">ছবি</th>
+                        <th className="p-3.5">আইডি ও নাম</th>
+                        <th className="p-3.5">যোগাযোগ</th>
+                        <th className="p-3.5">ঠিকানা / জেলা</th>
+                        <th className="p-3.5">মানবিক খাত</th>
+                        <th className="p-3.5">দক্ষতা</th>
+                        <th className="p-3.5">স্ট্যাটাস</th>
+                        <th className="p-3.5 text-right">পদক্ষেপ</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-100 text-zinc-700">
+                      {filteredVolunteers.length === 0 ? (
+                        <tr>
+                          <td colSpan={8} className="p-8 text-center text-zinc-400">
+                            কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredVolunteers.map(v => (
+                          <tr key={v.id} className="hover:bg-zinc-50/70 transition-colors">
+                            <td className="p-3.5 text-center">
+                              <div className="w-9 h-9 rounded-full overflow-hidden border border-zinc-200 mx-auto bg-zinc-100 flex items-center justify-center">
+                                {v.image ? (
+                                  <img
+                                    src={v.image}
+                                    alt={v.name}
+                                    className="w-full h-full object-cover"
+                                    onError={e => {
+                                      (e.target as HTMLElement).style.display = 'none';
+                                    }}
+                                  />
+                                ) : (
+                                  <HandHeart className="w-4 h-4 text-zinc-400" />
+                                )}
+                              </div>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="font-semibold text-zinc-900 block">{v.name}</span>
+                              <span className="font-mono text-zinc-500 text-[11px]">{v.id}</span>
+                            </td>
+                            <td className="p-3.5">
+                              <span className="text-zinc-800 font-mono block text-xs">{v.phone}</span>
+                              <span className="text-zinc-500 text-[11px] block">{v.email || '—'}</span>
+                            </td>
+                            <td className="p-3.5 text-zinc-600">{v.district}</td>
+                            <td className="p-3.5">
+                              <span className="bg-zinc-100 text-zinc-800 px-2 py-0.5 rounded text-[11px] font-medium border border-zinc-200">
+                                {v.category}
+                              </span>
+                            </td>
+                            <td className="p-3.5 text-zinc-600 max-w-xs truncate">{v.skills}</td>
+                            <td className="p-3.5">
+                              <span
+                                className={cn(
+                                  'inline-block text-[11px] font-medium px-2 py-0.5 rounded-full border',
+                                  v.status === 'APPROVED'
+                                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                    : v.status === 'PENDING'
+                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                    : 'bg-red-50 text-red-800 border-red-200'
+                                )}
+                              >
+                                {v.status}
+                              </span>
+                            </td>
+                            <td className="p-3.5 text-right space-x-1 whitespace-nowrap">
+                              {v.status !== 'APPROVED' && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleStatusChange(v.id, 'APPROVED')}
+                                  className="h-7 px-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-xs font-medium cursor-pointer transition-colors shadow-2xs"
+                                >
+                                  অনুমোদন
+                                </button>
+                              )}
+                              {v.status !== 'REJECTED' && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleStatusChange(v.id, 'REJECTED')}
+                                  className="h-7 px-2.5 bg-zinc-100 hover:bg-red-50 hover:text-red-700 text-zinc-700 rounded-md text-xs font-medium cursor-pointer transition-colors"
+                                >
+                                  বাতিল
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => openEditVolunteerModal(v)}
+                                className="h-7 px-2 bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-700 rounded-md text-xs cursor-pointer transition-colors shadow-2xs"
+                                title="সম্পাদনা"
+                              >
+                                <Edit3 className="w-3 h-3" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteVolunteer(v.id, v.name)}
+                                className="h-7 px-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-md text-xs cursor-pointer transition-colors shadow-2xs"
+                                title="মুছুন"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* TAB CONTENT: Campaigns & Dynamic Card Manager */}
+            {activeTab === 'campaigns' && (
+              <AdminCardManager />
+            )}
+
+            {/* TAB CONTENT: Settings */}
+            {activeTab === 'settings' && (
+              <div className="p-5 sm:p-6 space-y-6 max-w-3xl">
+                <div className="bg-zinc-50/70 p-5 rounded-xl border border-zinc-200 space-y-4">
+                  <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-zinc-700" />
+                    প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <label className="text-zinc-600 font-medium block mb-1">চেয়ারম্যানের নাম</label>
+                      <input
+                        type="text"
+                        readOnly
+                        value="Mohammad Ali Mostafa"
+                        className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-zinc-600 font-medium block mb-1">ফাউন্ডেশনের পূর্ণ নাম</label>
+                      <input
+                        type="text"
+                        readOnly
+                        value="Global Muslim Charitable Foundation"
+                        className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-zinc-600 font-medium block mb-1">অফিসিয়াল ইমেইল</label>
+                      <input
+                        type="text"
+                        readOnly
+                        value="gmcfoundation2022@gmail.com"
+                        className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-zinc-600 font-medium block mb-1">অফিসিয়াল হটলাইন</label>
+                      <input
+                        type="text"
+                        readOnly
+                        value="01913119525"
+                        className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-zinc-600 font-medium block mb-1 text-xs">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
+                    <input
+                      type="text"
+                      readOnly
+                      value="House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh"
+                      className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium text-xs shadow-2xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-zinc-50/70 p-5 rounded-xl border border-zinc-200 space-y-3">
+                  <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    সরকারি অনুদান ও অডিট কমপ্লায়েন্স
+                  </h3>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।
+                  </p>
+                  <div className="pt-1">
+                    <a
+                      href="/images/permit.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-900 text-white rounded-md text-xs font-medium hover:bg-zinc-800 transition-colors shadow-2xs"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </main>
       </div>
 
       {/* ============================================================== */}
-      {/* Member Modal (Add / Edit) */}
+      {/* shadcn Dialog: Member Modal (Add / Edit) */}
       {/* ============================================================== */}
       {isMemberModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center material-symbols-outlined text-lg">
-                  badge
-                </span>
-                <h3 className="text-lg font-bold text-slate-900 font-serif-heading">
+          <div className="bg-white rounded-xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 border border-zinc-200 animate-in fade-in-0 zoom-in-95">
+            <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+              <div>
+                <h3 className="text-base font-semibold text-zinc-900">
                   {editingMemberId ? 'সদস্যের তথ্য সম্পাদনা করুন' : 'নতুন সদস্য যুক্ত করুন'}
                 </h3>
+                <p className="text-xs text-zinc-500">পরিচালনা পর্ষদ বা ব্যবস্থাপনা টিমের প্রোফাইল হালনাগাদ</p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsMemberModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer"
+                className="w-7 h-7 rounded-md hover:bg-zinc-100 text-zinc-400 hover:text-zinc-700 flex items-center justify-center cursor-pointer transition-colors"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveMember} className="space-y-4 text-xs">
+            <form onSubmit={handleSaveMember} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">নাম (বাংলায়) *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">নাম (বাংলায়) *</label>
                   <input
                     type="text"
                     required
                     placeholder="যেমন: মোঃ আল আমিন"
                     value={memberForm.nameBn}
                     onChange={e => setMemberForm({ ...memberForm, nameBn: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Name (English)</label>
+                  <label className="font-medium text-zinc-700 block mb-1">Name (English)</label>
                   <input
                     type="text"
                     placeholder="e.g. Md. Al Amin"
                     value={memberForm.nameEn}
                     onChange={e => setMemberForm({ ...memberForm, nameEn: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">পদবী / ভূমিকা (বাংলায়) *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">পদবী / ভূমিকা (বাংলায়) *</label>
                   <input
                     type="text"
                     required
                     placeholder="যেমন: সিনিয়র ট্রাস্টি / কোঅর্ডিনেটর"
                     value={memberForm.roleBn}
                     onChange={e => setMemberForm({ ...memberForm, roleBn: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি</label>
+                  <label className="font-medium text-zinc-700 block mb-1">ক্যাটাগরি</label>
                   <select
                     value={memberForm.category}
                     onChange={e => setMemberForm({ ...memberForm, category: e.target.value as any })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 bg-white"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950 bg-white"
                   >
                     <option value="board">পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড</option>
                     <option value="management">নির্বাহী ব্যবস্থাপনা ও কোঅর্ডিনেটর</option>
@@ -2178,103 +1900,101 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Photo Input & Preview */}
+              {/* Photo Input */}
               <div>
-                <label className="font-bold text-slate-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <label className="font-medium text-zinc-700 block mb-1">ছবির লিংক (Photo URL)</label>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl border border-slate-300 overflow-hidden shrink-0 bg-slate-100 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-md border border-zinc-200 overflow-hidden shrink-0 bg-zinc-50 flex items-center justify-center">
                     {memberForm.image ? (
                       <img src={memberForm.image} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
-                      <span className="material-symbols-outlined text-slate-400">person</span>
+                      <Users className="w-4 h-4 text-zinc-400" />
                     )}
                   </div>
                   <input
                     type="text"
-                    placeholder="/images/humanitarian-volunteers.jpg বা যেকোনো ছবির লিংক"
+                    placeholder="/images/humanitarian-volunteers.jpg বা ছবির URL"
                     value={memberForm.image}
                     onChange={e => setMemberForm({ ...memberForm, image: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
-                {/* Preset Avatars */}
-                <div className="mt-2">
-                  <span className="text-[10px] text-slate-500 font-semibold block mb-1">প্রিসেট ছবি বেছে নিন:</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {PRESET_AVATARS.map((av, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setMemberForm({ ...memberForm, image: av.url })}
-                        className={`text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer ${
-                          memberForm.image === av.url
-                            ? 'bg-emerald-700 text-white border-emerald-700'
-                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-300'
-                        }`}
-                      >
-                        {av.label}
-                      </button>
-                    ))}
-                  </div>
+                {/* Presets */}
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {PRESET_AVATARS.map((av, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setMemberForm({ ...memberForm, image: av.url })}
+                      className={cn(
+                        'text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer',
+                        memberForm.image === av.url
+                          ? 'bg-zinc-900 text-white border-zinc-900'
+                          : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-200'
+                      )}
+                    >
+                      {av.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">মোবাইল নম্বর</label>
+                  <label className="font-medium text-zinc-700 block mb-1">মোবাইল নম্বর</label>
                   <input
                     type="text"
                     placeholder="01913119525"
                     value={memberForm.phone}
                     onChange={e => setMemberForm({ ...memberForm, phone: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">ইমেইল ঠিকানা</label>
+                  <label className="font-medium text-zinc-700 block mb-1">ইমেইল ঠিকানা</label>
                   <input
                     type="email"
                     placeholder="member@gmcf.org"
                     value={memberForm.email}
                     onChange={e => setMemberForm({ ...memberForm, email: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">অবস্থান / ঠিকানা</label>
+                <label className="font-medium text-zinc-700 block mb-1">অবস্থান / ঠিকানা</label>
                 <input
                   type="text"
                   placeholder="যেমন: সাভার, ঢাকা"
                   value={memberForm.locationBn}
                   onChange={e => setMemberForm({ ...memberForm, locationBn: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">সংক্ষিপ্ত পরিচিতি (Bio)</label>
+                <label className="font-medium text-zinc-700 block mb-1">সংক্ষিপ্ত পরিচিতি (Bio)</label>
                 <textarea
                   rows={2}
                   placeholder="সদস্যের অবদান বা দায়িত্বের সংক্ষিপ্ত বিবরণ..."
                   value={memberForm.bioBn}
                   onChange={e => setMemberForm({ ...memberForm, bioBn: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  className="w-full px-3 py-1.5 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100">
                 <button
                   type="button"
                   onClick={() => setIsMemberModalOpen(false)}
-                  className="px-4 py-2 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-100 font-bold cursor-pointer"
+                  className="h-9 px-4 border border-zinc-200 text-zinc-700 rounded-md hover:bg-zinc-50 font-medium cursor-pointer shadow-2xs"
                 >
                   বাতিল
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow cursor-pointer"
+                  className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
                   {editingMemberId ? 'হালনাগাদ সংরক্ষণ করুন' : 'সদস্য যোগ করুন'}
                 </button>
@@ -2285,95 +2005,93 @@ export default function AdminDashboard() {
       )}
 
       {/* ============================================================== */}
-      {/* Volunteer Modal (Add / Edit) */}
+      {/* shadcn Dialog: Volunteer Modal (Add / Edit) */}
       {/* ============================================================== */}
       {isVolunteerModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center material-symbols-outlined text-lg">
-                  volunteer_activism
-                </span>
-                <h3 className="text-lg font-bold text-slate-900 font-serif-heading">
+          <div className="bg-white rounded-xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 border border-zinc-200 animate-in fade-in-0 zoom-in-95">
+            <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+              <div>
+                <h3 className="text-base font-semibold text-zinc-900">
                   {editingVolunteerId ? 'স্বেচ্ছাসেবকের তথ্য সম্পাদনা করুন' : 'নতুন স্বেচ্ছাসেবক যুক্ত করুন'}
                 </h3>
+                <p className="text-xs text-zinc-500">মাঠপর্যায়ের ত্রাণ ও মেডিকেল টিমের ভলান্টিয়ার এন্ট্রি</p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsVolunteerModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer"
+                className="w-7 h-7 rounded-md hover:bg-zinc-100 text-zinc-400 hover:text-zinc-700 flex items-center justify-center cursor-pointer transition-colors"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveVolunteer} className="space-y-4 text-xs">
+            <form onSubmit={handleSaveVolunteer} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">স্বেচ্ছাসেবকের পুরো নাম *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">স্বেচ্ছাসেবকের পুরো নাম *</label>
                   <input
                     type="text"
                     required
                     placeholder="যেমন: সাব্বির আহমেদ"
                     value={volunteerForm.name}
                     onChange={e => setVolunteerForm({ ...volunteerForm, name: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">মোবাইল নম্বর *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">মোবাইল নম্বর *</label>
                   <input
                     type="text"
                     required
                     placeholder="01700-000000"
                     value={volunteerForm.phone}
                     onChange={e => setVolunteerForm({ ...volunteerForm, phone: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">ইমেইল</label>
+                  <label className="font-medium text-zinc-700 block mb-1">ইমেইল</label>
                   <input
                     type="email"
                     placeholder="volunteer@gmcf.org"
                     value={volunteerForm.email}
                     onChange={e => setVolunteerForm({ ...volunteerForm, email: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">জেলা / ঠিকানা</label>
+                  <label className="font-medium text-zinc-700 block mb-1">জেলা / ঠিকানা</label>
                   <input
                     type="text"
                     placeholder="যেমন: ঢাকা (সাভার)"
                     value={volunteerForm.district}
                     onChange={e => setVolunteerForm({ ...volunteerForm, district: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">পছন্দের মানবিক খাত</label>
+                  <label className="font-medium text-zinc-700 block mb-1">পছন্দের মানবিক খাত</label>
                   <input
                     type="text"
                     placeholder="যেমন: খাদ্য বিতরণ / চিকিৎসা ক্যাম্প"
                     value={volunteerForm.category}
                     onChange={e => setVolunteerForm({ ...volunteerForm, category: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">অনুমোদন অবস্থা (Status)</label>
+                  <label className="font-medium text-zinc-700 block mb-1">অনুমোদন অবস্থা (Status)</label>
                   <select
                     value={volunteerForm.status}
                     onChange={e => setVolunteerForm({ ...volunteerForm, status: e.target.value as any })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 bg-white"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950 bg-white"
                   >
                     <option value="APPROVED">APPROVED (অনুমোদিত)</option>
                     <option value="PENDING">PENDING (অপেক্ষমান)</option>
@@ -2382,69 +2100,67 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Photo Input & Preview */}
+              {/* Photo Input */}
               <div>
-                <label className="font-bold text-slate-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <label className="font-medium text-zinc-700 block mb-1">ছবির লিংক (Photo URL)</label>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl border border-slate-300 overflow-hidden shrink-0 bg-slate-100 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-md border border-zinc-200 overflow-hidden shrink-0 bg-zinc-50 flex items-center justify-center">
                     {volunteerForm.image ? (
                       <img src={volunteerForm.image} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
-                      <span className="material-symbols-outlined text-slate-400">volunteer_activism</span>
+                      <HandHeart className="w-4 h-4 text-zinc-400" />
                     )}
                   </div>
                   <input
                     type="text"
-                    placeholder="/images/youth-volunteers.jpg বা যেকোনো ছবির লিংক"
+                    placeholder="/images/youth-volunteers.jpg বা ছবির URL"
                     value={volunteerForm.image}
                     onChange={e => setVolunteerForm({ ...volunteerForm, image: e.target.value })}
-                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
-                {/* Preset Avatars */}
-                <div className="mt-2">
-                  <span className="text-[10px] text-slate-500 font-semibold block mb-1">প্রিসেট ছবি বেছে নিন:</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {PRESET_AVATARS.map((av, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setVolunteerForm({ ...volunteerForm, image: av.url })}
-                        className={`text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer ${
-                          volunteerForm.image === av.url
-                            ? 'bg-emerald-700 text-white border-emerald-700'
-                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-300'
-                        }`}
-                      >
-                        {av.label}
-                      </button>
-                    ))}
-                  </div>
+                {/* Presets */}
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {PRESET_AVATARS.map((av, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setVolunteerForm({ ...volunteerForm, image: av.url })}
+                      className={cn(
+                        'text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer',
+                        volunteerForm.image === av.url
+                          ? 'bg-zinc-900 text-white border-zinc-900'
+                          : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-200'
+                      )}
+                    >
+                      {av.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">দক্ষতা ও অভিজ্ঞতা</label>
+                <label className="font-medium text-zinc-700 block mb-1">দক্ষতা ও অভিজ্ঞতা</label>
                 <textarea
                   rows={2}
-                  placeholder="যেমন: ফিল্ড কোঅর্ডিনেশন, নার্সিং, ডিএসএলআর ফটোগ্রাফি ইত্যাদি..."
+                  placeholder="যেমন: ফিল্ড কোঅর্ডিনেশন, নার্সিং, ডিএসএলআর ফটোগ্রাফি..."
                   value={volunteerForm.skills}
                   onChange={e => setVolunteerForm({ ...volunteerForm, skills: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  className="w-full px-3 py-1.5 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100">
                 <button
                   type="button"
                   onClick={() => setIsVolunteerModalOpen(false)}
-                  className="px-4 py-2 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-100 font-bold cursor-pointer"
+                  className="h-9 px-4 border border-zinc-200 text-zinc-700 rounded-md hover:bg-zinc-50 font-medium cursor-pointer shadow-2xs"
                 >
                   বাতিল
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow cursor-pointer"
+                  className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
                   {editingVolunteerId ? 'হালনাগাদ সংরক্ষণ করুন' : 'স্বেচ্ছাসেবক যোগ করুন'}
                 </button>
@@ -2453,40 +2169,38 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+
       {/* ============================================================== */}
-      {/* Delete Confirmation Modal (Replaces browser window.confirm) */}
+      {/* shadcn Alert Dialog: Delete Confirmation */}
       {/* ============================================================== */}
       {deleteConfirmation.isOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-200">
-            {/* Warning Icon with Soft Red Ring */}
-            <div className="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 border border-rose-100 shadow-xs">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border border-zinc-200 text-center animate-in fade-in-0 zoom-in-95">
+            <div className="w-12 h-12 rounded-full bg-red-50 text-red-600 border border-red-100 flex items-center justify-center mx-auto mb-3">
+              <AlertTriangle className="w-6 h-6" />
             </div>
 
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 font-serif-heading">
+            <h3 className="text-base font-semibold text-zinc-900 mb-1.5">
               মুছে ফেলার নিশ্চিতকরণ
             </h3>
 
-            <p className="text-sm text-slate-600 leading-relaxed mb-6">
-              আপনি কি নিশ্চিতভাবে <span className="font-bold text-slate-900">"{deleteConfirmation.name}"</span> কে{' '}
-              {deleteConfirmation.type === 'member' ? 'সদস্য তালিকা' : 'স্বেচ্ছাসেবক তালিকা'} থেকে স্থায়ীভাবে মুছে ফেলতে চান?
+            <p className="text-xs text-zinc-600 leading-relaxed mb-5">
+              আপনি কি নিশ্চিতভাবে <span className="font-semibold text-zinc-900">"{deleteConfirmation.name}"</span> কে{' '}
+              {deleteConfirmation.type === 'member' ? 'সদস্য তালিকা' : 'স্বেচ্ছাসেবক তালিকা'} থেকে স্থায়ীভাবে মুছে ফেলতে চান? এই প্রক্রিয়া অপরিবর্তনীয়।
             </p>
 
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-2.5">
               <button
                 type="button"
                 onClick={() => setDeleteConfirmation({ isOpen: false, type: 'member', id: '', name: '' })}
-                className="w-1/2 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-bold hover:bg-slate-50 transition-colors text-sm cursor-pointer"
+                className="w-1/2 h-9 px-4 rounded-md border border-zinc-200 text-zinc-700 font-medium hover:bg-zinc-50 transition-colors text-xs cursor-pointer shadow-2xs"
               >
                 বাতিল করুন
               </button>
               <button
                 type="button"
                 onClick={confirmDeleteAction}
-                className="w-1/2 py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition-all shadow-md shadow-rose-600/20 text-sm cursor-pointer active:scale-95"
+                className="w-1/2 h-9 px-4 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium transition-colors text-xs cursor-pointer shadow-2xs active:scale-95"
               >
                 হ্যাঁ, মুছে ফেলুন
               </button>
