@@ -480,10 +480,9 @@ export default function GalleryPage() {
                   {/* Topic Swiper Carousel Header (Multiple Photos in 1 Card) */}
                   <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
                     <Swiper
-                      modules={[Navigation, Pagination, Autoplay]}
+                      modules={[Pagination, Autoplay]}
                       spaceBetween={0}
                       slidesPerView={1}
-                      navigation
                       pagination={{ clickable: true }}
                       autoplay={{ delay: 5000, disableOnInteraction: false }}
                       className="h-full w-full project-card-swiper"
@@ -609,7 +608,7 @@ export default function GalleryPage() {
                   <span className="material-symbols-outlined text-[18px]">
                     favorite
                   </span>
-                  <span>{isBn ? 'দান করুন (EPS Gateway)' : 'Donate via EPS Gateway'}</span>
+                  <span>{isBn ? 'দান করুন' : 'Donate'}</span>
                 </button>
                 <Link
                   href="/volunteer"

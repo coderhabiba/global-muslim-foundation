@@ -233,12 +233,5 @@ html[lang='bn'] :where(:not(.material-symbols-outlined)) {
 }
 .project-card-swiper .swiper-button-next,
 .project-card-swiper .swiper-button-prev {
-  width: 32px !important;
-  height: 32px !important;
-  background: rgba(0, 0, 0, 0.6) !important;
-  color: #ffffff !important;
-}
-.project-card-swiper .swiper-button-next::after,
-.project-card-swiper .swiper-button-prev::after {
-  font-size: 12px !important;
+  display: none !important;
 }

@@ -241,7 +241,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             <span className="material-symbols-outlined text-[18px]">
               favorite
             </span>
-            <span>{isBn ? 'অনলাইন অনুদান দিন (EPS)' : 'Donate Now (EPS Gateway)'}</span>
+            <span>{isBn ? 'অনলাইন অনুদান দিন' : 'Donate Now'}</span>
           </button>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
