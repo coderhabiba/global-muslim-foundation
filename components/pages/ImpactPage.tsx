@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
 
 export type FoundationProject = {
   id: string;
@@ -335,6 +336,8 @@ export const FOUNDATION_PROJECTS: FoundationProject[] = [
 export default function ImpactPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
+  const { cms } = useSiteCMS();
+  const cmsImpact = cms.impact;
   const isBn = language === 'bn';
 
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -386,17 +389,14 @@ export default function ImpactPage() {
             </span>
             <span>
               {isBn
-                ? 'মাঠপর্যায়ে বাস্তবায়িত ও চলমান মানবিক প্রকল্পসমূহ • শতভাগ শরীয়াহ নিরীক্ষিত'
+                ? (cmsImpact.pageBadge || 'মাঠপর্যায়ে বাস্তবায়িত ও চলমান মানবিক প্রকল্পসমূহ • শতভাগ শরীয়াহ নিরীক্ষিত')
                 : 'Verified Field Projects & Continuous Impact • 100% Shariah Audited'}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              <>
-                আমাদের প্রজেক্ট সমূহ —{' '}
-                <span className="text-[#0e4d36]">মানবতার কল্যাণে স্থায়ী পরিবর্তন</span>
-              </>
+              <span>{cmsImpact.pageTitle || 'আমাদের প্রজেক্ট সমূহ — মানবতার কল্যাণে স্থায়ী পরিবর্তন'}</span>
             ) : (
               <>
                 Our Foundation Projects —{' '}
@@ -407,34 +407,42 @@ export default function ImpactPage() {
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
-              ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)-এর প্রতিটি প্রজেক্ট সরাসরি প্রান্তিক মানুষের জীবনে টেকসই পরিবর্তন আনে। গৃহহীনদের নিরাপদ টিনের ঘর, ক্ষুধার্তদের ওয়ান মিল ওয়ান হোপ, চোখের আলো ফিরিয়ে দেওয়া কিংবা সুপেয় পানি—আপনার প্রতিটি অনুদান পৌঁছে যায় নির্ধারিত খাতে।'
+              ? (cmsImpact.pageSubtitle || 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)-এর প্রতিটি প্রজেক্ট সরাসরি প্রান্তিক মানুষের জীবনে টেকসই পরিবর্তন আনে। গৃহহীনদের নিরাপদ টিনের ঘর, ক্ষুধার্তদের ওয়ান মিল ওয়ান হোপ, চোখের আলো ফিরিয়ে দেওয়া কিংবা সুপেয় পানি—আপনার প্রতিটি অনুদান পৌঁছে যায় নির্ধারিত খাতে।')
               : 'GMCF executes permanent, transparent field projects across Bangladesh: constructing resilient tin shelters, daily hot meals, free cataract surgeries, clean water wells, and orphan guardianship.'}
           </p>
 
           {/* Quick Metrics Bar */}
           <div className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-[#0e4d36] block">৮+</span>
+              <span className="text-2xl font-black text-[#0e4d36] block">
+                {isBn ? (cmsImpact.waterWellsCount || '১,৮৫০+') : '1,850+'}
+              </span>
               <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'সক্রিয় বৃহৎ প্রকল্প' : 'Active Major Projects'}
+                {isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells'}
               </span>
             </div>
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-amber-600 block">১,৮০,০০০+</span>
+              <span className="text-2xl font-black text-amber-600 block">
+                {isBn ? (cmsImpact.mealsDelivered || '১,৮০,০০০+') : '180,000+'}
+              </span>
               <span className="text-xs text-slate-600 font-medium">
                 {isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served'}
               </span>
             </div>
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-[#0e4d36] block">১,২০০+</span>
+              <span className="text-2xl font-black text-[#0e4d36] block">
+                {isBn ? (cmsImpact.familiesRehabilitated || '৬৫০+') : '650+'}
+              </span>
               <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'চোখের ছানি অপারেশন' : 'Cataract Surgeries'}
+                {isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families'}
               </span>
             </div>
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-amber-600 block">১০০%</span>
+              <span className="text-2xl font-black text-amber-600 block">
+                {isBn ? (cmsImpact.districtsCovered || '২৮টি') : '28'}
+              </span>
               <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'যাকাত পলিসি গ্যারান্টি' : 'Direct Zakat Delivery'}
+                {isBn ? 'জেলা কভারেজ' : 'Districts Reached'}
               </span>
             </div>
           </div>

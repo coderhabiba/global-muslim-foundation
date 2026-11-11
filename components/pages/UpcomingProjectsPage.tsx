@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
 
 type UpcomingProject = {
   id: string;
@@ -172,6 +173,8 @@ const UPCOMING_PROJECTS: UpcomingProject[] = [
 export default function UpcomingProjectsPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
+  const { cms } = useSiteCMS();
+  const cmsUpcoming = cms.upcoming_projects;
   const isBn = language === 'bn';
 
   const [filterCategory, setFilterCategory] = useState<string>('all');
@@ -199,17 +202,14 @@ export default function UpcomingProjectsPage() {
             </span>
             <span>
               {isBn
-                ? 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা'
+                ? (cmsUpcoming.pageBadge || 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা')
                 : 'Sustainable Sadaqah Jariyah & Future Vision'}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              <>
-                আমাদের আসন্ন প্রকল্পসমূহ —{' '}
-                <span className="text-amber-600">চিরস্থায়ী কল্যাণের পথে অংশীদার হোন</span>
-              </>
+              <span>{cmsUpcoming.pageTitle || 'আমাদের আসন্ন প্রকল্পসমূহ — চিরস্থায়ী কল্যাণের পথে অংশীদার হোন'}</span>
             ) : (
               <>
                 Upcoming Strategic Projects —{' '}
@@ -220,7 +220,7 @@ export default function UpcomingProjectsPage() {
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
-              ? 'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।'
+              ? (cmsUpcoming.pageSubtitle || 'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।')
               : 'Beyond emergency relief, GMCF is committed to enduring institutional infrastructure. Join hands as a founding sponsor and build permanent sources of continuous reward.'}
           </p>
 
@@ -288,6 +288,11 @@ export default function UpcomingProjectsPage() {
         {/* Project Cards List */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {filteredProjects.map(project => {
+            const isFeatured = project.id === 'proj-01';
+            const projectImg = isFeatured && cmsUpcoming.featuredProjectImage ? cmsUpcoming.featuredProjectImage : project.image;
+            const projectTitle = isFeatured && cmsUpcoming.featuredProjectTitle && isBn ? cmsUpcoming.featuredProjectTitle : (isBn ? project.titleBn : project.titleEn);
+            const projectDesc = isFeatured && cmsUpcoming.featuredProjectDesc && isBn ? cmsUpcoming.featuredProjectDesc : (isBn ? project.descriptionBn : project.descriptionEn);
+
             const budget = currency === 'BDT' ? project.estimatedBudgetBDT : project.estimatedBudgetUSD;
             const raised = currency === 'BDT' ? project.raisedBDT : project.raisedUSD;
             const percentage = Math.min(100, Math.round((raised / budget) * 100));
@@ -302,8 +307,8 @@ export default function UpcomingProjectsPage() {
                 <div className="relative">
                   <div className="relative h-64 w-full overflow-hidden bg-slate-100 rounded-t-2xl">
                     <img
-                      src={project.image}
-                      alt={isBn ? project.titleBn : project.titleEn}
+                      src={projectImg}
+                      alt={projectTitle}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
@@ -375,7 +380,7 @@ export default function UpcomingProjectsPage() {
                     </div>
 
                     <h3 className="text-xl sm:text-2xl font-bold font-serif-heading text-slate-900 group-hover:text-[#0e4d36] transition-colors leading-snug">
-                      {isBn ? project.titleBn : project.titleEn}
+                      {projectTitle}
                     </h3>
 
                     <div className="flex items-center gap-3 text-xs text-slate-500">
@@ -391,7 +396,7 @@ export default function UpcomingProjectsPage() {
                     </div>
 
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {isBn ? project.descriptionBn : project.descriptionEn}
+                      {projectDesc}
                     </p>
 
                     <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">

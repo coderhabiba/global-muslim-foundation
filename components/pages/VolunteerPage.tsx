@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSiteCMS } from '@/lib/site-cms';
 
 const SECTOR_OPTIONS = [
   { value: 'Emergency Relief', icon: 'soup_kitchen', label: 'Food & Relief' },
@@ -14,6 +15,8 @@ const SECTOR_OPTIONS = [
 ];
 
 export default function VolunteerPage() {
+  const { cms } = useSiteCMS();
+  const cmsVolunteer = cms.volunteer;
   const successMsgRef = useRef<HTMLDivElement | null>(null);
   const [sector, setSector] = useState('Emergency Relief');
   const [submitCount, setSubmitCount] = useState(0);
@@ -106,17 +109,14 @@ export default function VolunteerPage() {
                       emergency_share
                     </span>
                     <span className="font-label-sm text-label-sm uppercase tracking-wider font-bold">
-                      FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH
+                      {cmsVolunteer.pageBadge || 'FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH'}
                     </span>
                   </div>
                   <h1 className="font-headline-xl text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                    Become the Guiding Light for Communities in Crisis
+                    {cmsVolunteer.pageTitle || 'মানবতার দুর্দিনে আপনিও হোন আশার বাতিঘর'}
                   </h1>
                   <p className="font-body-lg text-body-lg text-text-muted leading-relaxed">
-                    Whether serving nutritious warm meals at bustling railway
-                    platforms, distributing emergency blankets to flood plains,
-                    or assisting surgeons during pediatric eye camps — your time
-                    and physical dedication convert faith into tangible rescue.
+                    {cmsVolunteer.pageSubtitle || 'রেলওয়ে প্ল্যাটফর্মে অনাহারী শিশুদের মুখে গরম খাবার তুলে দেওয়া, পাহাড়ি ঢলে পানিবন্দী মানুষের কাছে নৌকা নিয়ে ত্রাণ পৌঁছানো কিংবা শিশুদের চিকিৎসায় সহায়তা—আপনার মেধা ও শ্রম হতে পারে কোনো এক অসহায় মানুষের বেঁচে থাকার অবলম্বন।'}
                   </p>
 
                   {/* Quick Trust Highlights */}

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSiteCMS, SitePageKey, DEFAULT_CMS_CONTENT } from '@/lib/site-cms';
+import ImageSelectorField from './ImageSelectorField';
 
 const PAGE_DEFINITIONS: { key: SitePageKey; title: string; subtitle: string; icon: string; count: number }[] = [
   { key: 'header_footer', title: 'ন্যাভবার ও ফুটার', subtitle: 'স্লোগান, হটলাইন, ইমেইল, মেনু বাটন ও কপিরাইট', icon: 'view_quilt', count: 17 },
@@ -287,6 +288,14 @@ export default function AdminPageCmsEditor() {
                     <label className="text-xs font-bold text-slate-700 block mb-1">হিরো সাব-টাইটেল / বর্ণনা</label>
                     <textarea rows={2} value={pageData.heroSubtitle || ''} onChange={e => handleFieldChange('heroSubtitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
+                  <div>
+                    <ImageSelectorField
+                      label="হিরো ব্যাকগ্রাউন্ড ইমেজ (Hero Background Image)"
+                      value={pageData.heroBgImage || ''}
+                      onChange={url => handleFieldChange('heroBgImage', url)}
+                      helpText="কম্পিউটার থেকে ছবি আপলোড করুন অথবা প্রিসেট গ্যালারি থেকে যেকোনো ছবি বেছে নিন"
+                    />
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="text-xs font-bold text-slate-700 block mb-1">প্রধান বোতাম টেক্সট</label>
@@ -349,6 +358,13 @@ export default function AdminPageCmsEditor() {
                     <label className="text-xs font-bold text-slate-700 block mb-1">পানি প্রকল্প বিবরণ</label>
                     <input type="text" value={pageData.waterSectionDesc || ''} onChange={e => handleFieldChange('waterSectionDesc', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
+                  <div>
+                    <ImageSelectorField
+                      label="সুপেয় পানি প্রকল্প ইমেজ"
+                      value={pageData.waterSectionImage || ''}
+                      onChange={url => handleFieldChange('waterSectionImage', url)}
+                    />
+                  </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                     <div className="sm:col-span-2">
@@ -363,6 +379,13 @@ export default function AdminPageCmsEditor() {
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">খাদ্য কর্মসূচি বিবরণ</label>
                     <input type="text" value={pageData.foodSectionDesc || ''} onChange={e => handleFieldChange('foodSectionDesc', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                  <div>
+                    <ImageSelectorField
+                      label="খাদ্য কর্মসূচি ইমেজ"
+                      value={pageData.foodSectionImage || ''}
+                      onChange={url => handleFieldChange('foodSectionImage', url)}
+                    />
                   </div>
                 </div>
 
@@ -405,6 +428,13 @@ export default function AdminPageCmsEditor() {
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">পেইজ সাব-টাইটেল / সারসংক্ষেপ</label>
                     <textarea rows={2} value={pageData.pageSubtitle || ''} onChange={e => handleFieldChange('pageSubtitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                  <div>
+                    <ImageSelectorField
+                      label="আমাদের সম্পর্কে পেইজের ব্যানার ছবি"
+                      value={pageData.bannerImage || ''}
+                      onChange={url => handleFieldChange('bannerImage', url)}
+                    />
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
@@ -560,6 +590,13 @@ export default function AdminPageCmsEditor() {
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">প্রকল্পের বিস্তারিত বিবরণ ও উদ্দেশ্য</label>
                     <textarea rows={2} value={pageData.featuredProjectDesc || ''} onChange={e => handleFieldChange('featuredProjectDesc', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                  <div>
+                    <ImageSelectorField
+                      label="প্রধান প্রকল্পের প্রিভিউ ছবি (Featured Project Image)"
+                      value={pageData.featuredProjectImage || ''}
+                      onChange={url => handleFieldChange('featuredProjectImage', url)}
+                    />
                   </div>
                 </div>
 

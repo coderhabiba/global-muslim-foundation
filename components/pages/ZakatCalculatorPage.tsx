@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { useSiteSettings, CURRENCIES, CurrencyCode } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
 
 const NISAB_SILVER_USD = 581.75;
 
@@ -36,6 +37,8 @@ function parseNum(value: string) {
 export default function ZakatCalculatorPage() {
   const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, showAlert } = useModalState();
+  const { cms } = useSiteCMS();
+  const cmsZakat = cms.zakat_calculator;
   const isBn = language === 'bn';
   const currentCurrency = CURRENCIES[currency] || CURRENCIES.BDT;
 
@@ -184,20 +187,25 @@ export default function ZakatCalculatorPage() {
                       verified_user
                     </span>
                     <span className="font-label-md text-label-md tracking-wider uppercase">
-                      100% Zakat Policy Guaranteed
+                      {isBn ? (cmsZakat.pageBadge || '১০০% যাকাত তামলিক পলিসি') : '100% Zakat Policy Guaranteed'}
                     </span>
                   </div>
                   <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight">
-                    Purify Your Wealth with{' '}
-                    <span className="text-primary italic">
-                      Absolute Shariah Integrity
-                    </span>
+                    {isBn ? (
+                      <span>{cmsZakat.pageTitle || 'আপনার সম্পদ পবিত্র করুন সম্পূর্ণ শরীয়াহ মোতাবেক'}</span>
+                    ) : (
+                      <>
+                        Purify Your Wealth with{' '}
+                        <span className="text-primary italic">
+                          Absolute Shariah Integrity
+                        </span>
+                      </>
+                    )}
                   </h1>
                   <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                    Every single cent of your Zakat reaches vetted Asnaf
-                    families with zero operational or administrative deductions.
-                    Supervised by qualified scholars, independently audited, and
-                    directly transferred to preserve human dignity.
+                    {isBn
+                      ? (cmsZakat.pageSubtitle || 'আপনার দেওয়া প্রতিটি পয়সা কোনো রকম প্রশাসনিক কর্তন ছাড়া সরাসরি হকদার এতিম, বিধবা ও অতিদরিদ্র পরিবারের কাছে পৌঁছানো হয়। শরীয়াহ বিশেষজ্ঞদের নিয়মিত তত্ত্বাবধান ও নিরপেক্ষ অডিট নিশ্চিত করে সর্বোচ্চ স্বচ্ছতা।')
+                      : 'Every single cent of your Zakat reaches vetted Asnaf families with zero operational or administrative deductions. Supervised by qualified scholars, independently audited, and directly transferred to preserve human dignity.'}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                     <div className="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">

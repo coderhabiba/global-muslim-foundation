@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
 
 // Import Swiper React components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -199,6 +200,8 @@ const CATEGORIES = [
 export default function GalleryPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
+  const { cms } = useSiteCMS();
+  const cmsGallery = cms.gallery;
   const isBn = language === 'bn';
 
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -221,16 +224,13 @@ export default function GalleryPage() {
                 </span>
                 <span>
                   {isBn
-                    ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — ফিল্ড ফটো গ্যালারি'
+                    ? (cmsGallery.pageBadge || 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — ফিল্ড ফটো গ্যালারি')
                     : 'Global Muslim Charitable Foundation — Verified Field Gallery'}
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-emerald-950 tracking-tight leading-tight font-serif-heading">
                 {isBn ? (
-                  <>
-                    মানবতার সেবায় আমাদের{' '}
-                    <span className="text-amber-600">মাঠপর্যায়ের স্থিরচিত্র</span>
-                  </>
+                  <span>{cmsGallery.pageTitle || 'মানবতার সেবায় আমাদের মাঠপর্যায়ের স্থিরচিত্র'}</span>
                 ) : (
                   <>
                     Visual Evidence of Our{' '}
@@ -240,7 +240,7 @@ export default function GalleryPage() {
               </h1>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
                 {isBn
-                  ? 'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।'
+                  ? (cmsGallery.pageSubtitle || 'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।')
                   : 'Witness how your Zakat and Sadaqah transform lives directly through categorized project albums and individual beneficiary spotlights.'}
               </p>
 
