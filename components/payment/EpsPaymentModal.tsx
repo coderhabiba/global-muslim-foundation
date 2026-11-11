@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteSettings } from '@/lib/site-settings';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 import { supabase } from '@/lib/supabase';
 
 type PaymentMethodType = 'bkash' | 'nagad' | 'rocket' | 'upay' | 'card' | 'bank';
@@ -10,8 +12,15 @@ type PaymentMethodType = 'bkash' | 'nagad' | 'rocket' | 'upay' | 'card' | 'bank'
 export default function EpsPaymentModal() {
   const { isOpen, closePaymentModal, paymentDetails } = useModalState();
   const { language } = useSiteSettings();
+  const { campaigns, upcomingProjects, foundationProjects } = useDynamicCards();
   const isBn = language === 'bn';
   
+  // Custom amount & Project Selection states
+  const [activeAmount, setActiveAmount] = useState<number>(paymentDetails.amount || 1000);
+  const [selectedCause, setSelectedCause] = useState<string>(paymentDetails.cause || 'General Humanitarian Relief Fund');
+  const [showCauseSelector, setShowCauseSelector] = useState(false);
+  const [customInputVal, setCustomInputVal] = useState<string>(String(paymentDetails.amount || 1000));
+
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>('bkash');
   const [step, setStep] = useState<'select' | 'input' | 'otp' | 'success'>('select');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -24,9 +33,22 @@ export default function EpsPaymentModal() {
   const [trxId, setTrxId] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
+  useEffect(() => {
+    if (paymentDetails) {
+      const amt = paymentDetails.amount || 1000;
+      setActiveAmount(amt);
+      setCustomInputVal(String(amt));
+      setSelectedCause(paymentDetails.cause || (isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund'));
+    }
+  }, [paymentDetails, isOpen, isBn]);
+
   if (!isOpen) return null;
 
-  const amountDisplay = `${paymentDetails.currency === 'BDT' ? '৳' : '$'}${paymentDetails.amount.toLocaleString()}`;
+  const PRESET_AMOUNTS = paymentDetails.currency === 'USD'
+    ? [25, 50, 100, 250, 500]
+    : [500, 1000, 2500, 5000, 10000];
+
+  const amountDisplay = `${paymentDetails.currency === 'BDT' ? '৳' : '$'}${activeAmount.toLocaleString()}`;
 
   const handleStartPayment = (method: PaymentMethodType) => {
     setSelectedMethod(method);
@@ -59,9 +81,9 @@ export default function EpsPaymentModal() {
           donorName: paymentDetails.donorName || cardHolder || 'Anonymous Donor',
           donorPhone: phoneNumber || '01913119525',
           donorEmail: paymentDetails.donorEmail || 'donor@gmcf.org',
-          amount: paymentDetails.amount,
+          amount: activeAmount,
           currency: paymentDetails.currency,
-          cause: paymentDetails.cause || 'General Humanitarian Relief Fund',
+          cause: selectedCause || paymentDetails.cause || 'General Humanitarian Relief Fund',
           method: selectedMethod.toUpperCase(),
           status: 'SUCCESS',
           date: new Date().toISOString().replace('T', ' ').substring(0, 19),
@@ -145,7 +167,7 @@ export default function EpsPaymentModal() {
             </button>
           </div>
 
-          {/* Amount Badge - Compact */}
+          {/* Amount & Project Selector Bar - Interactive */}
           <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3.5 border-t border-emerald-800/60 flex items-center justify-between gap-2">
             <div>
               <span className="text-[9px] sm:text-[11px] text-emerald-300/90 uppercase tracking-wider block font-semibold leading-tight">
@@ -155,11 +177,17 @@ export default function EpsPaymentModal() {
                 {amountDisplay}
               </span>
             </div>
-            <div className="text-right max-w-[170px] sm:max-w-[210px] shrink-0">
-              <span className="text-[10px] sm:text-[11px] text-emerald-200 block truncate font-medium">
-                {paymentDetails.cause}
-              </span>
-              <span className="text-[9px] sm:text-[10px] text-emerald-300/80 inline-flex items-center gap-1">
+            <div className="text-right max-w-[200px] sm:max-w-[250px] shrink-0">
+              <button
+                type="button"
+                onClick={() => setShowCauseSelector(!showCauseSelector)}
+                className="text-[10px] sm:text-[11px] text-emerald-100 hover:text-white bg-emerald-950/60 hover:bg-emerald-950 px-2.5 py-1 rounded-lg border border-emerald-500/40 inline-flex items-center gap-1 transition-all cursor-pointer truncate max-w-full"
+                title="প্রকল্প পরিবর্তন করুন"
+              >
+                <span className="truncate">{selectedCause}</span>
+                <span className="material-symbols-outlined text-[14px] shrink-0">swap_horiz</span>
+              </button>
+              <span className="text-[9px] sm:text-[10px] text-emerald-300/80 flex items-center justify-end gap-1 mt-0.5">
                 <span className="material-symbols-outlined text-[11px] text-emerald-400">lock</span>
                 256-Bit SSL Encrypted
               </span>
@@ -168,9 +196,178 @@ export default function EpsPaymentModal() {
         </div>
 
         {/* Modal Body Based on Step - Smooth Scrollable */}
-        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 overscroll-contain">
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 overscroll-contain space-y-4">
+          {/* Cause Selector Dropdown Card (If user toggled or wants to choose project) */}
+          {showCauseSelector && (
+            <div className="bg-emerald-50/80 p-3 sm:p-4 rounded-2xl border border-emerald-200 space-y-2 animate-in fade-in">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-emerald-700 text-[18px]">volunteer_activism</span>
+                  <span>{isBn ? 'মানবিক প্রকল্প নির্বাচন করুন' : 'Select Target Project'}</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowCauseSelector(false)}
+                  className="text-xs text-emerald-700 hover:underline font-bold"
+                >
+                  {isBn ? 'ঠিক আছে' : 'Done'}
+                </button>
+              </div>
+
+              <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
+                {/* General Cause */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCause(isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund');
+                    setShowCauseSelector(false);
+                  }}
+                  className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
+                    selectedCause.includes('General') || selectedCause.includes('সাধারণ')
+                      ? 'bg-emerald-800 text-white font-bold'
+                      : 'bg-white hover:bg-emerald-100 text-slate-800 border border-slate-200'
+                  }`}
+                >
+                  <span className="truncate">১. সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল (100% Policy)</span>
+                  <span className="text-[10px] opacity-80">সাধারণ দান</span>
+                </button>
+
+                {/* Campaigns from Dynamic Cards */}
+                {campaigns.map(c => {
+                  const title = isBn ? c.titleBn : c.titleEn;
+                  const isSelected = selectedCause === title;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCause(title);
+                        setShowCauseSelector(false);
+                      }}
+                      className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
+                        isSelected
+                          ? 'bg-emerald-800 text-white font-bold'
+                          : 'bg-white hover:bg-emerald-100 text-slate-800 border border-slate-200'
+                      }`}
+                    >
+                      <div className="min-w-0 pr-2">
+                        <p className="truncate font-semibold">{title}</p>
+                        <p className="text-[10px] opacity-75 truncate">{isBn ? c.descriptionBn : c.descriptionEn}</p>
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 shrink-0">
+                        {isBn ? c.categoryBn : c.categoryEn}
+                      </span>
+                    </button>
+                  );
+                })}
+
+                {/* Upcoming Projects */}
+                {upcomingProjects.map(p => {
+                  const title = isBn ? p.titleBn : p.titleEn;
+                  const isSelected = selectedCause === title;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCause(title);
+                        setShowCauseSelector(false);
+                      }}
+                      className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
+                        isSelected
+                          ? 'bg-emerald-800 text-white font-bold'
+                          : 'bg-white hover:bg-emerald-100 text-slate-800 border border-slate-200'
+                      }`}
+                    >
+                      <div className="min-w-0 pr-2">
+                        <p className="truncate font-semibold">{title}</p>
+                        <p className="text-[10px] opacity-75 truncate">{isBn ? p.locationBn : p.locationEn}</p>
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-900 shrink-0 font-bold">
+                        আসন্ন প্রকল্প
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {step === 'select' && (
             <div className="space-y-5">
+              {/* Custom Amount Selector Box */}
+              <div className="bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-emerald-700 text-[18px]">payments</span>
+                    <span>{isBn ? 'অনুদানের পরিমাণ নির্বাচন / কাস্টম অ্যামাউন্ট' : 'Select or Enter Custom Amount'}</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-700">
+                    {paymentDetails.currency}
+                  </span>
+                </div>
+
+                {/* Preset Chips */}
+                <div className="grid grid-cols-5 gap-1.5">
+                  {PRESET_AMOUNTS.map(amt => {
+                    const isSelected = activeAmount === amt;
+                    return (
+                      <button
+                        key={amt}
+                        type="button"
+                        onClick={() => {
+                          setActiveAmount(amt);
+                          setCustomInputVal(String(amt));
+                        }}
+                        className={`py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-emerald-800 text-white shadow-xs'
+                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
+                        }`}
+                      >
+                        {paymentDetails.currency === 'BDT' ? '৳' : '$'}{amt.toLocaleString()}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Custom Amount Input Box */}
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-slate-500 text-sm">
+                      {paymentDetails.currency === 'BDT' ? '৳' : '$'}
+                    </span>
+                    <input
+                      type="number"
+                      min={10}
+                      step={10}
+                      placeholder={isBn ? 'কাস্টম টাকার পরিমাণ লিখুন...' : 'Enter custom amount...'}
+                      value={customInputVal}
+                      onChange={e => {
+                        setCustomInputVal(e.target.value);
+                        const parsed = Number(e.target.value);
+                        if (parsed > 0) setActiveAmount(parsed);
+                      }}
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-xl text-sm font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                    />
+                  </div>
+                </div>
+
+                {/* Quick Details Shortcut Link */}
+                <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+                  <span className="truncate">
+                    খাত: <strong className="text-slate-800">{selectedCause}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowCauseSelector(true)}
+                    className="text-emerald-700 hover:underline font-bold shrink-0 ml-2"
+                  >
+                    {isBn ? 'প্রকল্প বদলান' : 'Change Project'}
+                  </button>
+                </div>
+              </div>
+
               {/* Mobile Banking Section */}
               <div>
                 <div className="flex items-center justify-between mb-2.5">

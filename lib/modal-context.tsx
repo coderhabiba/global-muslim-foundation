@@ -10,6 +10,7 @@ export type PaymentDetails = {
   donorName?: string;
   donorPhone?: string;
   donorEmail?: string;
+  projectId?: string;
 };
 
 export type AlertDetails = {

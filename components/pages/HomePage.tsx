@@ -197,7 +197,7 @@ export default function HomePage() {
                     onClick={() =>
                       openPaymentModal({
                         amount: currency === 'BDT' ? 1000 : 25,
-                        cause: 'General Humanitarian & Relief Fund',
+                        cause: isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian & Relief Fund',
                       })
                     }
                     className="w-full sm:w-[260px] h-[52px] rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer shrink-0"
@@ -205,16 +205,16 @@ export default function HomePage() {
                     <span className="material-symbols-outlined text-[20px] text-error">
                       favorite
                     </span>
-                    <span>Make an Immediate Donation</span>
+                    <span>{isBn ? (cms.home.heroPrimaryBtn || 'অনলাইন অনুদান দিন') : 'Make an Immediate Donation'}</span>
                   </button>
                   <Link
                     className="w-full sm:w-[260px] h-[52px] rounded-xl bg-surface-clean hover:bg-surface-subtle-mint text-primary font-bold text-sm border border-primary/20 shadow-sm transition-all flex items-center justify-center gap-2 shrink-0 text-center"
-                    href="/appeals"
+                    href="/impact"
                   >
                     <span className="material-symbols-outlined text-[20px]">
                       explore
                     </span>
-                    <span>View Active Appeals &amp; Impact</span>
+                    <span>{isBn ? (cms.home.heroSecondaryBtn || 'আমাদের কার্যক্রম দেখুন') : 'View Active Appeals & Impact'}</span>
                   </Link>
                 </div>
 
@@ -300,14 +300,19 @@ export default function HomePage() {
                   </div>
 
                   {/* Cause Selector */}
-
                   <div className="mt-4">
-                    <label
-                      className="text-xs font-bold text-on-surface-variant block mb-1 uppercase tracking-wider"
-                      htmlFor="cause-select"
-                    >
-                      Select Designated Fund
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label
+                        className="text-xs font-bold text-on-surface-variant uppercase tracking-wider"
+                        htmlFor="cause-select"
+                      >
+                        {isBn ? 'মানবিক প্রকল্প / খাত নির্বাচন করুন' : 'Select Designated Fund'}
+                      </label>
+                      <Link href="/impact" className="text-[11px] text-emerald-800 hover:underline font-bold flex items-center gap-0.5">
+                        <span>{isBn ? 'প্রজেক্ট বিস্তারিত' : 'Project Details'}</span>
+                        <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                      </Link>
+                    </div>
                     <div className="relative">
                       <select
                         className="w-full bg-surface-subtle-mint/80 border border-primary/20 text-on-surface font-semibold text-sm rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
@@ -315,21 +320,14 @@ export default function HomePage() {
                         value={fund}
                         onChange={event => setFund(event.target.value)}
                       >
-                        <option value="meal">
-                          One Meal One Hope (Emergency Food Support)
+                        <option value="general">
+                          {isBn ? '১. সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল (100% Policy)' : 'General Humanitarian Relief Fund'}
                         </option>
-                        <option value="alo">
-                          Project Alo (Pediatric Medical &amp; Eye Surgery)
-                        </option>
-                        <option value="zakat">
-                          100% General Zakat Fund (Shariah-Compliant)
-                        </option>
-                        <option value="winter">
-                          Project Sheetolota (Winter Warmth &amp; Blankets)
-                        </option>
-                        <option value="water">
-                          Clean Water Wells &amp; Dignified Sanitation
-                        </option>
+                        {campaigns.map((c, i) => (
+                          <option key={c.id} value={c.id}>
+                            {i + 2}. {isBn ? c.titleBn : c.titleEn}
+                          </option>
+                        ))}
                       </select>
                       <span className="material-symbols-outlined absolute right-3.5 top-3.5 pointer-events-none text-text-muted">
                         expand_more
@@ -408,24 +406,21 @@ export default function HomePage() {
                   </div>
 
                   {/* Instant Checkout CTA */}
-
                   <div className="mt-5">
                     <button
                       className="w-full py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
                       type="button"
                       onClick={() => {
                         const parsedAmt = parseFloat(customAmount) || 50;
-                        const causeMap: Record<string, string> = {
-                          meal: 'One Meal One Hope (Emergency Food Support)',
-                          alo: 'Project Alo (Pediatric Medical & Eye Surgery)',
-                          zakat: '100% General Zakat Fund (Shariah-Compliant)',
-                          winter: 'Project Sheetolota (Winter Warmth & Blankets)',
-                          water: 'Clean Water Wells & Dignified Sanitation',
-                        };
+                        const selectedCampaign = campaigns.find(c => c.id === fund);
+                        const targetCause = selectedCampaign
+                          ? (isBn ? selectedCampaign.titleBn : selectedCampaign.titleEn)
+                          : (isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund');
+
                         openPaymentModal({
                           amount: currency === 'BDT' ? parsedAmt * 122 : parsedAmt,
                           currency: currency,
-                          cause: causeMap[fund] || 'Humanitarian Relief',
+                          cause: targetCause,
                           donorName: donorName,
                           donorPhone: donorContact,
                         });
