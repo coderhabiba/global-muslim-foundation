@@ -707,7 +707,7 @@ export default function AdminDashboard() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-row">
+    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-row items-stretch">
       {/* Mobile Sidebar Backdrop */}
       {isMobileSidebarOpen && (
         <div
@@ -718,7 +718,7 @@ export default function AdminDashboard() {
 
       {/* Modern Fixed Left Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 shrink-0 ${
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
