@@ -722,22 +722,36 @@ export default function AdminDashboard() {
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Sidebar Brand Header */}
-        <div className="px-5 py-4 border-b border-emerald-900/80 shrink-0 bg-emerald-950">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center group py-1">
-              <div className="bg-white/95 px-3 py-1.5 rounded-xl shadow-sm group-hover:scale-102 transition-transform">
+        {/* Sidebar Brand Header with Emblem, Title & Reg Badge */}
+        <div className="p-4 border-b border-emerald-900/80 shrink-0 bg-emerald-950">
+          <div className="flex items-center justify-between gap-2">
+            <Link href="/" className="flex items-center gap-3 group min-w-0">
+              <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
                 <img
-                  src="/images/gmcf-logo-full.png"
-                  alt="Global Muslim Charitable Foundation Logo"
-                  className="h-9 sm:h-10 w-auto max-w-[190px] object-contain"
+                  src="/images/gmcf-logo-emblem.png"
+                  alt="GMCF Emblem Logo"
+                  className="w-full h-full object-contain"
                 />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-white leading-tight truncate">
+                  Global Muslim
+                </p>
+                <p className="text-[10px] text-emerald-300 uppercase tracking-wider font-bold truncate">
+                  Charitable Foundation
+                </p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                  <span className="text-[10px] text-emerald-400 font-mono font-semibold truncate">
+                    Reg: S-14086/2023
+                  </span>
+                </div>
               </div>
             </Link>
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(false)}
-              className="lg:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 cursor-pointer"
+              className="lg:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 cursor-pointer shrink-0"
             >
               <span className="material-symbols-outlined text-[24px]">close</span>
             </button>
