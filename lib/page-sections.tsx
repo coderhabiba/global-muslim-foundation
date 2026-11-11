@@ -102,7 +102,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
       },
       {
         id: 'footer-social',
-        label: 'সোশ্যাল মিডিয়া লিংক',
+        label: 'সোশ্যাল মিডিয়া ও নেটওয়ার্ক লিংক',
         icon: 'share',
         isCore: true,
         isVisible: true,
@@ -110,8 +110,9 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
         fields: [
           { key: 'facebookUrl', label: 'ফেসবুক পেজ URL', type: 'url', placeholder: 'https://facebook.com/...' },
           { key: 'youtubeUrl', label: 'ইউটিউব চ্যানেল URL', type: 'url', placeholder: 'https://youtube.com/...' },
+          { key: 'whatsappNumber', label: 'হোয়াটসঅ্যাপ নম্বর / লিংক (WhatsApp)', type: 'text', placeholder: '+8801913119525 বা https://wa.me/8801913119525' },
+          { key: 'linkedinUrl', label: 'লিংকডইন প্রোফাইল / পেজ URL (LinkedIn)', type: 'url', placeholder: 'https://linkedin.com/company/...' },
           { key: 'instagramUrl', label: 'ইনস্টাগ্রাম URL', type: 'url', placeholder: 'https://instagram.com/...' },
-          { key: 'linkedinUrl', label: 'লিংকডইন URL', type: 'url', placeholder: 'https://linkedin.com/...' },
           { key: 'twitterUrl', label: 'টুইটার / X URL', type: 'url', placeholder: 'https://twitter.com/...' },
         ],
       },

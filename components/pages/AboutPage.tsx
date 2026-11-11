@@ -708,68 +708,6 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-
-          {/* Interactive Transparency Trust Banner (CTA) */}
-
-          <section className="w-full bg-emerald-dark py-16 px-4 sm:px-8 text-on-primary">
-            <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-gold-warm shadow-md flex-shrink-0">
-                  <span
-                    className="material-symbols-outlined text-[36px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    shield_with_heart
-                  </span>
-                </div>
-                <div>
-                  <span className="font-label-sm text-label-sm text-zakat-gold-light uppercase tracking-widest font-bold">
-                    UNCOMPROMISING ACCOUNTABILITY
-                  </span>
-                  <h3 className="font-headline-md text-headline-md text-white mt-1">
-                    Inspect our records or speak with our Shariah board.
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-primary-fixed mt-1">
-                    We welcome personal donor inspections, independent audit
-                    queries, and field visits anytime.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 flex-wrap">
-                <button
-                  className="bg-surface-clean text-primary hover:bg-surface-subtle-mint px-6 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer"
-                  id="view-audits-btn"
-                  type="button"
-                  onClick={() =>
-                    showAlert({
-                      title: isBn ? 'অডিট ও সুশাসন প্রতিবেদন' : 'Audit & Governance Inspection',
-                      message: localize(
-                        'All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact gmcfoundation2022@gmail.com or download the official PDF pack.',
-                      ),
-                      type: 'info',
-                    })
-                  }
-                >
-                  <span className="material-symbols-outlined text-[20px]">
-                    summarize
-                  </span>
-                  <span>Read Audit Reports</span>
-                </button>
-                <Link
-                  className="bg-amber-vibrant hover:bg-secondary text-white px-7 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-lg hover:shadow-xl flex items-center gap-2"
-                  href="/appeals"
-                >
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    favorite
-                  </span>
-                  <span>Donate with Confidence</span>
-                </Link>
-              </div>
-            </div>
-          </section>
         </div>
       </main>
     </>

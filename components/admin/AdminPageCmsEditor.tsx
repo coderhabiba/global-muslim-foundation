@@ -315,12 +315,12 @@ export default function AdminPageCmsEditor() {
                       />
                     </div>
                     <div>
-                      <label className="font-bold text-slate-700 block mb-1">ইনস্টাগ্রাম লিংক (Instagram URL)</label>
+                      <label className="font-bold text-slate-700 block mb-1">হোয়াটসঅ্যাপ নম্বর / লিংক (WhatsApp)</label>
                       <input
-                        type="url"
-                        placeholder="https://instagram.com/..."
-                        value={pageData.instagramUrl || ''}
-                        onChange={e => handleFieldChange('instagramUrl', e.target.value)}
+                        type="text"
+                        placeholder="+8801913119525 বা https://wa.me/..."
+                        value={pageData.whatsappNumber || ''}
+                        onChange={e => handleFieldChange('whatsappNumber', e.target.value)}
                         className="w-full px-3 py-2 bg-white border rounded-xl"
                       />
                     </div>
@@ -331,6 +331,16 @@ export default function AdminPageCmsEditor() {
                         placeholder="https://linkedin.com/..."
                         value={pageData.linkedinUrl || ''}
                         onChange={e => handleFieldChange('linkedinUrl', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ইনস্টাগ্রাম লিংক (Instagram URL)</label>
+                      <input
+                        type="url"
+                        placeholder="https://instagram.com/..."
+                        value={pageData.instagramUrl || ''}
+                        onChange={e => handleFieldChange('instagramUrl', e.target.value)}
                         className="w-full px-3 py-2 bg-white border rounded-xl"
                       />
                     </div>

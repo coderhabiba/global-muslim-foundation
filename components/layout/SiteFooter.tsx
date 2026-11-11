@@ -148,7 +148,11 @@ export default function SiteFooter() {
                 )}
                 {cms.header_footer.whatsappNumber && (
                   <a
-                    href={`https://wa.me/${cms.header_footer.whatsappNumber.replace(/[^0-9]/g, '')}`}
+                    href={
+                      cms.header_footer.whatsappNumber.startsWith('http')
+                        ? cms.header_footer.whatsappNumber
+                        : `https://wa.me/${cms.header_footer.whatsappNumber.replace(/[^0-9]/g, '')}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     title="WhatsApp"

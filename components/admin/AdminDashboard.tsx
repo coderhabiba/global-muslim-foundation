@@ -64,6 +64,7 @@ import {
   Calendar,
   DollarSign,
   Award,
+  Home,
 } from 'lucide-react';
 
 type DonationRecord = {
@@ -992,11 +993,13 @@ export default function AdminDashboard() {
             </div>
             <Link
               href="/"
-              target="_blank"
-              className="mt-2.5 flex items-center justify-between text-xs font-medium text-zinc-300 hover:text-white transition-colors"
+              className="mt-2.5 flex items-center justify-between text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors bg-zinc-800/60 hover:bg-zinc-800 px-2.5 py-1.5 rounded-md"
             >
-              <span>লাইভ সাইট ভিজিট করুন</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-1.5">
+                <Home className="w-3.5 h-3.5 text-emerald-400" />
+                <span>ওয়েবসাইট হোমে ফিরুন</span>
+              </span>
+              <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
             </Link>
           </div>
         </div>
@@ -1060,6 +1063,15 @@ export default function AdminDashboard() {
 
           {/* Quick Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-3.5 rounded-lg border border-emerald-200/90 bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
+              title="ওয়েবসাইটের মূল হোমপেজে ফিরে যান"
+            >
+              <Home className="w-4 h-4 text-emerald-700 shrink-0" />
+              <span className="hidden sm:inline">হোমে ফিরুন</span>
+            </Link>
+
             <button
               type="button"
               onClick={() => openLicenseModal()}

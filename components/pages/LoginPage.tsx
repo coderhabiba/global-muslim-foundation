@@ -96,11 +96,11 @@ export default function LoginPage() {
       {/* Left Column: Full-Height Visual Hero Panel (7 cols on lg) */}
       {/* ============================================================== */}
       <div className="relative hidden lg:flex lg:col-span-7 xl:col-span-7 flex-col justify-between p-12 xl:p-16 text-white overflow-hidden bg-zinc-950 min-h-screen">
-        {/* Full-bleed background image with multi-layer modern overlay */}
+        {/* Full-bleed background image with multi-layer modern overlay (Ultra-HD 3024x4032 authentic humanitarian photography) */}
         <img
-          src="/images/street-children-hot-meals.jpg"
+          src="/images/drive-food-3.jpg"
           alt="GMCF Humanitarian Relief Work"
-          className="absolute inset-0 w-full h-full object-cover object-center transform scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-[center_30%] transform scale-105 filter brightness-90 contrast-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-emerald-950/75" />
         <div className="absolute inset-0 bg-radial from-transparent via-black/40 to-black/80" />
