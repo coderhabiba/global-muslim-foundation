@@ -55,6 +55,10 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
+  if (pathname === '/login') {
+    return null;
+  }
+
   return (
     <header
       ref={headerRef}

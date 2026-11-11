@@ -1,16 +1,22 @@
 'use client';
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import NewsletterForm from "./NewsletterForm";
 import { useModalState } from "@/lib/modal-context";
 import { useSiteSettings } from "@/lib/site-settings";
 import { useSiteCMS } from "@/lib/site-cms";
 
 export default function SiteFooter() {
+  const pathname = usePathname();
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { language } = useSiteSettings();
   const { cms } = useSiteCMS();
   const isBn = language === 'bn';
+
+  if (pathname === '/login') {
+    return null;
+  }
 
   return (
     <footer data-l10n="off" className="w-full bg-[#f3f6f4] text-slate-800 border-t border-slate-200">

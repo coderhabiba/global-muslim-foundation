@@ -944,8 +944,8 @@ export default function AdminDashboard() {
       {/* Right Column Workspace */}
       {/* ============================================================== */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Topbar (Optimized height: 91px, refined typography) */}
-        <header className="sticky top-0 z-30 min-h-[78px] sm:h-[91px] border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between gap-3 sm:gap-4 py-2.5 sm:py-0 shadow-2xs">
+        {/* Topbar (Optimized height: 88px, refined typography) */}
+        <header className="sticky top-0 z-30 min-h-[75px] sm:h-[88px] border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between gap-3 sm:gap-4 py-2.5 sm:py-0 shadow-2xs">
           <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
             <button
               type="button"
@@ -2008,8 +2008,8 @@ export default function AdminDashboard() {
 
             {/* TAB CONTENT: Settings */}
             {activeTab === 'settings' && (
-              <div className="p-5 sm:p-6 space-y-6 max-w-3xl">
-                <div className="bg-zinc-50/70 p-5 rounded-xl border border-zinc-200 space-y-4">
+              <div className="p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full items-start">
+                <div className="bg-zinc-50/70 p-5 sm:p-6 rounded-xl border border-zinc-200 space-y-4 shadow-2xs">
                   <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-zinc-700" />
                     প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)
@@ -2068,7 +2068,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-zinc-50/70 p-5 rounded-xl border border-zinc-200 space-y-3">
+                <div className="bg-zinc-50/70 p-5 sm:p-6 rounded-xl border border-zinc-200 space-y-4 shadow-2xs">
                   <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     সরকারি অনুদান ও অডিট কমপ্লায়েন্স
@@ -2081,9 +2081,9 @@ export default function AdminDashboard() {
                       href="/images/permit.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-900 text-white rounded-md text-xs font-medium hover:bg-zinc-800 transition-colors shadow-2xs"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-zinc-900 text-white rounded-md text-xs font-medium hover:bg-zinc-800 transition-colors shadow-2xs cursor-pointer"
                     >
-                      <Download className="w-3.5 h-3.5" />
+                      <Download className="w-4 h-4" />
                       <span>অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন</span>
                     </a>
                   </div>
