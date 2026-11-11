@@ -707,35 +707,37 @@ export default function AdminDashboard() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
+    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-row">
       {/* Mobile Sidebar Backdrop */}
       {isMobileSidebarOpen && (
         <div
           onClick={() => setIsMobileSidebarOpen(false)}
-          className="fixed inset-0 bg-slate-950/60 z-40 md:hidden backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-slate-950/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
         />
       )}
 
       {/* Modern Fixed Left Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out md:sticky md:top-0 md:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 ${
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Sidebar Brand Header (Clean transparent logo without awkward white box) */}
-        <div className="px-5 py-4 border-b border-emerald-900/80 shrink-0">
+        {/* Sidebar Brand Header */}
+        <div className="px-5 py-4 border-b border-emerald-900/80 shrink-0 bg-emerald-950">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center group py-1">
-              <img
-                src="/images/gmcf-logo-full.png"
-                alt="Global Muslim Charitable Foundation Logo"
-                className="h-10 sm:h-11 w-auto max-w-[210px] object-contain group-hover:scale-102 transition-transform drop-shadow-sm brightness-105"
-              />
+              <div className="bg-white/95 px-3 py-1.5 rounded-xl shadow-sm group-hover:scale-102 transition-transform">
+                <img
+                  src="/images/gmcf-logo-full.png"
+                  alt="Global Muslim Charitable Foundation Logo"
+                  className="h-9 sm:h-10 w-auto max-w-[190px] object-contain"
+                />
+              </div>
             </Link>
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(false)}
-              className="md:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 cursor-pointer"
+              className="lg:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 cursor-pointer"
             >
               <span className="material-symbols-outlined text-[24px]">close</span>
             </button>
@@ -958,7 +960,7 @@ export default function AdminDashboard() {
               <button
                 type="button"
                 onClick={() => setIsMobileSidebarOpen(true)}
-                className="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 cursor-pointer"
+                className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 cursor-pointer"
                 aria-label="Open Sidebar"
               >
                 <span className="material-symbols-outlined text-[24px]">menu</span>
