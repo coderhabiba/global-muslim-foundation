@@ -86,70 +86,70 @@ export default function EpsPaymentModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn overflow-y-auto">
       <div 
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 transform transition-all duration-300"
+        className="relative w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col max-h-[92dvh] my-auto transform transition-all duration-300"
         onClick={e => e.stopPropagation()}
       >
-        {/* EPS Official Header */}
-        <div className="bg-gradient-to-r from-[#0F382A] via-[#134E3A] to-[#0D2F23] text-white p-5 border-b border-emerald-700/50">
+        {/* EPS Official Header - Compact on Mobile */}
+        <div className="bg-gradient-to-r from-[#0F382A] via-[#134E3A] to-[#0D2F23] text-white p-3.5 sm:p-5 border-b border-emerald-700/50 shrink-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-md">
+            <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white p-1 sm:p-1.5 flex items-center justify-center shadow-md shrink-0">
                 <img
                   src="/images/payment/eps.svg"
                   alt="EPS Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-extrabold tracking-wider text-lg text-white font-mono">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <span className="font-extrabold tracking-wider text-base sm:text-lg text-white font-mono leading-none">
                     EPS
                   </span>
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">
+                  <span className="text-[9px] sm:text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-1.5 sm:px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">
                     Easy Payment System
                   </span>
                 </div>
-                <p className="text-[11px] text-emerald-200/90 font-light flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[13px] text-emerald-400">verified</span>
-                  {isBn ? 'বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে' : 'Bangladesh Bank Licensed PSP Payment Gateway'}
+                <p className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light flex items-center gap-1 mt-0.5 truncate">
+                  <span className="material-symbols-outlined text-[12px] sm:text-[13px] text-emerald-400 shrink-0">verified</span>
+                  <span className="truncate">{isBn ? 'বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে' : 'Bangladesh Bank Licensed PSP Gateway'}</span>
                 </p>
               </div>
             </div>
             <button
               onClick={handleResetAndClose}
-              className="text-white/70 hover:text-white p-1.5 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+              className="text-white/70 hover:text-white p-1 sm:p-1.5 rounded-xl hover:bg-white/10 transition-colors cursor-pointer shrink-0 ml-1"
               aria-label="Close"
             >
-              <span className="material-symbols-outlined text-2xl">close</span>
+              <span className="material-symbols-outlined text-xl sm:text-2xl">close</span>
             </button>
           </div>
 
-          {/* Amount Badge */}
-          <div className="mt-4 pt-3.5 border-t border-emerald-800/60 flex items-center justify-between">
+          {/* Amount Badge - Compact */}
+          <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3.5 border-t border-emerald-800/60 flex items-center justify-between gap-2">
             <div>
-              <span className="text-[11px] text-emerald-300/90 uppercase tracking-wider block font-semibold">
+              <span className="text-[9px] sm:text-[11px] text-emerald-300/90 uppercase tracking-wider block font-semibold leading-tight">
                 {isBn ? 'অনুদানের পরিমাণ' : 'Donation Amount'}
               </span>
-              <span className="text-2xl sm:text-3xl font-black text-amber-300 tracking-tight">
+              <span className="text-xl sm:text-3xl font-black text-amber-300 tracking-tight leading-tight">
                 {amountDisplay}
               </span>
             </div>
-            <div className="text-right max-w-[210px]">
-              <span className="text-[11px] text-emerald-200 block truncate font-medium">
+            <div className="text-right max-w-[170px] sm:max-w-[210px] shrink-0">
+              <span className="text-[10px] sm:text-[11px] text-emerald-200 block truncate font-medium">
                 {paymentDetails.cause}
               </span>
-              <span className="text-[10px] text-emerald-300/80 inline-flex items-center gap-1">
-                <span className="material-symbols-outlined text-[12px] text-emerald-400">lock</span>
+              <span className="text-[9px] sm:text-[10px] text-emerald-300/80 inline-flex items-center gap-1">
+                <span className="material-symbols-outlined text-[11px] text-emerald-400">lock</span>
                 256-Bit SSL Encrypted
               </span>
             </div>
           </div>
         </div>
 
-        {/* Modal Body Based on Step */}
-        <div className="p-5 sm:p-6 max-h-[75vh] overflow-y-auto">
+        {/* Modal Body Based on Step - Smooth Scrollable */}
+        <div className="p-3.5 sm:p-6 overflow-y-auto flex-1 overscroll-contain">
           {step === 'select' && (
             <div className="space-y-5">
               {/* Mobile Banking Section */}
@@ -717,11 +717,11 @@ export default function EpsPaymentModal() {
         </div>
 
         {/* Modal Footer Note */}
-        <div className="bg-slate-100 px-5 py-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
-          <span>{isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}</span>
-          <span className="flex items-center gap-1.5 font-medium">
-            <span className="material-symbols-outlined text-[13px] text-emerald-600">lock</span>
-            EPS Sandbox v2.4 (Bangladesh Bank PSP)
+        <div className="bg-slate-100 px-3.5 sm:px-5 py-2.5 sm:py-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 shrink-0">
+          <span className="truncate">{isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}</span>
+          <span className="flex items-center gap-1 sm:gap-1.5 font-medium shrink-0 ml-2">
+            <span className="material-symbols-outlined text-[12px] sm:text-[13px] text-emerald-600">lock</span>
+            EPS Sandbox (PSP)
           </span>
         </div>
       </div>
