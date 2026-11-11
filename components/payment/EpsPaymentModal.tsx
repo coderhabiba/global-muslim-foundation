@@ -9,6 +9,59 @@ import { supabase } from '@/lib/supabase';
 
 type PaymentMethodType = 'bkash' | 'nagad' | 'rocket' | 'upay' | 'card' | 'bank';
 
+export function getProjectAmounts(cause: string, currency: string = 'BDT') {
+  const c = (cause || '').toLowerCase();
+  const isUSD = currency === 'USD';
+
+  // 1. Water well / tube well / ablution
+  if (c.includes('water') || c.includes('পানির') || c.includes('নলকূপ') || c.includes('well') || c.includes('wash') || c.includes('ওজুখানা')) {
+    return {
+      defaultAmt: isUSD ? 50 : 5000,
+      presets: isUSD ? [25, 50, 100, 250, 500] : [1000, 2500, 5000, 15000, 65000]
+    };
+  }
+  // 2. Eye care / Project Alo / Cataract / Surgery / Medical
+  if (c.includes('eye') || c.includes('alo') || c.includes('আলো') || c.includes('ছানি') || c.includes('চোখের') || c.includes('surgery') || c.includes('চিকিৎসা')) {
+    return {
+      defaultAmt: isUSD ? 35 : 3500,
+      presets: isUSD ? [15, 35, 70, 150, 350] : [1000, 2000, 3500, 7000, 15000]
+    };
+  }
+  // 3. Orphan sponsorship / Child education
+  if (c.includes('orphan') || c.includes('এতিম') || c.includes('sponsor') || c.includes('শিশু') || c.includes('শিক্ষা')) {
+    return {
+      defaultAmt: isUSD ? 30 : 3500,
+      presets: isUSD ? [15, 30, 60, 120, 300] : [1500, 2500, 3500, 7000, 10000]
+    };
+  }
+  // 4. Food / One Meal One Hope / Nutrition
+  if (c.includes('meal') || c.includes('food') || c.includes('খাদ্য') || c.includes('মিল') || c.includes('অনাহারী') || c.includes('nourish')) {
+    return {
+      defaultAmt: isUSD ? 25 : 1000,
+      presets: isUSD ? [10, 25, 50, 100, 250] : [500, 1000, 2500, 5000, 10000]
+    };
+  }
+  // 5. Winter relief / Blanket / Sheetal
+  if (c.includes('winter') || c.includes('sheetal') || c.includes('শীত') || c.includes('কম্বল') || c.includes('blanket')) {
+    return {
+      defaultAmt: isUSD ? 15 : 1200,
+      presets: isUSD ? [10, 15, 30, 60, 120] : [600, 1200, 2400, 4800, 10000]
+    };
+  }
+  // 6. Shelter / Home / Reconstruction / Tin-shed
+  if (c.includes('shelter') || c.includes('ঘর') || c.includes('আশ্রয়') || c.includes('tin') || c.includes('home')) {
+    return {
+      defaultAmt: isUSD ? 100 : 10000,
+      presets: isUSD ? [50, 100, 200, 500, 1000] : [2500, 5000, 10000, 25000, 50000]
+    };
+  }
+  // Default General Humanitarian Relief / Zakat
+  return {
+    defaultAmt: isUSD ? 50 : 1000,
+    presets: isUSD ? [25, 50, 100, 250, 500] : [500, 1000, 2500, 5000, 10000]
+  };
+}
+
 export default function EpsPaymentModal() {
   const { isOpen, closePaymentModal, paymentDetails } = useModalState();
   const { language } = useSiteSettings();
@@ -35,18 +88,28 @@ export default function EpsPaymentModal() {
 
   useEffect(() => {
     if (paymentDetails) {
-      const amt = paymentDetails.amount || 1000;
+      const cause = paymentDetails.cause || (isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund');
+      const amtConfig = getProjectAmounts(cause, paymentDetails.currency || 'BDT');
+      const amt = paymentDetails.amount || amtConfig.defaultAmt;
       setActiveAmount(amt);
       setCustomInputVal(String(amt));
-      setSelectedCause(paymentDetails.cause || (isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund'));
+      setSelectedCause(cause);
     }
   }, [paymentDetails, isOpen, isBn]);
 
   if (!isOpen) return null;
 
-  const PRESET_AMOUNTS = paymentDetails.currency === 'USD'
-    ? [25, 50, 100, 250, 500]
-    : [500, 1000, 2500, 5000, 10000];
+  // Dynamically calculate presets and defaults according to currently selected cause & currency
+  const projectAmountConfig = getProjectAmounts(selectedCause, paymentDetails.currency || 'BDT');
+  const PRESET_AMOUNTS = projectAmountConfig.presets;
+
+  const handleSelectCause = (causeTitle: string) => {
+    setSelectedCause(causeTitle);
+    const config = getProjectAmounts(causeTitle, paymentDetails.currency || 'BDT');
+    setActiveAmount(config.defaultAmt);
+    setCustomInputVal(String(config.defaultAmt));
+    setShowCauseSelector(false);
+  };
 
   const amountDisplay = `${paymentDetails.currency === 'BDT' ? '৳' : '$'}${activeAmount.toLocaleString()}`;
 
@@ -218,10 +281,7 @@ export default function EpsPaymentModal() {
                 {/* General Cause */}
                 <button
                   type="button"
-                  onClick={() => {
-                    setSelectedCause(isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund');
-                    setShowCauseSelector(false);
-                  }}
+                  onClick={() => handleSelectCause(isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund')}
                   className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
                     selectedCause.includes('General') || selectedCause.includes('সাধারণ')
                       ? 'bg-emerald-800 text-white font-bold'
@@ -240,10 +300,7 @@ export default function EpsPaymentModal() {
                     <button
                       key={c.id}
                       type="button"
-                      onClick={() => {
-                        setSelectedCause(title);
-                        setShowCauseSelector(false);
-                      }}
+                      onClick={() => handleSelectCause(title)}
                       className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
                         isSelected
                           ? 'bg-emerald-800 text-white font-bold'
@@ -269,10 +326,7 @@ export default function EpsPaymentModal() {
                     <button
                       key={p.id}
                       type="button"
-                      onClick={() => {
-                        setSelectedCause(title);
-                        setShowCauseSelector(false);
-                      }}
+                      onClick={() => handleSelectCause(title)}
                       className={`w-full text-left p-2.5 rounded-xl text-xs transition-all flex items-center justify-between ${
                         isSelected
                           ? 'bg-emerald-800 text-white font-bold'

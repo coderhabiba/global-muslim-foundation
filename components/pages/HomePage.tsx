@@ -7,6 +7,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useModalState } from '@/lib/modal-context';
+import { getProjectAmounts } from '@/components/payment/EpsPaymentModal';
 
 const GIFT_AMOUNTS = [
   { value: '25', label: '$25', bordered: true, span: false },
@@ -318,7 +319,15 @@ export default function HomePage() {
                         className="w-full bg-surface-subtle-mint/80 border border-primary/20 text-on-surface font-semibold text-sm rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                         id="cause-select"
                         value={fund}
-                        onChange={event => setFund(event.target.value)}
+                        onChange={event => {
+                          const newFund = event.target.value;
+                          setFund(newFund);
+                          const matchedCampaign = campaigns.find(c => c.id === newFund);
+                          const targetTitle = matchedCampaign ? (isBn ? matchedCampaign.titleBn : matchedCampaign.titleEn) : 'General Relief';
+                          const amtConfig = getProjectAmounts(targetTitle, 'USD');
+                          setCustomAmount(String(amtConfig.defaultAmt));
+                          setAmountChoice(String(amtConfig.defaultAmt));
+                        }}
                       >
                         <option value="general">
                           {isBn ? '১. সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল (100% Policy)' : 'General Humanitarian Relief Fund'}
