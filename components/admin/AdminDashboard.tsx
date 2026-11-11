@@ -1037,38 +1037,38 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Right: Quick Action Controls */}
+            {/* Right: Quick Action Controls - Identical Height & Aligned */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <button
                 onClick={() => openLicenseModal()}
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-900 border border-emerald-200/80 text-sm font-bold transition-all cursor-pointer shadow-xs hover:shadow"
+                className="hidden md:inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100/90 text-emerald-900 border border-emerald-200 text-sm font-bold transition-all cursor-pointer shadow-xs active:scale-95"
               >
-                <svg className="w-4.5 h-4.5 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4.5 h-4.5 text-emerald-700 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                <span>লাইসেন্স সনদ</span>
+                <span className="whitespace-nowrap">লাইসেন্স সনদ</span>
               </button>
 
               <button
                 onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-700 to-teal-800 hover:from-emerald-800 hover:to-teal-900 text-white text-sm font-bold shadow-md shadow-emerald-950/20 transition-all cursor-pointer active:scale-95"
+                className="hidden sm:inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-gradient-to-r from-emerald-700 to-teal-800 hover:from-emerald-800 hover:to-teal-900 text-white border border-emerald-800/50 text-sm font-bold shadow-sm transition-all cursor-pointer active:scale-95"
               >
-                <svg className="w-4.5 h-4.5 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5 text-emerald-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
-                <span>EPS টেস্ট অনুদান</span>
+                <span className="whitespace-nowrap">EPS টেস্ট অনুদান</span>
               </button>
 
               {/* Direct Top-Bar Logout Button */}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/80 text-sm font-bold transition-all shadow-xs cursor-pointer active:scale-95"
+                className="inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-sm font-bold transition-all shadow-xs cursor-pointer active:scale-95"
                 title="ড্যাশবোর্ড থেকে লগআউট করুন"
               >
-                <svg className="w-4.5 h-4.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                <span>লগআউট</span>
+                <span className="whitespace-nowrap">লগআউট</span>
               </button>
             </div>
           </div>
