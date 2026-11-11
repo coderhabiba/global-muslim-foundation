@@ -1013,14 +1013,14 @@ export default function CampaignDetailsPage() {
                     <div className="flex items-baseline justify-between">
                       <div className="flex items-baseline gap-1.5">
                         <span className="font-serif font-bold text-headline-lg text-emerald-dark leading-none">
-                          $38,500
+                          $0
                         </span>
                         <span className="font-label-md text-label-md text-on-surface-variant">
                           raised of $50,000 goal
                         </span>
                       </div>
                       <span className="font-title-md text-title-md font-bold text-primary">
-                        77%
+                        0%
                       </span>
                     </div>
 
@@ -1029,7 +1029,7 @@ export default function CampaignDetailsPage() {
                     <div className="w-full h-3 rounded-full bg-surface-container overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-1000"
-                        style={{ width: '77%' }}
+                        style={{ width: '0%' }}
                       ></div>
                     </div>
                     <div className="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
@@ -1037,7 +1037,7 @@ export default function CampaignDetailsPage() {
                         <span className="material-symbols-outlined text-[16px] text-primary">
                           group
                         </span>
-                        620 Verified Donors
+                        0 Verified Donors
                       </span>
                       <span className="flex items-center gap-1 text-amber-vibrant font-bold">
                         <span className="material-symbols-outlined text-[16px]">
@@ -1507,15 +1507,15 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: '82%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
                         <span className="">
-                          <strong>$41,200</strong> of $50,000
+                          <strong>$0</strong> of $50,000
                         </span>
                         <span className="text-primary font-bold">
-                          82% Funded
+                          0% Funded
                         </span>
                       </div>
                       <a
@@ -1557,15 +1557,15 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: '64%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
                         <span className="">
-                          <strong>$19,200</strong> of $30,000
+                          <strong>$0</strong> of $30,000
                         </span>
                         <span className="text-primary font-bold">
-                          64% Funded
+                          0% Funded
                         </span>
                       </div>
                       <a
@@ -1607,15 +1607,15 @@ export default function CampaignDetailsPage() {
                       <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                         <div
                           className="h-full bg-primary rounded-full"
-                          style={{ width: '91%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                       <div className="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
                         <span className="">
-                          <strong>$27,300</strong> of $30,000
+                          <strong>$0</strong> of $30,000
                         </span>
                         <span className="text-primary font-bold">
-                          91% Funded
+                          0% Funded
                         </span>
                       </div>
                       <a

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,6 +20,7 @@ import {
   Legend,
 } from 'recharts';
 import { useModalState } from '@/lib/modal-context';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
 import AdminCardManager from '@/components/admin/AdminCardManager';
 import AdminSectionEditor from '@/components/admin/AdminSectionEditor';
@@ -205,201 +206,17 @@ const DEFAULT_MEMBERS: MemberRecord[] = [
   },
 ];
 
-const DEFAULT_DONATIONS: DonationRecord[] = [
-  {
-    id: 'EPS849204912',
-    donorName: 'Dr. Rafiqul Islam',
-    donorPhone: '01711234567',
-    donorEmail: 'rafiqul@gmail.com',
-    amount: 15000,
-    currency: 'BDT',
-    cause: 'Clean Water Tube Well Project',
-    method: 'BKASH',
-    status: 'SUCCESS',
-    date: '2025-05-14 11:32:04',
-    gateway: 'EPS Easy Payment System',
-  },
-  {
-    id: 'EPS920194012',
-    donorName: 'Taslima Akhter',
-    donorPhone: '01819876543',
-    donorEmail: 'taslima.ak@yahoo.com',
-    amount: 5000,
-    currency: 'BDT',
-    cause: 'Gaza Emergency Nourishment Appeal',
-    method: 'NAGAD',
-    status: 'SUCCESS',
-    date: '2025-05-14 09:15:20',
-    gateway: 'EPS Easy Payment System',
-  },
-  {
-    id: 'EPS103948291',
-    donorName: 'Shahidul Alam',
-    donorPhone: '01913110000',
-    donorEmail: 's.alam@corporate.com',
-    amount: 50000,
-    currency: 'BDT',
-    cause: 'General Zakat Fund (100% Policy)',
-    method: 'CARD (VISA)',
-    status: 'SUCCESS',
-    date: '2025-05-13 18:44:11',
-    gateway: 'EPS Easy Payment System',
-  },
-  {
-    id: 'EPS583920194',
-    donorName: 'Farhana Kabir',
-    donorPhone: '01672345678',
-    donorEmail: 'farhana@outlook.com',
-    amount: 3500,
-    currency: 'BDT',
-    cause: 'Project Alo (Pediatric Medical Aid)',
-    method: 'ROCKET',
-    status: 'SUCCESS',
-    date: '2025-05-13 14:20:45',
-    gateway: 'EPS Easy Payment System',
-  },
-  {
-    id: 'EPS384910293',
-    donorName: 'Anonymous Donor',
-    donorPhone: '01700000000',
-    donorEmail: 'anonymous@donor.org',
-    amount: 10000,
-    currency: 'BDT',
-    cause: 'One Meal One Hope (Street Food Aid)',
-    method: 'UPAY',
-    status: 'SUCCESS',
-    date: '2025-05-12 21:05:30',
-    gateway: 'EPS Easy Payment System',
-  },
-];
-
-const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
-  {
-    id: 'VOL-2025-01',
-    name: 'তানভীর আহমেদ',
-    phone: '01788-992211',
-    email: 'tanvir.vol@gmcf.org',
-    district: 'ঢাকা (সাভার / আশুলিয়া)',
-    category: 'জরুরি খাদ্য ও বস্ত্র বিতরণ',
-    skills: 'ফিল্ড কোঅর্ডিনেশন ও যানবাহন সাপোর্ট',
-    image: '/images/humanitarian-volunteers.jpg',
-    date: '2025-05-14',
-    status: 'APPROVED',
-  },
-  {
-    id: 'VOL-2025-02',
-    name: 'ফারজানা আক্তার রিতু',
-    phone: '01922-334455',
-    email: 'ritu.medical@gmcf.org',
-    district: 'ঢাকা (মিরপুর)',
-    category: 'মেডিকেল ও প্রাথমিক চিকিৎসা সহায়তা',
-    skills: 'নার্সিং ডিপ্লোমা ও শিশু স্বাস্থ্য',
-    image: '/images/resilient-mother-portrait.jpg',
-    date: '2025-05-13',
-    status: 'PENDING',
-  },
-  {
-    id: 'VOL-2025-03',
-    name: 'মাহমুদুল হাসান',
-    phone: '01811-223344',
-    email: 'hasan.media@gmcf.org',
-    district: 'গাজীপুর',
-    category: 'মিডিয়া, ফটোগ্রাফি ও সোশাল ক্যাম্পেইন',
-    skills: 'ডিএসএলআর ভিডিওগ্রাফি ও গ্রাফিক্স ডিজাইন',
-    image: '/images/youth-volunteers.jpg',
-    date: '2025-05-12',
-    status: 'APPROVED',
-  },
-  {
-    id: 'VOL-2025-04',
-    name: 'আব্দুল করিম',
-    phone: '01555-667788',
-    email: 'karim.wash@gmcf.org',
-    district: 'নারায়ণগঞ্জ',
-    category: 'সুপেয় পানি ও গভীর নলকূপ স্থাপন',
-    skills: 'প্লাম্বিং ও টেকনিক্যাল মেরামত',
-    image: '/images/clean-water-well.jpg',
-    date: '2025-05-11',
-    status: 'PENDING',
-  },
-];
-
-// Recharts Trend Data
-const DONATION_TRENDS_7D = [
-  { label: 'শনিবার', amount: 18500, donors: 12 },
-  { label: 'রবিবার', amount: 24000, donors: 18 },
-  { label: 'সোমবার', amount: 32000, donors: 24 },
-  { label: 'মঙ্গলবার', amount: 19500, donors: 15 },
-  { label: 'বুধবার', amount: 48000, donors: 36 },
-  { label: 'বৃহস্পতিবার', amount: 62000, donors: 42 },
-  { label: 'শুক্রবার', amount: 84500, donors: 58 },
-];
-
-const DONATION_TRENDS_30D = [
-  { label: '১-৭ মে', amount: 145000, donors: 110 },
-  { label: '৮-১৪ মে', amount: 218000, donors: 165 },
-  { label: '১৫-২১ মে', amount: 195000, donors: 142 },
-  { label: '২২-২৮ মে', amount: 280000, donors: 210 },
-];
-
-const DONATION_TRENDS_YEAR = [
-  { label: 'জানু', amount: 320000, donors: 240 },
-  { label: 'ফেব্রু', amount: 410000, donors: 310 },
-  { label: 'মার্চ', amount: 590000, donors: 480 },
-  { label: 'এপ্রিল', amount: 820000, donors: 690 },
-  { label: 'মে', amount: 640000, donors: 520 },
-  { label: 'জুন', amount: 480000, donors: 380 },
-];
-
-const SECTOR_DISTRIBUTION = [
-  { name: 'সুপেয় পানি ও নলকূপ', value: 42, color: '#10b981' },
-  { name: 'ফরজ যাকাত ফান্ড', value: 28, color: '#0ea5e9' },
-  { name: 'ওয়ান মিল ওয়ান হোপ', value: 16, color: '#f59e0b' },
-  { name: 'প্রজেক্ট আলো (চিকিৎসা)', value: 9, color: '#ec4899' },
-  { name: 'এতিম শিশু স্পন্সর', value: 5, color: '#8b5cf6' },
-];
-
-const CAMPAIGN_PROGRESS_BARS = [
-  {
-    name: 'কুড়িগ্রাম ও সুনামগঞ্জ সুপেয় পানি প্রকল্প',
-    target: 500000,
-    raised: 420000,
-    percentage: 84,
-    color: 'bg-emerald-500',
-  },
-  {
-    name: 'গাজা ও জরুরি মানবিক ত্রাণ তহবিল',
-    target: 1000000,
-    raised: 750000,
-    percentage: 75,
-    color: 'bg-teal-500',
-  },
-  {
-    name: 'ওয়ান মিল ওয়ান হোপ (পথশিশু খাদ্য সহায়তা)',
-    target: 300000,
-    raised: 285000,
-    percentage: 95,
-    color: 'bg-amber-500',
-  },
-  {
-    name: 'প্রজেক্ট আলো — দৃষ্টিহীনদের ছানি অপারেশন',
-    target: 250000,
-    raised: 175000,
-    percentage: 70,
-    color: 'bg-rose-500',
-  },
-];
-
 export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
+  const { campaigns } = useDynamicCards();
   const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
   const [chartTimeframe, setChartTimeframe] = useState<'7d' | '30d' | 'year'>('7d');
   const [isMounted, setIsMounted] = useState(false);
 
-  const [donations, setDonations] = useState<DonationRecord[]>(DEFAULT_DONATIONS);
+  const [donations, setDonations] = useState<DonationRecord[]>([]);
   const [members, setMembers] = useState<MemberRecord[]>(DEFAULT_MEMBERS);
-  const [volunteers, setVolunteers] = useState<VolunteerCandidate[]>(DEFAULT_VOLUNTEERS);
+  const [volunteers, setVolunteers] = useState<VolunteerCandidate[]>([]);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [memberSearchTerm, setMemberSearchTerm] = useState('');
@@ -464,8 +281,13 @@ export default function AdminDashboard() {
     // 1. Load donations from localStorage & Supabase
     try {
       const storedDonations = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
-      if (storedDonations && storedDonations.length > 0) {
-        setDonations([...storedDonations, ...DEFAULT_DONATIONS]);
+      if (Array.isArray(storedDonations)) {
+        const mockDonationIds = new Set(['EPS849204912', 'EPS920194012', 'EPS103948291', 'EPS583920194', 'EPS384910293']);
+        const cleaned = storedDonations.filter((d: DonationRecord) => !mockDonationIds.has(d.id));
+        if (cleaned.length !== storedDonations.length) {
+          localStorage.setItem('gmcf:donations', JSON.stringify(cleaned));
+        }
+        setDonations(cleaned);
       }
     } catch (e) {
       console.error(e);
@@ -537,8 +359,13 @@ export default function AdminDashboard() {
     // 3. Load volunteers from localStorage & Supabase
     try {
       const storedVolunteers = JSON.parse(localStorage.getItem('gmcf:volunteers') || '[]');
-      if (storedVolunteers && Array.isArray(storedVolunteers) && storedVolunteers.length > 0) {
-        setVolunteers(storedVolunteers);
+      if (Array.isArray(storedVolunteers)) {
+        const mockVolIds = new Set(['VOL-2025-01', 'VOL-2025-02', 'VOL-2025-03', 'VOL-2025-04']);
+        const cleanedVols = storedVolunteers.filter((v: VolunteerCandidate) => !mockVolIds.has(v.id));
+        if (cleanedVols.length !== storedVolunteers.length) {
+          localStorage.setItem('gmcf:volunteers', JSON.stringify(cleanedVols));
+        }
+        setVolunteers(cleanedVols);
       }
     } catch (e) {
       console.error(e);
@@ -917,12 +744,61 @@ export default function AdminDashboard() {
     },
   ];
 
-  const currentChartData =
-    chartTimeframe === '7d'
-      ? DONATION_TRENDS_7D
-      : chartTimeframe === '30d'
-      ? DONATION_TRENDS_30D
-      : DONATION_TRENDS_YEAR;
+  const currentChartData = useMemo(() => {
+    if (donations.length === 0) {
+      if (chartTimeframe === '7d') {
+        return ['শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার'].map(label => ({
+          label,
+          amount: 0,
+          donors: 0,
+        }));
+      }
+      if (chartTimeframe === '30d') {
+        return ['১-৭ মে', '৮-১৪ মে', '১৫-২১ মে', '২২-২৮ মে'].map(label => ({
+          label,
+          amount: 0,
+          donors: 0,
+        }));
+      }
+      return ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'].map(label => ({
+        label,
+        amount: 0,
+        donors: 0,
+      }));
+    }
+
+    const map = new Map<string, { amount: number; donors: number }>();
+    donations.forEach(d => {
+      const dateStr = d.date ? d.date.split(' ')[0] : 'আজ';
+      const existing = map.get(dateStr) || { amount: 0, donors: 0 };
+      existing.amount += (d.currency === 'BDT' ? d.amount : d.amount * 122);
+      existing.donors += 1;
+      map.set(dateStr, existing);
+    });
+
+    return Array.from(map.entries()).map(([label, val]) => ({
+      label,
+      amount: val.amount,
+      donors: val.donors,
+    }));
+  }, [donations, chartTimeframe]);
+
+  const sectorDistribution = useMemo(() => {
+    if (donations.length === 0) return [];
+    const map = new Map<string, number>();
+    donations.forEach(d => {
+      const cause = d.cause || 'সাধারণ অনুদান';
+      map.set(cause, (map.get(cause) || 0) + (d.currency === 'BDT' ? d.amount : d.amount * 122));
+    });
+    const total = Array.from(map.values()).reduce((a, b) => a + b, 0);
+    const colors = ['#10b981', '#0ea5e9', '#f59e0b', '#ec4899', '#8b5cf6', '#14b8a6', '#6366f1'];
+    return Array.from(map.entries()).map(([name, amount], idx) => ({
+      name,
+      amount,
+      value: total > 0 ? Math.round((amount / total) * 100) : 0,
+      color: colors[idx % colors.length],
+    }));
+  }, [donations]);
 
   return (
     <div data-l10n="off" className="min-h-screen bg-zinc-50/70 text-zinc-900 flex flex-row items-stretch antialiased selection:bg-zinc-900 selection:text-white">
@@ -1150,8 +1026,8 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
-                  <TrendingUp className="w-3 h-3" />
-                  +১৮.৪% চলতি মাসে
+                  <CheckCircle2 className="w-3 h-3" />
+                  {donations.length} টি সফল ট্রানজেকশন
                 </span>
                 <span className="text-[11px] text-zinc-500 font-medium">EPS গেটওয়ে</span>
               </div>
@@ -1467,11 +1343,11 @@ export default function AdminDashboard() {
 
                       {/* Pie Chart */}
                       <div className="mt-3 w-full h-[180px]">
-                        {isMounted && (
+                        {isMounted && sectorDistribution.length > 0 ? (
                           <ResponsiveContainer width="100%" height="100%">
                             <RechartsPieChart>
                               <Pie
-                                data={SECTOR_DISTRIBUTION}
+                                data={sectorDistribution}
                                 cx="50%"
                                 cy="50%"
                                 innerRadius={48}
@@ -1479,7 +1355,7 @@ export default function AdminDashboard() {
                                 paddingAngle={3}
                                 dataKey="value"
                               >
-                                {SECTOR_DISTRIBUTION.map((entry, index) => (
+                                {sectorDistribution.map((entry, index) => (
                                   <Cell key={`cell-${index}`} fill={entry.color} />
                                 ))}
                               </Pie>
@@ -1499,25 +1375,37 @@ export default function AdminDashboard() {
                               />
                             </RechartsPieChart>
                           </ResponsiveContainer>
+                        ) : (
+                          <div className="h-full flex flex-col items-center justify-center text-center p-3 rounded-lg bg-zinc-50 border border-dashed border-zinc-200">
+                            <PieChart className="w-6 h-6 text-zinc-300 mb-1" />
+                            <p className="text-xs font-medium text-zinc-600">খাতভিত্তিক কোনো লেনদেন নেই</p>
+                            <p className="text-[11px] text-zinc-400 mt-0.5">নতুন অনুদান জমা হলে পাই-চার্ট সক্রিয় হবে</p>
+                          </div>
                         )}
                       </div>
 
                       {/* Custom Legend */}
                       <div className="space-y-1.5 mt-2 text-xs">
-                        {SECTOR_DISTRIBUTION.map((s, idx) => (
-                          <div key={idx} className="flex items-center justify-between py-1 px-1.5 rounded hover:bg-zinc-50 transition-colors">
-                            <div className="flex items-center gap-2">
-                              <span
-                                className="w-2.5 h-2.5 rounded-full shrink-0"
-                                style={{ backgroundColor: s.color }}
-                              />
-                              <span className="text-zinc-700 text-[11px] truncate">{s.name}</span>
-                            </div>
-                            <span className="font-mono font-semibold text-zinc-900 text-xs">
-                              {s.value}%
-                            </span>
+                        {sectorDistribution.length === 0 ? (
+                          <div className="py-2 text-center text-[11px] text-zinc-400">
+                            খাতভিত্তিক অনুদান শূন্য (৳০)
                           </div>
-                        ))}
+                        ) : (
+                          sectorDistribution.map((s, idx) => (
+                            <div key={idx} className="flex items-center justify-between py-1 px-1.5 rounded hover:bg-zinc-50 transition-colors">
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full shrink-0"
+                                  style={{ backgroundColor: s.color }}
+                                />
+                                <span className="text-zinc-700 text-[11px] truncate">{s.name}</span>
+                              </div>
+                              <span className="font-mono font-semibold text-zinc-900 text-xs">
+                                {s.value}%
+                              </span>
+                            </div>
+                          ))
+                        )}
                       </div>
                     </div>
 
@@ -1549,22 +1437,32 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="space-y-4 mt-4 text-xs">
-                      {CAMPAIGN_PROGRESS_BARS.map((c, idx) => (
-                        <div key={idx} className="space-y-1.5">
-                          <div className="flex items-center justify-between font-medium">
-                            <span className="text-zinc-900 truncate pr-2">{c.name}</span>
-                            <span className="font-mono font-bold text-zinc-900 shrink-0">
-                              {c.percentage}% (৳{c.raised.toLocaleString()})
-                            </span>
-                          </div>
-                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
-                            <div
-                              className={cn('h-full rounded-full transition-all duration-500', c.color)}
-                              style={{ width: `${c.percentage}%` }}
-                            />
-                          </div>
+                      {campaigns.length === 0 ? (
+                        <div className="py-6 text-center text-zinc-400 text-xs">
+                          কোনো সক্রিয় ক্যাম্পেইন পাওয়া যায়নি।
                         </div>
-                      ))}
+                      ) : (
+                        campaigns.slice(0, 4).map((c, idx) => {
+                          const pct = c.goalBDT > 0 ? Math.min(100, Math.round((c.raisedBDT / c.goalBDT) * 100)) : 0;
+                          const barColors = ['bg-emerald-500', 'bg-teal-500', 'bg-amber-500', 'bg-rose-500'];
+                          return (
+                            <div key={c.id || idx} className="space-y-1.5">
+                              <div className="flex items-center justify-between font-medium">
+                                <span className="text-zinc-900 truncate pr-2">{c.titleBn}</span>
+                                <span className="font-mono font-bold text-zinc-900 shrink-0">
+                                  {pct}% (৳{c.raisedBDT.toLocaleString()})
+                                </span>
+                              </div>
+                              <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
+                                <div
+                                  className={cn('h-full rounded-full transition-all duration-500', barColors[idx % barColors.length])}
+                                  style={{ width: `${pct}%` }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
 
@@ -1677,28 +1575,36 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-100 font-normal">
-                        {donations.slice(0, 4).map(d => (
-                          <tr key={d.id} className="hover:bg-zinc-50/70 transition-colors">
-                            <td className="py-3 px-4 font-mono font-semibold text-zinc-900">{d.id}</td>
-                            <td className="py-3 px-4">
-                              <p className="font-semibold text-zinc-900">{d.donorName}</p>
-                              <p className="text-[11px] text-zinc-500 font-mono">{d.donorPhone}</p>
-                            </td>
-                            <td className="py-3 px-4 text-zinc-700">{d.cause}</td>
-                            <td className="py-3 px-4 font-mono font-bold text-zinc-900 text-sm">৳{d.amount.toLocaleString()}</td>
-                            <td className="py-3 px-4">
-                              <span className="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-800 text-[11px] font-mono border border-zinc-200">
-                                {d.method}
-                              </span>
-                            </td>
-                            <td className="py-3 px-4">
-                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-medium text-[11px] inline-flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                {d.status}
-                              </span>
+                        {donations.length === 0 ? (
+                          <tr>
+                            <td colSpan={6} className="py-8 text-center text-zinc-400">
+                              এখনও কোনো অনলাইন অনুদান রেকর্ড নেই।
                             </td>
                           </tr>
-                        ))}
+                        ) : (
+                          donations.slice(0, 4).map(d => (
+                            <tr key={d.id} className="hover:bg-zinc-50/70 transition-colors">
+                              <td className="py-3 px-4 font-mono font-semibold text-zinc-900">{d.id}</td>
+                              <td className="py-3 px-4">
+                                <p className="font-semibold text-zinc-900">{d.donorName}</p>
+                                <p className="text-[11px] text-zinc-500 font-mono">{d.donorPhone}</p>
+                              </td>
+                              <td className="py-3 px-4 text-zinc-700">{d.cause}</td>
+                              <td className="py-3 px-4 font-mono font-bold text-zinc-900 text-sm">৳{d.amount.toLocaleString()}</td>
+                              <td className="py-3 px-4">
+                                <span className="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-800 text-[11px] font-mono border border-zinc-200">
+                                  {d.method}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-medium text-[11px] inline-flex items-center gap-1">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                  {d.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                     </table>
                   </div>

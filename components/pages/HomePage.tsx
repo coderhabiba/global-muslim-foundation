@@ -148,30 +148,30 @@ export default function HomePage() {
                   <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
                     <div className="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
                       <span className="material-symbols-outlined text-[24px]">
-                        restaurant
+                        verified_user
                       </span>
                     </div>
                     <div>
                       <p className="text-lg font-bold text-on-surface">
-                        120,000+
+                        ১০০% যাকাত
                       </p>
                       <p className="text-xs text-text-muted font-medium">
-                        Nutritious Meals Served
+                        সম্পূর্ণ হকদারদের অর্পণ নীতি
                       </p>
                     </div>
                   </div>
                   <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
                     <div className="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
                       <span className="material-symbols-outlined text-[24px]">
-                        medical_services
+                        assured_workload
                       </span>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-on-surface">
-                        8,400+
+                      <p className="text-sm font-bold text-on-surface">
+                        রেজি: S-14086/2023
                       </p>
                       <p className="text-xs text-text-muted font-medium">
-                        Pediatric Surgeries &amp; Care
+                        সরকারি নিবন্ধিত চ্যারিটি
                       </p>
                     </div>
                   </div>
@@ -182,9 +182,9 @@ export default function HomePage() {
                       </span>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-on-surface">100%</p>
+                      <p className="text-lg font-bold text-on-surface">০% ফি</p>
                       <p className="text-xs text-text-muted font-medium">
-                        Shariah Zakat Policy
+                        জিরো অ্যাডমিন কস্ট পলিসি
                       </p>
                     </div>
                   </div>
@@ -510,46 +510,46 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div className="p-2">
                 <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  120,000+
+                  ১০০%
                 </div>
                 <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  Meals Distributed
+                  যাকাত বণ্টন নীতি
                 </p>
                 <span className="text-xs text-white/70 block mt-0.5">
-                  Railway tracks &amp; urban slums
+                  সম্পূর্ণ আমানত সঠিক হকদারদের নিকট অর্পণ
                 </span>
               </div>
               <div className="p-2 border-l border-white/10">
                 <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  8,400+
+                  ০%
                 </div>
                 <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  Children Medical Treatments
+                  অ্যাডমিন খরচ কর্তন
                 </p>
                 <span className="text-xs text-white/70 block mt-0.5">
-                  Pediatric surgeries &amp; medications
+                  যাকাত ফান্ড থেকে কোনো অফিস ব্যয় কাটা হয় না
                 </span>
               </div>
               <div className="p-2 border-l md:border-l border-white/10">
-                <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  350+
+                <div className="font-serif-heading text-2xl sm:text-3xl text-gold-warm font-bold tracking-tight mt-1">
+                  S-14086
                 </div>
                 <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  Clean Water Wells &amp; Washrooms
+                  সরকারি নিবন্ধন নম্বর
                 </p>
                 <span className="text-xs text-white/70 block mt-0.5">
-                  Deep aquifers &amp; hygiene stations
+                  গণপ্রজাতন্ত্রী বাংলাদেশ সরকার অনুমোদিত ট্রাস্ট
                 </span>
               </div>
               <div className="p-2 border-l border-white/10">
                 <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  100%
+                  ১০০%
                 </div>
                 <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  Shariah Board Verified
+                  শরীয়াহ বোর্ড পর্যবেক্ষণ
                 </p>
                 <span className="text-xs text-white/70 block mt-0.5">
-                  Zero overhead deducted from Zakat
+                  বিজ্ঞ ইসলামি বিশেষজ্ঞদের পরামর্শে পরিচালিত
                 </span>
               </div>
             </div>

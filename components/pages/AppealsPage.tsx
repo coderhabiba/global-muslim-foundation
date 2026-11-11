@@ -455,19 +455,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $38,500{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          77% of $50,000
+                          0% of $50,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '77%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -476,7 +476,7 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        620 Donors
+                        0 Donors
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
@@ -576,19 +576,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $29,000{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          83% of $35,000
+                          0% of $35,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '83%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -597,7 +597,7 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        488 Donors
+                        0 Donors
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
@@ -698,19 +698,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $19,500{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          78% of $25,000
+                          0% of $25,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '78%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -719,13 +719,13 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           water
                         </span>{' '}
-                        18 Wells Built
+                        0 Wells Built
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        315 Donors
+                        0 Donors
                       </span>
                     </div>
 
@@ -820,19 +820,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $31,000{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          77% of $40,000
+                          0% of $40,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '77.5%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -841,13 +841,13 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           inventory_2
                         </span>{' '}
-                        4,200 Blankets
+                        0 Blankets
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        512 Donors
+                        0 Donors
                       </span>
                     </div>
 
@@ -944,19 +944,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $22,400{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          75% of $30,000
+                          0% of $30,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '74.6%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -965,13 +965,13 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           medication
                         </span>{' '}
-                        84 Children Saved
+                        0 Children Supported
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        340 Donors
+                        0 Donors
                       </span>
                     </div>
 
@@ -1066,19 +1066,19 @@ export default function AppealsPage() {
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-baseline font-label-md">
                         <span className="text-primary font-bold font-title-md">
-                          $16,800{' '}
+                          $0{' '}
                           <span className="font-body-sm text-on-surface-variant font-normal">
                             raised
                           </span>
                         </span>
                         <span className="text-on-surface-variant">
-                          84% of $20,000
+                          0% of $20,000
                         </span>
                       </div>
                       <div className="w-full bg-surface-subtle-mint rounded-full h-2.5 overflow-hidden">
                         <div
                           className="bg-primary h-full rounded-full transition-all duration-1000"
-                          style={{ width: '84%' }}
+                          style={{ width: '0%' }}
                         ></div>
                       </div>
                     </div>
@@ -1087,13 +1087,13 @@ export default function AppealsPage() {
                         <span className="material-symbols-outlined text-[15px]">
                           assist_walker
                         </span>{' '}
-                        52 Children Supported
+                        0 Children Supported
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-[15px]">
                           group
                         </span>{' '}
-                        267 Donors
+                        0 Donors
                       </span>
                     </div>
 
