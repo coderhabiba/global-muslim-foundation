@@ -965,63 +965,75 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Sleek, Clean Top Bar */}
-        <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-          <div className="px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
+      <div className="flex-1 flex flex-col min-w-0 bg-slate-100/80">
+        {/* Sleek, Premium Glassmorphic Top Bar */}
+        <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-30 shadow-xs">
+          <div className="px-5 sm:px-8 py-3.5 flex items-center justify-between gap-4">
             {/* Left: Mobile hamburger & Active Section Title */}
-            <div className="flex items-center gap-3.5 min-w-0">
+            <div className="flex items-center gap-4 min-w-0">
               <button
                 type="button"
                 onClick={() => setIsMobileSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 cursor-pointer"
+                className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 hover:text-slate-900 cursor-pointer transition-colors"
                 aria-label="Open Sidebar"
               >
-                <span className="material-symbols-outlined text-[26px]">menu</span>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
               </button>
 
-              <div>
-                <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2.5">
+              <div className="flex items-center gap-3.5 min-w-0">
+                {/* Section Icon Badge */}
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center shadow-md shadow-emerald-900/15 shrink-0">
                   {activeTab === 'overview' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">dashboard</span>
-                      <span>ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
                   )}
                   {activeTab === 'donations' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">payments</span>
-                      <span>অনলাইন অনুদান ব্যবস্থাপনা</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
                   )}
                   {activeTab === 'members' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">badge</span>
-                      <span>সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
                   )}
                   {activeTab === 'volunteers' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">volunteer_activism</span>
-                      <span>স্বেচ্ছাসেবক আবেদনপত্র ও টিম</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
                   )}
                   {activeTab === 'campaigns' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">campaign</span>
-                      <span>চলমান মানবিক ক্যাম্পেইনসমূহ</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                    </svg>
                   )}
                   {activeTab === 'settings' && (
-                    <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">settings</span>
-                      <span>প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস</span>
-                    </>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
                   )}
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 font-medium hidden sm:block">
-                  গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজিস্টার্ড এনজিও পোর্টাল
-                </p>
+                </div>
+
+                <div className="min-w-0">
+                  <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight leading-snug truncate">
+                    {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
+                    {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
+                    {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
+                    {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
+                    {activeTab === 'campaigns' && 'চলমান মানবিক ক্যাম্পেইনসমূহ'}
+                    {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস'}
+                  </h2>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <p className="text-xs sm:text-sm text-slate-500 font-medium truncate">
+                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজি: S-14086/2023
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1029,7 +1041,7 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <button
                 onClick={() => openLicenseModal()}
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-sm font-bold transition-colors cursor-pointer"
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50/80 hover:bg-emerald-100 text-emerald-900 border border-emerald-200/80 text-sm font-bold transition-all cursor-pointer shadow-xs hover:shadow"
               >
                 <svg className="w-4.5 h-4.5 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -1039,7 +1051,7 @@ export default function AdminDashboard() {
 
               <button
                 onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-700 to-teal-800 hover:from-emerald-800 hover:to-teal-900 text-white text-sm font-bold shadow-md shadow-emerald-950/20 transition-all cursor-pointer active:scale-95"
               >
                 <svg className="w-4.5 h-4.5 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -1050,10 +1062,10 @@ export default function AdminDashboard() {
               {/* Direct Top-Bar Logout Button */}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-sm font-bold transition-all shadow-xs cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/80 text-sm font-bold transition-all shadow-xs cursor-pointer active:scale-95"
                 title="ড্যাশবোর্ড থেকে লগআউট করুন"
               >
-                <svg className="w-4.5 h-4.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
                 <span>লগআউট</span>
@@ -1065,76 +1077,98 @@ export default function AdminDashboard() {
         {/* Dashboard Main Workspace */}
         <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full text-base">
           {/* KPI Summary Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Card 1: Total Donations */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
               <div>
-                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সর্বমোট অনুদান সংগ্রহ
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
                   ৳{totalDonationsBdt.toLocaleString()}
                 </h3>
-                <span className="text-sm text-emerald-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[18px]">trending_up</span>
+                <span className="text-xs sm:text-sm text-emerald-700 font-bold flex items-center gap-1.5 mt-2">
+                  <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
                   ১০০% যাকাত পলিসি নিশ্চিত
                 </span>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shrink-0">
-                <span className="material-symbols-outlined text-3xl">account_balance_wallet</span>
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shadow-md shadow-emerald-900/20 shrink-0">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
+            {/* Card 2: Members & Trustees */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
               <div>
-                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সদস্য ও ট্রাস্টি সংখ্যা
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
                   {members.length} জন
                 </h3>
-                <span className="text-sm text-teal-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[18px]">badge</span>
+                <span className="text-xs sm:text-sm text-teal-700 font-bold flex items-center gap-1.5 mt-2">
+                  <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
                   পরিচালনা ও ট্রাস্টি বোর্ড
                 </span>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100 shrink-0">
-                <span className="material-symbols-outlined text-3xl">supervised_user_circle</span>
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-700 text-white flex items-center justify-center shadow-md shadow-teal-900/20 shrink-0">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
+            {/* Card 3: Volunteer Team */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
               <div>
-                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   স্বেচ্ছাসেবক টিম
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono tracking-tight">
                   {volunteers.length} জন
                 </h3>
-                <span className="text-sm text-amber-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[18px]">pending_actions</span>
+                <span className="text-xs sm:text-sm text-amber-700 font-bold flex items-center gap-1.5 mt-2">
+                  <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
                 </span>
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 shrink-0">
-                <span className="material-symbols-outlined text-3xl">volunteer_activism</span>
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shadow-md shadow-amber-900/20 shrink-0">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
+            {/* Card 4: Government Registration */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:scale-110 transition-transform"></div>
               <div>
-                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-xs sm:text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সরকারি নিবন্ধন স্ট্যাটাস
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1 font-mono">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1 font-mono tracking-tight">
                   S-14086/2023
                 </h3>
                 <a
                   href="/images/permit.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1.5 underline"
+                  className="text-xs sm:text-sm text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-1.5 mt-2 underline"
                 >
-                  <span className="material-symbols-outlined text-[18px]">verified</span>
+                  <svg className="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
                   স্বীকৃত লাইসেন্স (Permit PDF)
                 </a>
               </div>
@@ -1142,26 +1176,30 @@ export default function AdminDashboard() {
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100 shrink-0"
+                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white flex items-center justify-center shadow-md shadow-emerald-950/20 hover:scale-105 transition-transform cursor-pointer shrink-0"
                 title="View Government License Permit"
               >
-                <span className="material-symbols-outlined text-3xl">verified_user</span>
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </a>
             </div>
           </div>
 
           {/* Active Content Panel */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex-1 flex flex-col">
-          <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50 overflow-x-auto">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
+          <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50/80 overflow-x-auto">
             <button
               onClick={() => setActiveTab('overview')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'overview'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">dashboard</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
               ওভারভিউ ড্যাশবোর্ড
             </button>
 
@@ -1169,11 +1207,13 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('donations')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'donations'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">payments</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
               অনুদান তালিকা ({donations.length})
             </button>
 
@@ -1181,11 +1221,13 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('members')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'members'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">badge</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
               সদস্য তালিকা ({members.length})
             </button>
 
@@ -1193,11 +1235,13 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('volunteers')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'volunteers'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
               স্বেচ্ছাসেবক আবেদনপত্র ({volunteers.length})
             </button>
 
@@ -1205,11 +1249,13 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('campaigns')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'campaigns'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">campaign</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+              </svg>
               চলমান ক্যাম্পেইন ওভারভিউ
             </button>
 
@@ -1217,11 +1263,14 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('settings')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'settings'
-                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[22px]">settings</span>
+              <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
               প্রাতিষ্ঠানিক তথ্য ও সেটিংস
             </button>
           </div>
