@@ -337,26 +337,26 @@ export default function SponsorOrphanPage() {
                     )}
                   </div>
 
-                  {/* Screenshot-Identical Bottom Divider: 1px straight line from left, meeting circular badge, and sweeping upward curve to right edge */}
+                  {/* Screenshot-Identical Bottom Divider: 1px straight line from left, meeting circular badge, and gentle curve to right edge */}
                   <div className="relative w-full h-0">
                     {/* 1px horizontal green line from left edge to circular badge */}
-                    <div className="absolute left-0 right-[84px] top-0 h-[1px] bg-[#144d46] z-10" />
+                    <div className="absolute left-0 right-[72px] top-0 h-[1px] bg-[#144d46] z-10" />
 
-                    {/* Sweeping Upward Curved Corner on the Right (1px line with white mask underneath) */}
-                    <div className="absolute -top-[28px] right-0 w-[28px] h-[30px] pointer-events-none z-10 overflow-hidden">
+                    {/* Gentle Upward Curved Corner on the Right (1px line with white mask underneath) */}
+                    <div className="absolute -top-[16px] right-0 w-[18px] h-[18px] pointer-events-none z-10 overflow-hidden">
                       <svg
-                        viewBox="0 0 28 30"
+                        viewBox="0 0 18 18"
                         className="w-full h-full"
                         preserveAspectRatio="none"
                       >
                         {/* White mask under curve to smoothly clip the photo corner */}
                         <path
-                          d="M 0 28 C 9 28, 20 18, 28 0 L 28 30 L 0 30 Z"
+                          d="M 0 16 Q 8 16 18 0 L 18 18 L 0 18 Z"
                           fill="#ffffff"
                         />
                         {/* 1px green curved stroke */}
                         <path
-                          d="M 0 28 C 9 28, 20 18, 28 0"
+                          d="M 0 16 Q 8 16 18 0"
                           fill="none"
                           stroke="#144d46"
                           strokeWidth="1"
@@ -364,9 +364,9 @@ export default function SponsorOrphanPage() {
                       </svg>
                     </div>
 
-                    {/* Circular Logo Badge (56px x 56px, centered on baseline, exactly meeting line on left and curve on right) */}
+                    {/* Circular Logo Badge (54px x 54px, centered on baseline, exactly meeting line on left and curve on right) */}
                     <div
-                      className="absolute -top-7 right-7 w-14 h-14 rounded-full bg-white border border-[#144d46] shadow-sm flex items-center justify-center p-1.5 z-20 group-hover:scale-105 transition-transform duration-300"
+                      className="absolute -top-[27px] right-4 w-[54px] h-[54px] rounded-full bg-white border border-[#144d46] shadow-sm flex items-center justify-center p-1.5 z-20 group-hover:scale-105 transition-transform duration-300"
                       title="GMCF Verified Child"
                     >
                       <img

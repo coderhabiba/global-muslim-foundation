@@ -60,9 +60,9 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
       className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
     >
       {/* Main Navigation Bar */}
-      <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-3 sm:px-6 flex items-center justify-between gap-2 lg:gap-4">
+      <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-2.5 sm:px-6 flex items-center justify-between gap-1.5 sm:gap-3 lg:gap-4">
         {/* Brand Logo & Slogan */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink min-w-0">
           <Link
             className="flex items-center shrink-0 group py-1"
             href="/"
@@ -71,10 +71,10 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             <img
               src="/images/gmcf-logo-full.png"
               alt="Global Muslim Charitable Foundation Logo"
-              className="h-10 sm:h-12 w-auto max-w-[190px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
+              className="h-9 sm:h-12 w-auto max-w-[150px] xs:max-w-[180px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
             />
           </Link>
-          <span className="hidden 2xl:inline-block text-[11px] font-semibold text-emerald-800 italic border-l border-slate-300 pl-3">
+          <span className="hidden 2xl:inline-block text-[11px] font-semibold text-emerald-800 italic border-l border-slate-300 pl-3 shrink-0">
             “Your Kindness is someone&apos;s hope”
           </span>
         </div>
@@ -102,15 +102,15 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         </nav>
 
         {/* Right Action Buttons */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {/* Language Switcher */}
           <div
-            className="flex items-center bg-slate-100 p-0.5 rounded-full border border-slate-200/90 shadow-2xs"
+            className="flex items-center bg-slate-100 p-0.5 rounded-full border border-slate-200/90 shadow-2xs shrink-0"
             data-l10n="off"
           >
             <button
               type="button"
-              className={`px-2.5 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-bold leading-none transition-all cursor-pointer ${
                 language === 'en'
                   ? 'bg-emerald-800 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -122,7 +122,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             </button>
             <button
               type="button"
-              className={`px-2.5 py-1 rounded-full text-xs font-bold leading-none transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-bold leading-none transition-all cursor-pointer ${
                 language === 'bn'
                   ? 'bg-emerald-800 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -142,16 +142,16 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
                 cause: 'General Humanitarian Relief Fund',
               })
             }
-            className={`inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`inline-flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs sm:text-sm px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-full whitespace-nowrap shrink-0 cursor-pointer ${
               isSimple
                 ? 'shadow-md hover:shadow-lg transition-all'
                 : 'shadow-[0_4px_14px_rgba(217,119,6,0.3)] hover:shadow-lg transition-all transform hover:-translate-y-0.5'
             }`}
           >
-            <span className="material-symbols-outlined text-[15px] sm:text-[17px]">
+            <span className="material-symbols-outlined text-[14px] sm:text-[17px]">
               favorite
             </span>
-            <span>{isBn ? 'অনুদান দিন' : 'Donate'}</span>
+            <span>{isBn ? 'অনুদান' : 'Donate'}</span>
           </button>
 
           {!isSimple && (
@@ -166,14 +166,11 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             </Link>
           )}
 
+          {/* Mobile Menu Toggle Button */}
           <button
             id="mobile-menu-btn"
             type="button"
-            className={`lg:hidden w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 ${
-              isSimple
-                ? ''
-                : 'hover:bg-emerald-800 hover:text-white transition-colors'
-            }`}
+            className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-emerald-800 text-white hover:bg-emerald-900 active:scale-95 shadow-xs flex items-center justify-center transition-all cursor-pointer border border-emerald-900/20"
             aria-label="Toggle navigation menu"
             aria-expanded={isDrawerOpen}
             onClick={event => {
@@ -181,9 +178,15 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               setIsDrawerOpen(open => !open);
             }}
           >
-            <span className="material-symbols-outlined text-[22px]">
-              {isDrawerOpen ? 'close' : 'menu'}
-            </span>
+            {isDrawerOpen ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
