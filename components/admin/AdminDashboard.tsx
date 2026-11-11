@@ -273,7 +273,7 @@ export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { cms, updatePageContent, resetPageContent, isSaving } = useSiteCMS();
-  const [activeTab, setActiveTab] = useState<'overview' | 'cms_pages' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
   const [selectedCmsPage, setSelectedCmsPage] = useState<SitePageKey>('header_footer');
   const [cmsDraft, setCmsDraft] = useState<any>({});
   const [cmsSaveSuccess, setCmsSaveSuccess] = useState(false);
@@ -826,31 +826,6 @@ export default function AdminDashboard() {
             </span>
           </button>
 
-          {/* New WordPress-like Page & Section CMS Controller */}
-          <button
-            onClick={() => {
-              setActiveTab('cms_pages');
-              setIsMobileSidebarOpen(false);
-            }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer ${
-              activeTab === 'cms_pages'
-                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
-                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-purple-500/25 text-purple-300 flex items-center justify-center shrink-0">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </div>
-              <span className="text-sm tracking-wide">পেইজ ও কন্টেন্ট এডিটর</span>
-            </div>
-            <span className="bg-purple-500/30 text-purple-200 text-xs font-bold px-2 py-0.5 rounded-full">
-              ৮ পেইজ
-            </span>
-          </button>
-
           {/* WordPress-style Live Section Editor */}
           <button
             onClick={() => {
@@ -1078,9 +1053,9 @@ export default function AdminDashboard() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
                   )}
-                  {activeTab === 'cms_pages' && (
+                  {activeTab === 'section_editor' && (
                     <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                     </svg>
                   )}
                   {activeTab === 'donations' && (
@@ -1114,7 +1089,7 @@ export default function AdminDashboard() {
                 <div className="min-w-0">
                   <div className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug truncate">
                     {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
-                    {activeTab === 'cms_pages' && 'পেইজ ও কন্টেন্ট লাইভ এডিটর (Visual CMS)'}
+                    {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                     {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
                     {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
                     {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
@@ -1297,19 +1272,19 @@ export default function AdminDashboard() {
               ওভারভিউ ড্যাশবোর্ড
             </button>
 
-            {/* CMS Pages Tab */}
+            {/* Section Editor Tab */}
             <button
-              onClick={() => setActiveTab('cms_pages')}
+              onClick={() => setActiveTab('section_editor')}
               className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === 'cms_pages'
+                activeTab === 'section_editor'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-xs -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <svg className="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              <svg className="w-5 h-5 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
               </svg>
-              পেইজ ও কন্টেন্ট এডিটর (৮ পেইজ)
+              সেকশন এডিটর (WP-স্টাইল)
             </button>
 
             <button
@@ -1672,11 +1647,6 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
-          )}
-
-          {/* Tab: WordPress Style Full Page & Content CMS */}
-          {activeTab === 'cms_pages' && (
-            <AdminPageCmsEditor />
           )}
 
           {/* Tab: WordPress-style Live Section Editor */}
