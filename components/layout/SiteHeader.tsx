@@ -71,7 +71,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             title="Global Muslim Charitable Foundation"
           >
             <img
-              src="/images/gmcf-logo-full.png"
+              src={cms.header_footer.logoImage || '/images/gmcf-logo-full.png'}
               alt="Global Muslim Charitable Foundation Logo"
               className="h-8 sm:h-10 w-auto max-w-[150px] xs:max-w-[185px] sm:max-w-[220px] object-contain group-hover:scale-[1.01] transition-transform duration-200"
             />

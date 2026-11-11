@@ -156,6 +156,25 @@ export default function AdminPageCmsEditor() {
             {/* 1. Header & Footer Fields */}
             {selectedPage === 'header_footer' && (
               <div className="space-y-4">
+                {/* Logo Customization */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">লোগো ও ব্যানার সেটিংস</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <ImageSelectorField
+                      label="ন্যাভবার মূল লোগো (Navbar Logo Image)"
+                      value={pageData.logoImage || ''}
+                      onChange={url => handleFieldChange('logoImage', url)}
+                      helpText="ফুল লোগো আপলোড বা সিলেক্ট করুন"
+                    />
+                    <ImageSelectorField
+                      label="ফুটার লোগো (Footer Logo Image)"
+                      value={pageData.footerLogoImage || ''}
+                      onChange={url => handleFieldChange('footerLogoImage', url)}
+                      helpText="ফুটার লোগো আপলোড বা সিলেক্ট করুন"
+                    />
+                  </div>
+                </div>
+
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
                   <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">ন্যাভবার মেনু আইটেম লেবেল</h5>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
@@ -227,14 +246,25 @@ export default function AdminPageCmsEditor() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">কেন্দ্রীয় কার্যালয়ের ঠিকানা</label>
-                  <input
-                    type="text"
-                    value={pageData.address || ''}
-                    onChange={e => handleFieldChange('address', e.target.value)}
-                    className="w-full px-3.5 py-2.5 border rounded-xl border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/20"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">কেন্দ্রীয় কার্যালয়ের ঠিকানা</label>
+                    <input
+                      type="text"
+                      value={pageData.address || ''}
+                      onChange={e => handleFieldChange('address', e.target.value)}
+                      className="w-full px-3.5 py-2.5 border rounded-xl border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/20"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">চেয়ারম্যানের নাম</label>
+                    <input
+                      type="text"
+                      value={pageData.chairmanName || ''}
+                      onChange={e => handleFieldChange('chairmanName', e.target.value)}
+                      className="w-full px-3.5 py-2.5 border rounded-xl border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/20"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -255,6 +285,55 @@ export default function AdminPageCmsEditor() {
                       onChange={e => handleFieldChange('whatsappNumber', e.target.value)}
                       className="w-full px-3.5 py-2.5 border rounded-xl border-slate-300 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-purple-600/20"
                     />
+                  </div>
+                </div>
+
+                {/* Social Media Links Section */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">
+                    সোশ্যাল মিডিয়া লিংক ও নেটওয়ার্ক (Footer Social Links)
+                  </h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ফেসবুক পেজ লিংক (Facebook URL)</label>
+                      <input
+                        type="url"
+                        placeholder="https://facebook.com/..."
+                        value={pageData.facebookUrl || ''}
+                        onChange={e => handleFieldChange('facebookUrl', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ইউটিউব চ্যানেল লিংক (YouTube URL)</label>
+                      <input
+                        type="url"
+                        placeholder="https://youtube.com/..."
+                        value={pageData.youtubeUrl || ''}
+                        onChange={e => handleFieldChange('youtubeUrl', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ইনস্টাগ্রাম লিংক (Instagram URL)</label>
+                      <input
+                        type="url"
+                        placeholder="https://instagram.com/..."
+                        value={pageData.instagramUrl || ''}
+                        onChange={e => handleFieldChange('instagramUrl', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">লিংকডইন লিংক (LinkedIn URL)</label>
+                      <input
+                        type="url"
+                        placeholder="https://linkedin.com/..."
+                        value={pageData.linkedinUrl || ''}
+                        onChange={e => handleFieldChange('linkedinUrl', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl"
+                      />
+                    </div>
                   </div>
                 </div>
 

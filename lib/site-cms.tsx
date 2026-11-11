@@ -15,14 +15,20 @@ export type SitePageKey =
 
 export interface SiteCMSContent {
   header_footer: {
+    logoImage: string;
+    footerLogoImage: string;
     slogan: string;
     hotline: string;
     email: string;
     address: string;
     registrationNo: string;
+    chairmanName: string;
     facebookUrl: string;
     youtubeUrl: string;
     whatsappNumber: string;
+    instagramUrl: string;
+    linkedinUrl: string;
+    twitterUrl: string;
     copyrightText: string;
     navAbout: string;
     navOrphan: string;
@@ -172,14 +178,20 @@ export interface SiteCMSContent {
 
 export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
   header_footer: {
+    logoImage: '/images/gmcf-logo-full.png',
+    footerLogoImage: '/images/gmcf-logo-full.png',
     slogan: '“Your Kindness is someone\'s hope”',
     hotline: '01913119525',
     email: 'gmcfoundation2022@gmail.com',
     address: 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh',
     registrationNo: 'S-14086/2023',
+    chairmanName: 'মোহাম্মদ আলী মোস্তফা',
     facebookUrl: 'https://facebook.com/globalmuslimcharitablefoundation',
     youtubeUrl: 'https://youtube.com',
     whatsappNumber: '+8801913119525',
+    instagramUrl: 'https://instagram.com',
+    linkedinUrl: 'https://linkedin.com',
+    twitterUrl: 'https://twitter.com',
     copyrightText: '© 2026 Global Muslim Charitable Foundation (GMCF). All Rights Reserved.',
     navAbout: 'আমাদের সম্পর্কে',
     navOrphan: 'দুস্থ শিশু স্পনসর',
