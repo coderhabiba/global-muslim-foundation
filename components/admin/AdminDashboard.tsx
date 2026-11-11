@@ -704,156 +704,370 @@ export default function AdminDashboard() {
       v.category.toLowerCase().includes(volunteerSearchTerm.toLowerCase())
   );
 
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   return (
-    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-col">
-      {/* Top Admin Bar */}
-      <header className="bg-emerald-950 text-white sticky top-0 z-40 shadow-md">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-white px-2 py-1 rounded-lg">
+    <div data-l10n="off" className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
+      {/* Mobile Sidebar Backdrop */}
+      {isMobileSidebarOpen && (
+        <div
+          onClick={() => setIsMobileSidebarOpen(false)}
+          className="fixed inset-0 bg-slate-950/60 z-40 md:hidden backdrop-blur-xs transition-opacity"
+        />
+      )}
+
+      {/* Modern Fixed Left Sidebar */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-emerald-950 text-white flex flex-col justify-between border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:shadow-none ${
+          isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Sidebar Brand Header */}
+        <div className="p-5 border-b border-emerald-900/80">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="bg-white p-1.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
                 <img
                   src="/images/gmcf-logo-full.png"
                   alt="GMCF Logo"
                   className="h-8 w-auto object-contain"
                 />
               </div>
+              <div>
+                <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">
+                  অ্যাডমিন প্যানেল
+                </span>
+                <h1 className="text-sm font-bold text-white font-serif-heading leading-tight line-clamp-1">
+                  Global Muslim Foundation
+                </h1>
+              </div>
             </Link>
-            <div className="hidden sm:block">
-              <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest block">
-                অ্যাডমিন নিয়ন্ত্রণ প্যানেল
-              </span>
-              <h1 className="text-sm font-bold text-white font-serif-heading">
-                Global Muslim Charitable Foundation
-              </h1>
-            </div>
+            <button
+              type="button"
+              onClick={() => setIsMobileSidebarOpen(false)}
+              className="md:hidden p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Sidebar Navigation Items */}
+        <nav className="p-4 flex-1 space-y-1.5 overflow-y-auto">
+          <div className="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">
+            প্রধান মেনু
           </div>
 
-          <div className="flex items-center gap-3 text-xs">
-            <button
-              onClick={() => openLicenseModal()}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-amber-300 border border-emerald-700 transition-colors cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[16px]">verified</span>
-              <span>সনদপত্র দেখুন</span>
-            </button>
+          <button
+            onClick={() => {
+              setActiveTab('donations');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'donations'
+                ? 'bg-emerald-800 text-white shadow-md'
+                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[20px] text-amber-400">payments</span>
+              <span>অনুদান তালিকা</span>
+            </div>
+            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+              {donations.length}
+            </span>
+          </button>
 
-            <button
-              onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold shadow transition-colors cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[16px]">point_of_sale</span>
-              <span>EPS টেস্ট অনুদান</span>
-            </button>
+          <button
+            onClick={() => {
+              setActiveTab('members');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'members'
+                ? 'bg-emerald-800 text-white shadow-md'
+                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[20px] text-teal-300">badge</span>
+              <span>সদস্য তালিকা</span>
+            </div>
+            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+              {members.length}
+            </span>
+          </button>
 
-            <div className="flex items-center gap-2 pl-2 border-l border-emerald-800">
-              <div className="text-right hidden sm:block">
-                <p className="font-bold text-white text-[11px]">Mohammad Ali Mostafa</p>
-                <p className="text-[10px] text-emerald-300">Chairman (Super Admin)</p>
+          <button
+            onClick={() => {
+              setActiveTab('volunteers');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'volunteers'
+                ? 'bg-emerald-800 text-white shadow-md'
+                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[20px] text-emerald-300">volunteer_activism</span>
+              <span>স্বেচ্ছাসেবক আবেদনপত্র</span>
+            </div>
+            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+              {volunteers.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab('campaigns');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'campaigns'
+                ? 'bg-emerald-800 text-white shadow-md'
+                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[20px] text-amber-300">campaign</span>
+              <span>চলমান ক্যাম্পেইন</span>
+            </div>
+            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+              ৪টি
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab('settings');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'settings'
+                ? 'bg-emerald-800 text-white shadow-md'
+                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[20px] text-slate-300">settings</span>
+              <span>প্রাতিষ্ঠানিক সেটিংস</span>
+            </div>
+          </button>
+
+          <div className="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">
+            অফিসিয়াল শর্টকাট
+          </div>
+
+          <a
+            href="/images/permit.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/60 hover:text-white transition-colors"
+          >
+            <span className="material-symbols-outlined text-[18px] text-amber-300">verified</span>
+            <span>সরকারি লাইসেন্স (PDF)</span>
+          </a>
+
+          <Link
+            href="/"
+            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/60 hover:text-white transition-colors"
+          >
+            <span className="material-symbols-outlined text-[18px] text-emerald-400">home</span>
+            <span>মূল ওয়েবসাইটে যান</span>
+          </Link>
+        </nav>
+
+        {/* Sidebar Footer User Info & Logout */}
+        <div className="p-4 border-t border-emerald-900 bg-emerald-950/80">
+          <div className="flex items-center justify-between gap-3 bg-emerald-900/50 p-3 rounded-2xl border border-emerald-800">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-inner">
+                MA
               </div>
+              <div className="min-w-0">
+                <p className="font-bold text-white text-xs truncate">Mohammad Ali Mostafa</p>
+                <p className="text-[10px] text-emerald-300 truncate">Chairman (Super Admin)</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="w-8 h-8 rounded-xl bg-red-900/40 hover:bg-red-800 text-red-200 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+              title="লগআউট করুন"
+            >
+              <span className="material-symbols-outlined text-[17px]">logout</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Sleek, Clean Top Bar */}
+        <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+          <div className="px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+            {/* Left: Mobile hamburger & Active Section Title */}
+            <div className="flex items-center gap-3 min-w-0">
               <button
                 type="button"
-                onClick={handleLogout}
-                className="w-9 h-9 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-700/50 flex items-center justify-center text-red-200 transition-colors cursor-pointer"
-                title="লগআউট করুন"
+                onClick={() => setIsMobileSidebarOpen(true)}
+                className="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 cursor-pointer"
+                aria-label="Open Sidebar"
               >
-                <span className="material-symbols-outlined text-[18px]">logout</span>
+                <span className="material-symbols-outlined text-[24px]">menu</span>
+              </button>
+
+              <div>
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                  {activeTab === 'donations' && (
+                    <>
+                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">payments</span>
+                      <span>অনলাইন অনুদান ব্যবস্থাপনা</span>
+                    </>
+                  )}
+                  {activeTab === 'members' && (
+                    <>
+                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">badge</span>
+                      <span>সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা</span>
+                    </>
+                  )}
+                  {activeTab === 'volunteers' && (
+                    <>
+                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">volunteer_activism</span>
+                      <span>স্বেচ্ছাসেবক আবেদনপত্র ও টিম</span>
+                    </>
+                  )}
+                  {activeTab === 'campaigns' && (
+                    <>
+                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">campaign</span>
+                      <span>চলমান মানবিক ক্যাম্পেইনসমূহ</span>
+                    </>
+                  )}
+                  {activeTab === 'settings' && (
+                    <>
+                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">settings</span>
+                      <span>প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস</span>
+                    </>
+                  )}
+                </h2>
+                <p className="text-[11px] text-slate-500 hidden sm:block">
+                  গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজিস্টার্ড এনজিও পোর্টাল
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Quick Action Controls */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <button
+                onClick={() => openLicenseModal()}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px]">verified</span>
+                <span>লাইসেন্স সনদ</span>
+              </button>
+
+              <button
+                onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px]">point_of_sale</span>
+                <span>EPS টেস্ট অনুদান</span>
               </button>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Container */}
-      <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6">
-        {/* KPI Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-              <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                সর্বমোট অনুদান সংগ্রহ
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
-                ৳{totalDonationsBdt.toLocaleString()}
-              </h3>
-              <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
-                <span className="material-symbols-outlined text-[14px]">trending_up</span>
-                ১০০% যাকাত পলিসি নিশ্চিত
-              </span>
+        {/* Dashboard Main Workspace */}
+        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full">
+          {/* KPI Summary Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                  সর্বমোট অনুদান সংগ্রহ
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                  ৳{totalDonationsBdt.toLocaleString()}
+                </h3>
+                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
+                  <span className="material-symbols-outlined text-[14px]">trending_up</span>
+                  ১০০% যাকাত পলিসি নিশ্চিত
+                </span>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
+                <span className="material-symbols-outlined text-2xl">account_balance_wallet</span>
+              </div>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl">account_balance_wallet</span>
-            </div>
-          </div>
 
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-              <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                সদস্য ও ট্রাস্টি সংখ্যা
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
-                {members.length} জন
-              </h3>
-              <span className="text-[11px] text-teal-600 font-bold flex items-center gap-0.5 mt-1">
-                <span className="material-symbols-outlined text-[14px]">badge</span>
-                পরিচালনা ও ট্রাস্টি বোর্ড
-              </span>
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                  সদস্য ও ট্রাস্টি সংখ্যা
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                  {members.length} জন
+                </h3>
+                <span className="text-[11px] text-teal-600 font-bold flex items-center gap-0.5 mt-1">
+                  <span className="material-symbols-outlined text-[14px]">badge</span>
+                  পরিচালনা ও ট্রাস্টি বোর্ড
+                </span>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100">
+                <span className="material-symbols-outlined text-2xl">supervised_user_circle</span>
+              </div>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl">supervised_user_circle</span>
-            </div>
-          </div>
 
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-              <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                স্বেচ্ছাসেবক টিম
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
-                {volunteers.length} জন
-              </h3>
-              <span className="text-[11px] text-amber-600 font-bold flex items-center gap-0.5 mt-1">
-                <span className="material-symbols-outlined text-[14px]">pending_actions</span>
-                {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
-              </span>
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                  স্বেচ্ছাসেবক টিম
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                  {volunteers.length} জন
+                </h3>
+                <span className="text-[11px] text-amber-600 font-bold flex items-center gap-0.5 mt-1">
+                  <span className="material-symbols-outlined text-[14px]">pending_actions</span>
+                  {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
+                </span>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100">
+                <span className="material-symbols-outlined text-2xl">volunteer_activism</span>
+              </div>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl">volunteer_activism</span>
-            </div>
-          </div>
 
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-              <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                সরকারি নিবন্ধন স্ট্যাটাস
-              </span>
-              <h3 className="text-base font-bold text-slate-900 mt-1 font-mono">
-                S-14086/2023
-              </h3>
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                  সরকারি নিবন্ধন স্ট্যাটাস
+                </span>
+                <h3 className="text-base font-bold text-slate-900 mt-1 font-mono">
+                  S-14086/2023
+                </h3>
+                <a
+                  href="/images/permit.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1 underline"
+                >
+                  <span className="material-symbols-outlined text-[14px]">verified</span>
+                  স্বীকৃত লাইসেন্স (Permit PDF)
+                </a>
+              </div>
               <a
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1 underline"
+                className="w-12 h-12 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100"
+                title="View Government License Permit"
               >
-                <span className="material-symbols-outlined text-[14px]">verified</span>
-                স্বীকৃত লাইসেন্স (Permit PDF)
+                <span className="material-symbols-outlined text-2xl">verified_user</span>
               </a>
             </div>
-            <a
-              href="/images/permit.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-2xl bg-teal-100 hover:bg-teal-200 text-teal-800 flex items-center justify-center transition-colors cursor-pointer"
-              title="View Government License Permit"
-            >
-              <span className="material-symbols-outlined text-2xl">verified_user</span>
-            </a>
           </div>
-        </div>
 
-        {/* Content Tabs Navigation */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
+          {/* Active Content Panel */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex-1 flex flex-col">
           <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50 overflow-x-auto">
             <button
               onClick={() => setActiveTab('donations')}
@@ -1457,6 +1671,7 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
+        </main>
       </div>
 
       {/* ============================================================== */}
