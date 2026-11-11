@@ -713,31 +713,54 @@ export default function AdminPageCmsEditor() {
             {selectedPage === 'impact' && (
               <div className="space-y-4">
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">মাঠপর্যায়ের ৬টি প্রধান প্রভাব মেট্রিক</h5>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">১. খাদ্য বিতরণ</label>
-                      <input type="text" value={pageData.mealsDelivered || ''} onChange={e => handleFieldChange('mealsDelivered', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">মাঠপর্যায়ের ৪টি প্রধান প্রভাব মেট্রিক কার্ড (সংখ্যা উপরে ও বিবরণী নিচে)</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-2">
+                      <p className="font-bold text-slate-800">১ম কার্ড (নলকূপ)</p>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
+                        <input type="text" placeholder="১৮৫+" value={pageData.waterWellsCount || ''} onChange={e => handleFieldChange('waterWellsCount', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
+                        <input type="text" placeholder="সুপেয় পানির নলকূপ" value={pageData.waterWellsLabel || ''} onChange={e => handleFieldChange('waterWellsLabel', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg text-slate-700" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">২. গভীর নলকূপ</label>
-                      <input type="text" value={pageData.waterWellsCount || ''} onChange={e => handleFieldChange('waterWellsCount', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
+
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-2">
+                      <p className="font-bold text-slate-800">২য় কার্ড (খাদ্য)</p>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
+                        <input type="text" placeholder="৭৫,০০০+" value={pageData.mealsDelivered || ''} onChange={e => handleFieldChange('mealsDelivered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
+                        <input type="text" placeholder="খাবার প্যাকেট বিতরণ" value={pageData.mealsDeliveredLabel || ''} onChange={e => handleFieldChange('mealsDeliveredLabel', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg text-slate-700" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">৩. পুনর্বাসিত পরিবার</label>
-                      <input type="text" value={pageData.familiesRehabilitated || ''} onChange={e => handleFieldChange('familiesRehabilitated', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
+
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-2">
+                      <p className="font-bold text-slate-800">৩য় কার্ড (পুনর্বাসন)</p>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
+                        <input type="text" placeholder="১২০+" value={pageData.familiesRehabilitated || ''} onChange={e => handleFieldChange('familiesRehabilitated', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
+                        <input type="text" placeholder="পুনর্বাসিত পরিবার" value={pageData.familiesRehabilitatedLabel || ''} onChange={e => handleFieldChange('familiesRehabilitatedLabel', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg text-slate-700" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">৪. বিনামূল্যে চিকিৎসা</label>
-                      <input type="text" value={pageData.healthcareProvided || ''} onChange={e => handleFieldChange('healthcareProvided', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">৫. এতিম শিশু সহায়তা</label>
-                      <input type="text" value={pageData.orphansSupported || ''} onChange={e => handleFieldChange('orphansSupported', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-600 block mb-1">৬. জেলা কভারেজ</label>
-                      <input type="text" value={pageData.districtsCovered || ''} onChange={e => handleFieldChange('districtsCovered', e.target.value)} className="w-full px-2.5 py-2 bg-white border rounded-lg font-bold" />
+
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-2">
+                      <p className="font-bold text-slate-800">৪র্থ কার্ড (জেলা)</p>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
+                        <input type="text" placeholder="২৮টি" value={pageData.districtsCovered || ''} onChange={e => handleFieldChange('districtsCovered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
+                        <input type="text" placeholder="জেলা কভারেজ" value={pageData.districtsCoveredLabel || ''} onChange={e => handleFieldChange('districtsCoveredLabel', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg text-slate-700" />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -380,6 +380,56 @@ export default function ImpactPage() {
     });
   };
 
+  // Helper to extract cleanly separated count (number on top) and label (text below)
+  const parseMetric = (
+    val: string | undefined,
+    defaultCount: string,
+    defaultLabel: string,
+    explicitLabel?: string
+  ) => {
+    const raw = (val || '').trim();
+    if (!raw) {
+      return { count: defaultCount, label: explicitLabel || defaultLabel };
+    }
+    // Match leading digits/bengali digits and symbols e.g. "১৮৫+", "৭৫,০০০+", "120+", "২৮টি"
+    const match = raw.match(/^([০-৯0-9,.\+]+(?:\s*[+টি])?)\s*(.*)$/);
+    if (match && match[1] && match[2].trim()) {
+      return {
+        count: match[1].trim(),
+        label: explicitLabel || match[2].trim() || defaultLabel,
+      };
+    }
+    return {
+      count: raw,
+      label: explicitLabel || defaultLabel,
+    };
+  };
+
+  const metricWells = parseMetric(
+    cmsImpact.waterWellsCount,
+    '১৮৫+',
+    isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells',
+    cmsImpact.waterWellsLabel
+  );
+  const metricMeals = parseMetric(
+    cmsImpact.mealsDelivered,
+    '৭৫,০০০+',
+    isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served',
+    cmsImpact.mealsDeliveredLabel
+  );
+  const metricFamilies = parseMetric(
+    cmsImpact.familiesRehabilitated,
+    '১২০+',
+    isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families',
+    cmsImpact.familiesRehabilitatedLabel
+  );
+  const metricDistricts = parseMetric(
+    cmsImpact.districtsCovered,
+    '২৮টি',
+    isBn ? 'জেলা কভারেজ' : 'Districts Reached',
+    cmsImpact.districtsCoveredLabel
+  );
+
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       {/* Editorial Hero Banner */}
@@ -413,38 +463,41 @@ export default function ImpactPage() {
               : 'GMCF executes permanent, transparent field projects across Bangladesh: constructing resilient tin shelters, daily hot meals, free cataract surgeries, clean water wells, and orphan guardianship.'}
           </p>
 
-          {/* Quick Metrics Bar */}
-          <div className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-[#0e4d36] block">
-                {isBn ? (cmsImpact.waterWellsCount || '১,৮৫০+') : '1,850+'}
+          {/* Quick Metrics Bar - Strictly Vertical Stacked: Number on Top, Label on Bottom */}
+          <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto w-full">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-emerald-300 transition-colors">
+              <span className="text-2xl sm:text-3xl font-black text-[#0e4d36] font-mono tracking-tight block leading-none mb-2">
+                {metricWells.count}
               </span>
-              <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells'}
-              </span>
-            </div>
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-amber-600 block">
-                {isBn ? (cmsImpact.mealsDelivered || '১,৮০,০০০+') : '180,000+'}
-              </span>
-              <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served'}
+              <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
+                {metricWells.label}
               </span>
             </div>
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-[#0e4d36] block">
-                {isBn ? (cmsImpact.familiesRehabilitated || '৬৫০+') : '650+'}
+
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-amber-300 transition-colors">
+              <span className="text-2xl sm:text-3xl font-black text-amber-600 font-mono tracking-tight block leading-none mb-2">
+                {metricMeals.count}
               </span>
-              <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families'}
+              <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
+                {metricMeals.label}
               </span>
             </div>
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-2xl font-black text-amber-600 block">
-                {isBn ? (cmsImpact.districtsCovered || '২৮টি') : '28'}
+
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-emerald-300 transition-colors">
+              <span className="text-2xl sm:text-3xl font-black text-[#0e4d36] font-mono tracking-tight block leading-none mb-2">
+                {metricFamilies.count}
               </span>
-              <span className="text-xs text-slate-600 font-medium">
-                {isBn ? 'জেলা কভারেজ' : 'Districts Reached'}
+              <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
+                {metricFamilies.label}
+              </span>
+            </div>
+
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-amber-300 transition-colors">
+              <span className="text-2xl sm:text-3xl font-black text-amber-600 font-mono tracking-tight block leading-none mb-2">
+                {metricDistricts.count}
+              </span>
+              <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
+                {metricDistricts.label}
               </span>
             </div>
           </div>

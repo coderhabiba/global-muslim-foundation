@@ -128,11 +128,15 @@ export interface SiteCMSContent {
     pageTitle: string;
     pageSubtitle: string;
     mealsDelivered: string;
+    mealsDeliveredLabel?: string;
     waterWellsCount: string;
+    waterWellsLabel?: string;
     familiesRehabilitated: string;
+    familiesRehabilitatedLabel?: string;
     healthcareProvided: string;
     orphansSupported: string;
     districtsCovered: string;
+    districtsCoveredLabel?: string;
     summaryHeading: string;
     summaryText: string;
     reportDownloadTitle: string;
@@ -290,12 +294,16 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     pageBadge: 'FIELD AUDITED RESULTS • 100% ACCOUNTABILITY',
     pageTitle: 'আমাদের কার্যক্রমের প্রভাব ও অগ্রগতি',
     pageSubtitle: 'মাঠপর্যায়ে বাস্তবায়িত প্রতিটি প্রকল্পের বাস্তব ফলাফল, পরিসংখ্যান ও সংখ্যাগত অগ্রগতি।',
-    mealsDelivered: '৭৫,০০০+ প্যাকেট খাদ্য বিতরণ',
-    waterWellsCount: '১৮৫+ গভীর নলকূপ স্থাপন',
-    familiesRehabilitated: '১২০+ গৃহহীন পরিবার পুনর্বাসন',
-    healthcareProvided: '৮,৫০০+ সুবিধাবঞ্চিতদের বিনামূল্যে চিকিৎসা',
-    orphansSupported: '৩৫০+ এতিম শিশু সরাসরি প্রতিপালন',
-    districtsCovered: '২৮টি জেলায় সরাসরি ফিল্ড অপারেশন',
+    waterWellsCount: '১৮৫+',
+    waterWellsLabel: 'সুপেয় পানির নলকূপ',
+    mealsDelivered: '৭৫,০০০+',
+    mealsDeliveredLabel: 'খাবার প্যাকেট বিতরণ',
+    familiesRehabilitated: '১২০+',
+    familiesRehabilitatedLabel: 'পুনর্বাসিত পরিবার',
+    healthcareProvided: '৮,৫০০+',
+    orphansSupported: '৩৫০+',
+    districtsCovered: '২৮টি',
+    districtsCoveredLabel: 'জেলা কভারেজ',
     summaryHeading: 'শতভাগ স্বচ্ছতা ও চার্টার্ড একাউন্ট্যান্ট অডিট',
     summaryText: 'প্রতিটি অনুদানের ব্যাংক স্টেটমেন্ট, ভাউচার ও ভিডিও প্রমাণাদি দাতাদের কাছে উন্মুক্ত রাখা হয়।',
     reportDownloadTitle: 'বাৎসরিক অডিট রিপোর্ট ডাউনলোড করুন (PDF)',
