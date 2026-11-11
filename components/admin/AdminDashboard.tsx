@@ -718,26 +718,26 @@ export default function AdminDashboard() {
 
       {/* Modern Fixed Left Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-emerald-950 text-white flex flex-col justify-between border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-50 w-80 bg-emerald-950 text-white flex flex-col justify-between border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:shadow-none ${
           isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Sidebar Brand Header */}
         <div className="p-5 border-b border-emerald-900/80">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="bg-white p-1.5 rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+            <Link href="/" className="flex items-center gap-3.5 group">
+              <div className="bg-white p-2 rounded-xl shadow-md group-hover:scale-105 transition-transform shrink-0">
                 <img
                   src="/images/gmcf-logo-full.png"
                   alt="GMCF Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
               </div>
-              <div>
-                <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">
+              <div className="min-w-0">
+                <span className="text-xs text-emerald-400 font-extrabold uppercase tracking-wider block">
                   অ্যাডমিন প্যানেল
                 </span>
-                <h1 className="text-sm font-bold text-white font-serif-heading leading-tight line-clamp-1">
+                <h1 className="text-base font-black text-white font-serif-heading leading-tight line-clamp-1">
                   Global Muslim Foundation
                 </h1>
               </div>
@@ -745,16 +745,16 @@ export default function AdminDashboard() {
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(false)}
-              className="md:hidden p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900"
+              className="md:hidden p-2 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900"
             >
-              <span className="material-symbols-outlined text-[20px]">close</span>
+              <span className="material-symbols-outlined text-[24px]">close</span>
             </button>
           </div>
         </div>
 
         {/* Sidebar Navigation Items */}
-        <nav className="p-4 flex-1 space-y-1.5 overflow-y-auto">
-          <div className="px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">
+        <nav className="p-4 flex-1 space-y-2 overflow-y-auto">
+          <div className="px-3 pb-1 text-xs font-bold uppercase tracking-wider text-emerald-400">
             প্রধান মেনু
           </div>
 
@@ -763,17 +763,17 @@ export default function AdminDashboard() {
               setActiveTab('overview');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'overview'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-emerald-300">dashboard</span>
-              <span>ড্যাশবোর্ড ওভারভিউ</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-emerald-300">dashboard</span>
+              <span className="text-sm tracking-wide">ড্যাশবোর্ড ওভারভিউ</span>
             </div>
-            <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-1.5 py-0.5 rounded">
+            <span className="bg-emerald-500/25 text-emerald-300 text-xs font-bold px-2 py-0.5 rounded-full">
               লাইভ
             </span>
           </button>
@@ -783,17 +783,17 @@ export default function AdminDashboard() {
               setActiveTab('donations');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'donations'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-amber-400">payments</span>
-              <span>অনুদান তালিকা</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-amber-400">payments</span>
+              <span className="text-sm tracking-wide">অনুদান তালিকা</span>
             </div>
-            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">
               {donations.length}
             </span>
           </button>
@@ -803,17 +803,17 @@ export default function AdminDashboard() {
               setActiveTab('members');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'members'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-teal-300">badge</span>
-              <span>সদস্য তালিকা</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-teal-300">badge</span>
+              <span className="text-sm tracking-wide">সদস্য তালিকা</span>
             </div>
-            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">
               {members.length}
             </span>
           </button>
@@ -823,17 +823,17 @@ export default function AdminDashboard() {
               setActiveTab('volunteers');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'volunteers'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-emerald-300">volunteer_activism</span>
-              <span>স্বেচ্ছাসেবক আবেদনপত্র</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-emerald-300">volunteer_activism</span>
+              <span className="text-sm tracking-wide">স্বেচ্ছাসেবক আবেদনপত্র</span>
             </div>
-            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">
               {volunteers.length}
             </span>
           </button>
@@ -843,17 +843,17 @@ export default function AdminDashboard() {
               setActiveTab('campaigns');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'campaigns'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-amber-300">campaign</span>
-              <span>চলমান ক্যাম্পেইন</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-amber-300">campaign</span>
+              <span className="text-sm tracking-wide">চলমান ক্যাম্পেইন</span>
             </div>
-            <span className="bg-emerald-900/80 text-emerald-200 text-[11px] px-2 py-0.5 rounded-full font-mono">
+            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">
               ৪টি
             </span>
           </button>
@@ -863,19 +863,19 @@ export default function AdminDashboard() {
               setActiveTab('settings');
               setIsMobileSidebarOpen(false);
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'settings'
-                ? 'bg-emerald-800 text-white shadow-md'
-                : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-[20px] text-slate-300">settings</span>
-              <span>প্রাতিষ্ঠানিক সেটিংস</span>
+            <div className="flex items-center gap-3.5">
+              <span className="material-symbols-outlined text-[24px] text-slate-300">settings</span>
+              <span className="text-sm tracking-wide">প্রাতিষ্ঠানিক সেটিংস</span>
             </div>
           </button>
 
-          <div className="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400/80">
+          <div className="pt-5 px-3 pb-1 text-xs font-bold uppercase tracking-wider text-emerald-400">
             অফিসিয়াল শর্টকাট
           </div>
 
@@ -883,24 +883,24 @@ export default function AdminDashboard() {
             href="/images/permit.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/60 hover:text-white transition-colors"
+            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-emerald-200 hover:bg-emerald-900/70 hover:text-white transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px] text-amber-300">verified</span>
+            <span className="material-symbols-outlined text-[22px] text-amber-300">verified</span>
             <span>সরকারি লাইসেন্স (PDF)</span>
           </a>
 
           <Link
             href="/"
-            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-emerald-200 hover:bg-emerald-900/60 hover:text-white transition-colors"
+            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-emerald-200 hover:bg-emerald-900/70 hover:text-white transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px] text-emerald-400">home</span>
+            <span className="material-symbols-outlined text-[22px] text-emerald-400">home</span>
             <span>মূল ওয়েবসাইটে যান</span>
           </Link>
 
           {/* Premium Logo Watermark / Brand Badge in Sidebar */}
-          <div className="pt-4 px-2">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-900/70 to-emerald-950/90 border border-emerald-800/80 flex items-center gap-3 shadow-inner">
-              <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="pt-4 px-1">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-900/80 to-emerald-950 border border-emerald-800 flex items-center gap-3 shadow-md">
+              <div className="w-12 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center shrink-0 shadow-sm">
                 <img
                   src="/images/gmcf-logo-emblem.png"
                   alt="GMCF Emblem Logo"
@@ -908,11 +908,11 @@ export default function AdminDashboard() {
                 />
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] font-bold text-white leading-tight">Global Muslim</p>
-                <p className="text-[9px] text-emerald-300 uppercase tracking-wider font-semibold">Charitable Foundation</p>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-[9px] text-emerald-400 font-mono">Reg: S-14086/2023</span>
+                <p className="text-xs font-bold text-white leading-tight">Global Muslim</p>
+                <p className="text-[10px] text-emerald-300 uppercase tracking-wider font-bold">Charitable Foundation</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="text-[10px] text-emerald-400 font-mono font-semibold">Reg: S-14086/2023</span>
                 </div>
               </div>
             </div>
@@ -920,24 +920,24 @@ export default function AdminDashboard() {
         </nav>
 
         {/* Sidebar Footer User Info & Logout */}
-        <div className="p-4 border-t border-emerald-900 bg-emerald-950/80">
-          <div className="flex items-center justify-between gap-3 bg-emerald-900/50 p-3 rounded-2xl border border-emerald-800">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-inner">
+        <div className="p-4 border-t border-emerald-900 bg-emerald-950/90">
+          <div className="flex items-center justify-between gap-3 bg-emerald-900/60 p-3.5 rounded-2xl border border-emerald-800">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-inner">
                 MA
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-white text-xs truncate">Mohammad Ali Mostafa</p>
-                <p className="text-[10px] text-emerald-300 truncate">Chairman (Super Admin)</p>
+                <p className="font-bold text-white text-sm truncate">Mohammad Ali Mostafa</p>
+                <p className="text-xs text-emerald-300 truncate font-medium">Chairman (Super Admin)</p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="w-8 h-8 rounded-xl bg-red-900/40 hover:bg-red-800 text-red-200 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+              className="w-9 h-9 rounded-xl bg-red-900/40 hover:bg-red-800 text-red-200 flex items-center justify-center transition-colors cursor-pointer shrink-0"
               title="লগআউট করুন"
             >
-              <span className="material-symbols-outlined text-[17px]">logout</span>
+              <span className="material-symbols-outlined text-[20px]">logout</span>
             </button>
           </div>
         </div>
