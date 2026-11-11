@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 const NISAB_SILVER_USD = 581.75;
 
@@ -36,7 +37,9 @@ function formatMoney(num: number) {
 }
 
 export default function ZakatCalculatorPage() {
-  const { localize } = useSiteSettings();
+  const { localize, currency, language } = useSiteSettings();
+  const { openPaymentModal, showAlert } = useModalState();
+  const isBn = language === 'bn';
   const [fields, setFields] = useState({ ...EMPTY_FIELDS });
   const [openFaqs, setOpenFaqs] = useState([false, false, false, false]);
   // Legacy only adds the transition class once recompute() has run at least once.
@@ -87,19 +90,19 @@ export default function ZakatCalculatorPage() {
   function fulfillZakat() {
     setHasRecomputed(true);
     if (zakatDue > 0) {
-      alert(
-        localize(
-          'Your calculated Zakat of ' +
-            formatMoney(zakatDue) +
-            ' has been transferred to your donation tray.',
-        ),
-      );
+      openPaymentModal({
+        amount: currency === 'BDT' ? Math.round(zakatDue * 122) : Math.round(zakatDue),
+        currency: currency,
+        cause: isBn ? 'বাৎসরিক ফরজ যাকাত ফান্ড' : 'Annual Obligatory Zakat Fund',
+      });
     } else {
-      alert(
-        localize(
+      showAlert({
+        title: isBn ? 'যাকাত নিসাব বিজ্ঞপ্তি' : 'Nisab Threshold Notice',
+        message: localize(
           'Your current net wealth is below the Nisab threshold. You can still contribute voluntary Sadaqah.',
         ),
-      );
+        type: 'info',
+      });
     }
   }
 

@@ -55,10 +55,10 @@ const bn: Record<string, string> = {
   'Silver Value ($)': 'রুপ্যের মূল্য ($)',
   'Social caseworkers deployed geo-targeted photo notices across 12 Upazilas over 18 days with district police liaison.':
     'সামাজিক কেসওয়ার্কাররা জেলা পুলিশের সমন্বয়ে 18 দিনে 12টি উপজেলায় জিও-টার্গেটেড ছবিসহ নোটিশ ছড়িয়ে দেন।',
-  'Sort: Alphabetical': 'সাজান: বর্ণানুক্রমিক',
-  'Sort: Most Funded': 'সাজান: সর্বাধিক তহবিলপ্রাপ্ত',
-  'Sort: Most Urgent Need': 'সাজান: সর্বাধিক জরুরি',
-  'Sort: Target Amount': 'সাজান: লক্ষ্যমাত্রা অনুযায়ী',
+  'Sort: Alphabetical': 'বর্ণানুক্রমিক',
+  'Sort: Most Funded': 'সর্বাধিক তহবিলপ্রাপ্ত',
+  'Sort: Most Urgent Need': 'সর্বাধিক জরুরি',
+  'Sort: Target Amount': 'লক্ষ্যমাত্রা অনুযায়ী',
   'Speak directly with our Dhaka Field Director.':
     'সরাসরি আমাদের ঢাকা মাঠ পরিচালকের সাথে কথা বলুন।',
   'Speak with our Director of Governance':

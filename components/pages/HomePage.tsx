@@ -18,7 +18,7 @@ const NISAB_THRESHOLD_USD = 520;
 
 export default function HomePage() {
   const { localize, currency, language } = useSiteSettings();
-  const { openPaymentModal, openLicenseModal } = useModalState();
+  const { openPaymentModal, openLicenseModal, showAlert } = useModalState();
   const isBn = language === 'bn';
   const [donorName, setDonorName] = useState('');
   const [donorContact, setDonorContact] = useState('');
@@ -84,11 +84,13 @@ export default function HomePage() {
       return;
     }
 
-    alert(
-      localize(
+    showAlert({
+      title: isBn ? 'যাকাত হিসাব বিজ্ঞপ্তি' : 'Zakat Threshold Notice',
+      message: localize(
         'Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.',
       ),
-    );
+      type: 'warning',
+    });
   }
 
   return (
@@ -1482,11 +1484,13 @@ export default function HomePage() {
                     className="flex flex-col sm:flex-row items-center gap-2 max-w-md"
                     onSubmit={event => {
                       event.preventDefault();
-                      alert(
-                        localize(
+                      showAlert({
+                        title: isBn ? 'স্বেচ্ছাসেবক নিবন্ধন' : 'Volunteer Application',
+                        message: localize(
                           'Thank you! Your volunteer application has been received. Our team will reach out shortly.',
                         ),
-                      );
+                        type: 'success',
+                      });
                     }}
                   >
                     <input
@@ -1556,15 +1560,9 @@ export default function HomePage() {
                 <div className="flex items-center justify-start md:justify-end">
                   <a
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-subtle-mint hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all border border-primary/20 shadow-sm"
-                    href="#"
-                    onClick={event => {
-                      event.preventDefault();
-                      alert(
-                        localize(
-                          'Downloading the 2024 GMCF Annual Financial & Impact Report (PDF)...',
-                        ),
-                      );
-                    }}
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <span className="material-symbols-outlined text-[20px]">
                       download

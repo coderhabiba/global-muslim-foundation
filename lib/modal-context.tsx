@@ -12,6 +12,14 @@ export type PaymentDetails = {
   donorEmail?: string;
 };
 
+export type AlertDetails = {
+  title?: string;
+  message: string;
+  type?: 'success' | 'info' | 'warning' | 'error';
+  confirmText?: string;
+  onConfirm?: () => void;
+};
+
 type PaymentModalContextType = {
   isOpen: boolean;
   paymentDetails: PaymentDetails;
@@ -20,6 +28,9 @@ type PaymentModalContextType = {
   isLicenseModalOpen: boolean;
   openLicenseModal: () => void;
   closeLicenseModal: () => void;
+  alertDetails: AlertDetails | null;
+  showAlert: (messageOrDetails: string | AlertDetails) => void;
+  closeAlert: () => void;
 };
 
 const defaultDetails: PaymentDetails = {
@@ -35,6 +46,22 @@ export function ModalStateProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLicenseModalOpen, setIsLicenseModalOpen] = useState(false);
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>(defaultDetails);
+  const [alertDetails, setAlertDetails] = useState<AlertDetails | null>(null);
+
+  const showAlert = (messageOrDetails: string | AlertDetails) => {
+    if (typeof messageOrDetails === 'string') {
+      setAlertDetails({ message: messageOrDetails, type: 'info' });
+    } else {
+      setAlertDetails({ type: 'info', ...messageOrDetails });
+    }
+  };
+
+  const closeAlert = () => {
+    if (alertDetails?.onConfirm) {
+      alertDetails.onConfirm();
+    }
+    setAlertDetails(null);
+  };
 
   const openPaymentModal = (details?: Partial<PaymentDetails>) => {
     setPaymentDetails(prev => ({
@@ -60,6 +87,9 @@ export function ModalStateProvider({ children }: { children: ReactNode }) {
         isLicenseModalOpen,
         openLicenseModal,
         closeLicenseModal,
+        alertDetails,
+        showAlert,
+        closeAlert,
       }}
     >
       {children}

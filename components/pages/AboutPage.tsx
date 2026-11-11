@@ -3,9 +3,12 @@
 import Link from 'next/link';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 export default function AboutPage() {
-  const { localize } = useSiteSettings();
+  const { localize, language } = useSiteSettings();
+  const { showAlert } = useModalState();
+  const isBn = language === 'bn';
 
   return (
     <>
@@ -742,15 +745,17 @@ export default function AboutPage() {
               </div>
               <div className="flex items-center gap-4 flex-wrap">
                 <button
-                  className="bg-surface-clean text-primary hover:bg-surface-subtle-mint px-6 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-sm flex items-center gap-2"
+                  className="bg-surface-clean text-primary hover:bg-surface-subtle-mint px-6 py-3.5 rounded-full font-title-md text-title-md font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer"
                   id="view-audits-btn"
                   type="button"
                   onClick={() =>
-                    alert(
-                      localize(
+                    showAlert({
+                      title: isBn ? 'অডিট ও সুশাসন প্রতিবেদন' : 'Audit & Governance Inspection',
+                      message: localize(
                         'All verified financial and Shariah audits for FY2023-2024 are available for public inspection. Please contact gmcfoundation2022@gmail.com or download the official PDF pack.',
                       ),
-                    )
+                      type: 'info',
+                    })
                   }
                 >
                   <span className="material-symbols-outlined text-[20px]">

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useModalState } from '@/lib/modal-context';
 
 const FILTER_PILLS = [
   { category: 'all', label: 'All Campaigns (6)' },
@@ -63,7 +64,8 @@ const CAMPAIGN_META = [
 ];
 
 export default function AppealsPage() {
-  const { localize } = useSiteSettings();
+  const { localize, currency } = useSiteSettings();
+  const { openPaymentModal, showAlert } = useModalState();
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -146,14 +148,13 @@ export default function AppealsPage() {
   }
 
   function submitDonation() {
-    alert(
-      localize(
-        'Thank you for your generous pledge of $' +
-          modalAmount +
-          '! Redirecting to 256-bit encrypted checkout...',
-      ),
-    );
     closeDonate();
+    const amtNum = parseFloat(modalAmount) || 25;
+    openPaymentModal({
+      amount: currency === 'BDT' ? amtNum * 122 : amtNum,
+      currency: currency,
+      cause: modalTitle,
+    });
   }
 
   return (
