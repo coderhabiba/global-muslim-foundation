@@ -7,6 +7,7 @@ import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
 import AdminPageCmsEditor from '@/components/admin/AdminPageCmsEditor';
 import AdminCardManager from '@/components/admin/AdminCardManager';
+import AdminSectionEditor from '@/components/admin/AdminSectionEditor';
 import { supabase } from '@/lib/supabase';
 
 type DonationRecord = {
@@ -272,7 +273,7 @@ export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { cms, updatePageContent, resetPageContent, isSaving } = useSiteCMS();
-  const [activeTab, setActiveTab] = useState<'overview' | 'cms_pages' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'cms_pages' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
   const [selectedCmsPage, setSelectedCmsPage] = useState<SitePageKey>('header_footer');
   const [cmsDraft, setCmsDraft] = useState<any>({});
   const [cmsSaveSuccess, setCmsSaveSuccess] = useState(false);
@@ -847,6 +848,31 @@ export default function AdminDashboard() {
             </div>
             <span className="bg-purple-500/30 text-purple-200 text-xs font-bold px-2 py-0.5 rounded-full">
               ৮ পেইজ
+            </span>
+          </button>
+
+          {/* WordPress-style Live Section Editor */}
+          <button
+            onClick={() => {
+              setActiveTab('section_editor');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+              activeTab === 'section_editor'
+                ? 'bg-emerald-800 text-white shadow-lg ring-1 ring-emerald-400/40'
+                : 'text-emerald-100 hover:bg-emerald-900/70 hover:text-white'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-indigo-500/25 text-indigo-300 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                </svg>
+              </div>
+              <span className="text-sm tracking-wide">সেকশন এডিটর (WP-স্টাইল)</span>
+            </div>
+            <span className="bg-indigo-500/30 text-indigo-200 text-xs font-bold px-2 py-0.5 rounded-full">
+              WP-Live
             </span>
           </button>
 
@@ -1651,6 +1677,11 @@ export default function AdminDashboard() {
           {/* Tab: WordPress Style Full Page & Content CMS */}
           {activeTab === 'cms_pages' && (
             <AdminPageCmsEditor />
+          )}
+
+          {/* Tab: WordPress-style Live Section Editor */}
+          {activeTab === 'section_editor' && (
+            <AdminSectionEditor />
           )}
 
           {/* Tab 1: Donations List */}

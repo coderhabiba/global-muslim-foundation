@@ -10,6 +10,7 @@ import { SiteSettingsProvider } from '@/lib/site-settings';
 import { SiteCMSProvider } from '@/lib/site-cms';
 import { DynamicCardProvider } from '@/lib/dynamic-cards';
 import { ModalStateProvider } from '@/lib/modal-context';
+import { CustomSectionsProvider } from '@/lib/page-sections';
 import EpsPaymentModal from '@/components/payment/EpsPaymentModal';
 import CharityLicenseModal from '@/components/trust/CharityLicenseModal';
 import GlobalAlertModal from '@/components/trust/GlobalAlertModal';
@@ -86,13 +87,15 @@ export default function RootLayout({
         <SiteSettingsProvider>
           <SiteCMSProvider>
             <DynamicCardProvider>
-              <ModalStateProvider>
-                {children}
-                <EpsPaymentModal />
-                <CharityLicenseModal />
-                <GlobalAlertModal />
-                <SiteSettingsBridge />
-              </ModalStateProvider>
+              <CustomSectionsProvider>
+                <ModalStateProvider>
+                  {children}
+                  <EpsPaymentModal />
+                  <CharityLicenseModal />
+                  <GlobalAlertModal />
+                  <SiteSettingsBridge />
+                </ModalStateProvider>
+              </CustomSectionsProvider>
             </DynamicCardProvider>
           </SiteCMSProvider>
         </SiteSettingsProvider>
