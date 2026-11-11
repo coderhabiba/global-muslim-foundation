@@ -49,7 +49,7 @@ export default function SiteFooter() {
               className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <span className="material-symbols-outlined text-[16px]">favorite</span>
-              {isBn ? 'EPS অনুদান দিন' : 'Donate via EPS'}
+              {isBn ? 'অনুদান দিন' : 'Donate'}
             </button>
           </div>
         </div>

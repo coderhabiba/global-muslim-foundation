@@ -7,7 +7,7 @@ import { useModalState } from '@/lib/modal-context';
 
 export default function AboutPage() {
   const { localize, language } = useSiteSettings();
-  const { showAlert } = useModalState();
+  const { showAlert, openLicenseModal } = useModalState();
   const isBn = language === 'bn';
 
   return (
@@ -362,9 +362,9 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {/* Document Card: Official Government Registration Permit (permit.pdf) */}
+                  {/* Document Card 1: Official Government Registration Permit (permit.pdf) */}
                   <a
-                    className="group flex items-center justify-between p-5 bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 rounded-xl transition-all shadow-sm"
+                    className="group flex items-center justify-between p-5 bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 rounded-xl transition-all shadow-sm cursor-pointer"
                     href="/images/permit.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -375,7 +375,7 @@ export default function AboutPage() {
                       </span>
                       <div className="flex flex-col">
                         <span className="font-title-md text-title-md text-white font-bold group-hover:text-amber-300 transition-colors">
-                          সরকারি নিবন্ধন সনদ (Permit)
+                          {isBn ? 'সরকারি নিবন্ধন সনদ (Permit)' : 'Govt. Registration Permit'}
                         </span>
                         <span className="font-label-sm text-label-sm text-amber-200/90 font-mono">
                           RJSC Reg #S-14086/2023 (PDF)
@@ -387,12 +387,11 @@ export default function AboutPage() {
                     </span>
                   </a>
 
-                  {/* Document Card 1 */}
-                  <a
-                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="/images/permit.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  {/* Document Card 2: Shariah Compliance Fatwa (Opens Shariah Tab in Modal) */}
+                  <button
+                    type="button"
+                    onClick={() => openLicenseModal('shariah')}
+                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors text-left cursor-pointer w-full"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
@@ -400,67 +399,65 @@ export default function AboutPage() {
                       </span>
                       <div className="flex flex-col">
                         <span className="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">
-                          2024 Shariah Compliance Fatwa
+                          {isBn ? 'শরীয়াহ অনুমোদন ফতোয়া' : 'Shariah Compliance Fatwa'}
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Signed by Advisory Council (PDF)
+                          {isBn ? 'শরীয়াহ উপদেষ্টা পরিষদ অনুমোদিত' : 'Signed by Advisory Council'}
                         </span>
                       </div>
                     </div>
                     <span className="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">
-                      download
+                      verified
                     </span>
-                  </a>
+                  </button>
 
-                  {/* Document Card 2 */}
-                  <a
-                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="/images/permit.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  {/* Document Card 3: 100% Zakat Policy & Tax Exemption (Opens Tax Tab in Modal) */}
+                  <button
+                    type="button"
+                    onClick={() => openLicenseModal('tax')}
+                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors text-left cursor-pointer w-full"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
-                        policy
+                        receipt_long
                       </span>
                       <div className="flex flex-col">
                         <span className="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">
-                          100% Zakat Policy Ledger
+                          {isBn ? 'NBR কর অব্যাহতি ও যাকাত নীতিমালা' : 'NBR Tax Exemption & Zakat Policy'}
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Tamleek Operating Manual (PDF)
+                          {isBn ? 'SRO নং ১৮২-আইন / তামলিক গাইডলাইন' : 'SRO No. 182-Act / Tamleek Manual'}
                         </span>
                       </div>
                     </div>
                     <span className="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">
-                      download
+                      verified
                     </span>
-                  </a>
+                  </button>
 
-                  {/* Document Card 3 */}
-                  <a
-                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                    href="/images/permit.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  {/* Document Card 4: Global Partnership & Audit Statements (Opens Global Tab in Modal) */}
+                  <button
+                    type="button"
+                    onClick={() => openLicenseModal('global')}
+                    className="group flex items-center justify-between p-5 bg-white/10 hover:bg-white/15 rounded-xl transition-colors text-left cursor-pointer w-full"
                   >
                     <div className="flex items-center gap-4">
                       <span className="material-symbols-outlined text-[32px] text-amber-vibrant">
-                        analytics
+                        public
                       </span>
                       <div className="flex flex-col">
                         <span className="font-title-md text-title-md text-white font-bold group-hover:text-amber-vibrant transition-colors">
-                          Independent Audit Statement
+                          {isBn ? 'আন্তর্জাতিক পার্টনারশিপ ও নিরীক্ষা' : 'Global Partners & Audit Statements'}
                         </span>
                         <span className="font-label-sm text-label-sm text-primary-fixed">
-                          Annual Financials 2023-2024 (PDF)
+                          {isBn ? 'যুক্তরাজ্য পার্টনার ও বার্ষিক নিরীক্ষা' : 'UK Liaison & Annual Financials'}
                         </span>
                       </div>
                     </div>
                     <span className="material-symbols-outlined text-[20px] text-white/60 group-hover:text-white transition-colors">
-                      download
+                      verified
                     </span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -475,41 +472,38 @@ export default function AboutPage() {
 
                 <div className="lg:col-span-5 flex flex-col justify-center">
                   <span className="font-label-sm text-label-sm uppercase tracking-widest text-amber-vibrant font-bold mb-2">
-                    ROOTED IN DIRECT ACTION
+                    {isBn ? 'সরাসরি মাঠ পর্যায়ের কার্যক্রম' : 'ROOTED IN DIRECT ACTION'}
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-emerald-dark leading-tight mb-6">
-                    From Dhaka Railway Platforms to a Resilient Global Aid
-                    Network
+                    {isBn
+                      ? 'ঢাকার রেলওয়ে প্ল্যাটফর্ম থেকে বৈশ্বিক মানবিক সহায়তা নেটওয়ার্ক'
+                      : 'From Dhaka Railway Platforms to a Resilient Global Aid Network'}
                   </h2>
                   <p className="font-body-md text-body-md text-text-muted leading-relaxed mb-6">
-                    Under the visionary leadership of Chairman Mohammad Ali Mostafa,
-                    Global Muslim Charitable Foundation began not in boardrooms,
-                    but on freezing winter nights distributing hot meals and
-                    warm blankets directly to abandoned street children along
-                    Kamalapur and Tejgaon railway tracks.
+                    {isBn
+                      ? 'চেয়ারম্যান মোহাম্মদ আলী মোস্তফার দূরদর্শী নেতৃত্বে গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের যাত্রা শুরু হয়েছিল কোনো বিলাসবহুল বোর্ডরুমে নয়, বরং কমলাপুর ও তেজগাঁও রেললাইনের পাশে হাড়কাঁপানো শীতের রাতে অবহেলিত পথশিশুদের মাঝে গরম খাবার ও কম্বল বিতরণের মাধ্যমে।'
+                      : 'Under the visionary leadership of Chairman Mohammad Ali Mostafa, Global Muslim Charitable Foundation began not in boardrooms, but on freezing winter nights distributing hot meals and warm blankets directly to abandoned street children along Kamalapur and Tejgaon railway tracks.'}
                   </p>
                   <p className="font-body-md text-body-md text-text-muted leading-relaxed mb-8">
-                    Today, our youth volunteer chapters and field officers
-                    coordinate complex emergency nourishment lines, deep
-                    tube-well installations, orphan schooling sponsorships, and
-                    emergency surgical interventions with complete, verified
-                    zero-overhead fidelity.
+                    {isBn
+                      ? 'আজ আমাদের তরুণ স্বেচ্ছাসেবক দল এবং ফিল্ড অফিসাররা সম্পূর্ণ জিরো-অ্যাডমিন খরচে দেশজুড়ে জরুরি পুষ্টি কর্মসূচি, গভীর নলকূপ স্থাপন, এতিম শিশুদের শিক্ষা স্পনসরশিপ ও জটিল জরুরি সার্জারি সেবা পরিচালনা করছেন।'
+                      : 'Today, our youth volunteer chapters and field officers coordinate complex emergency nourishment lines, deep tube-well installations, orphan schooling sponsorships, and emergency surgical interventions with complete, verified zero-overhead fidelity.'}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
                       <span className="font-title-lg text-title-lg text-primary font-bold block">
-                        48 Hours
+                        {isBn ? '৪৮ ঘণ্টা' : '48 Hours'}
                       </span>
                       <span className="font-body-sm text-body-sm text-text-muted">
-                        Max response time during cyclone &amp; flood crises
+                        {isBn ? 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়' : 'Max response time during cyclone & flood crises'}
                       </span>
                     </div>
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
                       <span className="font-title-lg text-title-lg text-emerald-dark font-bold block">
-                        1,200+
+                        {isBn ? '১,২০০+' : '1,200+'}
                       </span>
                       <span className="font-body-sm text-body-sm text-text-muted">
-                        Registered youth volunteers across all 64 districts
+                        {isBn ? 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক' : 'Registered youth volunteers across all 64 districts'}
                       </span>
                     </div>
                   </div>

@@ -1,17 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import { useModalState } from '@/lib/modal-context';
+import { useEffect, useState } from 'react';
+import { CertificateTab, useModalState } from '@/lib/modal-context';
 import { useSiteSettings } from '@/lib/site-settings';
 
-type CertificateTab = 'ngo' | 'shariah' | 'tax' | 'global';
-
 export default function CharityLicenseModal() {
-  const { isLicenseModalOpen, closeLicenseModal } = useModalState();
+  const { isLicenseModalOpen, closeLicenseModal, initialLicenseTab } = useModalState();
   const { language } = useSiteSettings();
   const isBn = language === 'bn';
 
   const [activeTab, setActiveTab] = useState<CertificateTab>('ngo');
+
+  useEffect(() => {
+    if (initialLicenseTab) {
+      setActiveTab(initialLicenseTab);
+    }
+  }, [initialLicenseTab, isLicenseModalOpen]);
 
   if (!isLicenseModalOpen) return null;
 

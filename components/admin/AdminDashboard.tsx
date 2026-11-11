@@ -276,7 +276,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
             <div>
               <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                EPS অনুদান ট্রানজেকশন
+                অনুদান ট্রানজেকশন
               </span>
               <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
                 {donations.length} টি
@@ -351,7 +351,7 @@ export default function AdminDashboard() {
               }`}
             >
               <span className="material-symbols-outlined text-[18px]">payments</span>
-              EPS অনুদান তালিকা ({donations.length})
+              অনুদান তালিকা ({donations.length})
             </button>
 
             <button

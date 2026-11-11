@@ -20,13 +20,16 @@ export type AlertDetails = {
   onConfirm?: () => void;
 };
 
+export type CertificateTab = 'ngo' | 'shariah' | 'tax' | 'global';
+
 type PaymentModalContextType = {
   isOpen: boolean;
   paymentDetails: PaymentDetails;
   openPaymentModal: (details?: Partial<PaymentDetails>) => void;
   closePaymentModal: () => void;
   isLicenseModalOpen: boolean;
-  openLicenseModal: () => void;
+  initialLicenseTab?: CertificateTab;
+  openLicenseModal: (tab?: CertificateTab) => void;
   closeLicenseModal: () => void;
   alertDetails: AlertDetails | null;
   showAlert: (messageOrDetails: string | AlertDetails) => void;
@@ -45,6 +48,7 @@ const ModalStateContext = createContext<PaymentModalContextType | null>(null);
 export function ModalStateProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLicenseModalOpen, setIsLicenseModalOpen] = useState(false);
+  const [initialLicenseTab, setInitialLicenseTab] = useState<CertificateTab>('ngo');
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>(defaultDetails);
   const [alertDetails, setAlertDetails] = useState<AlertDetails | null>(null);
 
@@ -74,7 +78,10 @@ export function ModalStateProvider({ children }: { children: ReactNode }) {
 
   const closePaymentModal = () => setIsOpen(false);
 
-  const openLicenseModal = () => setIsLicenseModalOpen(true);
+  const openLicenseModal = (tab: CertificateTab = 'ngo') => {
+    setInitialLicenseTab(tab);
+    setIsLicenseModalOpen(true);
+  };
   const closeLicenseModal = () => setIsLicenseModalOpen(false);
 
   return (
@@ -85,6 +92,7 @@ export function ModalStateProvider({ children }: { children: ReactNode }) {
         openPaymentModal,
         closePaymentModal,
         isLicenseModalOpen,
+        initialLicenseTab,
         openLicenseModal,
         closeLicenseModal,
         alertDetails,
