@@ -725,21 +725,13 @@ export default function AdminDashboard() {
         {/* Sidebar Brand Header */}
         <div className="p-5 border-b border-emerald-900/80">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3.5 group">
-              <div className="bg-white p-2 rounded-xl shadow-md group-hover:scale-105 transition-transform shrink-0">
+            <Link href="/" className="flex items-center group">
+              <div className="bg-white px-3 py-2 rounded-xl shadow-md group-hover:scale-102 transition-transform">
                 <img
                   src="/images/gmcf-logo-full.png"
-                  alt="GMCF Logo"
-                  className="h-10 w-auto object-contain"
+                  alt="Global Muslim Charitable Foundation Logo"
+                  className="h-10 sm:h-11 w-auto max-w-[200px] object-contain"
                 />
-              </div>
-              <div className="min-w-0">
-                <span className="text-xs text-emerald-400 font-extrabold uppercase tracking-wider block">
-                  অ্যাডমিন প্যানেল
-                </span>
-                <h1 className="text-base font-black text-white font-serif-heading leading-tight line-clamp-1">
-                  Global Muslim Foundation
-                </h1>
               </div>
             </Link>
             <button
