@@ -278,6 +278,19 @@ export default function AdminDashboard() {
       return;
     }
 
+    // Verify secure session with backend API
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.authenticated) {
+          localStorage.removeItem('gmcf:admin_auth');
+          router.push('/login');
+        }
+      })
+      .catch(e => {
+        console.error('Session verify error:', e);
+      });
+
     // 1. Load donations from localStorage & Supabase
     try {
       const storedDonations = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
@@ -397,7 +410,12 @@ export default function AdminDashboard() {
       });
   }, [router]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (e) {
+      console.error('Logout error:', e);
+    }
     localStorage.removeItem('gmcf:admin_auth');
     document.cookie = 'gmcf_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     router.push('/login');
@@ -939,19 +957,19 @@ export default function AdminDashboard() {
             </button>
 
             {/* Active Tab Icon */}
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
-              {activeTab === 'overview' && <LayoutDashboard className="w-4 h-4 text-emerald-600" />}
-              {activeTab === 'section_editor' && <Layers className="w-4 h-4 text-indigo-600" />}
-              {activeTab === 'donations' && <HeartHandshake className="w-4 h-4 text-emerald-600" />}
-              {activeTab === 'members' && <Users className="w-4 h-4 text-zinc-800" />}
-              {activeTab === 'volunteers' && <HandHeart className="w-4 h-4 text-amber-600" />}
-              {activeTab === 'campaigns' && <FolderKanban className="w-4 h-4 text-amber-600" />}
-              {activeTab === 'settings' && <Settings className="w-4 h-4 text-zinc-600" />}
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
+              {activeTab === 'overview' && <LayoutDashboard className="w-5 h-5 text-emerald-600" />}
+              {activeTab === 'section_editor' && <Layers className="w-5 h-5 text-indigo-600" />}
+              {activeTab === 'donations' && <HeartHandshake className="w-5 h-5 text-emerald-600" />}
+              {activeTab === 'members' && <Users className="w-5 h-5 text-zinc-800" />}
+              {activeTab === 'volunteers' && <HandHeart className="w-5 h-5 text-amber-600" />}
+              {activeTab === 'campaigns' && <FolderKanban className="w-5 h-5 text-amber-600" />}
+              {activeTab === 'settings' && <Settings className="w-5 h-5 text-zinc-600" />}
             </div>
 
             <div className="min-w-0 flex flex-col justify-center">
-              <div className="flex items-center gap-2">
-                <div role="heading" aria-level={1} className="text-xs sm:text-[13px] font-semibold text-zinc-900 tracking-tight truncate">
+              <div className="flex items-center gap-2.5">
+                <div role="heading" aria-level={1} className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight truncate">
                   {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                   {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                   {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
@@ -961,12 +979,12 @@ export default function AdminDashboard() {
                   {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সেটিংস'}
                 </div>
                 
-                <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-mono border border-emerald-200/80 shrink-0 font-medium">
+                <span className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono border border-emerald-200/80 shrink-0 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>S-14086/2023</span>
+                  <span>রেজি: S-14086/2023</span>
                 </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-zinc-500 truncate mt-0.5">
+              <p className="text-xs text-zinc-500 truncate mt-0.5">
                 {activeTab === 'overview' && 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র'}
                 {activeTab === 'section_editor' && 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর'}
                 {activeTab === 'donations' && 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা'}

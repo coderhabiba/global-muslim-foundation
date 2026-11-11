@@ -12,48 +12,56 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    setTimeout(() => {
-      const cleanEmail = email.trim().toLowerCase();
-      if (
-        (cleanEmail === 'admin@gmcf.org' ||
-          cleanEmail === 'gmcfoundation2022@gmail.com' ||
-          cleanEmail === 'admin') &&
-        (password === 'admin123' || password === 'gmcf2025' || password === 'admin')
-      ) {
-        localStorage.setItem(
-          'gmcf:admin_auth',
-          JSON.stringify({
-            email: cleanEmail,
-            role: 'SUPER_ADMIN',
-            name: 'Mohammad Ali Mostafa (Chairman)',
-            loginTime: new Date().toISOString(),
-          })
-        );
-        document.cookie = 'gmcf_admin_token=active_session; path=/; max-age=86400';
-        router.push('/admin');
-      } else {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
         setIsLoading(false);
         setError(
-          isBn
-            ? 'ভুল ইমেইল বা পাসওয়ার্ড প্রদান করা হয়েছে। অনুগ্রহ করে ডেমো তথ্য ব্যবহার করুন।'
-            : 'Invalid email or password. Please use the verified demo credentials below.'
+          data.error ||
+            (isBn
+              ? 'ভুল ইমেইল বা পাসওয়ার্ড প্রদান করা হয়েছে।'
+              : 'Invalid email or password.')
         );
+        return;
       }
-    }, 600);
-  };
 
-  const handleQuickFill = () => {
-    setEmail('gmcfoundation2022@gmail.com');
-    setPassword('gmcf2025');
-    setError('');
+      // Store client session info for instant hydration
+      localStorage.setItem(
+        'gmcf:admin_auth',
+        JSON.stringify({
+          email: data.user.email,
+          role: data.user.role,
+          name: data.user.name,
+          loginTime: new Date().toISOString(),
+        })
+      );
+
+      // Redirect to Admin Dashboard
+      router.push('/admin');
+    } catch {
+      setIsLoading(false);
+      setError(
+        isBn
+          ? 'সার্ভার সংযোগে ত্রুটি দেখা দিয়েছে। কিছুক্ষণ পর চেষ্টা করুন।'
+          : 'Unable to connect to the authentication server.'
+      );
+    }
   };
 
   return (
@@ -86,7 +94,7 @@ export default function LoginPage() {
         {/* Form Body */}
         <div className="p-6 sm:p-8 space-y-5">
           {error && (
-            <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-700 flex items-center gap-2">
+            <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-700 flex items-center gap-2 animate-in fade-in">
               <span className="material-symbols-outlined text-[18px] text-red-600 shrink-0">
                 error
               </span>
@@ -101,8 +109,9 @@ export default function LoginPage() {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="email"
                   required
+                  autoComplete="email"
                   placeholder="gmcfoundation2022@gmail.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
@@ -120,16 +129,24 @@ export default function LoginPage() {
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  placeholder="••••••••••••"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-transparent font-mono transition-all"
+                  className="w-full px-4 py-3 pr-11 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:border-transparent font-mono transition-all"
                 />
-                <span className="material-symbols-outlined absolute right-3.5 top-3 text-slate-400 text-[20px] pointer-events-none">
-                  lock
-                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+                  title={showPassword ? 'পাসওয়ার্ড লুকান' : 'পাসওয়ার্ড দেখুন'}
+                >
+                  <span className="material-symbols-outlined text-[20px]">
+                    {showPassword ? 'visibility_off' : 'visibility'}
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -140,64 +157,46 @@ export default function LoginPage() {
                   defaultChecked
                   className="rounded text-emerald-800 focus:ring-0"
                 />
-                <span>{isBn ? 'লগইন মনে রাখুন' : 'Remember Me'}</span>
+                <span>{isBn ? 'লগইন মনে রাখুন (২৪ ঘণ্টা)' : 'Remember Me (24h)'}</span>
               </label>
-              <button
-                type="button"
-                onClick={handleQuickFill}
-                className="text-emerald-800 hover:text-emerald-950 font-bold hover:underline cursor-pointer"
-              >
-                {isBn ? 'স্বয়ংক্রিয় পূরণ করুন' : 'Auto-fill Demo'}
-              </button>
+              <span className="text-[11px] text-emerald-800 font-semibold flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px]">lock</span>
+                <span>{isBn ? 'SSL এনক্রিপ্টেড' : 'SSL Protected'}</span>
+              </span>
             </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 mt-2"
+              className="w-full py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 mt-3 active:scale-[0.99]"
             >
               {isLoading ? (
                 <>
                   <span className="animate-spin material-symbols-outlined text-[18px]">
                     progress_activity
                   </span>
-                  <span>{isBn ? 'যাচাই করা হচ্ছে...' : 'Verifying Credentials...'}</span>
+                  <span>{isBn ? 'নিরাপত্তা যাচাই হচ্ছে...' : 'Verifying Security Token...'}</span>
                 </>
               ) : (
                 <>
-                  <span className="material-symbols-outlined text-[19px]">login</span>
-                  <span>{isBn ? 'লগইন করুন' : 'Sign In to Dashboard'}</span>
+                  <span className="material-symbols-outlined text-[19px]">lock_open</span>
+                  <span>{isBn ? 'সুরক্ষিত লগইন করুন' : 'Secure Sign In'}</span>
                 </>
               )}
             </button>
           </form>
 
-          {/* Clean Demo Info Pill Box */}
-          <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/90 text-xs text-slate-600 space-y-2">
-            <div className="flex items-center justify-between text-slate-800 font-bold border-b border-slate-200 pb-2">
-              <span className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-amber-500 text-[16px]">
-                  vpn_key
-                </span>
-                <span>{isBn ? 'ডেমো লগইন অ্যাক্সেস' : 'Demo Login Credentials'}</span>
-              </span>
-              <button
-                type="button"
-                onClick={handleQuickFill}
-                className="text-[11px] bg-amber-100 hover:bg-amber-200 text-amber-900 px-2 py-0.5 rounded-md font-bold transition-colors cursor-pointer"
-              >
-                {isBn ? 'ক্লিক করে বসান' : 'Fill'}
-              </button>
-            </div>
-            <div className="space-y-1 font-mono text-[11px] text-slate-700">
-              <p>
-                Email: <strong className="text-emerald-900">gmcfoundation2022@gmail.com</strong>
-              </p>
-              <p>
-                Password: <strong className="text-emerald-900">gmcf2025</strong>{' '}
-                <span className="text-slate-500">
-                  ({isBn ? 'অথবা admin / admin' : 'or admin / admin'})
-                </span>
+          {/* Security Notice Box */}
+          <div className="bg-emerald-50/60 rounded-2xl p-3.5 border border-emerald-100 text-xs text-emerald-900 flex items-start gap-2.5">
+            <span className="material-symbols-outlined text-emerald-700 text-[18px] shrink-0 mt-0.5">
+              verified_user
+            </span>
+            <div className="text-[11px] leading-relaxed text-emerald-800">
+              <p className="font-bold">{isBn ? 'নিরাপত্তা নির্দেশনা' : 'Authorized Access Only'}</p>
+              <p className="text-emerald-700 mt-0.5">
+                {isBn
+                  ? 'এই পোর্টালটি শুধুমাত্র গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অনুমোদিত কর্মকর্তা ও ট্রাস্টি বোর্ডের সদস্যদের জন্য সংরক্ষিত।'
+                  : 'This management console is restricted strictly to authorized staff and board members of GMCF.'}
               </p>
             </div>
           </div>
