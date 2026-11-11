@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
@@ -13,8 +13,24 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  const [sessionTimeoutNotice, setSessionTimeoutNotice] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('reason') === 'idle_timeout') {
+        setSessionTimeoutNotice(true);
+      }
+      const savedEmail = localStorage.getItem('gmcf:saved_email');
+      if (savedEmail) {
+        setEmail(savedEmail);
+        setRememberMe(true);
+      }
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +41,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, rememberMe }),
       });
 
       const data = await res.json();
@@ -40,6 +56,16 @@ export default function LoginPage() {
         );
         return;
       }
+
+      // Save or remove remembered email
+      if (rememberMe) {
+        localStorage.setItem('gmcf:saved_email', email);
+      } else {
+        localStorage.removeItem('gmcf:saved_email');
+      }
+
+      // Initialize timestamp for 30-min idle activity tracking
+      localStorage.setItem('gmcf:last_activity', Date.now().toString());
 
       // Store client session info for instant hydration
       localStorage.setItem(
@@ -171,6 +197,22 @@ export default function LoginPage() {
             </p>
           </div>
 
+          {sessionTimeoutNotice && (
+            <div className="mb-5 p-3.5 bg-amber-50 border border-amber-300 rounded-xl text-xs text-amber-900 flex items-start gap-2.5 animate-in fade-in shadow-2xs">
+              <span className="material-symbols-outlined text-[20px] text-amber-600 shrink-0 mt-0.5">timer_off</span>
+              <div>
+                <span className="font-bold block text-amber-950 text-xs sm:text-sm">
+                  {isBn ? 'সেশন সময়সীমা শেষ (ইনঅ্যাক্টিভিটি)' : 'Session Expired (Inactivity)'}
+                </span>
+                <span className="text-[11px] sm:text-xs leading-relaxed text-amber-800 mt-0.5 block">
+                  {isBn
+                    ? '৩০ মিনিট কোনো কার্যক্রম না থাকায় নিরাপত্তার স্বার্থে সেশনটির মেয়াদ শেষ হয়েছে। অনুগ্রহ করে পুনরায় লগইন করুন।'
+                    : 'You have been logged out due to 30 minutes of inactivity for security. Please log in again.'}
+                </span>
+              </div>
+            </div>
+          )}
+
           {error && (
             <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2.5 animate-in fade-in">
               <span className="material-symbols-outlined text-[18px] text-red-600 shrink-0">error</span>
@@ -227,13 +269,16 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between text-xs text-zinc-600 pt-1">
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  defaultChecked
-                  className="rounded text-emerald-700 focus:ring-0 cursor-pointer"
+                  checked={rememberMe}
+                  onChange={e => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded text-emerald-700 border-zinc-300 focus:ring-emerald-600 cursor-pointer accent-emerald-700"
                 />
-                <span>{isBn ? 'লগইন মনে রাখুন (২৪ ঘণ্টা)' : 'Remember me (24h)'}</span>
+                <span className="text-zinc-700 font-medium">
+                  {isBn ? 'লগইন মনে রাখুন (Remember me)' : 'Remember me'}
+                </span>
               </label>
 
               <span className="text-[11px] text-emerald-700 font-semibold inline-flex items-center gap-1">

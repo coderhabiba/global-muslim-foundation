@@ -67,12 +67,19 @@ export async function POST(req: NextRequest) {
     // Reset rate limiter on success
     resetLoginAttempts(ip);
 
-    // 3. Create cryptographically signed session token (Valid for 24 hours)
-    const token = createSessionToken({
-      email: matchedUser.email,
-      name: matchedUser.name,
-      role: matchedUser.role,
-    });
+    const rememberMe = Boolean(body.rememberMe);
+    // If rememberMe: 30 days session, else 24 hours
+    const sessionMaxAge = rememberMe ? 30 * 86400 : 86400;
+
+    // 3. Create cryptographically signed session token
+    const token = createSessionToken(
+      {
+        email: matchedUser.email,
+        name: matchedUser.name,
+        role: matchedUser.role,
+      },
+      sessionMaxAge
+    );
 
     const response = NextResponse.json({
       success: true,
@@ -91,7 +98,7 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 86400, // 24 hours
+      maxAge: sessionMaxAge,
     });
 
     // Also set client-accessible flag cookie for Next.js middleware if needed
@@ -101,7 +108,7 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 86400,
+      maxAge: sessionMaxAge,
     });
 
     return response;

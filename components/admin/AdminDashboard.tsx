@@ -417,9 +417,71 @@ export default function AdminDashboard() {
       console.error('Logout error:', e);
     }
     localStorage.removeItem('gmcf:admin_auth');
+    localStorage.removeItem('gmcf:last_activity');
     document.cookie = 'gmcf_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     router.push('/login');
   };
+
+  // ==============================================================
+  // 30-Minute Inactivity / Idle Auto-Logout Tracker
+  // ==============================================================
+  useEffect(() => {
+    const IDLE_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+    const triggerIdleLogout = async () => {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+      } catch (e) {
+        console.error('Idle logout error:', e);
+      }
+      localStorage.removeItem('gmcf:admin_auth');
+      localStorage.removeItem('gmcf:last_activity');
+      document.cookie = 'gmcf_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      router.push('/login?reason=idle_timeout');
+    };
+
+    const checkIdleTimeout = () => {
+      const lastActiveStr = localStorage.getItem('gmcf:last_activity');
+      const lastActive = lastActiveStr ? parseInt(lastActiveStr, 10) : Date.now();
+      if (Date.now() - lastActive >= IDLE_TIMEOUT_MS) {
+        triggerIdleLogout();
+      }
+    };
+
+    const recordActivity = () => {
+      const now = Date.now();
+      const lastActiveStr = localStorage.getItem('gmcf:last_activity');
+      const lastActive = lastActiveStr ? parseInt(lastActiveStr, 10) : 0;
+      if (now - lastActive >= IDLE_TIMEOUT_MS) {
+        triggerIdleLogout();
+        return;
+      }
+      // Throttle localStorage updates to at most once every 10 seconds
+      if (now - lastActive > 10000) {
+        localStorage.setItem('gmcf:last_activity', now.toString());
+      }
+    };
+
+    // Baseline initialization
+    if (!localStorage.getItem('gmcf:last_activity')) {
+      localStorage.setItem('gmcf:last_activity', Date.now().toString());
+    } else {
+      checkIdleTimeout();
+    }
+
+    const events = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
+    events.forEach(evt => window.addEventListener(evt, recordActivity, { passive: true }));
+    document.addEventListener('visibilitychange', checkIdleTimeout);
+
+    // Periodic check every 15 seconds
+    const intervalId = setInterval(checkIdleTimeout, 15000);
+
+    return () => {
+      events.forEach(evt => window.removeEventListener(evt, recordActivity));
+      document.removeEventListener('visibilitychange', checkIdleTimeout);
+      clearInterval(intervalId);
+    };
+  }, [router]);
 
   // Volunteer CRUD
   const handleStatusChange = (id: string, newStatus: 'APPROVED' | 'PENDING' | 'REJECTED') => {
@@ -969,7 +1031,7 @@ export default function AdminDashboard() {
 
             <div className="min-w-0 flex flex-col justify-center">
               <div className="flex items-center gap-2.5">
-                <div role="heading" aria-level={1} className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight truncate">
+                <div role="heading" aria-level={1} className="text-lg sm:text-xl font-bold text-zinc-900 tracking-tight truncate">
                   {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                   {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                   {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
