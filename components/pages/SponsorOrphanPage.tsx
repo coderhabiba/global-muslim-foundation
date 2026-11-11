@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
-import { ORPHAN_PROFILES, OrphanProfile } from '@/lib/data/orphans';
+import { useDynamicCards } from '@/lib/dynamic-cards';
+import { OrphanProfile } from '@/lib/data/orphans';
 
 type SponsorshipPlan = {
   id: string;
@@ -99,6 +100,7 @@ export default function SponsorOrphanPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { orphans } = useDynamicCards();
   const isBn = language === 'bn';
 
   // Tabs: 'unsponsored' (জরুরি স্পনসর প্রয়োজন), 'sponsored' (অলরেডি স্পনসরকৃত), 'all' (সকল শিশু)
@@ -109,11 +111,11 @@ export default function SponsorOrphanPage() {
 
   const packagesSectionRef = useRef<HTMLElement>(null);
 
-  const unsponsoredCount = useMemo(() => ORPHAN_PROFILES.filter(c => !c.isSponsored).length, []);
-  const sponsoredCount = useMemo(() => ORPHAN_PROFILES.filter(c => c.isSponsored).length, []);
+  const unsponsoredCount = useMemo(() => orphans.filter(c => !c.isSponsored).length, [orphans]);
+  const sponsoredCount = useMemo(() => orphans.filter(c => c.isSponsored).length, [orphans]);
 
   const filteredOrphans = useMemo(() => {
-    return ORPHAN_PROFILES.filter(child => {
+    return orphans.filter(child => {
       // Tab filter
       if (activeTab === 'unsponsored' && child.isSponsored) return false;
       if (activeTab === 'sponsored' && !child.isSponsored) return false;
@@ -129,7 +131,7 @@ export default function SponsorOrphanPage() {
 
       return true;
     });
-  }, [activeTab, searchQuery]);
+  }, [orphans, activeTab, searchQuery]);
 
   // When clicking "এই শিশুকে স্পনসর করুন": open packages modal first & also scroll to packages
   const handleInitiateSponsorship = (child: OrphanProfile) => {
@@ -202,7 +204,7 @@ export default function SponsorOrphanPage() {
               className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs transition-all flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">child_care</span>
-              <span>{isBn ? `শিশুদের তালিকা (${ORPHAN_PROFILES.length} জন)` : `View Children (${ORPHAN_PROFILES.length})`}</span>
+              <span>{isBn ? `শিশুদের তালিকা (${orphans.length} জন)` : `View Children (${orphans.length})`}</span>
             </a>
           </div>
         </div>
@@ -269,7 +271,7 @@ export default function SponsorOrphanPage() {
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              {isBn ? `সকল শিশু (${ORPHAN_PROFILES.length})` : `All Children (${ORPHAN_PROFILES.length})`}
+              {isBn ? `সকল শিশু (${orphans.length})` : `All Children (${orphans.length})`}
             </button>
           </div>
 

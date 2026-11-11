@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 
 export type FoundationProject = {
   id: string;
@@ -337,6 +338,7 @@ export default function ImpactPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { foundationProjects } = useDynamicCards();
   const cmsImpact = cms.impact;
   const isBn = language === 'bn';
 
@@ -354,7 +356,7 @@ export default function ImpactPage() {
     { key: 'orphan', labelBn: 'এতিম প্রতিপালন', labelEn: 'Orphan Care' }
   ];
 
-  const filteredProjects = FOUNDATION_PROJECTS.filter(project => {
+  const filteredProjects = foundationProjects.filter(project => {
     const matchesCategory = activeCategory === 'all' || project.categoryKey === activeCategory;
     const q = searchQuery.toLowerCase().trim();
     if (!q) return matchesCategory;

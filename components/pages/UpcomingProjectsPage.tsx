@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 
-type UpcomingProject = {
+export type UpcomingProject = {
   id: string;
   titleEn: string;
   titleBn: string;
@@ -31,7 +32,7 @@ type UpcomingProject = {
   beneficiaryCountBn: string;
 };
 
-const UPCOMING_PROJECTS: UpcomingProject[] = [
+export const UPCOMING_PROJECTS: UpcomingProject[] = [
   {
     id: 'proj-01',
     titleEn: 'Central Orphanage & Quran Tahfeez Complex',
@@ -174,14 +175,15 @@ export default function UpcomingProjectsPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { upcomingProjects } = useDynamicCards();
   const cmsUpcoming = cms.upcoming_projects;
   const isBn = language === 'bn';
 
   const [filterCategory, setFilterCategory] = useState<string>('all');
 
   const filteredProjects = filterCategory === 'all'
-    ? UPCOMING_PROJECTS
-    : UPCOMING_PROJECTS.filter(p => p.id === filterCategory);
+    ? upcomingProjects
+    : upcomingProjects.filter(p => p.id === filterCategory);
 
   const handlePledgeClick = (projectTitle: string) => {
     openPaymentModal({
@@ -266,9 +268,9 @@ export default function UpcomingProjectsPage() {
                   : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
               }`}
             >
-              {isBn ? `সকল প্রকল্প (${UPCOMING_PROJECTS.length})` : `All Projects (${UPCOMING_PROJECTS.length})`}
+              {isBn ? `সকল প্রকল্প (${upcomingProjects.length})` : `All Projects (${upcomingProjects.length})`}
             </button>
-            {UPCOMING_PROJECTS.map(p => (
+            {upcomingProjects.map(p => (
               <button
                 key={p.id}
                 type="button"

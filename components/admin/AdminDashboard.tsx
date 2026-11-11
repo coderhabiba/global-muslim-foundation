@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
 import AdminPageCmsEditor from '@/components/admin/AdminPageCmsEditor';
+import AdminCardManager from '@/components/admin/AdminCardManager';
 import { supabase } from '@/lib/supabase';
 
 type DonationRecord = {
@@ -938,10 +939,10 @@ export default function AdminDashboard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                 </svg>
               </div>
-              <span className="text-sm tracking-wide">চলমান ক্যাম্পেইন</span>
+              <span className="text-sm tracking-wide">সকল কার্ড ও প্রজেক্ট ম্যানেজার</span>
             </div>
-            <span className="bg-emerald-900/90 text-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">
-              ৪টি
+            <span className="bg-amber-400/30 text-amber-200 text-xs px-2 py-0.5 rounded-full font-bold">
+              CRUD
             </span>
           </button>
 
@@ -2023,91 +2024,9 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* Tab 4: Campaigns Overview */}
+          {/* Tab 4: All Dynamic Cards, Projects & Campaigns Manager */}
           {activeTab === 'campaigns' && (
-            <div className="p-4 sm:p-6 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4">
-                  <img
-                    src="/images/drive-food-1.jpg"
-                    alt="Food Aid"
-                    className="w-24 h-24 object-cover rounded-xl shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                      সক্রিয় ক্যাম্পেইন
-                    </span>
-                    <h4 className="font-bold text-slate-900 text-sm mt-1">
-                      One Meal One Hope (জরুরি খাদ্য বিতরণ)
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">রেলওয়ে ও বস্তি এলাকায় সুবিধাবঞ্চিতদের খাদ্য সরবরাহ</p>
-                    <div className="mt-2 text-xs font-mono font-bold text-emerald-800">
-                      সংগৃহীত: ৳৪,৫০,০০০ / লক্ষ্য: ৳১০,০০,০০০
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4">
-                  <img
-                    src="/images/drive-water-1.jpg"
-                    alt="Water"
-                    className="w-24 h-24 object-cover rounded-xl shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                      সক্রিয় ক্যাম্পেইন
-                    </span>
-                    <h4 className="font-bold text-slate-900 text-sm mt-1">
-                      Clean Water Wells (গভীর নলকূপ স্থাপন)
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">খরা ও আর্সেনিক আক্রান্ত অঞ্চলে নিরাপদ পানির সংস্থান</p>
-                    <div className="mt-2 text-xs font-mono font-bold text-emerald-800">
-                      সংগৃহীত: ৳৭,৮০,০০০ / লক্ষ্য: ৳১৫,০০,০০০
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4">
-                  <img
-                    src="/images/orphans/Abdul-Hakim.jpg"
-                    alt="Orphan"
-                    className="w-24 h-24 object-cover rounded-xl shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                      সক্রিয় ক্যাম্পেইন
-                    </span>
-                    <h4 className="font-bold text-slate-900 text-sm mt-1">
-                      Sponsor An Orphan (এতিম প্রতিপালন ও শিক্ষা)
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">মাসিক স্পনসরশিপ ও কোরআন হিফজ শিক্ষা নিশ্চিতকরণ</p>
-                    <div className="mt-2 text-xs font-mono font-bold text-emerald-800">
-                      সংগৃহীত: ৳৬,২০,০০০ / লক্ষ্য: ৳১২,০০,০০০
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4">
-                  <img
-                    src="/images/drive-house-1.jpg"
-                    alt="Housing"
-                    className="w-24 h-24 object-cover rounded-xl shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                      সক্রিয় ক্যাম্পেইন
-                    </span>
-                    <h4 className="font-bold text-slate-900 text-sm mt-1">
-                      Emergency Shelter &amp; Rebuild (ঘর নির্মাণ)
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">নদীভাঙন ও গৃহহীন পরিবারের স্থায়ী পুনর্বাসন</p>
-                    <div className="mt-2 text-xs font-mono font-bold text-emerald-800">
-                      সংগৃহীত: ৳৫,১৫,০০০ / লক্ষ্য: ৳২০,০০,০০০
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AdminCardManager />
           )}
 
           {/* Tab 5: Institutional Settings */}
