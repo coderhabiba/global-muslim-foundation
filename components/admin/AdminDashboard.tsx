@@ -926,32 +926,32 @@ export default function AdminDashboard() {
       {/* Right Column Workspace */}
       {/* ============================================================== */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Topbar (Increased height: 56px + ~37.3px ≈ 96px, min-h-[88px] sm:h-24) */}
-        <header className="sticky top-0 z-30 min-h-[88px] sm:h-24 border-b border-zinc-200/80 bg-white/95 px-4 sm:px-8 backdrop-blur-md flex items-center justify-between gap-4 py-3 sm:py-0 shadow-xs">
-          <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+        {/* Topbar (Optimized height: 91px, refined typography) */}
+        <header className="sticky top-0 z-30 min-h-[78px] sm:h-[91px] border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between gap-3 sm:gap-4 py-2.5 sm:py-0 shadow-2xs">
+          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="lg:hidden p-2 -ml-1 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer shrink-0 border border-zinc-200/80"
+              className="lg:hidden p-1.5 -ml-1 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer shrink-0 border border-zinc-200/80"
               aria-label="মেনু খুলুন"
             >
               <Menu className="w-5 h-5" />
             </button>
 
             {/* Active Tab Icon */}
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
-              {activeTab === 'overview' && <LayoutDashboard className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />}
-              {activeTab === 'section_editor' && <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />}
-              {activeTab === 'donations' && <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />}
-              {activeTab === 'members' && <Users className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-800" />}
-              {activeTab === 'volunteers' && <HandHeart className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />}
-              {activeTab === 'campaigns' && <FolderKanban className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />}
-              {activeTab === 'settings' && <Settings className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-600" />}
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
+              {activeTab === 'overview' && <LayoutDashboard className="w-5 h-5 text-emerald-600" />}
+              {activeTab === 'section_editor' && <Layers className="w-5 h-5 text-indigo-600" />}
+              {activeTab === 'donations' && <HeartHandshake className="w-5 h-5 text-emerald-600" />}
+              {activeTab === 'members' && <Users className="w-5 h-5 text-zinc-800" />}
+              {activeTab === 'volunteers' && <HandHeart className="w-5 h-5 text-amber-600" />}
+              {activeTab === 'campaigns' && <FolderKanban className="w-5 h-5 text-amber-600" />}
+              {activeTab === 'settings' && <Settings className="w-5 h-5 text-zinc-600" />}
             </div>
 
             <div className="min-w-0 flex flex-col justify-center">
-              <div className="flex items-center gap-2.5">
-                <h1 className="text-sm sm:text-base md:text-lg font-bold text-zinc-900 tracking-tight truncate">
+              <div className="flex items-center gap-2">
+                <h1 className="text-xs sm:text-sm md:text-[14px] font-semibold text-zinc-900 tracking-normal truncate">
                   {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                   {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                   {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
@@ -961,12 +961,12 @@ export default function AdminDashboard() {
                   {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সেটিংস'}
                 </h1>
                 
-                <span className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono border border-emerald-200/80 shrink-0 font-medium">
+                <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-mono border border-emerald-200/80 shrink-0 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span>রেজি: S-14086/2023</span>
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-zinc-500 truncate mt-0.5">
+              <p className="text-[11px] text-zinc-500 truncate mt-0.5">
                 {activeTab === 'overview' && 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র'}
                 {activeTab === 'section_editor' && 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর'}
                 {activeTab === 'donations' && 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা'}
