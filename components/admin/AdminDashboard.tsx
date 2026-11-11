@@ -968,70 +968,70 @@ export default function AdminDashboard() {
       <div className="flex-1 flex flex-col min-w-0">
         {/* Sleek, Clean Top Bar */}
         <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-          <div className="px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+          <div className="px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
             {/* Left: Mobile hamburger & Active Section Title */}
-            <div className="flex items-center gap-3 min-w-0">
+            <div className="flex items-center gap-3.5 min-w-0">
               <button
                 type="button"
                 onClick={() => setIsMobileSidebarOpen(true)}
                 className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 cursor-pointer"
                 aria-label="Open Sidebar"
               >
-                <span className="material-symbols-outlined text-[24px]">menu</span>
+                <span className="material-symbols-outlined text-[26px]">menu</span>
               </button>
 
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2.5">
                   {activeTab === 'overview' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">dashboard</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">dashboard</span>
                       <span>ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স</span>
                     </>
                   )}
                   {activeTab === 'donations' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">payments</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">payments</span>
                       <span>অনলাইন অনুদান ব্যবস্থাপনা</span>
                     </>
                   )}
                   {activeTab === 'members' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">badge</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">badge</span>
                       <span>সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা</span>
                     </>
                   )}
                   {activeTab === 'volunteers' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">volunteer_activism</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">volunteer_activism</span>
                       <span>স্বেচ্ছাসেবক আবেদনপত্র ও টিম</span>
                     </>
                   )}
                   {activeTab === 'campaigns' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">campaign</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">campaign</span>
                       <span>চলমান মানবিক ক্যাম্পেইনসমূহ</span>
                     </>
                   )}
                   {activeTab === 'settings' && (
                     <>
-                      <span className="material-symbols-outlined text-emerald-700 text-[22px]">settings</span>
+                      <span className="material-symbols-outlined text-emerald-700 text-[26px]">settings</span>
                       <span>প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস</span>
                     </>
                   )}
                 </h2>
-                <p className="text-[11px] text-slate-500 hidden sm:block">
+                <p className="text-xs sm:text-sm text-slate-600 font-medium hidden sm:block">
                   গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজিস্টার্ড এনজিও পোর্টাল
                 </p>
               </div>
             </div>
 
             {/* Right: Quick Action Controls */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <button
                 onClick={() => openLicenseModal()}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-sm font-bold transition-colors cursor-pointer"
               >
-                <svg className="w-4 h-4 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4.5 h-4.5 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 <span>লাইসেন্স সনদ</span>
@@ -1039,9 +1039,9 @@ export default function AdminDashboard() {
 
               <button
                 onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-bold shadow-xs transition-colors cursor-pointer"
               >
-                <svg className="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
                 <span>EPS টেস্ট অনুদান</span>
@@ -1050,10 +1050,10 @@ export default function AdminDashboard() {
               {/* Direct Top-Bar Logout Button */}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-sm font-bold transition-all shadow-xs cursor-pointer active:scale-95"
                 title="ড্যাশবোর্ড থেকে লগআউট করুন"
               >
-                <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
                 <span>লগআউট</span>
@@ -1063,78 +1063,78 @@ export default function AdminDashboard() {
         </header>
 
         {/* Dashboard Main Workspace */}
-        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full text-sm">
+        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full text-base">
           {/* KPI Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সর্বমোট অনুদান সংগ্রহ
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   ৳{totalDonationsBdt.toLocaleString()}
                 </h3>
-                <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[16px]">trending_up</span>
+                <span className="text-sm text-emerald-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[18px]">trending_up</span>
                   ১০০% যাকাত পলিসি নিশ্চিত
                 </span>
               </div>
-              <div className="w-13 h-13 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shrink-0">
                 <span className="material-symbols-outlined text-3xl">account_balance_wallet</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সদস্য ও ট্রাস্টি সংখ্যা
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   {members.length} জন
                 </h3>
-                <span className="text-xs text-teal-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[16px]">badge</span>
+                <span className="text-sm text-teal-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[18px]">badge</span>
                   পরিচালনা ও ট্রাস্টি বোর্ড
                 </span>
               </div>
-              <div className="w-13 h-13 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100 shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100 shrink-0">
                 <span className="material-symbols-outlined text-3xl">supervised_user_circle</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   স্বেচ্ছাসেবক টিম
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   {volunteers.length} জন
                 </h3>
-                <span className="text-xs text-amber-600 font-bold flex items-center gap-1 mt-1.5">
-                  <span className="material-symbols-outlined text-[16px]">pending_actions</span>
+                <span className="text-sm text-amber-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[18px]">pending_actions</span>
                   {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
                 </span>
               </div>
-              <div className="w-13 h-13 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 shrink-0">
                 <span className="material-symbols-outlined text-3xl">volunteer_activism</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
+                <span className="text-sm text-slate-500 font-bold block uppercase tracking-wider">
                   সরকারি নিবন্ধন স্ট্যাটাস
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1 font-mono">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1 font-mono">
                   S-14086/2023
                 </h3>
                 <a
                   href="/images/permit.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1.5 underline"
+                  className="text-sm text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1.5 underline"
                 >
-                  <span className="material-symbols-outlined text-[16px]">verified</span>
+                  <span className="material-symbols-outlined text-[18px]">verified</span>
                   স্বীকৃত লাইসেন্স (Permit PDF)
                 </a>
               </div>
@@ -1142,7 +1142,7 @@ export default function AdminDashboard() {
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-13 h-13 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100 shrink-0"
+                className="w-14 h-14 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100 shrink-0"
                 title="View Government License Permit"
               >
                 <span className="material-symbols-outlined text-3xl">verified_user</span>
@@ -1155,73 +1155,73 @@ export default function AdminDashboard() {
           <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50 overflow-x-auto">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'overview'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">dashboard</span>
+              <span className="material-symbols-outlined text-[22px]">dashboard</span>
               ওভারভিউ ড্যাশবোর্ড
             </button>
 
             <button
               onClick={() => setActiveTab('donations')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'donations'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">payments</span>
+              <span className="material-symbols-outlined text-[22px]">payments</span>
               অনুদান তালিকা ({donations.length})
             </button>
 
             <button
               onClick={() => setActiveTab('members')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'members'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">badge</span>
+              <span className="material-symbols-outlined text-[22px]">badge</span>
               সদস্য তালিকা ({members.length})
             </button>
 
             <button
               onClick={() => setActiveTab('volunteers')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'volunteers'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">volunteer_activism</span>
+              <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
               স্বেচ্ছাসেবক আবেদনপত্র ({volunteers.length})
             </button>
 
             <button
               onClick={() => setActiveTab('campaigns')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'campaigns'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">campaign</span>
+              <span className="material-symbols-outlined text-[22px]">campaign</span>
               চলমান ক্যাম্পেইন ওভারভিউ
             </button>
 
             <button
               onClick={() => setActiveTab('settings')}
-              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-5 text-base font-bold border-b-2 flex items-center gap-2.5 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'settings'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">settings</span>
+              <span className="material-symbols-outlined text-[22px]">settings</span>
               প্রাতিষ্ঠানিক তথ্য ও সেটিংস
             </button>
           </div>
@@ -1235,29 +1235,29 @@ export default function AdminDashboard() {
                   <span className="material-symbols-outlined text-[180px]">volunteer_activism</span>
                 </div>
                 <div className="relative z-10 max-w-2xl">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30 mb-3 backdrop-blur-xs">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-sm font-bold border border-emerald-400/30 mb-3 backdrop-blur-xs">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     <span>গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — লাইভ এডমিন কনসোল</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-black font-serif-heading">
                     স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা
                   </h3>
-                  <p className="text-xs sm:text-sm text-emerald-100/90 mt-1.5 leading-relaxed">
+                  <p className="text-sm sm:text-base text-emerald-100/90 mt-1.5 leading-relaxed">
                     আপনার মানবিক ত্রাণ ও অনুদান পোর্টালটি সরাসরি Supabase ক্লাউড ও EPS পেমেন্ট গেটওয়ের সাথে সুসংগঠিতভাবে সংযুক্ত। সাম্প্রতিক সকল তথ্য নিচের অ্যানালিটিক্সে পর্যবেক্ষণ করুন।
                   </p>
                   <div className="flex flex-wrap items-center gap-3 mt-4 pt-1">
                     <button
                       onClick={() => setActiveTab('donations')}
-                      className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                      className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 rounded-xl text-sm font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
                     >
-                      <span className="material-symbols-outlined text-[16px]">payments</span>
+                      <span className="material-symbols-outlined text-[18px]">payments</span>
                       <span>সকল অনুদান দেখুন ({donations.length})</span>
                     </button>
                     <button
                       onClick={() => openAddMemberModal()}
-                      className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-xs"
+                      className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer backdrop-blur-xs"
                     >
-                      <span className="material-symbols-outlined text-[16px]">person_add</span>
+                      <span className="material-symbols-outlined text-[18px]">person_add</span>
                       <span>নতুন সদস্য যুক্ত করুন</span>
                     </button>
                   </div>
@@ -1267,191 +1267,191 @@ export default function AdminDashboard() {
               {/* 3-Column Visual Metrics & Realtime Insights */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* 1. Payment Methods Breakdown */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-emerald-700 text-[18px]">account_balance</span>
+                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                        <span className="material-symbols-outlined text-emerald-700 text-[20px]">account_balance</span>
                         পেমেন্ট মেথড বিভাজন
                       </h4>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase">EPS গেটওয়ে</span>
+                      <span className="text-xs text-slate-500 font-bold uppercase">EPS গেটওয়ে</span>
                     </div>
 
-                    <div className="space-y-3.5 mt-4">
+                    <div className="space-y-4 mt-5">
                       {/* bKash */}
                       <div>
-                        <div className="flex justify-between text-xs font-bold mb-1">
-                          <span className="text-slate-700 flex items-center gap-1.5">
-                            <span className="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                        <div className="flex justify-between text-sm font-bold mb-1.5">
+                          <span className="text-slate-800 flex items-center gap-2">
+                            <span className="w-3 h-3 rounded-full bg-pink-500"></span>
                             বিকাশ (bKash)
                           </span>
-                          <span className="font-mono text-slate-900">৬০%</span>
+                          <span className="font-mono text-slate-900 text-base">৬০%</span>
                         </div>
-                        <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
                           <div className="h-full bg-pink-500 rounded-full w-[60%] transition-all"></div>
                         </div>
                       </div>
 
                       {/* Nagad */}
                       <div>
-                        <div className="flex justify-between text-xs font-bold mb-1">
-                          <span className="text-slate-700 flex items-center gap-1.5">
-                            <span className="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                        <div className="flex justify-between text-sm font-bold mb-1.5">
+                          <span className="text-slate-800 flex items-center gap-2">
+                            <span className="w-3 h-3 rounded-full bg-orange-500"></span>
                             নগদ (Nagad)
                           </span>
-                          <span className="font-mono text-slate-900">২৫%</span>
+                          <span className="font-mono text-slate-900 text-base">২৫%</span>
                         </div>
-                        <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
                           <div className="h-full bg-orange-500 rounded-full w-[25%] transition-all"></div>
                         </div>
                       </div>
 
                       {/* Bank / Card / Rocket */}
                       <div>
-                        <div className="flex justify-between text-xs font-bold mb-1">
-                          <span className="text-slate-700 flex items-center gap-1.5">
-                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                        <div className="flex justify-between text-sm font-bold mb-1.5">
+                          <span className="text-slate-800 flex items-center gap-2">
+                            <span className="w-3 h-3 rounded-full bg-emerald-600"></span>
                             কার্ড ও ব্যাংক ট্রান্সফার
                           </span>
-                          <span className="font-mono text-slate-900">১৫%</span>
+                          <span className="font-mono text-slate-900 text-base">১৫%</span>
                         </div>
-                        <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                        <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
                           <div className="h-full bg-emerald-600 rounded-full w-[15%] transition-all"></div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm text-slate-600">
                     <span>সফল ট্রানজেকশন রেট</span>
-                    <span className="font-bold text-emerald-700 font-mono">৯৯.৮% শতভাগ স্বচ্ছ</span>
+                    <span className="font-bold text-emerald-700 font-mono text-sm">৯৯.৮% শতভাগ স্বচ্ছ</span>
                   </div>
                 </div>
 
                 {/* 2. Top Humanitarian Causes */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-teal-700 text-[18px]">pie_chart</span>
+                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                        <span className="material-symbols-outlined text-teal-700 text-[20px]">pie_chart</span>
                         শীর্ষ মানবিক খাতসমূহ
                       </h4>
-                      <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+                      <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded">
                         ১০০% যাকাত
                       </span>
                     </div>
 
-                    <div className="space-y-3 mt-3 text-xs">
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <div className="space-y-3.5 mt-4 text-sm">
+                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
                           <span className="font-semibold text-slate-800 line-clamp-1">সুপেয় পানি ও নলকূপ প্রকল্প</span>
                         </div>
-                        <span className="font-mono font-bold text-slate-900">৳১,০৫,০০০</span>
+                        <span className="font-mono font-bold text-slate-900 text-base">৳১,০৫,০০০</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-teal-600 shrink-0"></span>
                           <span className="font-semibold text-slate-800 line-clamp-1">বাৎসরিক ফরজ যাকাত ফান্ড</span>
                         </div>
-                        <span className="font-mono font-bold text-slate-900">৳৫০,০০০</span>
+                        <span className="font-mono font-bold text-slate-900 text-base">৳৫০,০০০</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
                           <span className="font-semibold text-slate-800 line-clamp-1">ওয়ান মিল ওয়ান হোপ (খাদ্য)</span>
                         </div>
-                        <span className="font-mono font-bold text-slate-900">৳১৮,৫০০</span>
+                        <span className="font-mono font-bold text-slate-900 text-base">৳১৮,৫০০</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0"></span>
                           <span className="font-semibold text-slate-800 line-clamp-1">প্রজেক্ট আলো (চিকিৎসা সহায়তা)</span>
                         </div>
-                        <span className="font-mono font-bold text-slate-900">৳৩,৫০০</span>
+                        <span className="font-mono font-bold text-slate-900 text-base">৳৩,৫০০</span>
                       </div>
                     </div>
                   </div>
 
                   <button
                     onClick={() => setActiveTab('campaigns')}
-                    className="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center justify-between cursor-pointer w-full"
+                    className="mt-4 pt-3.5 border-t border-slate-100 text-sm font-bold text-emerald-700 hover:text-emerald-900 flex items-center justify-between cursor-pointer w-full"
                   >
                     <span>ক্যাম্পেইন অগ্রগতি দেখুন</span>
-                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                   </button>
                 </div>
 
                 {/* 3. Fast Audit & Quick Actions */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
+                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-amber-600 text-[18px]">verified</span>
+                    <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                        <span className="material-symbols-outlined text-amber-600 text-[20px]">verified</span>
                         সরকারি অডিট ও দ্রুত শর্টকাট
                       </h4>
-                      <span className="text-[10px] text-teal-700 font-bold bg-teal-50 px-2 py-0.5 rounded">
+                      <span className="text-xs text-teal-700 font-bold bg-teal-50 px-2.5 py-0.5 rounded">
                         এনজিও লাইসেন্স
                       </span>
                     </div>
 
-                    <div className="space-y-2.5 mt-3">
+                    <div className="space-y-3 mt-4">
                       <a
                         href="/images/permit.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100 hover:bg-emerald-50 flex items-center justify-between group transition-colors"
+                        className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 hover:bg-emerald-100/70 flex items-center justify-between group transition-colors"
                       >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center">
-                            <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-[20px]">picture_as_pdf</span>
                           </div>
                           <div>
-                            <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-800">সরকারি লাইসেন্স পারমিট</p>
-                            <p className="text-[10px] text-slate-500">Reg: S-14086/2023</p>
+                            <p className="text-sm font-bold text-slate-900 group-hover:text-emerald-800">সরকারি লাইসেন্স পারমিট</p>
+                            <p className="text-xs text-slate-500 font-mono">Reg: S-14086/2023</p>
                           </div>
                         </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-emerald-700 text-[18px]">open_in_new</span>
+                        <span className="material-symbols-outlined text-slate-400 group-hover:text-emerald-700 text-[20px]">open_in_new</span>
                       </a>
 
                       <button
                         onClick={() => openAddVolunteerModal()}
                         className="w-full p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-between group transition-colors cursor-pointer text-left"
                       >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center">
-                            <span className="material-symbols-outlined text-[18px]">person_add</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-[20px]">person_add</span>
                           </div>
                           <div>
-                            <p className="text-xs font-bold text-slate-900 group-hover:text-amber-800">নতুন ভলান্টিয়ার তালিকাভুক্তি</p>
-                            <p className="text-[10px] text-slate-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
+                            <p className="text-sm font-bold text-slate-900 group-hover:text-amber-800">নতুন ভলান্টিয়ার তালিকাভুক্তি</p>
+                            <p className="text-xs text-slate-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
                           </div>
                         </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-amber-700 text-[18px]">add_circle</span>
+                        <span className="material-symbols-outlined text-slate-400 group-hover:text-amber-700 text-[20px]">add_circle</span>
                       </button>
 
                       <button
                         onClick={() => setActiveTab('settings')}
                         className="w-full p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-between group transition-colors cursor-pointer text-left"
                       >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-slate-700 text-white flex items-center justify-center">
-                            <span className="material-symbols-outlined text-[18px]">settings</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-slate-700 text-white flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-[20px]">settings</span>
                           </div>
                           <div>
-                            <p className="text-xs font-bold text-slate-900 group-hover:text-slate-800">প্রতিষ্ঠানের অফিসিয়াল প্রোফাইল</p>
-                            <p className="text-[10px] text-slate-500">সাভার প্রধান কার্যালয় ও হটলাইন</p>
+                            <p className="text-sm font-bold text-slate-900 group-hover:text-slate-800">প্রতিষ্ঠানের অফিসিয়াল প্রোফাইল</p>
+                            <p className="text-xs text-slate-500">সাভার প্রধান কার্যালয় ও হটলাইন</p>
                           </div>
                         </div>
-                        <span className="material-symbols-outlined text-slate-400 group-hover:text-slate-700 text-[18px]">arrow_forward</span>
+                        <span className="material-symbols-outlined text-slate-400 group-hover:text-slate-700 text-[20px]">arrow_forward</span>
                       </button>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                  <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm text-slate-600">
                     <span>শরীয়াহ অডিট বোর্ড</span>
                     <span className="font-bold text-slate-800">অনুমোদিত ও সক্রিয়</span>
                   </div>
@@ -1461,49 +1461,49 @@ export default function AdminDashboard() {
               {/* Recent Activity Table Preview in Overview */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                 <div className="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-emerald-700 text-[20px]">history</span>
-                    <h4 className="text-sm font-bold text-slate-900">সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)</h4>
+                  <div className="flex items-center gap-2.5">
+                    <span className="material-symbols-outlined text-emerald-700 text-[22px]">history</span>
+                    <h4 className="text-base font-bold text-slate-900">সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)</h4>
                   </div>
                   <button
                     onClick={() => setActiveTab('donations')}
-                    className="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 cursor-pointer"
+                    className="text-sm font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 cursor-pointer"
                   >
                     <span>সম্পূর্ণ তালিকা দেখুন</span>
-                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                   </button>
                 </div>
 
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-50/80 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-50 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200 text-xs">
                       <tr>
-                        <th className="py-3 px-4">ট্রানজেকশন ID</th>
-                        <th className="py-3 px-4">দাতার নাম ও যোগাযোগ</th>
-                        <th className="py-3 px-4">মানবিক খাত</th>
-                        <th className="py-3 px-4">পরিমাণ</th>
-                        <th className="py-3 px-4">পদ্ধতি</th>
-                        <th className="py-3 px-4">স্ট্যাটাস</th>
+                        <th className="py-3.5 px-4">ট্রানজেকশন ID</th>
+                        <th className="py-3.5 px-4">দাতার নাম ও যোগাযোগ</th>
+                        <th className="py-3.5 px-4">মানবিক খাত</th>
+                        <th className="py-3.5 px-4">পরিমাণ</th>
+                        <th className="py-3.5 px-4">পদ্ধতি</th>
+                        <th className="py-3.5 px-4">স্ট্যাটাস</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium">
                       {donations.slice(0, 4).map(d => (
                         <tr key={d.id} className="hover:bg-slate-50/60 transition-colors">
-                          <td className="py-3 px-4 font-mono font-bold text-slate-800">{d.id}</td>
-                          <td className="py-3 px-4">
-                            <p className="font-bold text-slate-900">{d.donorName}</p>
-                            <p className="text-[11px] text-slate-400 font-mono">{d.donorPhone}</p>
+                          <td className="py-3.5 px-4 font-mono font-bold text-emerald-800 text-sm">{d.id}</td>
+                          <td className="py-3.5 px-4">
+                            <p className="font-bold text-slate-900 text-sm">{d.donorName}</p>
+                            <p className="text-xs text-slate-500 font-mono">{d.donorPhone}</p>
                           </td>
-                          <td className="py-3 px-4 text-slate-700 font-medium">{d.cause}</td>
-                          <td className="py-3 px-4 font-mono font-bold text-emerald-800">৳{d.amount.toLocaleString()}</td>
-                          <td className="py-3 px-4">
-                            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[10px] font-bold">
+                          <td className="py-3.5 px-4 text-slate-800 font-medium text-sm">{d.cause}</td>
+                          <td className="py-3.5 px-4 font-mono font-black text-emerald-800 text-base">৳{d.amount.toLocaleString()}</td>
+                          <td className="py-3.5 px-4">
+                            <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200">
                               {d.method}
                             </span>
                           </td>
-                          <td className="py-3 px-4">
-                            <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] inline-flex items-center gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                          <td className="py-3.5 px-4">
+                            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs inline-flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                               {d.status}
                             </span>
                           </td>
@@ -1526,9 +1526,9 @@ export default function AdminDashboard() {
                     placeholder="দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..."
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
+                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
                   />
-                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
+                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
                     search
                   </span>
                 </div>
@@ -1548,9 +1548,9 @@ export default function AdminDashboard() {
                       link.click();
                       document.body.removeChild(link);
                     }}
-                    className="px-3.5 py-2 border border-slate-300 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-colors cursor-pointer"
+                    className="px-4 py-2.5 border border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-bold text-slate-700 flex items-center gap-2 transition-colors cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-[16px]">download</span>
+                    <span className="material-symbols-outlined text-[18px]">download</span>
                     CSV এক্সপোর্ট
                   </button>
                 </div>
@@ -1626,9 +1626,9 @@ export default function AdminDashboard() {
                     placeholder="সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..."
                     value={memberSearchTerm}
                     onChange={e => setMemberSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
+                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
                   />
-                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
+                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
                     search
                   </span>
                 </div>
@@ -1636,9 +1636,9 @@ export default function AdminDashboard() {
                 <button
                   type="button"
                   onClick={openAddMemberModal}
-                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition-colors cursor-pointer"
+                  className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow transition-colors cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[18px]">add</span>
+                  <span className="material-symbols-outlined text-[20px]">add</span>
                   <span>নতুন সদস্য যুক্ত করুন</span>
                 </button>
               </div>
@@ -1721,19 +1721,19 @@ export default function AdminDashboard() {
                             <button
                               type="button"
                               onClick={() => openEditMemberModal(m)}
-                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-sm font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                               title="সম্পাদনা করুন"
                             >
-                              <span className="material-symbols-outlined text-[16px]">edit</span>
+                              <span className="material-symbols-outlined text-[18px]">edit</span>
                               <span>এডিট</span>
                             </button>
                             <button
                               type="button"
                               onClick={() => handleDeleteMember(m.id, m.nameBn)}
-                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-sm font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                               title="মুছে ফেলুন"
                             >
-                              <span className="material-symbols-outlined text-[16px]">delete</span>
+                              <span className="material-symbols-outlined text-[18px]">delete</span>
                               <span>ডিলিট</span>
                             </button>
                           </td>
@@ -1756,9 +1756,9 @@ export default function AdminDashboard() {
                     placeholder="স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..."
                     value={volunteerSearchTerm}
                     onChange={e => setVolunteerSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
+                    className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
                   />
-                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
+                  <span className="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-[20px]">
                     search
                   </span>
                 </div>
@@ -1766,9 +1766,9 @@ export default function AdminDashboard() {
                 <button
                   type="button"
                   onClick={openAddVolunteerModal}
-                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition-colors cursor-pointer"
+                  className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow transition-colors cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[18px]">person_add</span>
+                  <span className="material-symbols-outlined text-[20px]">person_add</span>
                   <span>নতুন স্বেচ্ছাসেবক যুক্ত করুন</span>
                 </button>
               </div>
@@ -1848,7 +1848,7 @@ export default function AdminDashboard() {
                             {v.status !== 'APPROVED' && (
                               <button
                                 onClick={() => handleStatusChange(v.id, 'APPROVED')}
-                                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs"
+                                className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold cursor-pointer transition-colors shadow-xs"
                               >
                                 অনুমোদন
                               </button>
@@ -1856,7 +1856,7 @@ export default function AdminDashboard() {
                             {v.status !== 'REJECTED' && (
                               <button
                                 onClick={() => handleStatusChange(v.id, 'REJECTED')}
-                                className="px-3 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
+                                className="px-3.5 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
                               >
                                 বাতিল
                               </button>
@@ -1864,18 +1864,18 @@ export default function AdminDashboard() {
                             <button
                               type="button"
                               onClick={() => openEditVolunteerModal(v)}
-                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
+                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
                               title="সম্পাদনা"
                             >
-                              <span className="material-symbols-outlined text-[15px] align-middle">edit</span>
+                              <span className="material-symbols-outlined text-[18px] align-middle">edit</span>
                             </button>
                             <button
                               type="button"
                               onClick={() => handleDeleteVolunteer(v.id, v.name)}
-                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
+                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-sm font-bold cursor-pointer transition-colors"
                               title="মুছুন"
                             >
-                              <span className="material-symbols-outlined text-[15px] align-middle">delete</span>
+                              <span className="material-symbols-outlined text-[18px] align-middle">delete</span>
                             </button>
                           </td>
                         </tr>
@@ -1976,70 +1976,70 @@ export default function AdminDashboard() {
 
           {/* Tab 5: Institutional Settings */}
           {activeTab === 'settings' && (
-            <div className="p-4 sm:p-6 space-y-5 max-w-2xl">
-              <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-                <h4 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <div className="p-4 sm:p-6 space-y-6 max-w-3xl">
+              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-5">
+                <h4 className="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
                   প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)
                 </h4>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <label className="text-slate-500 font-bold block mb-1">চেয়ারম্যানের নাম</label>
+                    <label className="text-slate-600 font-bold block mb-1.5">চেয়ারম্যানের নাম</label>
                     <input
                       type="text"
                       readOnly
                       value="Mohammad Ali Mostafa"
-                      className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
+                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-500 font-bold block mb-1">ফাউন্ডেশনের পূর্ণ নাম</label>
+                    <label className="text-slate-600 font-bold block mb-1.5">ফাউন্ডেশনের পূর্ণ নাম</label>
                     <input
                       type="text"
                       readOnly
                       value="Global Muslim Charitable Foundation"
-                      className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
+                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-500 font-bold block mb-1">অফিসিয়াল ইমেইল</label>
+                    <label className="text-slate-600 font-bold block mb-1.5">অফিসিয়াল ইমেইল</label>
                     <input
                       type="text"
                       readOnly
                       value="gmcfoundation2022@gmail.com"
-                      className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
+                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-500 font-bold block mb-1">অফিসিয়াল হটলাইন</label>
+                    <label className="text-slate-600 font-bold block mb-1.5">অফিসিয়াল হটলাইন</label>
                     <input
                       type="text"
                       readOnly
                       value="01913119525"
-                      className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
+                      className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-slate-500 font-bold block mb-1 text-xs">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
+                  <label className="text-slate-600 font-bold block mb-1.5 text-sm">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
                   <input
                     type="text"
                     readOnly
                     value="House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh"
-                    className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300 text-xs"
+                    className="w-full bg-white px-3.5 py-2.5 border rounded-xl font-semibold border-slate-300 text-slate-800 text-sm"
                   />
                 </div>
               </div>
 
-              <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
-                <h4 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">
+              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                <h4 className="text-base font-bold text-slate-900 border-b border-slate-200 pb-3">
                   সরকারি অনুদান ও অডিট কমপ্লায়েন্স
                 </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-700 leading-relaxed">
                   গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।
                 </p>
                 <div className="pt-2">
@@ -2047,9 +2047,9 @@ export default function AdminDashboard() {
                     href="/images/permit.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-800 text-white rounded-xl text-xs font-bold shadow hover:bg-emerald-900 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-800 text-white rounded-xl text-sm font-bold shadow hover:bg-emerald-900 transition-colors"
                   >
-                    <span className="material-symbols-outlined text-[16px]">file_download</span>
+                    <span className="material-symbols-outlined text-[18px]">file_download</span>
                     অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন
                   </a>
                 </div>
