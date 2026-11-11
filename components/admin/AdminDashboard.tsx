@@ -718,8 +718,8 @@ export default function AdminDashboard() {
 
       {/* Modern Fixed Left Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 shrink-0 ${
-          isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-emerald-950 text-white flex flex-col h-screen border-r border-emerald-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:h-screen lg:sticky lg:top-0 shrink-0 ${
+          isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Sidebar Brand Header with Emblem, Title & Reg Badge */}
