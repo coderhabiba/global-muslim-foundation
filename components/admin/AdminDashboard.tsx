@@ -3,6 +3,22 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from 'recharts';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
 import AdminCardManager from '@/components/admin/AdminCardManager';
@@ -41,7 +57,12 @@ import {
   TrendingUp,
   PieChart,
   History,
-  Check,
+  Sparkles,
+  ArrowUpRight,
+  Activity,
+  Calendar,
+  DollarSign,
+  Award,
 } from 'lucide-react';
 
 type DonationRecord = {
@@ -303,11 +324,79 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
   },
 ];
 
+// Recharts Trend Data
+const DONATION_TRENDS_7D = [
+  { label: 'শনিবার', amount: 18500, donors: 12 },
+  { label: 'রবিবার', amount: 24000, donors: 18 },
+  { label: 'সোমবার', amount: 32000, donors: 24 },
+  { label: 'মঙ্গলবার', amount: 19500, donors: 15 },
+  { label: 'বুধবার', amount: 48000, donors: 36 },
+  { label: 'বৃহস্পতিবার', amount: 62000, donors: 42 },
+  { label: 'শুক্রবার', amount: 84500, donors: 58 },
+];
+
+const DONATION_TRENDS_30D = [
+  { label: '১-৭ মে', amount: 145000, donors: 110 },
+  { label: '৮-১৪ মে', amount: 218000, donors: 165 },
+  { label: '১৫-২১ মে', amount: 195000, donors: 142 },
+  { label: '২২-২৮ মে', amount: 280000, donors: 210 },
+];
+
+const DONATION_TRENDS_YEAR = [
+  { label: 'জানু', amount: 320000, donors: 240 },
+  { label: 'ফেব্রু', amount: 410000, donors: 310 },
+  { label: 'মার্চ', amount: 590000, donors: 480 },
+  { label: 'এপ্রিল', amount: 820000, donors: 690 },
+  { label: 'মে', amount: 640000, donors: 520 },
+  { label: 'জুন', amount: 480000, donors: 380 },
+];
+
+const SECTOR_DISTRIBUTION = [
+  { name: 'সুপেয় পানি ও নলকূপ', value: 42, color: '#10b981' },
+  { name: 'ফরজ যাকাত ফান্ড', value: 28, color: '#0ea5e9' },
+  { name: 'ওয়ান মিল ওয়ান হোপ', value: 16, color: '#f59e0b' },
+  { name: 'প্রজেক্ট আলো (চিকিৎসা)', value: 9, color: '#ec4899' },
+  { name: 'এতিম শিশু স্পন্সর', value: 5, color: '#8b5cf6' },
+];
+
+const CAMPAIGN_PROGRESS_BARS = [
+  {
+    name: 'কুড়িগ্রাম ও সুনামগঞ্জ সুপেয় পানি প্রকল্প',
+    target: 500000,
+    raised: 420000,
+    percentage: 84,
+    color: 'bg-emerald-500',
+  },
+  {
+    name: 'গাজা ও জরুরি মানবিক ত্রাণ তহবিল',
+    target: 1000000,
+    raised: 750000,
+    percentage: 75,
+    color: 'bg-teal-500',
+  },
+  {
+    name: 'ওয়ান মিল ওয়ান হোপ (পথশিশু খাদ্য সহায়তা)',
+    target: 300000,
+    raised: 285000,
+    percentage: 95,
+    color: 'bg-amber-500',
+  },
+  {
+    name: 'প্রজেক্ট আলো — দৃষ্টিহীনদের ছানি অপারেশন',
+    target: 250000,
+    raised: 175000,
+    percentage: 70,
+    color: 'bg-rose-500',
+  },
+];
+
 export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
   const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
-  
+  const [chartTimeframe, setChartTimeframe] = useState<'7d' | '30d' | 'year'>('7d');
+  const [isMounted, setIsMounted] = useState(false);
+
   const [donations, setDonations] = useState<DonationRecord[]>(DEFAULT_DONATIONS);
   const [members, setMembers] = useState<MemberRecord[]>(DEFAULT_MEMBERS);
   const [volunteers, setVolunteers] = useState<VolunteerCandidate[]>(DEFAULT_VOLUNTEERS);
@@ -363,6 +452,8 @@ export default function AdminDashboard() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+
     // Check authentication
     const authData = localStorage.getItem('gmcf:admin_auth');
     if (!authData) {
@@ -826,6 +917,13 @@ export default function AdminDashboard() {
     },
   ];
 
+  const currentChartData =
+    chartTimeframe === '7d'
+      ? DONATION_TRENDS_7D
+      : chartTimeframe === '30d'
+      ? DONATION_TRENDS_30D
+      : DONATION_TRENDS_YEAR;
+
   return (
     <div data-l10n="off" className="min-h-screen bg-zinc-50/70 text-zinc-900 flex flex-row items-stretch antialiased selection:bg-zinc-900 selection:text-white">
       {/* Mobile Sidebar Backdrop */}
@@ -1014,88 +1112,119 @@ export default function AdminDashboard() {
 
         {/* Main Content View */}
         <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-7xl w-full mx-auto">
-          {/* KPI Summary Cards (shadcn Card style) */}
+          {/* ========================================================== */}
+          {/* 4 Premium Animated Executive KPI Cards with Framer Motion */}
+          {/* ========================================================== */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* KPI 1 */}
-            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+            {/* KPI Card 1: Total Funds */}
+            <motion.div
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+            >
               <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
                   সর্বমোট অনুদান সংগ্রহ
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
-                  <HeartHandshake className="w-4 h-4 text-emerald-600" />
+                <div className="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <HeartHandshake className="w-4.5 h-4.5" />
                 </div>
               </div>
-              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
                 ৳{totalDonationsBdt.toLocaleString()}
               </div>
-              <p className="text-xs font-medium text-emerald-600 flex items-center gap-1 mt-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                ১০০% যাকাত পলিসি নিশ্চিত
-              </p>
-            </div>
-
-            {/* KPI 2 */}
-            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-                  সদস্য ও ট্রাস্টি সংখ্যা
+              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  <TrendingUp className="w-3 h-3" />
+                  +১৮.৪% চলতি মাসে
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
-                  <Users className="w-4 h-4 text-zinc-800" />
+                <span className="text-[11px] text-zinc-500 font-medium">EPS গেটওয়ে</span>
+              </div>
+            </motion.div>
+
+            {/* KPI Card 2: Zakat Compliance */}
+            <motion.div
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+            >
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  যাকাত ও তামলিক বণ্টন
+                </span>
+                <div className="w-9 h-9 rounded-lg bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Award className="w-4.5 h-4.5" />
                 </div>
               </div>
-              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
+                ১০০% নীতি
+              </div>
+              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
+                  <CheckCircle2 className="w-3 h-3" />
+                  জিরো এডমিন কস্ট
+                </span>
+                <span className="text-[11px] text-zinc-500 font-medium">শরীয়াহ অনুমোদিত</span>
+              </div>
+            </motion.div>
+
+            {/* KPI Card 3: Board & Members */}
+            <motion.div
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+            >
+              <div className="flex items-center justify-between pb-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  সদস্য ও ট্রাস্টি বোর্ড
+                </span>
+                <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Users className="w-4.5 h-4.5" />
+                </div>
+              </div>
+              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
                 {members.length} জন
               </div>
-              <p className="text-xs font-medium text-zinc-500 flex items-center gap-1 mt-1.5">
-                <BadgeCheck className="w-3.5 h-3.5 text-zinc-600" />
-                পরিচালনা ও ট্রাস্টি বোর্ড
-              </p>
-            </div>
+              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                <div className="flex items-center -space-x-1.5 overflow-hidden">
+                  {members.slice(0, 3).map((m, idx) => (
+                    <img
+                      key={idx}
+                      src={m.image}
+                      alt={m.nameBn}
+                      className="inline-block h-5 w-5 rounded-full ring-2 ring-white object-cover"
+                    />
+                  ))}
+                </div>
+                <span className="text-[11px] text-zinc-600 font-medium">৩টি জোনাল সেল</span>
+              </div>
+            </motion.div>
 
-            {/* KPI 3 */}
-            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+            {/* KPI Card 4: Volunteers & Ground Force */}
+            <motion.div
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+            >
               <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-                  স্বেচ্ছাসেবক টিম
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  স্বেচ্ছাসেবক ফিল্ড ফোর্স
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
-                  <HandHeart className="w-4 h-4 text-amber-600" />
+                <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <HandHeart className="w-4.5 h-4.5" />
                 </div>
               </div>
-              <div className="text-2xl font-bold tracking-tight text-zinc-900 font-mono">
+              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
                 {volunteers.length} জন
               </div>
-              <p className="text-xs font-medium text-amber-600 flex items-center gap-1 mt-1.5">
-                <Clock className="w-3.5 h-3.5" />
-                {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
-              </p>
-            </div>
-
-            {/* KPI 4 */}
-            <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-                  সরকারি নিবন্ধন
+              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+                  <Clock className="w-3 h-3" />
+                  {pendingVolunteersCount} জন অপেক্ষমান
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/60 text-zinc-700 flex items-center justify-center">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                </div>
+                <span className="text-[11px] text-zinc-500 font-medium">৬৪ জেলা</span>
               </div>
-              <div className="text-xl font-bold tracking-tight text-zinc-900 font-mono">
-                S-14086/2023
-              </div>
-              <a
-                href="/images/permit.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-medium text-emerald-600 hover:text-emerald-700 flex items-center gap-1 mt-1.5 hover:underline"
-              >
-                <span>অফিসিয়াল পারমিট সনদ (PDF)</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+            </motion.div>
           </div>
 
           {/* Main Card with Segmented Tabs Header */}
@@ -1125,21 +1254,23 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* TAB CONTENT 0: Overview */}
+            {/* ========================================================== */}
+            {/* TAB CONTENT 0: Executive Overview & Interactive Charts */}
+            {/* ========================================================== */}
             {activeTab === 'overview' && (
               <div className="p-5 sm:p-6 space-y-6 flex-1">
-                {/* Welcome Card */}
+                {/* Executive Welcome Card */}
                 <div className="rounded-xl border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 p-6 text-white shadow-xs relative overflow-hidden">
                   <div className="relative z-10 max-w-2xl space-y-3">
                     <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300 text-xs font-medium border border-zinc-700/60">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>লাইভ এডমিন কন্ট্রোল সেন্টার</span>
+                      <span>লাইভ এডমিন কন্ট্রোল সেন্টার ও অ্যানালিটিক্স</span>
                     </div>
                     <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
                       স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা
                     </h2>
                     <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অনুদান, সদস্য, ভলান্টিয়ার এবং চলমান প্রজেক্টের রিয়েলটাইম তথ্যাদি সম্পূর্ণ স্বয়ংক্রিয়ভাবে সংরক্ষিত রয়েছে।
+                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের রিয়েলটাইম অনুদান প্রবাহ, প্রকল্প বাস্তবায়ন ও আর্থিক অডিট তথ্যাদি নিচে ইন্টারেক্টিভ চার্টে প্রদর্শিত হচ্ছে।
                     </p>
                     <div className="flex flex-wrap items-center gap-2.5 pt-2">
                       <button
@@ -1148,7 +1279,7 @@ export default function AdminDashboard() {
                         className="h-9 px-3.5 bg-white text-zinc-900 hover:bg-zinc-100 rounded-md text-xs font-semibold shadow-xs transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <HeartHandshake className="w-4 h-4 text-zinc-700" />
-                        <span>সকল অনুদান দেখুন ({donations.length})</span>
+                        <span>অনলাইন অনুদান তালিকা ({donations.length})</span>
                       </button>
                       <button
                         type="button"
@@ -1158,92 +1289,220 @@ export default function AdminDashboard() {
                         <Plus className="w-4 h-4" />
                         <span>নতুন সদস্য যুক্ত করুন</span>
                       </button>
+                      <a
+                        href="/images/permit.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-9 px-3.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-700/80 rounded-md text-xs font-medium transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                        <span>সরকারি লাইসেন্স সনদ (S-14086/2023)</span>
+                      </a>
                     </div>
                   </div>
                 </div>
 
-                {/* 3 Metric Insight Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                  {/* Insight 1: Payment Method Breakdown */}
-                  <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
+                {/* ====================================================== */}
+                {/* Interactive Recharts Section: Trend + Distribution */}
+                {/* ====================================================== */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Left (2 Cols): Area Chart for Donation Growth */}
+                  <div className="lg:col-span-2 rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
-                          <CreditCard className="w-4 h-4 text-zinc-700" />
-                          পেমেন্ট মেথড বিভাজন
-                        </h3>
-                        <span className="text-[11px] font-mono text-zinc-500 uppercase">EPS Gateway</span>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-100 gap-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <Activity className="w-4 h-4 text-emerald-600" />
+                            <h3 className="text-sm font-semibold text-zinc-900">
+                              অনুদান সংগ্রহ ট্রেন্ড ও অ্যানালিটিক্স
+                            </h3>
+                          </div>
+                          <p className="text-xs text-zinc-500 mt-0.5">
+                            রিয়েলটাইম সংগ্রহ পরিমাণ ও দাতার সংখ্যার গ্রাফ
+                          </p>
+                        </div>
+
+                        {/* Timeframe Filter Buttons */}
+                        <div className="inline-flex items-center rounded-lg bg-zinc-100 p-1 border border-zinc-200/80 self-start sm:self-auto">
+                          <button
+                            type="button"
+                            onClick={() => setChartTimeframe('7d')}
+                            className={cn(
+                              'px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
+                              chartTimeframe === '7d'
+                                ? 'bg-white text-zinc-900 font-semibold shadow-2xs'
+                                : 'text-zinc-600 hover:text-zinc-900'
+                            )}
+                          >
+                            ৭ দিন
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setChartTimeframe('30d')}
+                            className={cn(
+                              'px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
+                              chartTimeframe === '30d'
+                                ? 'bg-white text-zinc-900 font-semibold shadow-2xs'
+                                : 'text-zinc-600 hover:text-zinc-900'
+                            )}
+                          >
+                            ৩০ দিন
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setChartTimeframe('year')}
+                            className={cn(
+                              'px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
+                              chartTimeframe === 'year'
+                                ? 'bg-white text-zinc-900 font-semibold shadow-2xs'
+                                : 'text-zinc-600 hover:text-zinc-900'
+                            )}
+                          >
+                            মাসিক
+                          </button>
+                        </div>
                       </div>
 
-                      <div className="space-y-4 mt-4">
-                        <div>
-                          <div className="flex justify-between text-xs font-medium mb-1">
-                            <span className="text-zinc-700">বিকাশ (bKash)</span>
-                            <span className="font-mono text-zinc-900 font-bold">৬০%</span>
-                          </div>
-                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
-                            <div className="h-full bg-pink-500 rounded-full w-[60%]"></div>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="flex justify-between text-xs font-medium mb-1">
-                            <span className="text-zinc-700">নগদ (Nagad)</span>
-                            <span className="font-mono text-zinc-900 font-bold">২৫%</span>
-                          </div>
-                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
-                            <div className="h-full bg-orange-500 rounded-full w-[25%]"></div>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="flex justify-between text-xs font-medium mb-1">
-                            <span className="text-zinc-700">কার্ড ও ব্যাংক ট্রান্সফার</span>
-                            <span className="font-mono text-zinc-900 font-bold">১৫%</span>
-                          </div>
-                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
-                            <div className="h-full bg-emerald-600 rounded-full w-[15%]"></div>
-                          </div>
-                        </div>
+                      {/* Interactive Area Chart */}
+                      <div className="mt-5 w-full h-[280px]">
+                        {isMounted && (
+                          <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart
+                              data={currentChartData}
+                              margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                            >
+                              <defs>
+                                <linearGradient id="donationGradient" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                                  <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                                </linearGradient>
+                              </defs>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#f4f4f5" vertical={false} />
+                              <XAxis
+                                dataKey="label"
+                                stroke="#71717a"
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={{ stroke: '#e4e4e7' }}
+                              />
+                              <YAxis
+                                stroke="#71717a"
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={false}
+                                tickFormatter={val => `৳${(val / 1000).toFixed(0)}k`}
+                              />
+                              <Tooltip
+                                content={({ active, payload, label }) => {
+                                  if (active && payload && payload.length) {
+                                    return (
+                                      <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-3 text-white shadow-xl text-xs space-y-1">
+                                        <p className="font-semibold text-zinc-300">{label}</p>
+                                        <p className="font-mono font-bold text-emerald-400 text-sm">
+                                          ৳{Number(payload[0].value).toLocaleString()}
+                                        </p>
+                                        {payload[0].payload?.donors && (
+                                          <p className="text-[11px] text-zinc-400">
+                                            দাতার সংখ্যা: {payload[0].payload.donors} জন
+                                          </p>
+                                        )}
+                                      </div>
+                                    );
+                                  }
+                                  return null;
+                                }}
+                              />
+                              <Area
+                                type="monotone"
+                                dataKey="amount"
+                                stroke="#10b981"
+                                strokeWidth={2.5}
+                                fillOpacity={1}
+                                fill="url(#donationGradient)"
+                              />
+                            </AreaChart>
+                          </ResponsiveContainer>
+                        )}
                       </div>
                     </div>
 
-                    <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
-                      <span>সফল ট্রানজেকশন রেট</span>
-                      <span className="font-semibold text-emerald-600 font-mono">৯৯.৮% শতভাগ স্বচ্ছ</span>
+                    <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        রিয়েলটাইম ব্যাংক ও EPS ট্রানজেকশন সিঙ্ক
+                      </span>
+                      <span className="font-mono font-semibold text-zinc-800">
+                        সর্বশেষ আপডেট: আজ
+                      </span>
                     </div>
                   </div>
 
-                  {/* Insight 2: Top Causes */}
+                  {/* Right (1 Col): Donut / Pie Chart for Sector Distribution */}
                   <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
+                        <div className="flex items-center gap-2">
                           <PieChart className="w-4 h-4 text-zinc-700" />
-                          শীর্ষ মানবিক খাতসমূহ
-                        </h3>
+                          <h3 className="text-sm font-semibold text-zinc-900">মানবিক খাত বণ্টন</h3>
+                        </div>
                         <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
                           ১০০% যাকাত
                         </span>
                       </div>
 
-                      <div className="space-y-2.5 mt-3.5 text-xs">
-                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
-                          <span className="font-medium text-zinc-800">সুপেয় পানি ও নলকূপ প্রকল্প</span>
-                          <span className="font-mono font-bold text-zinc-900">৳১,০৫,০০০</span>
-                        </div>
-                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
-                          <span className="font-medium text-zinc-800">বাৎসরিক ফরজ যাকাত ফান্ড</span>
-                          <span className="font-mono font-bold text-zinc-900">৳৫০,০০০</span>
-                        </div>
-                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
-                          <span className="font-medium text-zinc-800">ওয়ান মিল ওয়ান হোপ (খাদ্য)</span>
-                          <span className="font-mono font-bold text-zinc-900">৳১৮,৫০০</span>
-                        </div>
-                        <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-50/80">
-                          <span className="font-medium text-zinc-800">প্রজেক্ট আলো (চিকিৎসা)</span>
-                          <span className="font-mono font-bold text-zinc-900">৳৩,৫০০</span>
-                        </div>
+                      {/* Pie Chart */}
+                      <div className="mt-3 w-full h-[180px]">
+                        {isMounted && (
+                          <ResponsiveContainer width="100%" height="100%">
+                            <RechartsPieChart>
+                              <Pie
+                                data={SECTOR_DISTRIBUTION}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={48}
+                                outerRadius={72}
+                                paddingAngle={3}
+                                dataKey="value"
+                              >
+                                {SECTOR_DISTRIBUTION.map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                              </Pie>
+                              <Tooltip
+                                content={({ active, payload }) => {
+                                  if (active && payload && payload.length) {
+                                    const data = payload[0].payload;
+                                    return (
+                                      <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-2 text-white shadow-xl text-xs">
+                                        <p className="font-semibold">{data.name}</p>
+                                        <p className="font-mono text-emerald-400 font-bold">{data.value}% তহবিল</p>
+                                      </div>
+                                    );
+                                  }
+                                  return null;
+                                }}
+                              />
+                            </RechartsPieChart>
+                          </ResponsiveContainer>
+                        )}
+                      </div>
+
+                      {/* Custom Legend */}
+                      <div className="space-y-1.5 mt-2 text-xs">
+                        {SECTOR_DISTRIBUTION.map((s, idx) => (
+                          <div key={idx} className="flex items-center justify-between py-1 px-1.5 rounded hover:bg-zinc-50 transition-colors">
+                            <div className="flex items-center gap-2">
+                              <span
+                                className="w-2.5 h-2.5 rounded-full shrink-0"
+                                style={{ backgroundColor: s.color }}
+                              />
+                              <span className="text-zinc-700 text-[11px] truncate">{s.name}</span>
+                            </div>
+                            <span className="font-mono font-semibold text-zinc-900 text-xs">
+                              {s.value}%
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -1256,34 +1515,73 @@ export default function AdminDashboard() {
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
+                </div>
 
-                  {/* Insight 3: Audit & Shortcuts */}
+                {/* ====================================================== */}
+                {/* 2-Column: Campaign Progress & Quick Action Audit */}
+                {/* ====================================================== */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Campaign Progress Bars */}
+                  <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs">
+                    <div className="flex items-center justify-between pb-3.5 border-b border-zinc-100">
+                      <div className="flex items-center gap-2">
+                        <FolderKanban className="w-4 h-4 text-zinc-700" />
+                        <h3 className="text-sm font-semibold text-zinc-900">
+                          চলমান প্রকল্পের তহবিল সংগ্রহ অগ্রগতি
+                        </h3>
+                      </div>
+                      <span className="text-[11px] font-mono text-zinc-500 uppercase">Target vs Raised</span>
+                    </div>
+
+                    <div className="space-y-4 mt-4 text-xs">
+                      {CAMPAIGN_PROGRESS_BARS.map((c, idx) => (
+                        <div key={idx} className="space-y-1.5">
+                          <div className="flex items-center justify-between font-medium">
+                            <span className="text-zinc-900 truncate pr-2">{c.name}</span>
+                            <span className="font-mono font-bold text-zinc-900 shrink-0">
+                              {c.percentage}% (৳{c.raised.toLocaleString()})
+                            </span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-zinc-100 overflow-hidden">
+                            <div
+                              className={cn('h-full rounded-full transition-all duration-500', c.color)}
+                              style={{ width: `${c.percentage}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Quick Audit & Shortcuts Card */}
                   <div className="rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-700 flex items-center gap-2">
+                      <div className="flex items-center justify-between pb-3.5 border-b border-zinc-100">
+                        <div className="flex items-center gap-2">
                           <ShieldCheck className="w-4 h-4 text-zinc-700" />
-                          সরকারি অডিট ও শর্টকাট
-                        </h3>
+                          <h3 className="text-sm font-semibold text-zinc-900">
+                            সরকারি অডিট, কমপ্লায়েন্স ও দ্রুত শর্টকাট
+                          </h3>
+                        </div>
                         <span className="text-[11px] font-semibold text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
                           এনজিও সনদ
                         </span>
                       </div>
 
-                      <div className="space-y-2.5 mt-3.5">
+                      <div className="space-y-2.5 mt-4">
                         <a
                           href="/images/permit.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2.5 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors"
+                          className="p-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors"
                         >
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-7 h-7 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 flex items-center justify-center shrink-0">
-                              <FileText className="w-3.5 h-3.5" />
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center shrink-0">
+                              <FileText className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold text-zinc-900">সরকারি লাইসেন্স পারমিট</p>
-                              <p className="text-[10px] text-zinc-500 font-mono">Reg: S-14086/2023</p>
+                              <p className="text-xs font-semibold text-zinc-900">সরকারি লাইসেন্স পারমিট (PDF)</p>
+                              <p className="text-[11px] text-zinc-500 font-mono">রেজিস্ট্রেশন নং: S-14086/2023</p>
                             </div>
                           </div>
                           <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
@@ -1292,15 +1590,32 @@ export default function AdminDashboard() {
                         <button
                           type="button"
                           onClick={() => openAddVolunteerModal()}
-                          className="w-full p-2.5 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors cursor-pointer text-left"
+                          className="w-full p-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors cursor-pointer text-left"
                         >
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-7 h-7 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-700 flex items-center justify-center shrink-0">
-                              <Plus className="w-3.5 h-3.5" />
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-md bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center shrink-0">
+                              <Plus className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold text-zinc-900">নতুন ভলান্টিয়ার এন্ট্রি</p>
-                              <p className="text-[10px] text-zinc-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
+                              <p className="text-xs font-semibold text-zinc-900">নতুন ভলান্টিয়ার তালিকাভুক্তি</p>
+                              <p className="text-[11px] text-zinc-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setActiveTab('section_editor')}
+                          className="w-full p-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 flex items-center justify-between group transition-colors cursor-pointer text-left"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0">
+                              <Layers className="w-4 h-4" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-zinc-900">সেকশন এডিটর (WordPress-স্টাইল)</p>
+                              <p className="text-[11px] text-zinc-500">লাইভ পেইজ ও কার্ডসমূহ কাস্টমাইজ করুন</p>
                             </div>
                           </div>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
@@ -1315,7 +1630,9 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                {/* Recent Donations Table */}
+                {/* ====================================================== */}
+                {/* Recent Donations Table in Overview */}
+                {/* ====================================================== */}
                 <div className="rounded-xl border border-zinc-200/80 bg-white shadow-xs overflow-hidden">
                   <div className="p-4 flex items-center justify-between border-b border-zinc-100">
                     <div className="flex items-center gap-2">
