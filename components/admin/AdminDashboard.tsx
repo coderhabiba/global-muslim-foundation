@@ -939,19 +939,19 @@ export default function AdminDashboard() {
             </button>
 
             {/* Active Tab Icon */}
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
-              {activeTab === 'overview' && <LayoutDashboard className="w-5 h-5 text-emerald-600" />}
-              {activeTab === 'section_editor' && <Layers className="w-5 h-5 text-indigo-600" />}
-              {activeTab === 'donations' && <HeartHandshake className="w-5 h-5 text-emerald-600" />}
-              {activeTab === 'members' && <Users className="w-5 h-5 text-zinc-800" />}
-              {activeTab === 'volunteers' && <HandHeart className="w-5 h-5 text-amber-600" />}
-              {activeTab === 'campaigns' && <FolderKanban className="w-5 h-5 text-amber-600" />}
-              {activeTab === 'settings' && <Settings className="w-5 h-5 text-zinc-600" />}
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-700 hidden sm:flex items-center justify-center shrink-0 shadow-2xs">
+              {activeTab === 'overview' && <LayoutDashboard className="w-4 h-4 text-emerald-600" />}
+              {activeTab === 'section_editor' && <Layers className="w-4 h-4 text-indigo-600" />}
+              {activeTab === 'donations' && <HeartHandshake className="w-4 h-4 text-emerald-600" />}
+              {activeTab === 'members' && <Users className="w-4 h-4 text-zinc-800" />}
+              {activeTab === 'volunteers' && <HandHeart className="w-4 h-4 text-amber-600" />}
+              {activeTab === 'campaigns' && <FolderKanban className="w-4 h-4 text-amber-600" />}
+              {activeTab === 'settings' && <Settings className="w-4 h-4 text-zinc-600" />}
             </div>
 
             <div className="min-w-0 flex flex-col justify-center">
               <div className="flex items-center gap-2">
-                <h1 className="text-xs sm:text-sm md:text-[14px] font-semibold text-zinc-900 tracking-normal truncate">
+                <h1 className="text-xs sm:text-[13px] font-semibold text-zinc-800 tracking-normal truncate">
                   {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                   {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                   {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
@@ -966,7 +966,7 @@ export default function AdminDashboard() {
                   <span>রেজি: S-14086/2023</span>
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-500 truncate mt-0.5">
+              <p className="text-[10px] sm:text-[11px] text-zinc-400 truncate mt-0.5">
                 {activeTab === 'overview' && 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র'}
                 {activeTab === 'section_editor' && 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর'}
                 {activeTab === 'donations' && 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা'}
@@ -1012,8 +1012,8 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        {/* Main Content View */}
-        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-7xl w-full mx-auto">
+        {/* Main Content View (Full width, balanced margins) */}
+        <main className="p-3.5 sm:p-5 lg:p-6 flex-1 flex flex-col gap-5 w-full">
           {/* ========================================================== */}
           {/* 4 Premium Animated Executive KPI Cards with Framer Motion */}
           {/* ========================================================== */}

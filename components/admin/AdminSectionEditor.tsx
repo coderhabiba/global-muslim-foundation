@@ -457,7 +457,7 @@ export default function AdminSectionEditor() {
   const coreSections = selectedPageConfig?.sections.slice().sort((a, b) => a.order - b.order) || [];
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 bg-slate-50/70 flex-1 min-h-0">
+    <div className="p-3 sm:p-5 bg-slate-50/70 flex-1 min-h-0">
 
       {/* Top Header */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-xs mb-6">
