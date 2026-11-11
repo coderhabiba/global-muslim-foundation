@@ -295,7 +295,18 @@ export default function AdminDashboard() {
     bioBn: '',
   });
 
-  // Volunteer Modal State
+  // Delete Confirmation Modal State
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{
+    isOpen: boolean;
+    type: 'member' | 'volunteer';
+    id: string;
+    name: string;
+  }>({
+    isOpen: false,
+    type: 'member',
+    id: '',
+    name: '',
+  });
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
   const [editingVolunteerId, setEditingVolunteerId] = useState<string | null>(null);
   const [volunteerForm, setVolunteerForm] = useState<Omit<VolunteerCandidate, 'id' | 'date'>>({
@@ -536,22 +547,12 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteVolunteer = (id: string, name: string) => {
-    if (confirm(`আপনি কি নিশ্চিতভাবে "${name}" কে স্বেচ্ছাসেবক তালিকা থেকে মুছে ফেলতে চান?`)) {
-      const updated = volunteers.filter(v => v.id !== id);
-      setVolunteers(updated);
-      try {
-        localStorage.setItem('gmcf:volunteers', JSON.stringify(updated));
-      } catch (e) {
-        console.error(e);
-      }
-      supabase
-        .from('volunteers')
-        .delete()
-        .eq('id', id)
-        .then(({ error }) => {
-          if (error) console.error('Supabase delete volunteer:', error.message);
-        });
-    }
+    setDeleteConfirmation({
+      isOpen: true,
+      type: 'volunteer',
+      id,
+      name,
+    });
   };
 
   // Member CRUD
@@ -656,7 +657,19 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteMember = (id: string, name: string) => {
-    if (confirm(`আপনি কি নিশ্চিতভাবে "${name}" কে সদস্য তালিকা থেকে মুছে ফেলতে চান?`)) {
+    setDeleteConfirmation({
+      isOpen: true,
+      type: 'member',
+      id,
+      name,
+    });
+  };
+
+  const confirmDeleteAction = () => {
+    const { id, type } = deleteConfirmation;
+    if (!id) return;
+
+    if (type === 'member') {
       const updated = members.filter(m => m.id !== id);
       setMembers(updated);
       try {
@@ -671,7 +684,24 @@ export default function AdminDashboard() {
         .then(({ error }) => {
           if (error) console.error('Supabase delete member:', error.message);
         });
+    } else if (type === 'volunteer') {
+      const updated = volunteers.filter(v => v.id !== id);
+      setVolunteers(updated);
+      try {
+        localStorage.setItem('gmcf:volunteers', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      supabase
+        .from('volunteers')
+        .delete()
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) console.error('Supabase delete volunteer:', error.message);
+        });
     }
+
+    setDeleteConfirmation({ isOpen: false, type: 'member', id: '', name: '' });
   };
 
   const totalDonationsBdt = donations.reduce(
@@ -2456,6 +2486,47 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* ============================================================== */}
+      {/* Delete Confirmation Modal (Replaces browser window.confirm) */}
+      {/* ============================================================== */}
+      {deleteConfirmation.isOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in-95 duration-200">
+            {/* Warning Icon with Soft Red Ring */}
+            <div className="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 border border-rose-100 shadow-xs">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 font-serif-heading">
+              মুছে ফেলার নিশ্চিতকরণ
+            </h3>
+
+            <p className="text-sm text-slate-600 leading-relaxed mb-6">
+              আপনি কি নিশ্চিতভাবে <span className="font-bold text-slate-900">"{deleteConfirmation.name}"</span> কে{' '}
+              {deleteConfirmation.type === 'member' ? 'সদস্য তালিকা' : 'স্বেচ্ছাসেবক তালিকা'} থেকে স্থায়ীভাবে মুছে ফেলতে চান?
+            </p>
+
+            <div className="flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmation({ isOpen: false, type: 'member', id: '', name: '' })}
+                className="w-1/2 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-bold hover:bg-slate-50 transition-colors text-sm cursor-pointer"
+              >
+                বাতিল করুন
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeleteAction}
+                className="w-1/2 py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition-all shadow-md shadow-rose-600/20 text-sm cursor-pointer active:scale-95"
+              >
+                হ্যাঁ, মুছে ফেলুন
+              </button>
+            </div>
           </div>
         </div>
       )}
