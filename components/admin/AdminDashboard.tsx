@@ -1067,78 +1067,78 @@ export default function AdminDashboard() {
         </header>
 
         {/* Dashboard Main Workspace */}
-        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full">
+        <main className="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col gap-6 max-w-[1600px] w-full text-sm">
           {/* KPI Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
                   সর্বমোট অনুদান সংগ্রহ
                 </span>
-                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   ৳{totalDonationsBdt.toLocaleString()}
                 </h3>
-                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
-                  <span className="material-symbols-outlined text-[14px]">trending_up</span>
+                <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[16px]">trending_up</span>
                   ১০০% যাকাত পলিসি নিশ্চিত
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
-                <span className="material-symbols-outlined text-2xl">account_balance_wallet</span>
+              <div className="w-13 h-13 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shrink-0">
+                <span className="material-symbols-outlined text-3xl">account_balance_wallet</span>
               </div>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
                   সদস্য ও ট্রাস্টি সংখ্যা
                 </span>
-                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   {members.length} জন
                 </h3>
-                <span className="text-[11px] text-teal-600 font-bold flex items-center gap-0.5 mt-1">
-                  <span className="material-symbols-outlined text-[14px]">badge</span>
+                <span className="text-xs text-teal-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[16px]">badge</span>
                   পরিচালনা ও ট্রাস্টি বোর্ড
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100">
-                <span className="material-symbols-outlined text-2xl">supervised_user_circle</span>
+              <div className="w-13 h-13 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100 shrink-0">
+                <span className="material-symbols-outlined text-3xl">supervised_user_circle</span>
               </div>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
                   স্বেচ্ছাসেবক টিম
                 </span>
-                <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 font-mono">
                   {volunteers.length} জন
                 </h3>
-                <span className="text-[11px] text-amber-600 font-bold flex items-center gap-0.5 mt-1">
-                  <span className="material-symbols-outlined text-[14px]">pending_actions</span>
+                <span className="text-xs text-amber-600 font-bold flex items-center gap-1 mt-1.5">
+                  <span className="material-symbols-outlined text-[16px]">pending_actions</span>
                   {pendingVolunteersCount} জন অনুমোদনের অপেক্ষায়
                 </span>
               </div>
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100">
-                <span className="material-symbols-outlined text-2xl">volunteer_activism</span>
+              <div className="w-13 h-13 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-100 shrink-0">
+                <span className="material-symbols-outlined text-3xl">volunteer_activism</span>
               </div>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
+                <span className="text-xs text-slate-500 font-bold block uppercase tracking-wider">
                   সরকারি নিবন্ধন স্ট্যাটাস
                 </span>
-                <h3 className="text-base font-bold text-slate-900 mt-1 font-mono">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1 font-mono">
                   S-14086/2023
                 </h3>
                 <a
                   href="/images/permit.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1 underline"
+                  className="text-xs text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1.5 underline"
                 >
-                  <span className="material-symbols-outlined text-[14px]">verified</span>
+                  <span className="material-symbols-outlined text-[16px]">verified</span>
                   স্বীকৃত লাইসেন্স (Permit PDF)
                 </a>
               </div>
@@ -1146,10 +1146,10 @@ export default function AdminDashboard() {
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100"
+                className="w-13 h-13 rounded-2xl bg-teal-50 hover:bg-teal-100 text-teal-700 flex items-center justify-center transition-colors cursor-pointer border border-teal-100 shrink-0"
                 title="View Government License Permit"
               >
-                <span className="material-symbols-outlined text-2xl">verified_user</span>
+                <span className="material-symbols-outlined text-3xl">verified_user</span>
               </a>
             </div>
           </div>
@@ -1159,73 +1159,73 @@ export default function AdminDashboard() {
           <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50 overflow-x-auto">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'overview'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">dashboard</span>
+              <span className="material-symbols-outlined text-[20px]">dashboard</span>
               ওভারভিউ ড্যাশবোর্ড
             </button>
 
             <button
               onClick={() => setActiveTab('donations')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'donations'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">payments</span>
+              <span className="material-symbols-outlined text-[20px]">payments</span>
               অনুদান তালিকা ({donations.length})
             </button>
 
             <button
               onClick={() => setActiveTab('members')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'members'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">badge</span>
+              <span className="material-symbols-outlined text-[20px]">badge</span>
               সদস্য তালিকা ({members.length})
             </button>
 
             <button
               onClick={() => setActiveTab('volunteers')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'volunteers'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
+              <span className="material-symbols-outlined text-[20px]">volunteer_activism</span>
               স্বেচ্ছাসেবক আবেদনপত্র ({volunteers.length})
             </button>
 
             <button
               onClick={() => setActiveTab('campaigns')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'campaigns'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">campaign</span>
+              <span className="material-symbols-outlined text-[20px]">campaign</span>
               চলমান ক্যাম্পেইন ওভারভিউ
             </button>
 
             <button
               onClick={() => setActiveTab('settings')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+              className={`py-4 px-4 text-sm font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'settings'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">settings</span>
+              <span className="material-symbols-outlined text-[20px]">settings</span>
               প্রাতিষ্ঠানিক তথ্য ও সেটিংস
             </button>
           </div>
@@ -1561,54 +1561,54 @@ export default function AdminDashboard() {
               </div>
 
               {/* Transactions Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
                     <tr>
-                      <th className="p-3.5">ট্রানজেকশন ID</th>
-                      <th className="p-3.5">দাতার নাম ও যোগাযোগ</th>
-                      <th className="p-3.5">উদ্দেশ্য / খাত</th>
-                      <th className="p-3.5">পরিমাণ</th>
-                      <th className="p-3.5">পেমেন্ট মাধ্যম</th>
-                      <th className="p-3.5">স্ট্যাটাস</th>
-                      <th className="p-3.5">তারিখ ও সময়</th>
+                      <th className="p-4">ট্রানজেকশন ID</th>
+                      <th className="p-4">দাতার নাম ও যোগাযোগ</th>
+                      <th className="p-4">উদ্দেশ্য / খাত</th>
+                      <th className="p-4">পরিমাণ</th>
+                      <th className="p-4">পেমেন্ট মাধ্যম</th>
+                      <th className="p-4">স্ট্যাটাস</th>
+                      <th className="p-4">তারিখ ও সময়</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
+                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
                     {filteredDonations.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="p-8 text-center text-slate-400">
+                        <td colSpan={7} className="p-8 text-center text-slate-500 text-sm">
                           কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।
                         </td>
                       </tr>
                     ) : (
                       filteredDonations.map(d => (
-                        <tr key={d.id} className="hover:bg-slate-50/70 transition-colors">
-                          <td className="p-3.5 font-mono text-emerald-800 font-bold">{d.id}</td>
-                          <td className="p-3.5">
-                            <span className="font-bold text-slate-900 block">{d.donorName}</span>
-                            <span className="text-slate-500 font-mono text-[11px]">{d.donorPhone}</span>
+                        <tr key={d.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="p-4 font-mono text-emerald-800 font-bold text-sm">{d.id}</td>
+                          <td className="p-4">
+                            <span className="font-bold text-slate-900 block text-sm">{d.donorName}</span>
+                            <span className="text-slate-500 font-mono text-xs">{d.donorPhone}</span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="text-slate-800 line-clamp-1">{d.cause}</span>
+                          <td className="p-4">
+                            <span className="text-slate-800 font-medium text-sm line-clamp-1">{d.cause}</span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="font-mono font-black text-emerald-800 text-sm">
+                          <td className="p-4">
+                            <span className="font-mono font-black text-emerald-800 text-base">
                               ৳{d.amount.toLocaleString()}
                             </span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="inline-block px-2 py-0.5 rounded font-mono font-bold text-[10px] bg-slate-100 text-slate-800 border border-slate-200">
+                          <td className="p-4">
+                            <span className="inline-block px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-slate-100 text-slate-800 border border-slate-200">
                               {d.method}
                             </span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                          <td className="p-4">
+                            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                              <span className="w-2 h-2 rounded-full bg-emerald-600" />
                               {d.status}
                             </span>
                           </td>
-                          <td className="p-3.5 text-slate-500 font-mono text-[11px]">
+                          <td className="p-4 text-slate-500 font-mono text-xs">
                             {d.date}
                           </td>
                         </tr>
@@ -1648,31 +1648,31 @@ export default function AdminDashboard() {
               </div>
 
               {/* Members Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
                     <tr>
-                      <th className="p-3.5 w-14 text-center">ছবি</th>
-                      <th className="p-3.5">নাম ও পরিচিতি</th>
-                      <th className="p-3.5">পদবী ও দায়িত্ব</th>
-                      <th className="p-3.5">ক্যাটাগরি</th>
-                      <th className="p-3.5">মোবাইল ও ইমেইল</th>
-                      <th className="p-3.5">অবস্থান / জেলা</th>
-                      <th className="p-3.5 text-right">অ্যাকশন</th>
+                      <th className="p-4 w-16 text-center">ছবি</th>
+                      <th className="p-4">নাম ও পরিচিতি</th>
+                      <th className="p-4">পদবী ও দায়িত্ব</th>
+                      <th className="p-4">ক্যাটাগরি</th>
+                      <th className="p-4">মোবাইল ও ইমেইল</th>
+                      <th className="p-4">অবস্থান / জেলা</th>
+                      <th className="p-4 text-right">অ্যাকশন</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
+                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
                     {filteredMembers.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="p-8 text-center text-slate-400">
+                        <td colSpan={7} className="p-8 text-center text-slate-500 text-sm">
                           কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।
                         </td>
                       </tr>
                     ) : (
                       filteredMembers.map(m => (
-                        <tr key={m.id} className="hover:bg-slate-50/70 transition-colors">
-                          <td className="p-3.5 text-center">
-                            <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 mx-auto bg-slate-100 flex items-center justify-center">
+                        <tr key={m.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="p-4 text-center">
+                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 mx-auto bg-slate-100 flex items-center justify-center shadow-xs">
                               {m.image ? (
                                 <img
                                   src={m.image}
@@ -1683,23 +1683,23 @@ export default function AdminDashboard() {
                                   }}
                                 />
                               ) : (
-                                <span className="material-symbols-outlined text-slate-400 text-[20px]">
+                                <span className="material-symbols-outlined text-slate-400 text-[24px]">
                                   person
                                 </span>
                               )}
                             </div>
                           </td>
-                          <td className="p-3.5">
-                            <span className="font-bold text-slate-900 block text-sm">{m.nameBn}</span>
-                            <span className="text-slate-500 text-[11px]">{m.nameEn}</span>
+                          <td className="p-4">
+                            <span className="font-bold text-slate-900 block text-base">{m.nameBn}</span>
+                            <span className="text-slate-500 text-xs">{m.nameEn}</span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="font-semibold text-emerald-900 block">{m.roleBn}</span>
-                            <span className="text-slate-500 text-[11px]">{m.departmentBn || m.roleEn}</span>
+                          <td className="p-4">
+                            <span className="font-bold text-emerald-900 block text-sm">{m.roleBn}</span>
+                            <span className="text-slate-600 text-xs">{m.departmentBn || m.roleEn}</span>
                           </td>
-                          <td className="p-3.5">
+                          <td className="p-4">
                             <span
-                              className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                              className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
                                 m.category === 'board'
                                   ? 'bg-amber-100 text-amber-900 border border-amber-300'
                                   : m.category === 'advisor'
@@ -1714,30 +1714,30 @@ export default function AdminDashboard() {
                                 : 'ব্যবস্থাপনা'}
                             </span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="font-mono text-slate-700 block">{m.phone || '—'}</span>
-                            <span className="text-slate-400 text-[11px] block">{m.email || '—'}</span>
+                          <td className="p-4">
+                            <span className="font-mono text-slate-800 font-semibold block text-sm">{m.phone || '—'}</span>
+                            <span className="text-slate-500 text-xs block">{m.email || '—'}</span>
                           </td>
-                          <td className="p-3.5 text-slate-600 max-w-[180px] truncate">
+                          <td className="p-4 text-slate-700 text-sm max-w-[180px] truncate">
                             {m.locationBn || 'ঢাকা, বাংলাদেশ'}
                           </td>
-                          <td className="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+                          <td className="p-4 text-right space-x-2 whitespace-nowrap">
                             <button
                               type="button"
                               onClick={() => openEditMemberModal(m)}
-                              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
                               title="সম্পাদনা করুন"
                             >
-                              <span className="material-symbols-outlined text-[15px]">edit</span>
+                              <span className="material-symbols-outlined text-[16px]">edit</span>
                               <span>এডিট</span>
                             </button>
                             <button
                               type="button"
                               onClick={() => handleDeleteMember(m.id, m.nameBn)}
-                              className="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
                               title="মুছে ফেলুন"
                             >
-                              <span className="material-symbols-outlined text-[15px]">delete</span>
+                              <span className="material-symbols-outlined text-[16px]">delete</span>
                               <span>ডিলিট</span>
                             </button>
                           </td>
@@ -1778,32 +1778,32 @@ export default function AdminDashboard() {
               </div>
 
               {/* Volunteers Table */}
-              <div className="border border-slate-200 rounded-xl overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+              <div className="border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-slate-50 text-slate-700 font-bold border-b border-slate-200 uppercase tracking-wider text-xs">
                     <tr>
-                      <th className="p-3.5 w-14 text-center">ছবি</th>
-                      <th className="p-3.5">আইডি ও নাম</th>
-                      <th className="p-3.5">মোবাইল ও ইমেইল</th>
-                      <th className="p-3.5">ঠিকানা / জেলা</th>
-                      <th className="p-3.5">পছন্দের মানবিক খাত</th>
-                      <th className="p-3.5">দক্ষতা ও অভিজ্ঞতা</th>
-                      <th className="p-3.5">স্ট্যাটাস</th>
-                      <th className="p-3.5 text-right">পদক্ষেপ</th>
+                      <th className="p-4 w-16 text-center">ছবি</th>
+                      <th className="p-4">আইডি ও নাম</th>
+                      <th className="p-4">মোবাইল ও ইমেইল</th>
+                      <th className="p-4">ঠিকানা / জেলা</th>
+                      <th className="p-4">পছন্দের মানবিক খাত</th>
+                      <th className="p-4">দক্ষতা ও অভিজ্ঞতা</th>
+                      <th className="p-4">স্ট্যাটাস</th>
+                      <th className="p-4 text-right">পদক্ষেপ</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
+                  <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
                     {filteredVolunteers.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="p-8 text-center text-slate-400">
+                        <td colSpan={8} className="p-8 text-center text-slate-500 text-sm">
                           কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।
                         </td>
                       </tr>
                     ) : (
                       filteredVolunteers.map(v => (
-                        <tr key={v.id} className="hover:bg-slate-50/70 transition-colors">
-                          <td className="p-3.5 text-center">
-                            <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 mx-auto bg-slate-100 flex items-center justify-center">
+                        <tr key={v.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="p-4 text-center">
+                            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 mx-auto bg-slate-100 flex items-center justify-center shadow-xs">
                               {v.image ? (
                                 <img
                                   src={v.image}
@@ -1814,30 +1814,30 @@ export default function AdminDashboard() {
                                   }}
                                 />
                               ) : (
-                                <span className="material-symbols-outlined text-slate-400 text-[20px]">
+                                <span className="material-symbols-outlined text-slate-400 text-[24px]">
                                   volunteer_activism
                                 </span>
                               )}
                             </div>
                           </td>
-                          <td className="p-3.5">
-                            <span className="font-bold text-slate-900 block text-sm">{v.name}</span>
-                            <span className="font-mono text-slate-400 text-[10px]">{v.id}</span>
+                          <td className="p-4">
+                            <span className="font-bold text-slate-900 block text-base">{v.name}</span>
+                            <span className="font-mono text-slate-500 text-xs">{v.id}</span>
                           </td>
-                          <td className="p-3.5">
-                            <span className="text-slate-800 font-mono block">{v.phone}</span>
-                            <span className="text-slate-400 text-[11px] block">{v.email || '—'}</span>
+                          <td className="p-4">
+                            <span className="text-slate-800 font-mono font-semibold block text-sm">{v.phone}</span>
+                            <span className="text-slate-500 text-xs block">{v.email || '—'}</span>
                           </td>
-                          <td className="p-3.5">{v.district}</td>
-                          <td className="p-3.5">
-                            <span className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-medium text-[11px] inline-block">
+                          <td className="p-4 text-slate-700 text-sm">{v.district}</td>
+                          <td className="p-4">
+                            <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-md border border-emerald-200 font-bold text-xs inline-block">
                               {v.category}
                             </span>
                           </td>
-                          <td className="p-3.5 text-slate-600 text-[11px] max-w-xs">{v.skills}</td>
-                          <td className="p-3.5">
+                          <td className="p-4 text-slate-700 text-sm max-w-xs">{v.skills}</td>
+                          <td className="p-4">
                             <span
-                              className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
                                 v.status === 'APPROVED'
                                   ? 'bg-emerald-100 text-emerald-800'
                                   : v.status === 'PENDING'
@@ -1848,11 +1848,11 @@ export default function AdminDashboard() {
                               {v.status}
                             </span>
                           </td>
-                          <td className="p-3.5 text-right space-x-1 whitespace-nowrap">
+                          <td className="p-4 text-right space-x-1.5 whitespace-nowrap">
                             {v.status !== 'APPROVED' && (
                               <button
                                 onClick={() => handleStatusChange(v.id, 'APPROVED')}
-                                className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[10px] font-bold cursor-pointer"
+                                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs"
                               >
                                 অনুমোদন
                               </button>
@@ -1860,7 +1860,7 @@ export default function AdminDashboard() {
                             {v.status !== 'REJECTED' && (
                               <button
                                 onClick={() => handleStatusChange(v.id, 'REJECTED')}
-                                className="px-2 py-1 bg-slate-200 hover:bg-red-100 hover:text-red-700 text-slate-700 rounded text-[10px] font-bold cursor-pointer"
+                                className="px-3 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
                               >
                                 বাতিল
                               </button>
@@ -1868,18 +1868,18 @@ export default function AdminDashboard() {
                             <button
                               type="button"
                               onClick={() => openEditVolunteerModal(v)}
-                              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[10px] font-bold cursor-pointer"
+                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
                               title="সম্পাদনা"
                             >
-                              <span className="material-symbols-outlined text-[13px] align-middle">edit</span>
+                              <span className="material-symbols-outlined text-[15px] align-middle">edit</span>
                             </button>
                             <button
                               type="button"
                               onClick={() => handleDeleteVolunteer(v.id, v.name)}
-                              className="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-[10px] font-bold cursor-pointer"
+                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold cursor-pointer transition-colors"
                               title="মুছুন"
                             >
-                              <span className="material-symbols-outlined text-[13px] align-middle">delete</span>
+                              <span className="material-symbols-outlined text-[15px] align-middle">delete</span>
                             </button>
                           </td>
                         </tr>
