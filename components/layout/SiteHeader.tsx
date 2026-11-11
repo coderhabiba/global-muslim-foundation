@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import {
   useSiteSettings,
 } from '@/lib/site-settings';
+import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
 
 const NAV_ITEMS = [
@@ -35,6 +36,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
   const { currency, setCurrency, language, setLanguage } = useSiteSettings();
   const { openPaymentModal, openLicenseModal } = useModalState();
+  const { cms } = useSiteCMS();
 
   const isBn = language === 'bn';
   const isSimple = variant === 'simple';
@@ -74,7 +76,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               className="h-8 sm:h-10 w-auto max-w-[150px] xs:max-w-[185px] sm:max-w-[220px] object-contain group-hover:scale-[1.01] transition-transform duration-200"
             />
             <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-800/90 tracking-tight leading-none mt-1 hidden xs:inline-block italic">
-              &ldquo;Your Kindness is someone&apos;s hope&rdquo;
+              {cms.header_footer.slogan}
             </span>
           </Link>
         </div>

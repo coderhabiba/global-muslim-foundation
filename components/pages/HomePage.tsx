@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useMemo, useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
 
 const GIFT_AMOUNTS = [
@@ -19,6 +20,7 @@ const NISAB_THRESHOLD_USD = 520;
 export default function HomePage() {
   const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, openLicenseModal, showAlert } = useModalState();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
   const [donorName, setDonorName] = useState('');
   const [donorContact, setDonorContact] = useState('');
@@ -109,20 +111,32 @@ export default function HomePage() {
                     shield_with_heart
                   </span>
                   <span className="">
-                    Trusted Global Humanitarian Relief &amp; Shariah Stewardship
+                    {isBn ? cms.home.heroBadge : 'Trusted Global Humanitarian Relief & Shariah Stewardship'}
                   </span>
                 </div>
                 <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-[54px] font-bold text-on-surface tracking-tight leading-[1.15]">
-                  Empowering Lives Through Faith,{' '}
-                  <span className="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">
-                    Compassion &amp; Stewardship
-                  </span>
+                  {isBn ? (
+                    cms.home.heroTitle
+                  ) : (
+                    <>
+                      Empowering Lives Through Faith,{' '}
+                      <span className="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">
+                        Compassion &amp; Stewardship
+                      </span>
+                    </>
+                  )}
                 </h1>
                 <p className="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-                  <strong>One Meal One Hope</strong> — Transforming vulnerable
-                  communities across Bangladesh and beyond with emergency
-                  nourishment, pediatric surgical care, and sustainable Zakat
-                  empowerment programs.
+                  {isBn ? (
+                    cms.home.heroSubtitle
+                  ) : (
+                    <>
+                      <strong>One Meal One Hope</strong> — Transforming vulnerable
+                      communities across Bangladesh and beyond with emergency
+                      nourishment, pediatric surgical care, and sustainable Zakat
+                      empowerment programs.
+                    </>
+                  )}
                 </p>
 
                 {/* Metric Value Badges */}

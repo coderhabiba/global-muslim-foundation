@@ -4,10 +4,12 @@ import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
 import { useModalState } from "@/lib/modal-context";
 import { useSiteSettings } from "@/lib/site-settings";
+import { useSiteCMS } from "@/lib/site-cms";
 
 export default function SiteFooter() {
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { language } = useSiteSettings();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
 
   return (
@@ -199,16 +201,16 @@ export default function SiteFooter() {
                 <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                   call
                 </span>
-                <a href="tel:01913119525" className="hover:underline font-semibold text-emerald-dark">
-                  01913119525
+                <a href={`tel:${cms.header_footer.hotline}`} className="hover:underline font-semibold text-emerald-dark">
+                  {cms.header_footer.hotline}
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
                   mail
                 </span>
-                <a href="mailto:gmcfoundation2022@gmail.com" className="hover:underline">
-                  gmcfoundation2022@gmail.com
+                <a href={`mailto:${cms.header_footer.email}`} className="hover:underline">
+                  {cms.header_footer.email}
                 </a>
               </div>
             </div>
