@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useModalState } from '@/lib/modal-context';
+import { supabase } from '@/lib/supabase';
 
 type DonationRecord = {
   id: string;
@@ -166,6 +167,59 @@ export default function AdminDashboard() {
     } catch (e) {
       console.error(e);
     }
+
+    // Fetch real-time donations from Supabase
+    supabase
+      .from('donations')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const mapped: DonationRecord[] = data.map(d => ({
+            id: d.transaction_id || d.id,
+            donorName: d.donor_name || 'Anonymous Donor',
+            donorPhone: d.donor_phone || '',
+            donorEmail: d.donor_email || '',
+            amount: Number(d.amount) || 0,
+            currency: d.currency || 'BDT',
+            cause: d.cause || 'General Relief',
+            method: (d.payment_method || 'EPS').toUpperCase(),
+            status: (d.status || 'SUCCESS').toUpperCase(),
+            date: new Date(d.created_at).toISOString().replace('T', ' ').substring(0, 19),
+            gateway: 'EPS Easy Payment System',
+          }));
+          setDonations(prev => {
+            const existingIds = new Set(mapped.map(m => m.id));
+            const rest = prev.filter(p => !existingIds.has(p.id));
+            return [...mapped, ...rest];
+          });
+        }
+      });
+
+    // Fetch real-time volunteers from Supabase
+    supabase
+      .from('volunteers')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const mapped: VolunteerCandidate[] = data.map(v => ({
+            id: v.id,
+            name: v.full_name || 'Volunteer',
+            phone: v.phone || '',
+            district: v.district || 'ঢাকা',
+            category: v.interests || 'মাঠ পর্যায়ের ত্রাণ',
+            skills: v.skills || 'স্বেচ্ছাসেবা',
+            date: new Date(v.created_at).toISOString().substring(0, 10),
+            status: (v.status === 'approved' ? 'APPROVED' : v.status === 'rejected' ? 'REJECTED' : 'PENDING'),
+          }));
+          setVolunteers(prev => {
+            const existingIds = new Set(mapped.map(m => m.id));
+            const rest = prev.filter(p => !existingIds.has(p.id));
+            return [...mapped, ...rest];
+          });
+        }
+      });
   }, [router]);
 
   const handleLogout = () => {

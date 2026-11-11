@@ -109,3 +109,4 @@ CREATE POLICY "Allow authenticated read subscribers"
 ON public.newsletter_subscribers FOR SELECT 
 TO authenticated 
 USING (true);
+

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteSettings } from '@/lib/site-settings';
+import { supabase } from '@/lib/supabase';
 
 type PaymentMethodType = 'bkash' | 'nagad' | 'rocket' | 'upay' | 'card' | 'bank';
 
@@ -50,7 +51,7 @@ export default function EpsPaymentModal() {
       setTrxId(generatedTrx);
       setStep('success');
 
-      // Save dummy donation to localStorage for the Admin Dashboard to read
+      // Save donation to Supabase and localStorage for Admin Dashboard
       try {
         const existing = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
         const newDonation = {
@@ -67,6 +68,24 @@ export default function EpsPaymentModal() {
           gateway: 'EPS Easy Payment System',
         };
         localStorage.setItem('gmcf:donations', JSON.stringify([newDonation, ...existing]));
+
+        // Sync directly to Supabase donations table
+        supabase
+          .from('donations')
+          .insert({
+            donor_name: newDonation.donorName,
+            donor_phone: newDonation.donorPhone,
+            donor_email: newDonation.donorEmail,
+            amount: newDonation.amount,
+            currency: newDonation.currency,
+            cause: newDonation.cause,
+            payment_method: newDonation.method,
+            transaction_id: generatedTrx,
+            status: 'completed',
+          })
+          .then(({ error }) => {
+            if (error) console.error('Supabase donation insert:', error.message);
+          });
       } catch (err) {
         console.error('Error saving donation', err);
       }
