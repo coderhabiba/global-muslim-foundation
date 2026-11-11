@@ -294,15 +294,15 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     pageBadge: 'FIELD AUDITED RESULTS • 100% ACCOUNTABILITY',
     pageTitle: 'আমাদের কার্যক্রমের প্রভাব ও অগ্রগতি',
     pageSubtitle: 'মাঠপর্যায়ে বাস্তবায়িত প্রতিটি প্রকল্পের বাস্তব ফলাফল, পরিসংখ্যান ও সংখ্যাগত অগ্রগতি।',
-    waterWellsCount: '১৮৫+',
+    waterWellsCount: '০',
     waterWellsLabel: 'সুপেয় পানির নলকূপ',
-    mealsDelivered: '৭৫,০০০+',
+    mealsDelivered: '০',
     mealsDeliveredLabel: 'খাবার প্যাকেট বিতরণ',
-    familiesRehabilitated: '১২০+',
+    familiesRehabilitated: '০',
     familiesRehabilitatedLabel: 'পুনর্বাসিত পরিবার',
-    healthcareProvided: '৮,৫০০+',
-    orphansSupported: '৩৫০+',
-    districtsCovered: '২৮টি',
+    healthcareProvided: '০',
+    orphansSupported: '০',
+    districtsCovered: '০',
     districtsCoveredLabel: 'জেলা কভারেজ',
     summaryHeading: 'শতভাগ স্বচ্ছতা ও চার্টার্ড একাউন্ট্যান্ট অডিট',
     summaryText: 'প্রতিটি অনুদানের ব্যাংক স্টেটমেন্ট, ভাউচার ও ভিডিও প্রমাণাদি দাতাদের কাছে উন্মুক্ত রাখা হয়।',
@@ -367,6 +367,36 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        if (parsed.impact) {
+          const MOCK_STRINGS = new Set([
+            '১৮৫+',
+            '১৮৫+ গভীর নলকূপ স্থাপন',
+            '১,৮৫০+',
+            '1,850+',
+            '৭৫,০০০+',
+            '৭৫,০০০+ প্যাকেট খাদ্য বিতরণ',
+            '১,৮০,০০০+',
+            '180,000+',
+            '১২০+',
+            '১২০+ গৃহহীন পরিবার পুনর্বাসন',
+            '৬৫০+',
+            '650+',
+            '২৮টি',
+            '২৮টি জেলায় সরাসরি ফিল্ড অপারেশন',
+            '28',
+            '28টি',
+            '৮,৫০০+',
+            '৮,৫০০+ সুবিধাবঞ্চিতদের বিনামূল্যে চিকিৎসা',
+            '৩৫০+',
+            '৩৫০+ এতিম শিশু সরাসরি প্রতিপালন',
+          ]);
+          if (MOCK_STRINGS.has(parsed.impact.waterWellsCount)) parsed.impact.waterWellsCount = '০';
+          if (MOCK_STRINGS.has(parsed.impact.mealsDelivered)) parsed.impact.mealsDelivered = '০';
+          if (MOCK_STRINGS.has(parsed.impact.familiesRehabilitated)) parsed.impact.familiesRehabilitated = '০';
+          if (MOCK_STRINGS.has(parsed.impact.districtsCovered)) parsed.impact.districtsCovered = '০';
+          if (MOCK_STRINGS.has(parsed.impact.healthcareProvided)) parsed.impact.healthcareProvided = '০';
+          if (MOCK_STRINGS.has(parsed.impact.orphansSupported)) parsed.impact.orphansSupported = '০';
+        }
         setCms(prev => ({
           ...DEFAULT_CMS_CONTENT,
           ...parsed,

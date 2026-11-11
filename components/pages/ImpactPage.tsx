@@ -383,15 +383,39 @@ export default function ImpactPage() {
   // Helper to extract cleanly separated count (number on top) and label (text below)
   const parseMetric = (
     val: string | undefined,
-    defaultCount: string,
     defaultLabel: string,
     explicitLabel?: string
   ) => {
     const raw = (val || '').trim();
-    if (!raw) {
-      return { count: defaultCount, label: explicitLabel || defaultLabel };
+    const MOCK_VALUES = new Set([
+      '১৮৫+',
+      '১৮৫+ গভীর নলকূপ স্থাপন',
+      '১,৮৫০+',
+      '1,850+',
+      '৭৫,০০০+',
+      '৭৫,০০০+ প্যাকেট খাদ্য বিতরণ',
+      '১,৮০,০০০+',
+      '180,000+',
+      '১২০+',
+      '১২০+ গৃহহীন পরিবার পুনর্বাসন',
+      '৬৫০+',
+      '650+',
+      '২৮টি',
+      '২৮টি জেলায় সরাসরি ফিল্ড অপারেশন',
+      '28',
+      '28টি',
+      '৮,৫০০+',
+      '৮,৫০০+ সুবিধাবঞ্চিতদের বিনামূল্যে চিকিৎসা',
+      '৩৫০+',
+      '৩৫০+ এতিম শিশু সরাসরি প্রতিপালন',
+    ]);
+
+    // If it's one of the old mock strings or empty, return clean '০'
+    if (!raw || MOCK_VALUES.has(raw)) {
+      return { count: '০', label: explicitLabel || defaultLabel };
     }
-    // Match leading digits/bengali digits and symbols e.g. "১৮৫+", "৭৫,০০০+", "120+", "২৮টি"
+
+    // Match leading digits/bengali digits e.g. "৫০+", "১০০টি", "500"
     const match = raw.match(/^([০-৯0-9,.\+]+(?:\s*[+টি])?)\s*(.*)$/);
     if (match && match[1] && match[2].trim()) {
       return {
@@ -407,25 +431,21 @@ export default function ImpactPage() {
 
   const metricWells = parseMetric(
     cmsImpact.waterWellsCount,
-    '১৮৫+',
     isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells',
     cmsImpact.waterWellsLabel
   );
   const metricMeals = parseMetric(
     cmsImpact.mealsDelivered,
-    '৭৫,০০০+',
     isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served',
     cmsImpact.mealsDeliveredLabel
   );
   const metricFamilies = parseMetric(
     cmsImpact.familiesRehabilitated,
-    '১২০+',
     isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families',
     cmsImpact.familiesRehabilitatedLabel
   );
   const metricDistricts = parseMetric(
     cmsImpact.districtsCovered,
-    '২৮টি',
     isBn ? 'জেলা কভারেজ' : 'Districts Reached',
     cmsImpact.districtsCoveredLabel
   );

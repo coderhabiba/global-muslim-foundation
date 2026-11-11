@@ -719,7 +719,7 @@ export default function AdminPageCmsEditor() {
                       <p className="font-bold text-slate-800">১ম কার্ড (নলকূপ)</p>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
-                        <input type="text" placeholder="১৮৫+" value={pageData.waterWellsCount || ''} onChange={e => handleFieldChange('waterWellsCount', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
+                        <input type="text" placeholder="০" value={pageData.waterWellsCount || ''} onChange={e => handleFieldChange('waterWellsCount', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
@@ -731,7 +731,7 @@ export default function AdminPageCmsEditor() {
                       <p className="font-bold text-slate-800">২য় কার্ড (খাদ্য)</p>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
-                        <input type="text" placeholder="৭৫,০০০+" value={pageData.mealsDelivered || ''} onChange={e => handleFieldChange('mealsDelivered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
+                        <input type="text" placeholder="০" value={pageData.mealsDelivered || ''} onChange={e => handleFieldChange('mealsDelivered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
@@ -743,7 +743,7 @@ export default function AdminPageCmsEditor() {
                       <p className="font-bold text-slate-800">৩য় কার্ড (পুনর্বাসন)</p>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
-                        <input type="text" placeholder="১২০+" value={pageData.familiesRehabilitated || ''} onChange={e => handleFieldChange('familiesRehabilitated', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
+                        <input type="text" placeholder="০" value={pageData.familiesRehabilitated || ''} onChange={e => handleFieldChange('familiesRehabilitated', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold" />
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
@@ -755,7 +755,7 @@ export default function AdminPageCmsEditor() {
                       <p className="font-bold text-slate-800">৪র্থ কার্ড (জেলা)</p>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">সংখ্যা / কাউন্ট</label>
-                        <input type="text" placeholder="২৮টি" value={pageData.districtsCovered || ''} onChange={e => handleFieldChange('districtsCovered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
+                        <input type="text" placeholder="০" value={pageData.districtsCovered || ''} onChange={e => handleFieldChange('districtsCovered', e.target.value)} className="w-full px-2.5 py-1.5 bg-slate-50 border rounded-lg font-bold text-amber-600" />
                       </div>
                       <div>
                         <label className="text-[11px] font-semibold text-slate-500 block mb-0.5">বিবরণী লেবেল</label>
