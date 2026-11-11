@@ -951,7 +951,7 @@ export default function AdminDashboard() {
 
             <div className="min-w-0 flex flex-col justify-center">
               <div className="flex items-center gap-2">
-                <h1 className="text-xs sm:text-[13px] font-semibold text-zinc-800 tracking-normal truncate">
+                <h1 style={{ fontSize: '11.5px' }} className="font-medium text-zinc-700 tracking-tight truncate">
                   {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                   {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                   {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
@@ -961,12 +961,12 @@ export default function AdminDashboard() {
                   {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সেটিংস'}
                 </h1>
                 
-                <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-mono border border-emerald-200/80 shrink-0 font-medium">
+                <span style={{ fontSize: '9.5px' }} className="hidden xl:inline-flex items-center gap-1 px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 font-mono border border-emerald-200/80 shrink-0 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>রেজি: S-14086/2023</span>
+                  <span>S-14086/2023</span>
                 </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-zinc-400 truncate mt-0.5">
+              <p style={{ fontSize: '9.5px' }} className="text-zinc-400 truncate mt-0.5 leading-tight">
                 {activeTab === 'overview' && 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র'}
                 {activeTab === 'section_editor' && 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর'}
                 {activeTab === 'donations' && 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা'}

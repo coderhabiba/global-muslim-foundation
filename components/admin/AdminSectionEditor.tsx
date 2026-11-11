@@ -460,18 +460,18 @@ export default function AdminSectionEditor() {
     <div className="p-3 sm:p-5 bg-slate-50/70 flex-1 min-h-0">
 
       {/* Top Header */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-xs mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl p-3 sm:p-4 border border-slate-200 shadow-2xs mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[11px] font-semibold border border-purple-200 mb-1.5">
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[10px] font-medium border border-purple-200 mb-1">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
               <span>WordPress-স্টাইল পেজ বাই পেজ সেকশন এডিটর</span>
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-              <span className="material-symbols-outlined text-purple-700 text-[20px]">web</span>
+            <h3 style={{ fontSize: '13px' }} className="font-semibold text-slate-800 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-purple-700 text-[16px]">web</span>
               <span>পেজ সেকশন কন্ট্রোল প্যানেল</span>
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p style={{ fontSize: '11px' }} className="text-slate-400 mt-0.5">
               প্রতিটি পেজের প্রতিটি সেকশন দেখুন, এডিট করুন, লুকান বা নতুন কাস্টম সেকশন যোগ করুন।
             </p>
           </div>
