@@ -20,16 +20,131 @@ type DonationRecord = {
   gateway: string;
 };
 
-type VolunteerCandidate = {
+export type MemberRecord = {
+  id: string;
+  nameBn: string;
+  nameEn: string;
+  roleBn: string;
+  roleEn: string;
+  category: 'board' | 'management' | 'advisor';
+  departmentBn?: string;
+  image: string;
+  phone?: string;
+  email?: string;
+  locationBn?: string;
+  bioBn?: string;
+};
+
+export type VolunteerCandidate = {
   id: string;
   name: string;
   phone: string;
+  email?: string;
   district: string;
   category: string;
   skills: string;
+  image?: string;
   date: string;
   status: 'APPROVED' | 'PENDING' | 'REJECTED';
 };
+
+const PRESET_AVATARS = [
+  { label: 'ভলান্টিয়ার ১', url: '/images/humanitarian-volunteers.jpg' },
+  { label: 'ভলান্টিয়ার ২', url: '/images/youth-volunteers.jpg' },
+  { label: 'মা ও স্বাস্থ্য', url: '/images/resilient-mother-portrait.jpg' },
+  { label: 'চিকিৎসা কর্মী', url: '/images/pediatric-hope-saifan.jpg' },
+  { label: 'ফিল্ড কর্মী', url: '/images/clean-water-well.jpg' },
+  { label: 'খাদ্য বিতরণ', url: '/images/street-children-hot-meals.jpg' },
+  { label: 'মাদরাসা সেবা', url: '/images/rural-madrasa-children.jpg' },
+  { label: 'ডকুমেন্টারি', url: '/images/child-portrait-documentary.jpg' },
+];
+
+const DEFAULT_MEMBERS: MemberRecord[] = [
+  {
+    id: 'm1',
+    category: 'board',
+    nameBn: 'মোহাম্মদ আলী মোস্তফা',
+    nameEn: 'Mohammad Ali Mostafa',
+    roleBn: 'চেয়ারম্যান ও প্রতিষ্ঠাতা',
+    roleEn: 'Chairman & Founder',
+    departmentBn: 'পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড',
+    locationBn: '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা',
+    image: '/images/humanitarian-volunteers.jpg',
+    phone: '01913119525',
+    email: 'gmcfoundation2022@gmail.com',
+    bioBn: 'ফাউন্ডেশনের দূরদর্শী অভিভাবক ও দিকনির্দেশক। শতভাগ স্বচ্ছতা ও জিরো অ্যাডমিন খরচে প্রতিটি সহায়তা সরাসরি দুস্থদের কাছে পৌঁছে দিতে অগ্রণী ভূমিকা পালন করছেন।',
+  },
+  {
+    id: 'm2',
+    category: 'board',
+    nameBn: 'মুফতি মাওলানা আব্দুল কুদ্দুস',
+    nameEn: 'Mufti Mawlana Abdul Quddus',
+    roleBn: 'প্রধান শরীয়াহ উপদেষ্টা ও অডিটর',
+    roleEn: 'Chief Shariah Advisor',
+    departmentBn: 'কেন্দ্রীয় শরীয়াহ বোর্ড',
+    locationBn: 'ঢাকা, বাংলাদেশ',
+    image: '/images/rural-madrasa-children.jpg',
+    phone: '01711-223344',
+    email: 'shariah@gmcf.org',
+    bioBn: 'যাকাতের হকদার ও তামলিক নির্ধারণ, নিসাব মূল্যায়ন এবং প্রতিটি তহবিল বণ্টনে পূর্ণ শরীয়াহ নীতিমালার কঠোর তত্ত্বাবধানকারী।',
+  },
+  {
+    id: 'm3',
+    category: 'board',
+    nameBn: 'ব্যারিস্টার ফারহান চৌধুরী',
+    nameEn: 'Barrister Farhan Chowdhury',
+    roleBn: 'আইন ও কমপ্লায়েন্স পরিচালক',
+    roleEn: 'Legal & Compliance Director',
+    departmentBn: 'আইন ও এনজিও ব্যুরো সেল',
+    locationBn: 'সুপ্রিম কোর্ট ও সাভার অফিস',
+    image: '/images/resilient-mother-portrait.jpg',
+    phone: '01819-887766',
+    email: 'legal@gmcf.org',
+    bioBn: 'এনজিও বিষয়ক ব্যুরো, বার্ষিক বিধিবদ্ধ অডিট এবং আন্তর্জাতিক অনুদান মনিটরিং নিশ্চিতকরণ।',
+  },
+  {
+    id: 'm4',
+    category: 'management',
+    nameBn: 'প্রকৌশলী মাহমুদুর রহমান',
+    nameEn: 'Engr. Mahmudur Rahman',
+    roleBn: 'ফিল্ড অপারেশন ও সুপেয় পানি সমন্বয়ক',
+    roleEn: 'Field Operations & WASH Lead',
+    departmentBn: 'প্রকৌশল ও পুনর্বাসন সেল',
+    locationBn: 'সুনামগঞ্জ ও কুড়িগ্রাম ক্যাম্প',
+    image: '/images/clean-water-well.jpg',
+    phone: '01722-445566',
+    email: 'operations@gmcf.org',
+    bioBn: 'চরাঞ্চল ও বন্যাদুর্গত এলাকায় গভীর নলকূপ স্থাপন, ঘর নির্মাণ ও টেকনিক্যাল টিম পরিচালনা করেন।',
+  },
+  {
+    id: 'm5',
+    category: 'management',
+    nameBn: 'ডাঃ শাহানা আক্তার',
+    nameEn: 'Dr. Shahana Akhter',
+    roleBn: 'চিকিৎসা ও শিশু স্বাস্থ্য পরিচালক',
+    roleEn: 'Medical Outreach Director',
+    departmentBn: 'প্রজেক্ট আলো মেডিকেল টিম',
+    locationBn: 'ঢাকা ও ফিল্ড মেডিকেল ক্যাম্প',
+    image: '/images/pediatric-hope-saifan.jpg',
+    phone: '01911-778899',
+    email: 'health@gmcf.org',
+    bioBn: 'দৃষ্টিহীনদের চোখের ছানি অপারেশন ও শিশুদের জরুরি সার্জারি তত্ত্বাবধানে নিবেদিত।',
+  },
+  {
+    id: 'm6',
+    category: 'management',
+    nameBn: 'তানভীর হোসেন',
+    nameEn: 'Tanvir Hossain',
+    roleBn: 'খাদ্য ও জরুরি ত্রাণ সমন্বয়ক',
+    roleEn: 'Relief & Emergency Food Coordinator',
+    departmentBn: 'ওয়ান মিল ওয়ান হোপ প্রোগ্রাম',
+    locationBn: 'সাভার কেন্দ্রীয় রান্নাঘর',
+    image: '/images/street-children-hot-meals.jpg',
+    phone: '01633-998877',
+    email: 'relief@gmcf.org',
+    bioBn: 'পথশিশু ও অনাহারী মানুষের জন্য প্রতিদিন খাবার রান্না ও বিতরণ নেটওয়ার্ক তদারকি করেন।',
+  },
+];
 
 const DEFAULT_DONATIONS: DonationRecord[] = [
   {
@@ -104,9 +219,11 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
     id: 'VOL-2025-01',
     name: 'তানভীর আহমেদ',
     phone: '01788-992211',
+    email: 'tanvir.vol@gmcf.org',
     district: 'ঢাকা (সাভার / আশুলিয়া)',
     category: 'জরুরি খাদ্য ও বস্ত্র বিতরণ',
     skills: 'ফিল্ড কোঅর্ডিনেশন ও যানবাহন সাপোর্ট',
+    image: '/images/humanitarian-volunteers.jpg',
     date: '2025-05-14',
     status: 'APPROVED',
   },
@@ -114,9 +231,11 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
     id: 'VOL-2025-02',
     name: 'ফারজানা আক্তার রিতু',
     phone: '01922-334455',
+    email: 'ritu.medical@gmcf.org',
     district: 'ঢাকা (মিরপুর)',
     category: 'মেডিকেল ও প্রাথমিক চিকিৎসা সহায়তা',
     skills: 'নার্সিং ডিপ্লোমা ও শিশু স্বাস্থ্য',
+    image: '/images/resilient-mother-portrait.jpg',
     date: '2025-05-13',
     status: 'PENDING',
   },
@@ -124,9 +243,11 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
     id: 'VOL-2025-03',
     name: 'মাহমুদুল হাসান',
     phone: '01811-223344',
+    email: 'hasan.media@gmcf.org',
     district: 'গাজীপুর',
     category: 'মিডিয়া, ফটোগ্রাফি ও সোশাল ক্যাম্পেইন',
     skills: 'ডিএসএলআর ভিডিওগ্রাফি ও গ্রাফিক্স ডিজাইন',
+    image: '/images/youth-volunteers.jpg',
     date: '2025-05-12',
     status: 'APPROVED',
   },
@@ -134,9 +255,11 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
     id: 'VOL-2025-04',
     name: 'আব্দুল করিম',
     phone: '01555-667788',
+    email: 'karim.wash@gmcf.org',
     district: 'নারায়ণগঞ্জ',
     category: 'সুপেয় পানি ও গভীর নলকূপ স্থাপন',
     skills: 'প্লাম্বিং ও টেকনিক্যাল মেরামত',
+    image: '/images/clean-water-well.jpg',
     date: '2025-05-11',
     status: 'PENDING',
   },
@@ -145,10 +268,46 @@ const DEFAULT_VOLUNTEERS: VolunteerCandidate[] = [
 export default function AdminDashboard() {
   const router = useRouter();
   const { openLicenseModal, openPaymentModal } = useModalState();
-  const [activeTab, setActiveTab] = useState<'donations' | 'volunteers' | 'campaigns' | 'settings'>('donations');
+  const [activeTab, setActiveTab] = useState<'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('donations');
+  
   const [donations, setDonations] = useState<DonationRecord[]>(DEFAULT_DONATIONS);
+  const [members, setMembers] = useState<MemberRecord[]>(DEFAULT_MEMBERS);
   const [volunteers, setVolunteers] = useState<VolunteerCandidate[]>(DEFAULT_VOLUNTEERS);
+  
   const [searchTerm, setSearchTerm] = useState('');
+  const [memberSearchTerm, setMemberSearchTerm] = useState('');
+  const [volunteerSearchTerm, setVolunteerSearchTerm] = useState('');
+
+  // Member Modal State
+  const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
+  const [editingMemberId, setEditingMemberId] = useState<string | null>(null);
+  const [memberForm, setMemberForm] = useState<Omit<MemberRecord, 'id'>>({
+    nameBn: '',
+    nameEn: '',
+    roleBn: '',
+    roleEn: '',
+    category: 'board',
+    departmentBn: 'পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড',
+    image: '/images/humanitarian-volunteers.jpg',
+    phone: '',
+    email: '',
+    locationBn: 'ঢাকা, বাংলাদেশ',
+    bioBn: '',
+  });
+
+  // Volunteer Modal State
+  const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
+  const [editingVolunteerId, setEditingVolunteerId] = useState<string | null>(null);
+  const [volunteerForm, setVolunteerForm] = useState<Omit<VolunteerCandidate, 'id' | 'date'>>({
+    name: '',
+    phone: '',
+    email: '',
+    district: 'ঢাকা',
+    category: 'জরুরি খাদ্য ও বস্ত্র বিতরণ',
+    skills: 'ফিল্ড অপারেশন ও সহায়তা',
+    image: '/images/youth-volunteers.jpg',
+    status: 'PENDING',
+  });
 
   useEffect(() => {
     // Check authentication
@@ -158,7 +317,7 @@ export default function AdminDashboard() {
       return;
     }
 
-    // Load any donations saved during this or previous sessions
+    // 1. Load donations from localStorage & Supabase
     try {
       const storedDonations = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
       if (storedDonations && storedDonations.length > 0) {
@@ -167,8 +326,6 @@ export default function AdminDashboard() {
     } catch (e) {
       console.error(e);
     }
-
-    // Fetch real-time donations from Supabase
     supabase
       .from('donations')
       .select('*')
@@ -196,7 +353,52 @@ export default function AdminDashboard() {
         }
       });
 
-    // Fetch real-time volunteers from Supabase
+    // 2. Load members from localStorage & Supabase
+    try {
+      const storedMembers = JSON.parse(localStorage.getItem('gmcf:members') || '[]');
+      if (storedMembers && Array.isArray(storedMembers) && storedMembers.length > 0) {
+        setMembers(storedMembers);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    supabase
+      .from('members')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const mapped: MemberRecord[] = data.map(d => ({
+            id: d.id,
+            nameBn: d.name_bn,
+            nameEn: d.name_en || d.name_bn,
+            roleBn: d.role_bn,
+            roleEn: d.role_en || d.role_bn,
+            category: (d.category || 'board') as any,
+            departmentBn: d.department_bn || '',
+            image: d.image || '/images/humanitarian-volunteers.jpg',
+            phone: d.phone || '',
+            email: d.email || '',
+            locationBn: d.location_bn || '',
+            bioBn: d.bio_bn || '',
+          }));
+          setMembers(prev => {
+            const existingIds = new Set(mapped.map(m => m.id));
+            const rest = prev.filter(p => !existingIds.has(p.id));
+            return [...mapped, ...rest];
+          });
+        }
+      });
+
+    // 3. Load volunteers from localStorage & Supabase
+    try {
+      const storedVolunteers = JSON.parse(localStorage.getItem('gmcf:volunteers') || '[]');
+      if (storedVolunteers && Array.isArray(storedVolunteers) && storedVolunteers.length > 0) {
+        setVolunteers(storedVolunteers);
+      }
+    } catch (e) {
+      console.error(e);
+    }
     supabase
       .from('volunteers')
       .select('*')
@@ -207,11 +409,13 @@ export default function AdminDashboard() {
             id: v.id,
             name: v.full_name || 'Volunteer',
             phone: v.phone || '',
+            email: v.email || '',
             district: v.district || 'ঢাকা',
             category: v.interests || 'মাঠ পর্যায়ের ত্রাণ',
             skills: v.skills || 'স্বেচ্ছাসেবা',
+            image: v.image || '/images/youth-volunteers.jpg',
             date: new Date(v.created_at).toISOString().substring(0, 10),
-            status: (v.status === 'approved' ? 'APPROVED' : v.status === 'rejected' ? 'REJECTED' : 'PENDING'),
+            status: (v.status === 'APPROVED' || v.status === 'approved' ? 'APPROVED' : v.status === 'REJECTED' || v.status === 'rejected' ? 'REJECTED' : 'PENDING'),
           }));
           setVolunteers(prev => {
             const existingIds = new Set(mapped.map(m => m.id));
@@ -228,13 +432,252 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
+  // Volunteer CRUD
   const handleStatusChange = (id: string, newStatus: 'APPROVED' | 'PENDING' | 'REJECTED') => {
-    setVolunteers(prev =>
-      prev.map(v => (v.id === id ? { ...v, status: newStatus } : v))
-    );
+    const updated = volunteers.map(v => (v.id === id ? { ...v, status: newStatus } : v));
+    setVolunteers(updated);
+    try {
+      localStorage.setItem('gmcf:volunteers', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    supabase.from('volunteers').update({ status: newStatus }).eq('id', id).then(({ error }) => {
+      if (error) console.error('Supabase update status:', error.message);
+    });
   };
 
-  const totalDonationsBdt = donations.reduce((sum, d) => sum + (d.currency === 'BDT' ? d.amount : d.amount * 122), 0);
+  const openAddVolunteerModal = () => {
+    setEditingVolunteerId(null);
+    setVolunteerForm({
+      name: '',
+      phone: '',
+      email: '',
+      district: 'ঢাকা',
+      category: 'জরুরি খাদ্য ও বস্ত্র বিতরণ',
+      skills: 'মাঠ পর্যায়ের সমন্বয় ও ভলান্টিয়ার সাপোর্ট',
+      image: '/images/youth-volunteers.jpg',
+      status: 'PENDING',
+    });
+    setIsVolunteerModalOpen(true);
+  };
+
+  const openEditVolunteerModal = (v: VolunteerCandidate) => {
+    setEditingVolunteerId(v.id);
+    setVolunteerForm({
+      name: v.name,
+      phone: v.phone,
+      email: v.email || '',
+      district: v.district,
+      category: v.category,
+      skills: v.skills,
+      image: v.image || '/images/youth-volunteers.jpg',
+      status: v.status,
+    });
+    setIsVolunteerModalOpen(true);
+  };
+
+  const handleSaveVolunteer = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!volunteerForm.name.trim() || !volunteerForm.phone.trim()) {
+      alert('স্বেচ্ছাসেবকের নাম ও ফোন নম্বর দেওয়া আবশ্যক!');
+      return;
+    }
+    let updated: VolunteerCandidate[];
+    if (editingVolunteerId) {
+      updated = volunteers.map(v =>
+        v.id === editingVolunteerId ? { ...v, ...volunteerForm, id: editingVolunteerId } : v
+      );
+      supabase
+        .from('volunteers')
+        .update({
+          full_name: volunteerForm.name,
+          phone: volunteerForm.phone,
+          email: volunteerForm.email,
+          district: volunteerForm.district,
+          interests: volunteerForm.category,
+          skills: volunteerForm.skills,
+          image: volunteerForm.image,
+          status: volunteerForm.status,
+        })
+        .eq('id', editingVolunteerId)
+        .then(({ error }) => {
+          if (error) console.error('Supabase update volunteer:', error.message);
+        });
+    } else {
+      const newVol: VolunteerCandidate = {
+        ...volunteerForm,
+        id: 'VOL-' + Math.floor(1000 + Math.random() * 9000),
+        date: new Date().toISOString().substring(0, 10),
+      };
+      updated = [newVol, ...volunteers];
+      supabase
+        .from('volunteers')
+        .insert({
+          full_name: newVol.name,
+          phone: newVol.phone,
+          email: newVol.email,
+          district: newVol.district,
+          interests: newVol.category,
+          skills: newVol.skills,
+          image: newVol.image,
+          status: newVol.status,
+        })
+        .then(({ error }) => {
+          if (error) console.error('Supabase insert volunteer:', error.message);
+        });
+    }
+    setVolunteers(updated);
+    try {
+      localStorage.setItem('gmcf:volunteers', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setIsVolunteerModalOpen(false);
+  };
+
+  const handleDeleteVolunteer = (id: string, name: string) => {
+    if (confirm(`আপনি কি নিশ্চিতভাবে "${name}" কে স্বেচ্ছাসেবক তালিকা থেকে মুছে ফেলতে চান?`)) {
+      const updated = volunteers.filter(v => v.id !== id);
+      setVolunteers(updated);
+      try {
+        localStorage.setItem('gmcf:volunteers', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      supabase
+        .from('volunteers')
+        .delete()
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) console.error('Supabase delete volunteer:', error.message);
+        });
+    }
+  };
+
+  // Member CRUD
+  const openAddMemberModal = () => {
+    setEditingMemberId(null);
+    setMemberForm({
+      nameBn: '',
+      nameEn: '',
+      roleBn: '',
+      roleEn: '',
+      category: 'board',
+      departmentBn: 'পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড',
+      image: '/images/humanitarian-volunteers.jpg',
+      phone: '',
+      email: '',
+      locationBn: 'ঢাকা, বাংলাদেশ',
+      bioBn: '',
+    });
+    setIsMemberModalOpen(true);
+  };
+
+  const openEditMemberModal = (m: MemberRecord) => {
+    setEditingMemberId(m.id);
+    setMemberForm({
+      nameBn: m.nameBn,
+      nameEn: m.nameEn,
+      roleBn: m.roleBn,
+      roleEn: m.roleEn,
+      category: m.category,
+      departmentBn: m.departmentBn || '',
+      image: m.image,
+      phone: m.phone || '',
+      email: m.email || '',
+      locationBn: m.locationBn || '',
+      bioBn: m.bioBn || '',
+    });
+    setIsMemberModalOpen(true);
+  };
+
+  const handleSaveMember = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!memberForm.nameBn.trim() || !memberForm.roleBn.trim()) {
+      alert('সদস্যের নাম ও পদবী দেওয়া আবশ্যক!');
+      return;
+    }
+    let updated: MemberRecord[];
+    if (editingMemberId) {
+      updated = members.map(m =>
+        m.id === editingMemberId ? { ...m, ...memberForm, id: editingMemberId } : m
+      );
+      supabase
+        .from('members')
+        .update({
+          name_bn: memberForm.nameBn,
+          name_en: memberForm.nameEn,
+          role_bn: memberForm.roleBn,
+          role_en: memberForm.roleEn,
+          category: memberForm.category,
+          department_bn: memberForm.departmentBn,
+          image: memberForm.image,
+          phone: memberForm.phone,
+          email: memberForm.email,
+          location_bn: memberForm.locationBn,
+          bio_bn: memberForm.bioBn,
+        })
+        .eq('id', editingMemberId)
+        .then(({ error }) => {
+          if (error) console.error('Supabase update member:', error.message);
+        });
+    } else {
+      const newMember: MemberRecord = {
+        ...memberForm,
+        id: 'm-' + Date.now(),
+      };
+      updated = [newMember, ...members];
+      supabase
+        .from('members')
+        .insert({
+          name_bn: newMember.nameBn,
+          name_en: newMember.nameEn,
+          role_bn: newMember.roleBn,
+          role_en: newMember.roleEn,
+          category: newMember.category,
+          department_bn: newMember.departmentBn,
+          image: newMember.image,
+          phone: newMember.phone,
+          email: newMember.email,
+          location_bn: newMember.locationBn,
+          bio_bn: newMember.bioBn,
+        })
+        .then(({ error }) => {
+          if (error) console.error('Supabase insert member:', error.message);
+        });
+    }
+    setMembers(updated);
+    try {
+      localStorage.setItem('gmcf:members', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setIsMemberModalOpen(false);
+  };
+
+  const handleDeleteMember = (id: string, name: string) => {
+    if (confirm(`আপনি কি নিশ্চিতভাবে "${name}" কে সদস্য তালিকা থেকে মুছে ফেলতে চান?`)) {
+      const updated = members.filter(m => m.id !== id);
+      setMembers(updated);
+      try {
+        localStorage.setItem('gmcf:members', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      supabase
+        .from('members')
+        .delete()
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) console.error('Supabase delete member:', error.message);
+        });
+    }
+  };
+
+  const totalDonationsBdt = donations.reduce(
+    (sum, d) => sum + (d.currency === 'BDT' ? d.amount : d.amount * 122),
+    0
+  );
   const pendingVolunteersCount = volunteers.filter(v => v.status === 'PENDING').length;
 
   const filteredDonations = donations.filter(
@@ -243,6 +686,22 @@ export default function AdminDashboard() {
       d.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       d.cause.toLowerCase().includes(searchTerm.toLowerCase()) ||
       d.donorPhone.includes(searchTerm)
+  );
+
+  const filteredMembers = members.filter(
+    m =>
+      m.nameBn.toLowerCase().includes(memberSearchTerm.toLowerCase()) ||
+      m.nameEn.toLowerCase().includes(memberSearchTerm.toLowerCase()) ||
+      m.roleBn.toLowerCase().includes(memberSearchTerm.toLowerCase()) ||
+      (m.phone && m.phone.includes(memberSearchTerm))
+  );
+
+  const filteredVolunteers = volunteers.filter(
+    v =>
+      v.name.toLowerCase().includes(volunteerSearchTerm.toLowerCase()) ||
+      v.phone.includes(volunteerSearchTerm) ||
+      v.district.toLowerCase().includes(volunteerSearchTerm.toLowerCase()) ||
+      v.category.toLowerCase().includes(volunteerSearchTerm.toLowerCase())
   );
 
   return (
@@ -260,20 +719,20 @@ export default function AdminDashboard() {
                 />
               </div>
             </Link>
-            <div className="hidden sm:block border-l border-emerald-800 pl-3">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block">
-                অ্যাডমিন কন্ট্রোল সেন্টার
+            <div className="hidden sm:block">
+              <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest block">
+                অ্যাডমিন নিয়ন্ত্রণ প্যানেল
               </span>
-              <span className="text-[11px] text-emerald-200">
+              <h1 className="text-sm font-bold text-white font-serif-heading">
                 Global Muslim Charitable Foundation
-              </span>
+              </h1>
             </div>
           </div>
 
           <div className="flex items-center gap-3 text-xs">
             <button
               onClick={() => openLicenseModal()}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-amber-300 border border-emerald-700 transition-colors"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-amber-300 border border-emerald-700 transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">verified</span>
               <span>সনদপত্র দেখুন</span>
@@ -281,7 +740,7 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold shadow transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold shadow transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">point_of_sale</span>
               <span>EPS টেস্ট অনুদান</span>
@@ -295,7 +754,7 @@ export default function AdminDashboard() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="w-9 h-9 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-700/50 flex items-center justify-center text-red-200 transition-colors"
+                className="w-9 h-9 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-700/50 flex items-center justify-center text-red-200 transition-colors cursor-pointer"
                 title="লগআউট করুন"
               >
                 <span className="material-symbols-outlined text-[18px]">logout</span>
@@ -330,25 +789,25 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
             <div>
               <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                অনুদান ট্রানজেকশন
+                সদস্য ও ট্রাস্টি সংখ্যা
               </span>
               <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
-                {donations.length} টি
+                {members.length} জন
               </h3>
-              <span className="text-[11px] text-blue-600 font-bold flex items-center gap-0.5 mt-1">
-                <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                ইজি পেমেন্ট সিস্টেম (EPS) গেটওয়ে
+              <span className="text-[11px] text-teal-600 font-bold flex items-center gap-0.5 mt-1">
+                <span className="material-symbols-outlined text-[14px]">badge</span>
+                পরিচালনা ও ট্রাস্টি বোর্ড
               </span>
             </div>
-            <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl">receipt_long</span>
+            <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center">
+              <span className="material-symbols-outlined text-2xl">supervised_user_circle</span>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
             <div>
               <span className="text-xs text-slate-500 font-semibold block uppercase tracking-wider">
-                স্বেচ্ছাসেবক আবেদন
+                স্বেচ্ছাসেবক টিম
               </span>
               <h3 className="text-2xl font-black text-slate-900 mt-1 font-mono">
                 {volunteers.length} জন
@@ -375,7 +834,7 @@ export default function AdminDashboard() {
                 href="/images/permit.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-0.5 mt-1 underline"
+                className="text-[11px] text-teal-700 hover:text-teal-900 font-bold flex items-center gap-1 mt-1 underline"
               >
                 <span className="material-symbols-outlined text-[14px]">verified</span>
                 স্বীকৃত লাইসেন্স (Permit PDF)
@@ -398,7 +857,7 @@ export default function AdminDashboard() {
           <div className="flex border-b border-slate-200 px-4 sm:px-6 gap-2 bg-slate-50 overflow-x-auto">
             <button
               onClick={() => setActiveTab('donations')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'donations'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -409,20 +868,32 @@ export default function AdminDashboard() {
             </button>
 
             <button
+              onClick={() => setActiveTab('members')}
+              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
+                activeTab === 'members'
+                  ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
+                  : 'border-transparent text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[18px]">badge</span>
+              সদস্য তালিকা ({members.length})
+            </button>
+
+            <button
               onClick={() => setActiveTab('volunteers')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'volunteers'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">group</span>
+              <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
               স্বেচ্ছাসেবক আবেদনপত্র ({volunteers.length})
             </button>
 
             <button
               onClick={() => setActiveTab('campaigns')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'campaigns'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -434,7 +905,7 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => setActiveTab('settings')}
-              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+              className={`py-4 px-4 text-xs font-bold border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap cursor-pointer ${
                 activeTab === 'settings'
                   ? 'border-emerald-700 text-emerald-800 bg-white shadow-sm -mb-px'
                   : 'border-transparent text-slate-600 hover:text-slate-900'
@@ -455,9 +926,9 @@ export default function AdminDashboard() {
                     placeholder="দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..."
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 border rounded-xl text-xs border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
                   />
-                  <span className="material-symbols-outlined absolute left-2.5 top-2.5 text-slate-400 text-[18px]">
+                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
                     search
                   </span>
                 </div>
@@ -465,62 +936,51 @@ export default function AdminDashboard() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => {
-                      const csvContent =
-                        'data:text/csv;charset=utf-8,' +
-                        ['ID,Donor,Phone,Amount,Currency,Cause,Method,Date']
-                          .concat(
-                            donations.map(
-                              d =>
-                                `"${d.id}","${d.donorName}","${d.donorPhone}",${d.amount},${d.currency},"${d.cause}","${d.method}","${d.date}"`
-                            )
-                          )
-                          .join('\n');
-                      const encodedUri = encodeURI(csvContent);
+                      const csv = [
+                        ['Transaction ID', 'Donor Name', 'Phone', 'Email', 'Amount', 'Currency', 'Cause', 'Method', 'Status', 'Date'],
+                        ...donations.map(d => [d.id, d.donorName, d.donorPhone, d.donorEmail, d.amount, d.currency, `"${d.cause}"`, d.method, d.status, d.date]),
+                      ].map(r => r.join(',')).join('\n');
+                      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                       const link = document.createElement('a');
-                      link.setAttribute('href', encodedUri);
+                      link.href = URL.createObjectURL(blob);
                       link.setAttribute('download', 'gmcf_eps_donations.csv');
                       document.body.appendChild(link);
                       link.click();
                       document.body.removeChild(link);
                     }}
-                    className="px-3.5 py-2 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 shadow-sm"
+                    className="px-3.5 py-2 border border-slate-300 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[16px]">download</span>
-                    CSV ডাউনলোড
+                    CSV এক্সপোর্ট
                   </button>
                 </div>
               </div>
 
-              {/* Table */}
+              {/* Transactions Table */}
               <div className="border border-slate-200 rounded-xl overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
                     <tr>
-                      <th className="p-3.5">Trx ID &amp; গেটওয়ে</th>
-                      <th className="p-3.5">দাতার নাম ও ফোন</th>
-                      <th className="p-3.5">অনুদান খাত</th>
+                      <th className="p-3.5">ট্রানজেকশন ID</th>
+                      <th className="p-3.5">দাতার নাম ও যোগাযোগ</th>
+                      <th className="p-3.5">উদ্দেশ্য / খাত</th>
                       <th className="p-3.5">পরিমাণ</th>
-                      <th className="p-3.5">পেমেন্ট মেথড</th>
+                      <th className="p-3.5">পেমেন্ট মাধ্যম</th>
                       <th className="p-3.5">স্ট্যাটাস</th>
-                      <th className="p-3.5">তারিখ</th>
+                      <th className="p-3.5">তারিখ ও সময়</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
                     {filteredDonations.length === 0 ? (
                       <tr>
                         <td colSpan={7} className="p-8 text-center text-slate-400">
-                          কোনো অনুদানের তথ্য পাওয়া যায়নি।
+                          কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।
                         </td>
                       </tr>
                     ) : (
                       filteredDonations.map(d => (
                         <tr key={d.id} className="hover:bg-slate-50/70 transition-colors">
-                          <td className="p-3.5">
-                            <span className="font-mono font-bold text-slate-900 block">{d.id}</span>
-                            <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                              {d.gateway}
-                            </span>
-                          </td>
+                          <td className="p-3.5 font-mono text-emerald-800 font-bold">{d.id}</td>
                           <td className="p-3.5">
                             <span className="font-bold text-slate-900 block">{d.donorName}</span>
                             <span className="text-slate-500 font-mono text-[11px]">{d.donorPhone}</span>
@@ -556,15 +1016,171 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* Tab 2: Volunteer Applications */}
-          {activeTab === 'volunteers' && (
+          {/* Tab 2: Members Management (Full CRUD with Photo) */}
+          {activeTab === 'members' && (
             <div className="p-4 sm:p-6 space-y-4 flex-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="relative flex-1 max-w-md">
+                  <input
+                    type="text"
+                    placeholder="সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..."
+                    value={memberSearchTerm}
+                    onChange={e => setMemberSearchTerm(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
+                  />
+                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
+                    search
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={openAddMemberModal}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[18px]">add</span>
+                  <span>নতুন সদস্য যুক্ত করুন</span>
+                </button>
+              </div>
+
+              {/* Members Table */}
               <div className="border border-slate-200 rounded-xl overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
                     <tr>
-                      <th className="p-3.5">আইডি</th>
-                      <th className="p-3.5">প্রার্থীর নাম ও ফোন</th>
+                      <th className="p-3.5 w-14 text-center">ছবি</th>
+                      <th className="p-3.5">নাম ও পরিচিতি</th>
+                      <th className="p-3.5">পদবী ও দায়িত্ব</th>
+                      <th className="p-3.5">ক্যাটাগরি</th>
+                      <th className="p-3.5">মোবাইল ও ইমেইল</th>
+                      <th className="p-3.5">অবস্থান / জেলা</th>
+                      <th className="p-3.5 text-right">অ্যাকশন</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
+                    {filteredMembers.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="p-8 text-center text-slate-400">
+                          কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredMembers.map(m => (
+                        <tr key={m.id} className="hover:bg-slate-50/70 transition-colors">
+                          <td className="p-3.5 text-center">
+                            <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 mx-auto bg-slate-100 flex items-center justify-center">
+                              {m.image ? (
+                                <img
+                                  src={m.image}
+                                  alt={m.nameBn}
+                                  className="w-full h-full object-cover"
+                                  onError={e => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                  }}
+                                />
+                              ) : (
+                                <span className="material-symbols-outlined text-slate-400 text-[20px]">
+                                  person
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-bold text-slate-900 block text-sm">{m.nameBn}</span>
+                            <span className="text-slate-500 text-[11px]">{m.nameEn}</span>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-semibold text-emerald-900 block">{m.roleBn}</span>
+                            <span className="text-slate-500 text-[11px]">{m.departmentBn || m.roleEn}</span>
+                          </td>
+                          <td className="p-3.5">
+                            <span
+                              className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                                m.category === 'board'
+                                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                                  : m.category === 'advisor'
+                                  ? 'bg-purple-100 text-purple-900 border border-purple-300'
+                                  : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                              }`}
+                            >
+                              {m.category === 'board'
+                                ? 'ট্রাস্টি বোর্ড'
+                                : m.category === 'advisor'
+                                ? 'উপদেষ্টা'
+                                : 'ব্যবস্থাপনা'}
+                            </span>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-mono text-slate-700 block">{m.phone || '—'}</span>
+                            <span className="text-slate-400 text-[11px] block">{m.email || '—'}</span>
+                          </td>
+                          <td className="p-3.5 text-slate-600 max-w-[180px] truncate">
+                            {m.locationBn || 'ঢাকা, বাংলাদেশ'}
+                          </td>
+                          <td className="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+                            <button
+                              type="button"
+                              onClick={() => openEditMemberModal(m)}
+                              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              title="সম্পাদনা করুন"
+                            >
+                              <span className="material-symbols-outlined text-[15px]">edit</span>
+                              <span>এডিট</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteMember(m.id, m.nameBn)}
+                              className="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg text-xs font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                              title="মুছে ফেলুন"
+                            >
+                              <span className="material-symbols-outlined text-[15px]">delete</span>
+                              <span>ডিলিট</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Volunteer Applications (Full CRUD with Photo) */}
+          {activeTab === 'volunteers' && (
+            <div className="p-4 sm:p-6 space-y-4 flex-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="relative flex-1 max-w-md">
+                  <input
+                    type="text"
+                    placeholder="স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..."
+                    value={volunteerSearchTerm}
+                    onChange={e => setVolunteerSearchTerm(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 bg-slate-50"
+                  />
+                  <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[18px]">
+                    search
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={openAddVolunteerModal}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[18px]">person_add</span>
+                  <span>নতুন স্বেচ্ছাসেবক যুক্ত করুন</span>
+                </button>
+              </div>
+
+              {/* Volunteers Table */}
+              <div className="border border-slate-200 rounded-xl overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th className="p-3.5 w-14 text-center">ছবি</th>
+                      <th className="p-3.5">আইডি ও নাম</th>
+                      <th className="p-3.5">মোবাইল ও ইমেইল</th>
                       <th className="p-3.5">ঠিকানা / জেলা</th>
                       <th className="p-3.5">পছন্দের মানবিক খাত</th>
                       <th className="p-3.5">দক্ষতা ও অভিজ্ঞতা</th>
@@ -573,56 +1189,105 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
-                    {volunteers.map(v => (
-                      <tr key={v.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td className="p-3.5 font-mono text-slate-500">{v.id}</td>
-                        <td className="p-3.5">
-                          <span className="font-bold text-slate-900 block">{v.name}</span>
-                          <span className="text-slate-500 font-mono text-[11px]">{v.phone}</span>
-                        </td>
-                        <td className="p-3.5">{v.district}</td>
-                        <td className="p-3.5">
-                          <span className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-medium text-[11px]">
-                            {v.category}
-                          </span>
-                        </td>
-                        <td className="p-3.5 text-slate-600 text-[11px] max-w-xs">{v.skills}</td>
-                        <td className="p-3.5">
-                          <span
-                            className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                              v.status === 'APPROVED'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : v.status === 'PENDING'
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
-                          >
-                            {v.status}
-                          </span>
-                        </td>
-                        <td className="p-3.5 text-right space-x-1">
-                          <button
-                            onClick={() => handleStatusChange(v.id, 'APPROVED')}
-                            className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[10px] font-bold"
-                          >
-                            অনুমোদন
-                          </button>
-                          <button
-                            onClick={() => handleStatusChange(v.id, 'REJECTED')}
-                            className="px-2 py-1 bg-slate-200 hover:bg-red-100 hover:text-red-700 text-slate-700 rounded text-[10px] font-bold"
-                          >
-                            বাতিল
-                          </button>
+                    {filteredVolunteers.length === 0 ? (
+                      <tr>
+                        <td colSpan={8} className="p-8 text-center text-slate-400">
+                          কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      filteredVolunteers.map(v => (
+                        <tr key={v.id} className="hover:bg-slate-50/70 transition-colors">
+                          <td className="p-3.5 text-center">
+                            <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 mx-auto bg-slate-100 flex items-center justify-center">
+                              {v.image ? (
+                                <img
+                                  src={v.image}
+                                  alt={v.name}
+                                  className="w-full h-full object-cover"
+                                  onError={e => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                  }}
+                                />
+                              ) : (
+                                <span className="material-symbols-outlined text-slate-400 text-[20px]">
+                                  volunteer_activism
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-bold text-slate-900 block text-sm">{v.name}</span>
+                            <span className="font-mono text-slate-400 text-[10px]">{v.id}</span>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="text-slate-800 font-mono block">{v.phone}</span>
+                            <span className="text-slate-400 text-[11px] block">{v.email || '—'}</span>
+                          </td>
+                          <td className="p-3.5">{v.district}</td>
+                          <td className="p-3.5">
+                            <span className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-medium text-[11px] inline-block">
+                              {v.category}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-slate-600 text-[11px] max-w-xs">{v.skills}</td>
+                          <td className="p-3.5">
+                            <span
+                              className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                                v.status === 'APPROVED'
+                                  ? 'bg-emerald-100 text-emerald-800'
+                                  : v.status === 'PENDING'
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
+                            >
+                              {v.status}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-right space-x-1 whitespace-nowrap">
+                            {v.status !== 'APPROVED' && (
+                              <button
+                                onClick={() => handleStatusChange(v.id, 'APPROVED')}
+                                className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                অনুমোদন
+                              </button>
+                            )}
+                            {v.status !== 'REJECTED' && (
+                              <button
+                                onClick={() => handleStatusChange(v.id, 'REJECTED')}
+                                className="px-2 py-1 bg-slate-200 hover:bg-red-100 hover:text-red-700 text-slate-700 rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                বাতিল
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => openEditVolunteerModal(v)}
+                              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[10px] font-bold cursor-pointer"
+                              title="সম্পাদনা"
+                            >
+                              <span className="material-symbols-outlined text-[13px] align-middle">edit</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteVolunteer(v.id, v.name)}
+                              className="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-700 rounded text-[10px] font-bold cursor-pointer"
+                              title="মুছুন"
+                            >
+                              <span className="material-symbols-outlined text-[13px] align-middle">delete</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           )}
 
-          {/* Tab 3: Campaigns Overview */}
+          {/* Tab 4: Campaigns Overview */}
           {activeTab === 'campaigns' && (
             <div className="p-4 sm:p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -709,7 +1374,7 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* Tab 4: Institutional Settings */}
+          {/* Tab 5: Institutional Settings */}
           {activeTab === 'settings' && (
             <div className="p-4 sm:p-6 space-y-5 max-w-2xl">
               <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
@@ -749,7 +1414,7 @@ export default function AdminDashboard() {
                   </div>
 
                   <div>
-                    <label className="text-slate-500 font-bold block mb-1">যোগাযোগ মোবাইল নম্বর</label>
+                    <label className="text-slate-500 font-bold block mb-1">অফিসিয়াল হটলাইন</label>
                     <input
                       type="text"
                       readOnly
@@ -757,31 +1422,393 @@ export default function AdminDashboard() {
                       className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
                     />
                   </div>
+                </div>
 
-                  <div className="sm:col-span-2">
-                    <label className="text-slate-500 font-bold block mb-1">হেড অফিস ঠিকানা</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value="99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh"
-                      className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300"
-                    />
-                  </div>
+                <div>
+                  <label className="text-slate-500 font-bold block mb-1 text-xs">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
+                  <input
+                    type="text"
+                    readOnly
+                    value="House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh"
+                    className="w-full bg-white px-3 py-2 border rounded-xl font-semibold border-slate-300 text-xs"
+                  />
+                </div>
+              </div>
 
-                  <div className="sm:col-span-2">
-                    <label className="text-slate-500 font-bold block mb-1">পেমেন্ট গেটওয়ে কনফিগারেশন</label>
-                    <div className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
-                      <span className="font-mono text-emerald-800 font-bold">EPS Gateway Sandbox (MFS, Cards, Internet Banking)</span>
-                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">সক্রিয়</span>
-                    </div>
-                  </div>
+              <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                <h4 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">
+                  সরকারি অনুদান ও অডিট কমপ্লায়েন্স
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।
+                </p>
+                <div className="pt-2">
+                  <a
+                    href="/images/permit.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-800 text-white rounded-xl text-xs font-bold shadow hover:bg-emerald-900 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">file_download</span>
+                    অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন
+                  </a>
                 </div>
               </div>
             </div>
           )}
         </div>
       </div>
+
+      {/* ============================================================== */}
+      {/* Member Modal (Add / Edit) */}
+      {/* ============================================================== */}
+      {isMemberModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center material-symbols-outlined text-lg">
+                  badge
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 font-serif-heading">
+                  {editingMemberId ? 'সদস্যের তথ্য সম্পাদনা করুন' : 'নতুন সদস্য যুক্ত করুন'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMemberModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveMember} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">নাম (বাংলায়) *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="যেমন: মোঃ আল আমিন"
+                    value={memberForm.nameBn}
+                    onChange={e => setMemberForm({ ...memberForm, nameBn: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Name (English)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Md. Al Amin"
+                    value={memberForm.nameEn}
+                    onChange={e => setMemberForm({ ...memberForm, nameEn: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">পদবী / ভূমিকা (বাংলায়) *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="যেমন: সিনিয়র ট্রাস্টি / কোঅর্ডিনেটর"
+                    value={memberForm.roleBn}
+                    onChange={e => setMemberForm({ ...memberForm, roleBn: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি</label>
+                  <select
+                    value={memberForm.category}
+                    onChange={e => setMemberForm({ ...memberForm, category: e.target.value as any })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 bg-white"
+                  >
+                    <option value="board">পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড</option>
+                    <option value="management">নির্বাহী ব্যবস্থাপনা ও কোঅর্ডিনেটর</option>
+                    <option value="advisor">শরীয়াহ ও আইনি উপদেষ্টা</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Photo Input & Preview */}
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl border border-slate-300 overflow-hidden shrink-0 bg-slate-100 flex items-center justify-center">
+                    {memberForm.image ? (
+                      <img src={memberForm.image} alt="Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="material-symbols-outlined text-slate-400">person</span>
+                    )}
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="/images/humanitarian-volunteers.jpg বা যেকোনো ছবির লিংক"
+                    value={memberForm.image}
+                    onChange={e => setMemberForm({ ...memberForm, image: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                {/* Preset Avatars */}
+                <div className="mt-2">
+                  <span className="text-[10px] text-slate-500 font-semibold block mb-1">প্রিসেট ছবি বেছে নিন:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {PRESET_AVATARS.map((av, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setMemberForm({ ...memberForm, image: av.url })}
+                        className={`text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer ${
+                          memberForm.image === av.url
+                            ? 'bg-emerald-700 text-white border-emerald-700'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-300'
+                        }`}
+                      >
+                        {av.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">মোবাইল নম্বর</label>
+                  <input
+                    type="text"
+                    placeholder="01913119525"
+                    value={memberForm.phone}
+                    onChange={e => setMemberForm({ ...memberForm, phone: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">ইমেইল ঠিকানা</label>
+                  <input
+                    type="email"
+                    placeholder="member@gmcf.org"
+                    value={memberForm.email}
+                    onChange={e => setMemberForm({ ...memberForm, email: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">অবস্থান / ঠিকানা</label>
+                <input
+                  type="text"
+                  placeholder="যেমন: সাভার, ঢাকা"
+                  value={memberForm.locationBn}
+                  onChange={e => setMemberForm({ ...memberForm, locationBn: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                />
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">সংক্ষিপ্ত পরিচিতি (Bio)</label>
+                <textarea
+                  rows={2}
+                  placeholder="সদস্যের অবদান বা দায়িত্বের সংক্ষিপ্ত বিবরণ..."
+                  value={memberForm.bioBn}
+                  onChange={e => setMemberForm({ ...memberForm, bioBn: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setIsMemberModalOpen(false)}
+                  className="px-4 py-2 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-100 font-bold cursor-pointer"
+                >
+                  বাতিল
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow cursor-pointer"
+                >
+                  {editingMemberId ? 'হালনাগাদ সংরক্ষণ করুন' : 'সদস্য যোগ করুন'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* Volunteer Modal (Add / Edit) */}
+      {/* ============================================================== */}
+      {isVolunteerModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 my-8">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center material-symbols-outlined text-lg">
+                  volunteer_activism
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 font-serif-heading">
+                  {editingVolunteerId ? 'স্বেচ্ছাসেবকের তথ্য সম্পাদনা করুন' : 'নতুন স্বেচ্ছাসেবক যুক্ত করুন'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsVolunteerModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveVolunteer} className="space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">স্বেচ্ছাসেবকের পুরো নাম *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="যেমন: সাব্বির আহমেদ"
+                    value={volunteerForm.name}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, name: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">মোবাইল নম্বর *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="01700-000000"
+                    value={volunteerForm.phone}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, phone: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">ইমেইল</label>
+                  <input
+                    type="email"
+                    placeholder="volunteer@gmcf.org"
+                    value={volunteerForm.email}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, email: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">জেলা / ঠিকানা</label>
+                  <input
+                    type="text"
+                    placeholder="যেমন: ঢাকা (সাভার)"
+                    value={volunteerForm.district}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, district: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">পছন্দের মানবিক খাত</label>
+                  <input
+                    type="text"
+                    placeholder="যেমন: খাদ্য বিতরণ / চিকিৎসা ক্যাম্প"
+                    value={volunteerForm.category}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, category: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">অনুমোদন অবস্থা (Status)</label>
+                  <select
+                    value={volunteerForm.status}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, status: e.target.value as any })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 bg-white"
+                  >
+                    <option value="APPROVED">APPROVED (অনুমোদিত)</option>
+                    <option value="PENDING">PENDING (অপেক্ষমান)</option>
+                    <option value="REJECTED">REJECTED (বাতিল)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Photo Input & Preview */}
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl border border-slate-300 overflow-hidden shrink-0 bg-slate-100 flex items-center justify-center">
+                    {volunteerForm.image ? (
+                      <img src={volunteerForm.image} alt="Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="material-symbols-outlined text-slate-400">volunteer_activism</span>
+                    )}
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="/images/youth-volunteers.jpg বা যেকোনো ছবির লিংক"
+                    value={volunteerForm.image}
+                    onChange={e => setVolunteerForm({ ...volunteerForm, image: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                  />
+                </div>
+                {/* Preset Avatars */}
+                <div className="mt-2">
+                  <span className="text-[10px] text-slate-500 font-semibold block mb-1">প্রিসেট ছবি বেছে নিন:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {PRESET_AVATARS.map((av, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setVolunteerForm({ ...volunteerForm, image: av.url })}
+                        className={`text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer ${
+                          volunteerForm.image === av.url
+                            ? 'bg-emerald-700 text-white border-emerald-700'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-300'
+                        }`}
+                      >
+                        {av.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">দক্ষতা ও অভিজ্ঞতা</label>
+                <textarea
+                  rows={2}
+                  placeholder="যেমন: ফিল্ড কোঅর্ডিনেশন, নার্সিং, ডিএসএলআর ফটোগ্রাফি ইত্যাদি..."
+                  value={volunteerForm.skills}
+                  onChange={e => setVolunteerForm({ ...volunteerForm, skills: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setIsVolunteerModalOpen(false)}
+                  className="px-4 py-2 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-100 font-bold cursor-pointer"
+                >
+                  বাতিল
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow cursor-pointer"
+                >
+                  {editingVolunteerId ? 'হালনাগাদ সংরক্ষণ করুন' : 'স্বেচ্ছাসেবক যোগ করুন'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-

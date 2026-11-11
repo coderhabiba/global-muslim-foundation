@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { supabase } from '@/lib/supabase';
 
 type Member = {
   id: string;
@@ -189,11 +190,66 @@ export default function MembersVolunteersPage() {
   const isBn = language === 'bn';
 
   const [activeFilter, setActiveFilter] = useState<'all' | 'board' | 'management' | 'volunteer'>('all');
+  const [membersList, setMembersList] = useState<Member[]>(TEAM_MEMBERS);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('gmcf:members');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const mapped: Member[] = parsed.map((p: any) => ({
+            id: p.id,
+            nameEn: p.nameEn || p.nameBn,
+            nameBn: p.nameBn,
+            roleEn: p.roleEn || p.roleBn,
+            roleBn: p.roleBn,
+            departmentEn: p.departmentBn || p.departmentEn || '',
+            departmentBn: p.departmentBn || '',
+            locationEn: p.locationBn || 'Dhaka, Bangladesh',
+            locationBn: p.locationBn || 'ঢাকা, বাংলাদেশ',
+            image: p.image || '/images/humanitarian-volunteers.jpg',
+            phone: p.phone,
+            email: p.email,
+            bioEn: p.bioBn || '',
+            bioBn: p.bioBn || '',
+            category: (p.category === 'board' ? 'board' : p.category === 'volunteer' ? 'volunteer' : 'management'),
+          }));
+          setMembersList(mapped);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    supabase.from('members').select('*').then(({ data, error }) => {
+      if (!error && data && data.length > 0) {
+        const mapped: Member[] = data.map((d: any) => ({
+          id: d.id,
+          nameEn: d.name_en || d.name_bn,
+          nameBn: d.name_bn,
+          roleEn: d.role_en || d.role_bn,
+          roleBn: d.role_bn,
+          departmentEn: d.department_bn || '',
+          departmentBn: d.department_bn || '',
+          locationEn: d.location_bn || 'Dhaka, Bangladesh',
+          locationBn: d.location_bn || 'ঢাকা, বাংলাদেশ',
+          image: d.image || '/images/humanitarian-volunteers.jpg',
+          phone: d.phone,
+          email: d.email,
+          bioEn: d.bio_bn || '',
+          bioBn: d.bio_bn || '',
+          category: (d.category === 'board' ? 'board' : d.category === 'volunteer' ? 'volunteer' : 'management'),
+        }));
+        setMembersList(mapped);
+      }
+    });
+  }, []);
 
   const filteredMembers =
     activeFilter === 'all'
-      ? TEAM_MEMBERS
-      : TEAM_MEMBERS.filter(m => m.category === activeFilter);
+      ? membersList
+      : membersList.filter(m => m.category === activeFilter);
 
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">

@@ -42,22 +42,37 @@ USING (true);
 CREATE TABLE IF NOT EXISTS public.volunteers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     full_name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT,
     phone TEXT NOT NULL,
     district TEXT,
     interests TEXT,
     skills TEXT,
+    image TEXT,
     availability TEXT,
-    status VARCHAR(30) DEFAULT 'new', -- 'new', 'reviewed', 'contacted'
+    status VARCHAR(30) DEFAULT 'PENDING',
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-ALTER TABLE public.volunteers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.volunteers DISABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Allow public volunteer registration" 
-ON public.volunteers FOR INSERT 
-TO anon, authenticated 
-WITH CHECK (true);
+-- 3. Members Table (ফাউন্ডেশনের পরিচালনা পর্ষদ ও সদস্যবৃন্দ)
+CREATE TABLE IF NOT EXISTS public.members (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name_bn TEXT NOT NULL,
+    name_en TEXT,
+    role_bn TEXT NOT NULL,
+    role_en TEXT,
+    category VARCHAR(50) DEFAULT 'management', -- 'board', 'management', 'advisor'
+    department_bn TEXT,
+    image TEXT,
+    phone TEXT,
+    email TEXT,
+    location_bn TEXT,
+    bio_bn TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.members DISABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Allow authenticated read volunteers" 
 ON public.volunteers FOR SELECT 
