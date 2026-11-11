@@ -1051,61 +1051,76 @@ export default function AdminDashboard() {
       {/* ============================================================== */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Topbar */}
-        <header className="sticky top-0 z-30 h-16 border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between">
-          <div className="flex items-center gap-3 min-w-0">
+        <header className="sticky top-0 z-30 h-14 border-b border-zinc-200/80 bg-white/95 px-4 sm:px-6 backdrop-blur-md flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <button
               type="button"
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer"
+              className="lg:hidden p-1.5 -ml-1 rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer shrink-0"
+              aria-label="মেনু খুলুন"
             >
               <Menu className="w-5 h-5" />
             </button>
 
-            <div className="min-w-0">
-              <h1 className="text-sm sm:text-base font-semibold text-zinc-900 tracking-tight truncate">
-                {activeTab === 'overview' && 'ড্যাশবোর্ড ওভারভিউ ও রিয়েলটাইম অ্যানালিটিক্স'}
+            {/* Active Tab Icon */}
+            <div className="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-200/70 text-zinc-700 hidden sm:flex items-center justify-center shrink-0">
+              {activeTab === 'overview' && <LayoutDashboard className="w-4 h-4 text-emerald-600" />}
+              {activeTab === 'section_editor' && <Layers className="w-4 h-4 text-indigo-600" />}
+              {activeTab === 'donations' && <HeartHandshake className="w-4 h-4 text-emerald-600" />}
+              {activeTab === 'members' && <Users className="w-4 h-4 text-zinc-800" />}
+              {activeTab === 'volunteers' && <HandHeart className="w-4 h-4 text-amber-600" />}
+              {activeTab === 'campaigns' && <FolderKanban className="w-4 h-4 text-amber-600" />}
+              {activeTab === 'settings' && <Settings className="w-4 h-4 text-zinc-600" />}
+            </div>
+
+            <div className="min-w-0 flex items-center gap-2">
+              <h1 className="text-xs sm:text-sm font-semibold text-zinc-900 tracking-tight truncate">
+                {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
                 {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
                 {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
-                {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড ব্যবস্থাপনা'}
+                {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড'}
                 {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
-                {activeTab === 'campaigns' && 'চলমান মানবিক কার্ড ও ক্যাম্পেইনসমূহ'}
-                {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি ও সেটিংস'}
+                {activeTab === 'campaigns' && 'কার্ড ও প্রজেক্ট ম্যানেজার'}
+                {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সেটিংস'}
               </h1>
-              <p className="text-xs text-zinc-500 font-medium flex items-center gap-1.5 mt-0.5 truncate">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — রেজি: S-14086/2023
-              </p>
+              
+              <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-600 text-[10px] font-mono border border-zinc-200/60 shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>S-14086/2023</span>
+              </span>
             </div>
           </div>
 
           {/* Quick Action Buttons */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               type="button"
               onClick={() => openLicenseModal()}
-              className="hidden md:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md border border-zinc-200 bg-white text-zinc-800 hover:bg-zinc-50 text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+              title="সরকারি লাইসেন্স সনদ দেখুন"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-zinc-600" />
-              <span>লাইসেন্স সনদ</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-zinc-600 shrink-0" />
+              <span className="hidden md:inline">লাইসেন্স</span>
             </button>
 
             <button
               type="button"
               onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
-              className="hidden sm:inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
+              title="EPS পেমেন্ট টেস্ট করুন"
             >
-              <CreditCard className="w-3.5 h-3.5 text-emerald-100" />
-              <span>EPS টেস্ট অনুদান</span>
+              <CreditCard className="w-3.5 h-3.5 text-emerald-100 shrink-0" />
+              <span className="hidden sm:inline">EPS টেস্ট</span>
             </button>
 
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md border border-red-200/80 bg-red-50/50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors cursor-pointer active:scale-95"
-              title="লগআউট করুন"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 rounded-md border border-red-200/80 bg-red-50/50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors cursor-pointer active:scale-95"
+              title="ড্যাশবোর্ড থেকে লগআউট করুন"
             >
-              <LogOut className="w-3.5 h-3.5 text-red-600" />
-              <span>লগআউট</span>
+              <LogOut className="w-3.5 h-3.5 text-red-600 shrink-0" />
+              <span className="hidden sm:inline">লগআউট</span>
             </button>
           </div>
         </header>
