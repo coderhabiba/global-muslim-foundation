@@ -3,11 +3,13 @@
 import Link from 'next/link';
 
 import { useSiteSettings } from '@/lib/site-settings';
+import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
 
 export default function AboutPage() {
   const { localize, language } = useSiteSettings();
   const { showAlert, openLicenseModal } = useModalState();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
 
   return (
@@ -28,24 +30,20 @@ export default function AboutPage() {
                   verified
                 </span>
                 <span className="font-label-md text-label-md text-primary tracking-wider uppercase">
-                  ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930
+                  {isBn ? cms.about.pageBadge : 'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930'}
                 </span>
               </div>
 
               {/* Main Headline */}
 
               <h1 className="font-headline-xl text-headline-xl text-emerald-dark max-w-4xl tracking-tight leading-tight mb-6">
-                Faithful Stewardship. Absolute Transparency. Dignified
-                Humanitarian Action.
+                {isBn ? cms.about.pageTitle : 'Faithful Stewardship. Absolute Transparency. Dignified Humanitarian Action.'}
               </h1>
 
               {/* Mission Statement */}
 
               <p className="font-body-lg text-body-lg text-text-muted max-w-3xl leading-relaxed mb-10">
-                Committed to lifting destitute, orphaned, and disaster-affected
-                families through zero-overhead Zakat distribution, verified
-                Tamleek ownership, and sustainable poverty eradication across
-                Bangladesh and beyond.
+                {isBn ? cms.about.pageSubtitle : 'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.'}
               </p>
 
               {/* Institutional Metrics Quick-Bar */}
@@ -53,34 +51,34 @@ export default function AboutPage() {
               <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-surface-clean rounded-2xl shadow-sm">
                 <div className="flex flex-col items-center justify-center p-3 text-center">
                   <span className="font-headline-lg text-headline-lg text-primary font-bold">
-                    100%
+                    {isBn ? cms.about.statZakatRatio.split(' ')[0] : '100%'}
                   </span>
                   <span className="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">
-                    Zakat Distribution Ratio
+                    {isBn ? cms.about.statZakatRatio : 'Zakat Distribution Ratio'}
                   </span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 text-center">
                   <span className="font-headline-lg text-headline-lg text-emerald-dark font-bold">
-                    ৳0
+                    {isBn ? '৳০' : '৳0'}
                   </span>
                   <span className="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">
-                    Admin Deductions from Zakat
+                    {isBn ? cms.about.statAdminCost : 'Admin Deductions from Zakat'}
                   </span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 text-center">
                   <span className="font-headline-lg text-headline-lg text-amber-vibrant font-bold">
-                    18,400+
+                    {isBn ? cms.about.statFamiliesUplifted.split(' ')[0] : '18,400+'}
                   </span>
                   <span className="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">
-                    Families Uplifted (Tamleek)
+                    {isBn ? cms.about.statFamiliesUplifted : 'Families Uplifted (Tamleek)'}
                   </span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 text-center">
                   <span className="font-headline-lg text-headline-lg text-tertiary font-bold">
-                    Grade A
+                    {isBn ? 'Grade A' : 'Grade A'}
                   </span>
                   <span className="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">
-                    Independent Audit Rating
+                    {isBn ? cms.about.statAuditRating : 'Independent Audit Rating'}
                   </span>
                 </div>
               </div>

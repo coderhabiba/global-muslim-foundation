@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
+import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
 import { ORPHAN_PROFILES, OrphanProfile } from '@/lib/data/orphans';
 
@@ -97,6 +98,7 @@ const PLANS: SponsorshipPlan[] = [
 export default function SponsorOrphanPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
 
   // Tabs: 'unsponsored' (জরুরি স্পনসর প্রয়োজন), 'sponsored' (অলরেডি স্পনসরকৃত), 'all' (সকল শিশু)
@@ -165,17 +167,14 @@ export default function SponsorOrphanPage() {
             </span>
             <span>
               {isBn
-                ? 'রাসূলুল্লাহ (ﷺ) এর সুন্নাহ — এতিম ও দুস্থ শিশুর অভিভাবকত্ব'
+                ? cms.sponsor_orphan.pageBadge
                 : 'Prophetic Sunnah — Guardian of a Vulnerable Child'}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              <>
-                একটি দুস্থ শিশুর মুখে হাসি ফোটান,{' '}
-                <span className="text-[#0e4d36]">জান্নাতে রাসূল (ﷺ)-এর সঙ্গী হোন</span>
-              </>
+              cms.sponsor_orphan.pageTitle
             ) : (
               <>
                 Sponsor a Vulnerable Child &amp;{' '}
@@ -186,7 +185,7 @@ export default function SponsorOrphanPage() {
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
-              ? 'হাদিস শরিফে এসেছে: "আমি এবং এতিমের প্রতিপালনকারী জান্নাতে এভাবে থাকব" (তর্জনী ও মধ্যমা আঙুল একত্র করে দেখালেন) — সহিহ বুখারি। আপনার সামান্য মাসিক সহায়তা একটি অসহায় শিশুর সমগ্র ভবিষ্যৎ বদলে দিতে পারে।'
+              ? cms.sponsor_orphan.pageSubtitle
               : 'The Prophet Muhammad (ﷺ) said: "I and the person who looks after an orphan and provides for him, will be in Paradise like this," putting his index and middle fingers together. (Sahih al-Bukhari).'}
           </p>
 
