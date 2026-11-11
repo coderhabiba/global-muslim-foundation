@@ -3,10 +3,17 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { useSiteSettings } from '@/lib/site-settings';
+import { useSiteSettings, CURRENCIES, CurrencyCode } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 
 const NISAB_SILVER_USD = 581.75;
+
+const NISAB_BY_CURRENCY: Record<CurrencyCode, number> = {
+  USD: 581.75,
+  BDT: 68450, // Matches live benchmark ticker ৳68,450
+  GBP: 458.20, // Matches live benchmark ticker £458.20
+  EUR: 535.20,
+};
 
 const EMPTY_FIELDS = {
   cashHome: '',
@@ -26,29 +33,33 @@ function parseNum(value: string) {
   return isNaN(parsed) || parsed < 0 ? 0 : parsed;
 }
 
-function formatMoney(num: number) {
-  return (
-    '$' +
-    num.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  );
-}
-
 export default function ZakatCalculatorPage() {
   const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, showAlert } = useModalState();
   const isBn = language === 'bn';
+  const currentCurrency = CURRENCIES[currency] || CURRENCIES.BDT;
+
   const [fields, setFields] = useState({ ...EMPTY_FIELDS });
   const [openFaqs, setOpenFaqs] = useState([false, false, false, false]);
   // Legacy only adds the transition class once recompute() has run at least once.
   const [hasRecomputed, setHasRecomputed] = useState(false);
 
+  function formatActiveMoney(num: number) {
+    const cfg = currentCurrency;
+    const formatted = num.toLocaleString(cfg.locale, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    return `${cfg.symbol}${formatted}`;
+  }
+
   function updateField(key: keyof typeof EMPTY_FIELDS, value: string) {
     setFields(current => ({ ...current, [key]: value }));
     setHasRecomputed(true);
   }
+
+  const currentNisab = NISAB_BY_CURRENCY[currency] ?? NISAB_SILVER_USD;
+  const formattedNisab = formatActiveMoney(currentNisab);
 
   const assets =
     parseNum(fields.cashHome) +
@@ -62,14 +73,20 @@ export default function ZakatCalculatorPage() {
 
   const debts = parseNum(fields.debtsDue) + parseNum(fields.billsDue);
   const netWealth = Math.max(0, assets - debts);
-  const zakatDue = netWealth >= NISAB_SILVER_USD ? netWealth * 0.025 : 0;
+  const nisabReached = netWealth >= currentNisab;
+  const zakatDue = nisabReached ? netWealth * 0.025 : 0;
 
-  const nisabReached = netWealth >= NISAB_SILVER_USD;
   const nisabStatusText = nisabReached
-    ? 'Nisab Reached (Zakat Obligatory)'
+    ? isBn
+      ? 'নিসাব সম্পন্ন (যাকাত ফরজ)'
+      : 'Nisab Reached (Zakat Obligatory)'
     : netWealth > 0
-      ? 'Below Nisab ($581.75) — Optional Sadaqah'
-      : 'Pending Assessment';
+      ? isBn
+        ? `নিসাবের নিচে (${formattedNisab}) — ঐচ্ছিক সদকা`
+        : `Below Nisab (${formattedNisab}) — Optional Sadaqah`
+      : isBn
+        ? 'মূল্যায়ন অপেক্ষমাণ'
+        : 'Pending Assessment';
   const nisabIcon = nisabReached ? 'check_circle' : 'info';
   const nisabIconClass = nisabReached
     ? 'material-symbols-outlined text-primary text-[28px]'
@@ -91,16 +108,16 @@ export default function ZakatCalculatorPage() {
     setHasRecomputed(true);
     if (zakatDue > 0) {
       openPaymentModal({
-        amount: currency === 'BDT' ? Math.round(zakatDue * 122) : Math.round(zakatDue),
+        amount: Math.round(zakatDue),
         currency: currency,
         cause: isBn ? 'বাৎসরিক ফরজ যাকাত ফান্ড' : 'Annual Obligatory Zakat Fund',
       });
     } else {
       showAlert({
         title: isBn ? 'যাকাত নিসাব বিজ্ঞপ্তি' : 'Nisab Threshold Notice',
-        message: localize(
-          'Your current net wealth is below the Nisab threshold. You can still contribute voluntary Sadaqah.',
-        ),
+        message: isBn
+          ? `আপনার বর্তমান নিট সম্পদ নিসাব সীমার (${formattedNisab}) নিচে রয়েছে। আপনি চাইলে সাধারণ নফল সদকা করতে পারেন।`
+          : `Your current net wealth is below the Nisab threshold (${formattedNisab}). You can still contribute voluntary Sadaqah.`,
         type: 'info',
       });
     }
@@ -669,26 +686,26 @@ export default function ZakatCalculatorPage() {
 
                 {/* Right: Real-Time Summary & Checkout Card */}
 
-                <div className="lg:col-span-5 sticky top-36">
+                <div className="lg:col-span-5 sticky top-36" data-money="off">
                   <div className="bg-surface-clean rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col space-y-6">
                     <div className="flex items-center justify-between pb-4">
                       <div>
                         <span className="font-label-md text-label-md uppercase tracking-wider text-text-muted">
-                          Assessment Card
+                          {isBn ? 'মূল্যায়ন কার্ড' : 'Assessment Card'}
                         </span>
                         <h3 className="font-title-lg text-title-lg text-on-surface">
-                          Zakat Status Summary
+                          {isBn ? 'যাকাত অবস্থার সারসংক্ষেপ' : 'Zakat Status Summary'}
                         </h3>
                       </div>
                       <button
-                        className="text-primary hover:text-oceanic-teal-deep font-label-md text-label-md flex items-center gap-1"
+                        className="text-primary hover:text-oceanic-teal-deep font-label-md text-label-md flex items-center gap-1 cursor-pointer"
                         id="calc-reset-all"
                         onClick={resetFields}
                       >
                         <span className="material-symbols-outlined text-[16px]">
                           refresh
                         </span>
-                        <span>Reset</span>
+                        <span>{isBn ? 'রিসেট' : 'Reset'}</span>
                       </button>
                     </div>
 
@@ -696,32 +713,32 @@ export default function ZakatCalculatorPage() {
 
                     <div className="space-y-3 font-body-sm text-body-sm">
                       <div className="flex justify-between text-on-surface-variant">
-                        <span>Total Zakatable Assets (A+B+C+D):</span>
+                        <span>{isBn ? 'মোট যাকাতযোগ্য সম্পদ (A+B+C+D):' : 'Total Zakatable Assets (A+B+C+D):'}</span>
                         <span
                           className="font-bold text-on-surface"
                           id="summary-total-assets"
                         >
-                          {formatMoney(assets)}
+                          {formatActiveMoney(assets)}
                         </span>
                       </div>
                       <div className="flex justify-between text-on-surface-variant">
-                        <span>Total Deductible Liabilities (E):</span>
+                        <span>{isBn ? 'মোট বাদযোগ্য দায় (E):' : 'Total Deductible Liabilities (E):'}</span>
                         <span
                           className="font-bold text-error"
                           id="summary-total-debts"
                         >
-                          {'-' + formatMoney(debts)}
+                          {debts > 0 ? `-${formatActiveMoney(debts)}` : `-${currentCurrency.symbol}0.00`}
                         </span>
                       </div>
                       <div className="flex justify-between text-on-surface-variant pt-2">
-                        <span className="font-title-md text-title-md text-on-surface">
-                          Net Wealth:
+                        <span className="font-title-md text-title-md text-on-surface font-semibold">
+                          {isBn ? 'নিট সম্পদ:' : 'Net Wealth:'}
                         </span>
                         <span
                           className="font-title-md text-title-md text-primary font-bold"
                           id="summary-net-wealth"
                         >
-                          {formatMoney(netWealth)}
+                          {formatActiveMoney(netWealth)}
                         </span>
                       </div>
                     </div>
@@ -734,13 +751,15 @@ export default function ZakatCalculatorPage() {
                       </span>
                       <div>
                         <p
-                          className="font-title-md text-title-md text-on-surface"
+                          className="font-title-md text-title-md text-on-surface font-semibold"
                           id="nisab-status-text"
                         >
                           {nisabStatusText}
                         </p>
                         <p className="font-label-md text-label-md text-on-surface-variant">
-                          Silver Nisab threshold: $581.75 USD
+                          {isBn
+                            ? `রৌপ্য নিসাব মানদণ্ড: ${formattedNisab}`
+                            : `Silver Nisab threshold: ${formattedNisab} ${currency}`}
                         </p>
                       </div>
                     </div>
@@ -749,16 +768,18 @@ export default function ZakatCalculatorPage() {
 
                     <div className="p-6 rounded-2xl bg-emerald-dark text-on-primary flex flex-col items-center justify-center text-center">
                       <span className="font-label-md text-label-md uppercase tracking-widest text-primary-fixed">
-                        Your Net Obligation (2.5%)
+                        {isBn ? 'আপনার নিট প্রদেয় যাকাত (২.৫%)' : 'Your Net Obligation (2.5%)'}
                       </span>
                       <div
                         className="font-headline-xl text-headline-xl text-zakat-gold-light font-bold mt-2"
                         id="summary-zakat-due"
                       >
-                        {formatMoney(zakatDue)}
+                        {formatActiveMoney(zakatDue)}
                       </div>
                       <p className="font-label-sm text-label-sm text-on-primary/80 mt-1">
-                        100% Ring-Fenced • Shariah Supervised
+                        {isBn
+                          ? '১০০% নির্দিষ্ট খাতেই বিতরণ • শরিয়াহ নিরীক্ষিত'
+                          : '100% Ring-Fenced • Shariah Supervised'}
                       </p>
                     </div>
 
@@ -769,26 +790,26 @@ export default function ZakatCalculatorPage() {
                         className="block font-label-md text-label-md text-on-surface mb-1"
                         htmlFor="zakat-cause-allocation"
                       >
-                        Direct My Zakat Towards:
+                        {isBn ? 'যাকাত বরাদ্দের খাত:' : 'Direct My Zakat Towards:'}
                       </label>
                       <select
                         className="w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-clean focus:outline-none"
                         id="zakat-cause-allocation"
                       >
                         <option value="where-most-needed">
-                          Where Most Needed (Crisis Priority)
+                          {isBn ? 'সর্বাধিক প্রয়োজনীয় খাতে (সংকট অগ্রাধিকার)' : 'Where Most Needed (Crisis Priority)'}
                         </option>
                         <option value="project-alo">
-                          Project Alo: Pediatric Surgery &amp; Eyes
+                          {isBn ? 'প্রজেক্ট আলো: শিশুদের সার্জারি ও চক্ষু চিকিৎসা' : 'Project Alo: Pediatric Surgery & Eyes'}
                         </option>
                         <option value="gaza-emergency">
-                          Gaza Urgent Nourishment &amp; Tents
+                          {isBn ? 'গাজা জরুরি খাদ্য ও আশ্রয় তাঁবু' : 'Gaza Urgent Nourishment & Tents'}
                         </option>
                         <option value="widow-support">
-                          Widows &amp; Destitute Mothers Care
+                          {isBn ? 'বিধবা ও নিঃস্ব মায়েদের সহায়তা' : 'Widows & Destitute Mothers Care'}
                         </option>
                         <option value="clean-water">
-                          Deep Wells for Asnaf Communities
+                          {isBn ? 'আসনাফ পরিবারের জন্য গভীর নলকূপ' : 'Deep Wells for Asnaf Communities'}
                         </option>
                       </select>
                     </div>
@@ -796,14 +817,14 @@ export default function ZakatCalculatorPage() {
                     {/* Primary Fulfillment Action */}
 
                     <button
-                      className="w-full py-4 px-6 rounded-xl bg-secondary-container hover:bg-amber-vibrant text-on-surface font-title-md text-title-md font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                      className="w-full py-4 px-6 rounded-xl bg-secondary-container hover:bg-amber-vibrant text-on-surface font-title-md text-title-md font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                       id="btn-fulfill-zakat"
                       onClick={fulfillZakat}
                     >
                       <span className="material-symbols-outlined text-[20px]">
                         payments
                       </span>
-                      <span>Fulfill Zakat Now</span>
+                      <span>{isBn ? 'এখনই যাকাত প্রদান করুন' : 'Fulfill Zakat Now'}</span>
                     </button>
 
                     {/* Audit Guarantee Tagline */}
@@ -813,7 +834,9 @@ export default function ZakatCalculatorPage() {
                         verified
                       </span>
                       <span>
-                        Tax-deductible receipt generated instantaneously
+                        {isBn
+                          ? 'অনুদানের সাথে সাথে অফিসিয়াল ট্যাক্স-ছাড় রসিদ প্রদান'
+                          : 'Tax-deductible receipt generated instantaneously'}
                       </span>
                     </div>
                   </div>
