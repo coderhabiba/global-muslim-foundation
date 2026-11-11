@@ -61,22 +61,22 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
     >
       {/* Main Navigation Bar */}
       <div className="max-w-[1280px] mx-auto h-16 sm:h-20 px-2.5 sm:px-6 flex items-center justify-between gap-1.5 sm:gap-3 lg:gap-4">
-        {/* Brand Logo & Slogan */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink min-w-0">
+        {/* Brand Logo & Slogan (Organized cleanly with Logo above Slogan) */}
+        <div className="flex items-center shrink-0 min-w-0">
           <Link
-            className="flex items-center shrink-0 group py-1"
+            className="flex flex-col items-start justify-center group py-0.5"
             href="/"
             title="Global Muslim Charitable Foundation"
           >
             <img
               src="/images/gmcf-logo-full.png"
               alt="Global Muslim Charitable Foundation Logo"
-              className="h-9 sm:h-12 w-auto max-w-[150px] xs:max-w-[180px] sm:max-w-[230px] object-contain group-hover:scale-[1.02] transition-transform duration-200"
+              className="h-8 sm:h-10 w-auto max-w-[150px] xs:max-w-[185px] sm:max-w-[220px] object-contain group-hover:scale-[1.01] transition-transform duration-200"
             />
+            <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-800/90 tracking-tight leading-none mt-1 hidden xs:inline-block italic">
+              &ldquo;Your Kindness is someone&apos;s hope&rdquo;
+            </span>
           </Link>
-          <span className="hidden 2xl:inline-block text-[11px] font-semibold text-emerald-800 italic border-l border-slate-300 pl-3 shrink-0">
-            “Your Kindness is someone&apos;s hope”
-          </span>
         </div>
 
         {/* Clean, Compact Desktop Menu */}
