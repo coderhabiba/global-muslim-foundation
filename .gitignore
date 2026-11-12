@@ -53,3 +53,9 @@ audit*.png
 *.zip
 .qoder/
 
+# EPS extracted credentials & temp files (sensitive — never commit)
+public/images/eps_extracted/
+"GLOBAL MUSLIM (2)/"
+docs/EPSmerchantapiguideline.pdf
+docs/Global_Muslim_Charitable_Foundation_Website_Proposal.pdf
+

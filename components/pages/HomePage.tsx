@@ -1,13 +1,66 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, Suspense, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useModalState } from '@/lib/modal-context';
 import { getProjectAmounts } from '@/components/payment/EpsPaymentModal';
+
+// ── EPS Callback Handler (needs Suspense wrapper for useSearchParams) ─────────
+function EpsCallbackHandler() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { showAlert, openPaymentModal } = useModalState();
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
+
+  useEffect(() => {
+    const paymentResult = searchParams.get('payment');
+    const txId = searchParams.get('txId');
+    if (!paymentResult) return;
+
+    // Clean URL so refresh doesn't re-trigger
+    router.replace('/', { scroll: false });
+
+    if (paymentResult === 'success') {
+      showAlert({
+        type: 'success',
+        title: isBn ? 'জাযাকাল্লাহু খাইরান! অনুদান সম্পন্ন হয়েছে ✓' : 'Payment Successful — Jazakallahu Khairan! ✓',
+        message: isBn
+          ? `আপনার মহৎ অনুদান সফলভাবে গৃহীত হয়েছে।${txId ? ` ট্রানজেকশন আইডি: ${txId}` : ''} আল্লাহ আপনার দানকে কবুল করুন।`
+          : `Your generous donation has been successfully received via EPS.${txId ? ` Transaction ID: ${txId}` : ''} May Allah accept your giving.`,
+        confirmText: isBn ? 'আলহামদুলিল্লাহ' : 'Alhamdulillah',
+      });
+    } else if (paymentResult === 'fail') {
+      showAlert({
+        type: 'error',
+        title: isBn ? 'পেমেন্ট সম্পন্ন হয়নি' : 'Payment Unsuccessful',
+        message: isBn
+          ? 'দুঃখিত, পেমেন্ট প্রক্রিয়া সম্পন্ন হয়নি। অনুগ্রহ করে আবার চেষ্টা করুন।'
+          : 'Sorry, your payment could not be processed. Please try again.',
+        confirmText: isBn ? 'আবার চেষ্টা করুন' : 'Try Again',
+        onConfirm: () => openPaymentModal(),
+      });
+    } else if (paymentResult === 'cancel') {
+      showAlert({
+        type: 'info',
+        title: isBn ? 'পেমেন্ট বাতিল করা হয়েছে' : 'Payment Cancelled',
+        message: isBn
+          ? 'আপনি পেমেন্ট প্রক্রিয়া বাতিল করেছেন। যেকোনো সময় আবার অনুদান দিতে পারবেন।'
+          : 'You cancelled the payment. You can donate again anytime.',
+        confirmText: isBn ? 'ঠিক আছে' : 'OK',
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return null; // renders nothing — side-effect only
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 const GIFT_AMOUNTS = [
   { value: '25', label: '$25', bordered: true, span: false },
@@ -100,6 +153,11 @@ export default function HomePage() {
 
   return (
     <>
+      {/* EPS payment callback handler — zero DOM output, Suspense required for useSearchParams */}
+      <Suspense fallback={null}>
+        <EpsCallbackHandler />
+      </Suspense>
+
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         {/* Hero Section with Dual Column & Floating Interactive Donation Card */}
 

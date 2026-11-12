@@ -316,22 +316,74 @@ export default function SiteFooter() {
           </div>
         </div>
 
+        {/* ── EPS Mandatory Payment Gateway Footer ─────────────────────────────
+             Required by EPS (Easy Payment System) merchant agreement.
+             Must be displayed on the merchant website after integration.
+        ─────────────────────────────────────────────────────────────────── */}
+        <div className="mt-10 pt-6 border-t border-border-subtle">
+          {/* Desktop footer image */}
+          <div className="hidden sm:flex flex-col items-center gap-3">
+            <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">
+              {isBn ? 'পেমেন্ট পরিষেবা প্রদানকারী' : 'Powered by Payment Service Provider'}
+            </p>
+            <a
+              href="https://eps.com.bd"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="EPS – Easy Payment System | Bangladesh Bank Licensed PSP"
+            >
+              <img
+                src="/images/payment/eps-footer-desktop-light.png"
+                alt="EPS – Easy Payment System | Bangladesh Bank Licensed PSP Gateway"
+                className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </a>
+            <div className="flex items-center gap-2 text-[10px] text-text-muted">
+              <img
+                src="/images/payment/eps-pso-licensed.png"
+                alt="PSO Licensed"
+                className="h-6 w-auto object-contain"
+              />
+              <span>
+                {isBn
+                  ? 'বাংলাদেশ ব্যাংক কর্তৃক অনুমোদিত পেমেন্ট সার্ভিস অপারেটর (PSO)'
+                  : 'Bangladesh Bank Licensed Payment Service Operator (PSO)'}
+              </span>
+              <span className="font-semibold text-slate-600">· 09609377377</span>
+            </div>
+          </div>
+
+          {/* Mobile footer image */}
+          <div className="flex sm:hidden flex-col items-center gap-2">
+            <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">
+              {isBn ? 'পেমেন্ট পরিষেবা' : 'Payment by'}
+            </p>
+            <a
+              href="https://eps.com.bd"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/payment/eps-footer-mobile-light.png"
+                alt="EPS – Easy Payment System"
+                className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </a>
+            <div className="flex items-center gap-1.5 text-[10px] text-text-muted">
+              <img src="/images/payment/eps-pso-licensed.png" alt="PSO Licensed" className="h-5 w-auto object-contain" />
+              <span>PSO Licensed · Bangladesh Bank</span>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Copyright & Legal */}
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex items-center">
             <p>
               {cms.header_footer.copyrightText || (isBn
                 ? '© ২০২৫ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
                 : '© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.')}
             </p>
-            <div className="flex items-center gap-1.5 opacity-80">
-              <img src="/images/payment/bkash.svg" alt="bKash" className="h-4 w-auto object-contain" />
-              <img src="/images/payment/nagad.svg" alt="Nagad" className="h-4 w-auto object-contain" />
-              <img src="/images/payment/rocket.svg" alt="Rocket" className="h-4 w-auto object-contain" />
-              <img src="/images/payment/upay.svg" alt="Upay" className="h-4 w-auto object-contain" />
-              <img src="/images/payment/visa.svg" alt="Visa" className="h-4 w-auto object-contain" />
-              <img src="/images/payment/mastercard.svg" alt="Mastercard" className="h-4 w-auto object-contain" />
-            </div>
           </div>
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link className="hover:text-primary transition-colors" href="/">

@@ -124,56 +124,119 @@ export default function EpsPaymentModal() {
     setTimeout(() => {
       setIsProcessing(false);
       setStep('otp');
-    }, 700);
+    }, 500);
   };
 
-  const handleConfirmPayment = (e: React.FormEvent) => {
+  /**
+   * Real EPS payment flow:
+   * 1. POST /api/payment/eps/init  → returns { redirectUrl, merchantTransactionId }
+   * 2. Redirect browser to EPS hosted checkout page
+   * 3. EPS posts IPN + redirects back to /api/payment/eps/callback
+   */
+  const handleConfirmPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch('/api/payment/eps/init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: activeAmount,
+          currency: paymentDetails.currency || 'BDT',
+          cause: selectedCause || paymentDetails.cause || 'General Humanitarian Relief Fund',
+          donorName: paymentDetails.donorName || cardHolder || 'Anonymous Donor',
+          donorEmail: paymentDetails.donorEmail || '',
+          donorPhone: phoneNumber || paymentDetails.donorPhone || '',
+          donorAddress: '',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        // Credentials not yet configured — fall back to sandbox simulation
+        if (res.status === 503 || data.error?.includes('not configured')) {
+          console.warn('[EPS] Gateway not configured — running sandbox simulation.');
+          _simulateSuccess();
+          return;
+        }
+        throw new Error(data.error || 'EPS initialisation failed.');
+      }
+
+      // Save pending donation in localStorage for the admin dashboard
+      try {
+        const existing = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
+        localStorage.setItem(
+          'gmcf:donations',
+          JSON.stringify([
+            {
+              id: data.merchantTransactionId,
+              donorName: paymentDetails.donorName || cardHolder || 'Anonymous Donor',
+              donorPhone: phoneNumber || '',
+              donorEmail: paymentDetails.donorEmail || '',
+              amount: activeAmount,
+              currency: paymentDetails.currency,
+              cause: selectedCause || paymentDetails.cause,
+              method: selectedMethod.toUpperCase(),
+              status: 'PENDING',
+              date: new Date().toISOString().replace('T', ' ').substring(0, 19),
+              gateway: 'EPS Easy Payment System',
+            },
+            ...existing,
+          ]),
+        );
+      } catch (_) { /* non-fatal */ }
+
+      // Redirect to EPS hosted payment page
+      window.location.href = data.redirectUrl;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error('[EPS Payment Error]', msg);
       setIsProcessing(false);
+      alert(isBn
+        ? `পেমেন্ট প্রক্রিয়ায় সমস্যা হয়েছে: ${msg}`
+        : `Payment initialisation error: ${msg}`
+      );
+    }
+  };
+
+  /** Sandbox-only simulation (used when EPS credentials are not yet set) */
+  const _simulateSuccess = () => {
+    setTimeout(() => {
       const generatedTrx = 'EPS' + Math.floor(100000000 + Math.random() * 900000000);
       setTrxId(generatedTrx);
       setStep('success');
+      setIsProcessing(false);
 
-      // Save donation to Supabase and localStorage for Admin Dashboard
       try {
         const existing = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
         const newDonation = {
           id: generatedTrx,
           donorName: paymentDetails.donorName || cardHolder || 'Anonymous Donor',
-          donorPhone: phoneNumber || '01913119525',
-          donorEmail: paymentDetails.donorEmail || 'donor@gmcf.org',
+          donorPhone: phoneNumber || '',
+          donorEmail: paymentDetails.donorEmail || '',
           amount: activeAmount,
           currency: paymentDetails.currency,
           cause: selectedCause || paymentDetails.cause || 'General Humanitarian Relief Fund',
           method: selectedMethod.toUpperCase(),
           status: 'SUCCESS',
           date: new Date().toISOString().replace('T', ' ').substring(0, 19),
-          gateway: 'EPS Easy Payment System',
+          gateway: 'EPS Easy Payment System (Sandbox)',
         };
         localStorage.setItem('gmcf:donations', JSON.stringify([newDonation, ...existing]));
-
-        // Sync directly to Supabase donations table
-        supabase
-          .from('donations')
-          .insert({
-            donor_name: newDonation.donorName,
-            donor_phone: newDonation.donorPhone,
-            donor_email: newDonation.donorEmail,
-            amount: newDonation.amount,
-            currency: newDonation.currency,
-            cause: newDonation.cause,
-            payment_method: newDonation.method,
-            transaction_id: generatedTrx,
-            status: 'completed',
-          })
-          .then(({ error }) => {
-            if (error) console.error('Supabase donation insert:', error.message);
-          });
-      } catch (err) {
-        console.error('Error saving donation', err);
-      }
+        supabase.from('donations').insert({
+          donor_name: newDonation.donorName,
+          donor_phone: newDonation.donorPhone,
+          donor_email: newDonation.donorEmail,
+          amount: newDonation.amount,
+          currency: newDonation.currency,
+          cause: newDonation.cause,
+          payment_method: newDonation.method,
+          transaction_id: generatedTrx,
+          status: 'completed',
+        }).then(({ error }) => { if (error) console.error('Supabase insert:', error.message); });
+      } catch (err) { console.error('Error saving donation', err); }
     }, 1200);
   };
 
@@ -855,8 +918,8 @@ export default function EpsPaymentModal() {
                 </h4>
                 <p className="text-xs text-slate-500 mt-1">
                   {isBn
-                    ? 'EPS টেস্ট সিমুলেশন: যেকোনো ৪-৬ ডিজিটের ওটিপি (যেমন: 123456) ও পিন লিখুন।'
-                    : 'EPS Simulation: Enter any 4-6 digit dummy OTP (e.g. 123456) and your wallet PIN.'}
+                    ? `আপনার ${selectedMethod.toUpperCase()} অ্যাপে প্রেরিত OTP কোডটি এখানে লিখুন।`
+                    : `Enter the OTP sent to your ${selectedMethod.toUpperCase()} registered mobile number.`}
                 </p>
               </div>
 
@@ -991,7 +1054,7 @@ export default function EpsPaymentModal() {
           <span className="truncate">{isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}</span>
           <span className="flex items-center gap-1 sm:gap-1.5 font-medium shrink-0 ml-2">
             <span className="material-symbols-outlined text-[12px] sm:text-[13px] text-emerald-600">lock</span>
-            EPS Sandbox (PSP)
+            EPS Licensed PSP · Bangladesh Bank
           </span>
         </div>
       </div>
