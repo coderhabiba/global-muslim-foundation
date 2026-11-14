@@ -14,6 +14,9 @@ import { CustomSectionsProvider } from '@/lib/page-sections';
 import EpsPaymentModal from '@/components/payment/EpsPaymentModal';
 import CharityLicenseModal from '@/components/trust/CharityLicenseModal';
 import GlobalAlertModal from '@/components/trust/GlobalAlertModal';
+import SmoothScrollProvider from '@/components/system/SmoothScrollProvider';
+import ScrollControlsWidget from '@/components/navigation/ScrollControlsWidget';
+import FloatingContactWidget from '@/components/contact/FloatingContactWidget';
 
 import './globals.css';
 
@@ -89,11 +92,15 @@ export default function RootLayout({
             <DynamicCardProvider>
               <CustomSectionsProvider>
                 <ModalStateProvider>
-                  {children}
-                  <EpsPaymentModal />
-                  <CharityLicenseModal />
-                  <GlobalAlertModal />
-                  <SiteSettingsBridge />
+                  <SmoothScrollProvider>
+                    {children}
+                    <ScrollControlsWidget />
+                    <FloatingContactWidget />
+                    <EpsPaymentModal />
+                    <CharityLicenseModal />
+                    <GlobalAlertModal />
+                    <SiteSettingsBridge />
+                  </SmoothScrollProvider>
                 </ModalStateProvider>
               </CustomSectionsProvider>
             </DynamicCardProvider>
