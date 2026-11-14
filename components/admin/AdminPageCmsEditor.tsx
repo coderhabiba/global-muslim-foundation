@@ -371,7 +371,8 @@ export default function AdminPageCmsEditor() {
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">হিরো মূল শিরোনাম (Heading)</label>
-                    <input type="text" value={pageData.heroTitle || ''} onChange={e => handleFieldChange('heroTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    <input type="text" placeholder="মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা" value={pageData.heroTitle || ''} onChange={e => handleFieldChange('heroTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    <p className="text-[11px] text-slate-500 mt-1">টিপস: &ldquo;সহানুভূতি ও দায়িত্বশীলতা&rdquo; টেক্সটটি স্বয়ংক্রিয়ভাবে আকর্ষণীয় রঙ, ইটালিক ও চমৎকার বর্ডারে হাইলাইট হবে।</p>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">হিরো সাব-টাইটেল / বর্ণনা</label>

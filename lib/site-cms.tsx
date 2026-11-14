@@ -208,7 +208,7 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
   },
   home: {
     heroBadge: '১০০% যাকাত পলিসি নিশ্চিত ও নিবন্ধিত এনজিও',
-    heroTitle: 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত',
+    heroTitle: 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা',
     heroSubtitle: 'ক্ষুধার্তের মুখে খাবার, বিশুদ্ধ পানি ও সুবিধাবঞ্চিত এতিম শিশুদের উজ্জ্বল ভবিষ্যৎ গড়তে আপনার যাকাত ও সদকা পৌঁছে দিন সরাসরি মানুষের কাছে।',
     heroPrimaryBtn: 'অনলাইন অনুদান দিন',
     heroSecondaryBtn: 'আমাদের কার্যক্রম দেখুন',
@@ -396,6 +396,9 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (MOCK_STRINGS.has(parsed.impact.districtsCovered)) parsed.impact.districtsCovered = '০';
           if (MOCK_STRINGS.has(parsed.impact.healthcareProvided)) parsed.impact.healthcareProvided = '০';
           if (MOCK_STRINGS.has(parsed.impact.orphansSupported)) parsed.impact.orphansSupported = '০';
+        }
+        if (parsed.home && parsed.home.heroTitle === 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত') {
+          parsed.home.heroTitle = 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা';
         }
         setCms(prev => ({
           ...DEFAULT_CMS_CONTENT,

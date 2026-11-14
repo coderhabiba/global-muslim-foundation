@@ -177,7 +177,32 @@ export default function HomePage() {
                 </div>
                 <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-[54px] font-bold text-on-surface tracking-tight leading-[1.15]">
                   {isBn ? (
-                    cms.home.heroTitle
+                    (() => {
+                      const highlightPhrase = 'সহানুভূতি ও দায়িত্বশীলতা';
+                      const title = (cms.home.heroTitle || 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত').trim();
+
+                      if (title.includes(highlightPhrase)) {
+                        const parts = title.split(highlightPhrase);
+                        return (
+                          <>
+                            {parts[0]}
+                            <span className="text-primary italic border-b-4 border-gold-warm pb-1 inline-block">
+                              {highlightPhrase}
+                            </span>
+                            {parts.slice(1).join(highlightPhrase)}
+                          </>
+                        );
+                      }
+
+                      return (
+                        <>
+                          {title} —{' '}
+                          <span className="text-primary italic border-b-4 border-gold-warm pb-1 inline-block">
+                            {highlightPhrase}
+                          </span>
+                        </>
+                      );
+                    })()
                   ) : (
                     <>
                       Empowering Lives Through Faith,{' '}
