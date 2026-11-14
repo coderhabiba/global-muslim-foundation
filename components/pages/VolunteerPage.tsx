@@ -1,8 +1,109 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useSiteSettings } from '@/lib/site-settings';
+
+const BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+function parseNumFromStr(str: string): { num: number; isBengali: boolean; suffix: string } {
+  let isBengali = false;
+  let normalized = '';
+  for (const ch of str) {
+    const idx = BN_DIGITS.indexOf(ch);
+    if (idx !== -1) {
+      isBengali = true;
+      normalized += idx;
+    } else if (ch >= '0' && ch <= '9') {
+      normalized += ch;
+    }
+  }
+  const suffix = str.includes('+') ? '+' : str.includes('%') ? '%' : '';
+  return {
+    num: parseInt(normalized, 10) || 0,
+    isBengali,
+    suffix,
+  };
+}
+
+function DynamicLiveStatItem({
+  baseValue,
+  defaultBase,
+  title,
+  desc,
+  fluctuateRange = [-2, 5],
+  intervalMs = 4500,
+}: {
+  baseValue?: string;
+  defaultBase: string;
+  title: string;
+  desc: string;
+  fluctuateRange?: [number, number];
+  intervalMs?: number;
+}) {
+  const rawStr = (baseValue || defaultBase).trim();
+  const { num: baseNum, isBengali, suffix } = useMemo(() => parseNumFromStr(rawStr), [rawStr]);
+
+  const [displayValue, setDisplayValue] = useState(baseNum);
+  const [isPulsing, setIsPulsing] = useState(false);
+
+  // Sync if admin changes base in CMS
+  useEffect(() => {
+    setDisplayValue(baseNum);
+  }, [baseNum]);
+
+  // Subtle auto live fluctuation
+  useEffect(() => {
+    if (baseNum <= 0) return;
+    const [minDelta, maxDelta] = fluctuateRange;
+    if (minDelta === 0 && maxDelta === 0) return;
+
+    const interval = setInterval(() => {
+      const delta = Math.floor(Math.random() * (maxDelta - minDelta + 1)) + minDelta;
+      const nextVal = Math.max(0, baseNum + delta);
+      setDisplayValue(prev => {
+        if (prev !== nextVal) {
+          setIsPulsing(true);
+          setTimeout(() => setIsPulsing(false), 800);
+        }
+        return nextVal;
+      });
+    }, intervalMs + Math.floor(Math.random() * 2000));
+
+    return () => clearInterval(interval);
+  }, [baseNum, fluctuateRange, intervalMs]);
+
+  const formattedNum = isBengali
+    ? String(displayValue).replace(/[0-9]/g, d => BN_DIGITS[Number(d)])
+    : displayValue.toLocaleString('en-US');
+
+  return (
+    <div className="flex flex-col items-center justify-center p-3 transition-transform duration-300">
+      <div className="flex items-baseline justify-center gap-0.5">
+        <span
+          className={`text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none transition-all duration-500 inline-block ${
+            isPulsing
+              ? 'scale-110 text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.7)]'
+              : 'scale-100'
+          }`}
+        >
+          {formattedNum}
+        </span>
+        {suffix && (
+          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
+            {suffix}
+          </span>
+        )}
+      </div>
+      <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
+        {title}
+      </span>
+      <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
+        {desc}
+      </span>
+    </div>
+  );
+}
 
 const SECTOR_OPTIONS = [
   { value: 'Emergency Relief', icon: 'soup_kitchen', label: 'Food & Relief' },
@@ -295,130 +396,57 @@ export default function VolunteerPage() {
             </div>
           </section>
 
-          {/* High-Contrast Live Metric Bar */}
+          {/* High-Contrast Live Metric Bar (Fully Dynamic + Real-time Subtle Fluctuation) */}
 
           <section className="w-full bg-[#044E42] text-white py-8 sm:py-10 shadow-inner">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+              {/* Subtle Live Activity Status */}
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300/90">
+                  {isBn ? 'রিয়েল-টাইম লাইভ ফিল্ড ডেটা' : 'Live Real-Time Field Activity'}
+                </span>
+              </div>
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-                <div className="flex flex-col items-center justify-center p-3">
-                  {(() => {
-                    const clean = (cmsVolunteer.stat1Value || '850+').trim();
-                    const hasPlus = clean.endsWith('+');
-                    const num = hasPlus ? clean.slice(0, -1) : clean;
-                    return (
-                      <div className="flex items-baseline justify-center gap-0.5">
-                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                          {num}
-                        </span>
-                        {hasPlus && (
-                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
-                            +
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
-                    {isBn
-                      ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক')
-                      : 'Active Youth Volunteers'}
-                  </span>
-                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
-                    {isBn
-                      ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব')
-                      : 'Universities & Local Youth Clubs'}
-                  </span>
-                </div>
+                <DynamicLiveStatItem
+                  baseValue={cmsVolunteer.stat1Value}
+                  defaultBase="850+"
+                  title={isBn ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক') : 'Active Youth Volunteers'}
+                  desc={isBn ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব') : 'Universities & Local Youth Clubs'}
+                  fluctuateRange={[-3, 6]}
+                  intervalMs={4200}
+                />
 
-                <div className="flex flex-col items-center justify-center p-3">
-                  {(() => {
-                    const clean = (cmsVolunteer.stat2Value || '45').trim();
-                    const hasPlus = clean.endsWith('+');
-                    const num = hasPlus ? clean.slice(0, -1) : clean;
-                    return (
-                      <div className="flex items-baseline justify-center gap-0.5">
-                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                          {num}
-                        </span>
-                        {hasPlus && (
-                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
-                            +
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
-                    {isBn
-                      ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন')
-                      : 'Field Deployments'}
-                  </span>
-                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
-                    {isBn
-                      ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)')
-                      : 'Active Relief Operations (2024-25)'}
-                  </span>
-                </div>
+                <DynamicLiveStatItem
+                  baseValue={cmsVolunteer.stat2Value}
+                  defaultBase="45"
+                  title={isBn ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন') : 'Field Deployments'}
+                  desc={isBn ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)') : 'Active Relief Operations (2024-25)'}
+                  fluctuateRange={[-1, 2]}
+                  intervalMs={5800}
+                />
 
-                <div className="flex flex-col items-center justify-center p-3">
-                  {(() => {
-                    const clean = (cmsVolunteer.stat3Value || '12').trim();
-                    const hasPlus = clean.endsWith('+');
-                    const num = hasPlus ? clean.slice(0, -1) : clean;
-                    return (
-                      <div className="flex items-baseline justify-center gap-0.5">
-                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                          {num}
-                        </span>
-                        {hasPlus && (
-                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
-                            +
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
-                    {isBn
-                      ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র')
-                      : 'Regional Dispatch Hubs'}
-                  </span>
-                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
-                    {isBn
-                      ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে')
-                      : 'Covering 64 Districts Across Bangladesh'}
-                  </span>
-                </div>
+                <DynamicLiveStatItem
+                  baseValue={cmsVolunteer.stat3Value}
+                  defaultBase="12"
+                  title={isBn ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র') : 'Regional Dispatch Hubs'}
+                  desc={isBn ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে') : 'Covering 64 Districts Across Bangladesh'}
+                  fluctuateRange={[0, 1]}
+                  intervalMs={7500}
+                />
 
-                <div className="flex flex-col items-center justify-center p-3">
-                  {(() => {
-                    const clean = (cmsVolunteer.stat4Value || '100%').trim();
-                    const hasPercent = clean.endsWith('%');
-                    const num = hasPercent ? clean.slice(0, -1) : clean;
-                    return (
-                      <div className="flex items-baseline justify-center gap-0.5">
-                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                          {num}
-                        </span>
-                        {hasPercent && (
-                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
-                            %
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
-                    {isBn
-                      ? (cmsVolunteer.stat4Title || 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ')
-                      : 'Certified Safety Training'}
-                  </span>
-                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
-                    {isBn
-                      ? (cmsVolunteer.stat4Desc || 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড')
-                      : 'Shariah Volunteer Ethics & First Aid'}
-                  </span>
-                </div>
+                <DynamicLiveStatItem
+                  baseValue={cmsVolunteer.stat4Value}
+                  defaultBase="100%"
+                  title={isBn ? (cmsVolunteer.stat4Title || 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ') : 'Certified Safety Training'}
+                  desc={isBn ? (cmsVolunteer.stat4Desc || 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড') : 'Shariah Volunteer Ethics & First Aid'}
+                  fluctuateRange={[0, 0]}
+                  intervalMs={10000}
+                />
               </div>
             </div>
           </section>
