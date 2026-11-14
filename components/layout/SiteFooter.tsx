@@ -405,16 +405,21 @@ export default function SiteFooter() {
                 className="h-14 md:h-16 w-auto max-w-full object-contain opacity-95 hover:opacity-100 transition-opacity"
               />
             </a>
-            <div className="flex items-center gap-2 text-[10px] text-text-muted">
+            <div className="flex items-center gap-2.5 text-[10px] text-text-muted flex-wrap justify-center">
               <img
                 src="/images/payment/eps-pso-licensed.png"
                 alt="PSO Licensed"
                 className="h-6 w-auto object-contain"
               />
+              <img
+                src="/images/eps_extracted/image003.png"
+                alt="PCI DSS Compliant"
+                className="h-5 w-auto object-contain"
+              />
               <span>
                 {isBn
-                  ? 'বাংলাদেশ ব্যাংক কর্তৃক অনুমোদিত পেমেন্ট সার্ভিস অপারেটর (PSO)'
-                  : 'Bangladesh Bank Licensed Payment Service Operator (PSO)'}
+                  ? 'বাংলাদেশ ব্যাংক অনুমোদিত PSO ও PCI-DSS সার্টিফাইড পেমেন্ট সিস্টেম'
+                  : 'Bangladesh Bank Licensed Payment Service Operator (PSO) & PCI-DSS Certified'}
               </span>
               <span className="font-semibold text-slate-600">· 09609377377</span>
             </div>
@@ -437,9 +442,10 @@ export default function SiteFooter() {
                 className="h-14 w-auto max-w-[92vw] object-contain opacity-95 hover:opacity-100 transition-opacity"
               />
             </a>
-            <div className="flex items-center gap-1.5 text-[10px] text-text-muted">
+            <div className="flex items-center gap-2 text-[10px] text-text-muted flex-wrap justify-center">
               <img src="/images/payment/eps-pso-licensed.png" alt="PSO Licensed" className="h-5 w-auto object-contain" />
-              <span>PSO Licensed · Bangladesh Bank</span>
+              <img src="/images/eps_extracted/image003.png" alt="PCI DSS Compliant" className="h-4 w-auto object-contain" />
+              <span>PSO Licensed &amp; PCI-DSS · Bangladesh Bank</span>
             </div>
           </div>
         </div>

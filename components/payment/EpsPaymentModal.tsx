@@ -485,6 +485,15 @@ export default function EpsPaymentModal() {
                 </div>
               </div>
 
+              {/* Official EPS Checkout Banner */}
+              <div className="rounded-2xl overflow-hidden border border-emerald-600/20 bg-white p-1.5 shadow-xs">
+                <img
+                  src="/images/payment/eps-checkout-banner.png"
+                  alt="Pay with EPS - Visa, Mastercard, Amex, bKash, Nagad, Rocket"
+                  className="w-full h-auto object-contain rounded-xl"
+                />
+              </div>
+
               {/* Mobile Banking Section */}
               <div>
                 <div className="flex items-center justify-between mb-2.5">
@@ -579,9 +588,19 @@ export default function EpsPaymentModal() {
                     <span className="material-symbols-outlined text-blue-600 text-[18px]">credit_card</span>
                     {isBn ? 'কার্ড ও অনলাইন ব্যাংকিং' : 'Cards & Online Banking'}
                   </span>
-                  <span className="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-md border border-emerald-200">
-                    3D Secure Verified
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-800 font-semibold px-2 py-0.5 rounded-md border border-emerald-200">
+                      <img
+                        src="/images/eps_extracted/image003.png"
+                        alt="PCI DSS Compliant"
+                        className="h-3.5 w-auto object-contain"
+                      />
+                      <span>PCI-DSS</span>
+                    </span>
+                    <span className="text-[10px] bg-blue-50 text-blue-700 font-semibold px-2 py-0.5 rounded-md border border-blue-200">
+                      3D Secure
+                    </span>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -664,7 +683,7 @@ export default function EpsPaymentModal() {
                 <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 shrink-0 mt-0.5">
                   <span className="material-symbols-outlined text-[20px]">verified_user</span>
                 </div>
-                <div>
+                <div className="flex-1">
                   <h5 className="text-xs font-bold text-slate-900">
                     {isBn ? 'ইজি পেমেন্ট সিস্টেম (EPS) নিরাপদ গেটওয়ে' : 'Easy Payment System (EPS) Secured Gateway'}
                   </h5>
@@ -673,6 +692,11 @@ export default function EpsPaymentModal() {
                       ? 'বাংলাদেশ ব্যাংক অনুমোদিত পিএসপি গেটওয়ে। আপনার অনুদান সরাসরি গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অফিশিয়াল ব্যাংক একাউন্টে জমা হবে।'
                       : 'Bangladesh Bank licensed PSP gateway. Your generous donation directly reaches Global Muslim Charitable Foundation official relief accounts with end-to-end 256-bit encryption.'}
                   </p>
+                  <div className="mt-2.5 flex items-center gap-3 pt-2 border-t border-slate-200/60 flex-wrap">
+                    <img src="/images/eps_extracted/image003.png" alt="PCI DSS Compliant" className="h-5 w-auto object-contain" />
+                    <img src="/images/payment/eps-pso-licensed.png" alt="PSO Licensed" className="h-5 w-auto object-contain" />
+                    <span className="text-[10px] text-slate-500 font-medium">PCI-DSS Certified · 256-Bit SSL End-to-End Encryption</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1052,10 +1076,13 @@ export default function EpsPaymentModal() {
         {/* Modal Footer Note */}
         <div className="bg-slate-100 px-3.5 sm:px-5 py-2.5 sm:py-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 shrink-0">
           <span className="truncate">{isBn ? 'চেয়ারম্যান: মোহাম্মদ আলী মোস্তফা' : 'Chairman: Mohammad Ali Mostafa'}</span>
-          <span className="flex items-center gap-1 sm:gap-1.5 font-medium shrink-0 ml-2">
-            <span className="material-symbols-outlined text-[12px] sm:text-[13px] text-emerald-600">lock</span>
-            EPS Licensed PSP · Bangladesh Bank
-          </span>
+          <div className="flex items-center gap-2 shrink-0 ml-2">
+            <img src="/images/eps_extracted/image003.png" alt="PCI DSS Compliant" className="h-3.5 w-auto object-contain" />
+            <span className="flex items-center gap-1 font-medium">
+              <span className="material-symbols-outlined text-[12px] sm:text-[13px] text-emerald-600">lock</span>
+              EPS Licensed PSP · Bangladesh Bank
+            </span>
+          </div>
         </div>
       </div>
     </div>
