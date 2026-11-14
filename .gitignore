@@ -59,3 +59,6 @@ public/images/eps_extracted/
 docs/EPSmerchantapiguideline.pdf
 docs/Global_Muslim_Charitable_Foundation_Website_Proposal.pdf
 
+
+# Local Netlify folder
+.netlify
