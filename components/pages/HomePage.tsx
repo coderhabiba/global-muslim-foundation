@@ -186,7 +186,7 @@ export default function HomePage() {
                         return (
                           <>
                             {parts[0]}
-                            <span className="text-primary italic border-b-4 border-gold-warm pb-1 inline-block">
+                            <span className="text-primary italic underline decoration-gold-warm decoration-[3px] sm:decoration-4 underline-offset-[3px] sm:underline-offset-4 inline">
                               {highlightPhrase}
                             </span>
                             {parts.slice(1).join(highlightPhrase)}
@@ -197,7 +197,7 @@ export default function HomePage() {
                       return (
                         <>
                           {title} —{' '}
-                          <span className="text-primary italic border-b-4 border-gold-warm pb-1 inline-block">
+                          <span className="text-primary italic underline decoration-gold-warm decoration-[3px] sm:decoration-4 underline-offset-[3px] sm:underline-offset-4 inline">
                             {highlightPhrase}
                           </span>
                         </>
