@@ -214,7 +214,8 @@ export default function HomePage() {
                 </h1>
                 <p className="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
                   {isBn ? (
-                    cms.home.heroSubtitle
+                    cms.home.heroSubtitle ||
+                    'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।'
                   ) : (
                     <>
                       <strong>One Meal One Hope</strong> — Transforming vulnerable
@@ -225,49 +226,53 @@ export default function HomePage() {
                   )}
                 </p>
 
-                {/* Metric Value Badges */}
+                {/* Metric Value Badges (3 Dynamic Cards - Screenshot 1 Style) */}
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
-                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
-                    <div className="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
+                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-xs flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-[24px]">
-                        verified_user
+                        restaurant
                       </span>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold text-on-surface">
-                        ১০০% যাকাত
+                    <div className="min-w-0">
+                      <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
+                        {isBn ? (cms.home.heroBadge1Value || '120,000+') : '120,000+'}
                       </p>
-                      <p className="text-xs text-text-muted font-medium">
-                        সম্পূর্ণ হকদারদের অর্পণ নীতি
+                      <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
+                        {isBn ? (cms.home.heroBadge1Label || 'পুষ্টিকর খাবার পরিবেশন') : 'Nutritious Meals Served'}
                       </p>
                     </div>
                   </div>
-                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
-                    <div className="p-2.5 rounded-xl bg-surface-subtle-mint text-primary">
+
+                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-xs flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-[24px]">
-                        assured_workload
+                        medical_services
                       </span>
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-on-surface">
-                        রেজি: S-14086/2023
+                    <div className="min-w-0">
+                      <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
+                        {isBn ? (cms.home.heroBadge2Value || '8,400+') : '8,400+'}
                       </p>
-                      <p className="text-xs text-text-muted font-medium">
-                        সরকারি নিবন্ধিত চ্যারিটি
+                      <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
+                        {isBn ? (cms.home.heroBadge2Label || 'শিশু অস্ত্রোপচার ও সেবা') : 'Pediatric Surgery & Care'}
                       </p>
                     </div>
                   </div>
-                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-sm flex items-center gap-3.5">
-                    <div className="p-2.5 rounded-xl bg-zakat-gold-light text-amber-700">
+
+                  <div className="bg-surface-clean rounded-2xl p-4 border border-border-subtle shadow-xs flex items-center gap-3.5 hover:border-amber-300 transition-colors">
+                    <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-[24px]">
                         balance
                       </span>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold text-on-surface">০% ফি</p>
-                      <p className="text-xs text-text-muted font-medium">
-                        জিরো অ্যাডমিন কস্ট পলিসি
+                    <div className="min-w-0">
+                      <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
+                        {isBn ? (cms.home.heroBadge3Value || '100%') : '100%'}
+                      </p>
+                      <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
+                        {isBn ? (cms.home.heroBadge3Label || 'শরিয়াহ যাকাত নীতি') : 'Shariah Zakat Policy'}
                       </p>
                     </div>
                   </div>
@@ -588,51 +593,56 @@ export default function HomePage() {
 
         {/* Impact Statistics & Transparency Ribbon */}
 
-        <section className="w-full bg-emerald-dark text-on-primary py-10 shadow-inner">
+        {/* Dynamic Impact Banner - 4 Pillars (Screenshot 2 Style) */}
+
+        <section className="w-full bg-[#044E42] text-on-primary py-12 sm:py-14 shadow-inner">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-2">
-                <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  ১০০%
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/10 text-center">
+              <div className="px-4">
+                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+                  {isBn ? (cms.home.bannerStat1Value || '120,000+') : '120,000+'}
                 </div>
-                <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  যাকাত বণ্টন নীতি
+                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                  {isBn ? (cms.home.bannerStat1Title || 'খাবার বিতরণ') : 'Meal Distribution'}
                 </p>
-                <span className="text-xs text-white/70 block mt-0.5">
-                  সম্পূর্ণ আমানত সঠিক হকদারদের নিকট অর্পণ
+                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                  {isBn ? (cms.home.bannerStat1Desc || 'রেললাইন ও শহরের বস্তি') : 'Railways & Urban Slums'}
                 </span>
               </div>
-              <div className="p-2 border-l border-white/10">
-                <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  ০%
+
+              <div className="px-4">
+                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+                  {isBn ? (cms.home.bannerStat2Value || '8,400+') : '8,400+'}
                 </div>
-                <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  অ্যাডমিন খরচ কর্তন
+                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                  {isBn ? (cms.home.bannerStat2Title || 'শিশুদের চিকিৎসা') : 'Child Medical Treatment'}
                 </p>
-                <span className="text-xs text-white/70 block mt-0.5">
-                  যাকাত ফান্ড থেকে কোনো অফিস ব্যয় কাটা হয় না
+                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                  {isBn ? (cms.home.bannerStat2Desc || 'শিশু অস্ত্রোপচার ও ওষুধ') : 'Pediatric Surgery & Medicine'}
                 </span>
               </div>
-              <div className="p-2 border-l md:border-l border-white/10">
-                <div className="font-serif-heading text-2xl sm:text-3xl text-gold-warm font-bold tracking-tight mt-1">
-                  S-14086
+
+              <div className="px-4">
+                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+                  {isBn ? (cms.home.bannerStat3Value || '350+') : '350+'}
                 </div>
-                <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  সরকারি নিবন্ধন নম্বর
+                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                  {isBn ? (cms.home.bannerStat3Title || 'বিশুদ্ধ পানির নলকূপ ও টয়লেট') : 'Clean Water Wells & Sanitation'}
                 </p>
-                <span className="text-xs text-white/70 block mt-0.5">
-                  গণপ্রজাতন্ত্রী বাংলাদেশ সরকার অনুমোদিত ট্রাস্ট
+                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                  {isBn ? (cms.home.bannerStat3Desc || 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র') : 'Deep Groundwater & Hygiene Centers'}
                 </span>
               </div>
-              <div className="p-2 border-l border-white/10">
-                <div className="font-serif-heading text-3xl sm:text-4xl text-gold-warm font-bold tracking-tight">
-                  ১০০%
+
+              <div className="px-4">
+                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+                  {isBn ? (cms.home.bannerStat4Value || '100%') : '100%'}
                 </div>
-                <p className="text-sm font-semibold text-primary-fixed mt-1">
-                  শরীয়াহ বোর্ড পর্যবেক্ষণ
+                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                  {isBn ? (cms.home.bannerStat4Title || 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত') : 'Verified by Shariah Board'}
                 </p>
-                <span className="text-xs text-white/70 block mt-0.5">
-                  বিজ্ঞ ইসলামি বিশেষজ্ঞদের পরামর্শে পরিচালিত
+                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                  {isBn ? (cms.home.bannerStat4Desc || 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়') : 'Zero overhead deducted from Zakat'}
                 </span>
               </div>
             </div>

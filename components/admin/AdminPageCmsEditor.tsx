@@ -396,22 +396,56 @@ export default function AdminPageCmsEditor() {
                       <input type="text" value={pageData.heroSecondaryBtn || ''} onChange={e => handleFieldChange('heroSecondaryBtn', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-                    <div>
-                      <label className="text-[11px] font-bold text-slate-600 block mb-1">স্ট্যাট ১ (দাতা)</label>
-                      <input type="text" value={pageData.statsDonors || ''} onChange={e => handleFieldChange('statsDonors', e.target.value)} className="w-full px-2.5 py-1.5 bg-white border rounded-lg text-xs font-bold" />
+                  {/* 3 Hero Metric Value Badges */}
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 space-y-3">
+                    <h6 className="text-xs font-bold text-slate-800">হিরো ৩টি প্রধান মেট্রিক কার্ড (Hero Value Badges)</h6>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">১ম কার্ড (খাবার)</span>
+                        <input type="text" placeholder="120,000+" value={pageData.heroBadge1Value || ''} onChange={e => handleFieldChange('heroBadge1Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
+                        <input type="text" placeholder="পুষ্টিকর খাবার পরিবেশন" value={pageData.heroBadge1Label || ''} onChange={e => handleFieldChange('heroBadge1Label', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded text-slate-600" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">২য় কার্ড (চিকিৎসা)</span>
+                        <input type="text" placeholder="8,400+" value={pageData.heroBadge2Value || ''} onChange={e => handleFieldChange('heroBadge2Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
+                        <input type="text" placeholder="শিশু অস্ত্রোপচার ও সেবা" value={pageData.heroBadge2Label || ''} onChange={e => handleFieldChange('heroBadge2Label', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded text-slate-600" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">৩য় কার্ড (যাকাত)</span>
+                        <input type="text" placeholder="100%" value={pageData.heroBadge3Value || ''} onChange={e => handleFieldChange('heroBadge3Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
+                        <input type="text" placeholder="শরিয়াহ যাকাত নীতি" value={pageData.heroBadge3Label || ''} onChange={e => handleFieldChange('heroBadge3Label', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded text-slate-600" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="text-[11px] font-bold text-slate-600 block mb-1">স্ট্যাট ২ (প্রকল্প)</label>
-                      <input type="text" value={pageData.statsProjects || ''} onChange={e => handleFieldChange('statsProjects', e.target.value)} className="w-full px-2.5 py-1.5 bg-white border rounded-lg text-xs font-bold" />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-bold text-slate-600 block mb-1">স্ট্যাট ৩ (উপকৃত)</label>
-                      <input type="text" value={pageData.statsBeneficiaries || ''} onChange={e => handleFieldChange('statsBeneficiaries', e.target.value)} className="w-full px-2.5 py-1.5 bg-white border rounded-lg text-xs font-bold" />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-bold text-slate-600 block mb-1">স্ট্যাট ৪ (স্বচ্ছতা)</label>
-                      <input type="text" value={pageData.statsTransparency || ''} onChange={e => handleFieldChange('statsTransparency', e.target.value)} className="w-full px-2.5 py-1.5 bg-white border rounded-lg text-xs font-bold" />
+                  </div>
+
+                  {/* 4 Green Banner Impact Metrics */}
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 space-y-3">
+                    <h6 className="text-xs font-bold text-slate-800">সবুজ ব্যানার ইমপ্যাক্ট মেট্রিক্স (Green Banner - ৪টি স্তম্ভ)</h6>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">১ম স্তম্ভ (খাবার)</span>
+                        <input type="text" placeholder="120,000+" value={pageData.bannerStat1Value || ''} onChange={e => handleFieldChange('bannerStat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="খাবার বিতরণ" value={pageData.bannerStat1Title || ''} onChange={e => handleFieldChange('bannerStat1Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
+                        <input type="text" placeholder="রেললাইন ও শহরের বস্তি" value={pageData.bannerStat1Desc || ''} onChange={e => handleFieldChange('bannerStat1Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">২য় স্তম্ভ (চিকিৎসা)</span>
+                        <input type="text" placeholder="8,400+" value={pageData.bannerStat2Value || ''} onChange={e => handleFieldChange('bannerStat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="শিশুদের চিকিৎসা" value={pageData.bannerStat2Title || ''} onChange={e => handleFieldChange('bannerStat2Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
+                        <input type="text" placeholder="শিশু অস্ত্রোপচার ও ওষুধ" value={pageData.bannerStat2Desc || ''} onChange={e => handleFieldChange('bannerStat2Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">৩য় স্তম্ভ (পানি ও স্যানিটেশন)</span>
+                        <input type="text" placeholder="350+" value={pageData.bannerStat3Value || ''} onChange={e => handleFieldChange('bannerStat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="বিশুদ্ধ পানির নলকূপ ও টয়লেট" value={pageData.bannerStat3Title || ''} onChange={e => handleFieldChange('bannerStat3Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
+                        <input type="text" placeholder="গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র" value={pageData.bannerStat3Desc || ''} onChange={e => handleFieldChange('bannerStat3Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">৪র্থ স্তম্ভ (শরীয়াহ)</span>
+                        <input type="text" placeholder="100%" value={pageData.bannerStat4Value || ''} onChange={e => handleFieldChange('bannerStat4Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত" value={pageData.bannerStat4Title || ''} onChange={e => handleFieldChange('bannerStat4Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
+                        <input type="text" placeholder="যাকাত থেকে শূন্য ওভারহেড কাটা হয়" value={pageData.bannerStat4Desc || ''} onChange={e => handleFieldChange('bannerStat4Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -46,6 +46,26 @@ export interface SiteCMSContent {
     heroPrimaryBtn: string;
     heroSecondaryBtn: string;
     heroBgImage: string;
+    // 3 Hero Metric Value Badges
+    heroBadge1Value?: string;
+    heroBadge1Label?: string;
+    heroBadge2Value?: string;
+    heroBadge2Label?: string;
+    heroBadge3Value?: string;
+    heroBadge3Label?: string;
+    // 4 Green Impact Banner Metrics
+    bannerStat1Value?: string;
+    bannerStat1Title?: string;
+    bannerStat1Desc?: string;
+    bannerStat2Value?: string;
+    bannerStat2Title?: string;
+    bannerStat2Desc?: string;
+    bannerStat3Value?: string;
+    bannerStat3Title?: string;
+    bannerStat3Desc?: string;
+    bannerStat4Value?: string;
+    bannerStat4Title?: string;
+    bannerStat4Desc?: string;
     statsDonors: string;
     statsProjects: string;
     statsBeneficiaries: string;
@@ -209,10 +229,30 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
   home: {
     heroBadge: '১০০% যাকাত পলিসি নিশ্চিত ও নিবন্ধিত এনজিও',
     heroTitle: 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা',
-    heroSubtitle: 'ক্ষুধার্তের মুখে খাবার, বিশুদ্ধ পানি ও সুবিধাবঞ্চিত এতিম শিশুদের উজ্জ্বল ভবিষ্যৎ গড়তে আপনার যাকাত ও সদকা পৌঁছে দিন সরাসরি মানুষের কাছে।',
+    heroSubtitle: 'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।',
     heroPrimaryBtn: 'অনলাইন অনুদান দিন',
     heroSecondaryBtn: 'আমাদের কার্যক্রম দেখুন',
     heroBgImage: '/images/hero-relief.jpg',
+    // 3 Hero Metric Value Badges
+    heroBadge1Value: '120,000+',
+    heroBadge1Label: 'পুষ্টিকর খাবার পরিবেশন',
+    heroBadge2Value: '8,400+',
+    heroBadge2Label: 'শিশু অস্ত্রোপচার ও সেবা',
+    heroBadge3Value: '100%',
+    heroBadge3Label: 'শরিয়াহ যাকাত নীতি',
+    // 4 Green Impact Banner Metrics
+    bannerStat1Value: '120,000+',
+    bannerStat1Title: 'খাবার বিতরণ',
+    bannerStat1Desc: 'রেললাইন ও শহরের বস্তি',
+    bannerStat2Value: '8,400+',
+    bannerStat2Title: 'শিশুদের চিকিৎসা',
+    bannerStat2Desc: 'শিশু অস্ত্রোপচার ও ওষুধ',
+    bannerStat3Value: '350+',
+    bannerStat3Title: 'বিশুদ্ধ পানির নলকূপ ও টয়লেট',
+    bannerStat3Desc: 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র',
+    bannerStat4Value: '100%',
+    bannerStat4Title: 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত',
+    bannerStat4Desc: 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়',
     statsDonors: '১২,৫০০+ দাতা',
     statsProjects: '৪৮+ সফল প্রকল্প',
     statsBeneficiaries: '১,৫০,০০০+ উপকৃত',
@@ -397,8 +437,18 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (MOCK_STRINGS.has(parsed.impact.healthcareProvided)) parsed.impact.healthcareProvided = '০';
           if (MOCK_STRINGS.has(parsed.impact.orphansSupported)) parsed.impact.orphansSupported = '০';
         }
-        if (parsed.home && parsed.home.heroTitle === 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত') {
-          parsed.home.heroTitle = 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা';
+        if (parsed.home) {
+          if (parsed.home.heroTitle === 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত') {
+            parsed.home.heroTitle = 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত — সহানুভূতি ও দায়িত্বশীলতা';
+          }
+          if (
+            !parsed.home.heroSubtitle ||
+            parsed.home.heroSubtitle ===
+              'ক্ষুধার্তের মুখে খাবার, বিশুদ্ধ পানি ও সুবিধাবঞ্চিত এতিম শিশুদের উজ্জ্বল ভবিষ্যৎ গড়তে আপনার যাকাত ও সদকা পৌঁছে দিন সরাসরি মানুষের কাছে।'
+          ) {
+            parsed.home.heroSubtitle =
+              'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।';
+          }
         }
         setCms(prev => ({
           ...DEFAULT_CMS_CONTENT,
