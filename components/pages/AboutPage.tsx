@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
+import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 export default function AboutPage() {
   const { localize, language } = useSiteSettings();
@@ -121,10 +122,14 @@ export default function AboutPage() {
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 text-center">
                   <span className="font-headline-lg text-headline-lg text-amber-vibrant font-bold">
-                    {isBn ? cms.about.statFamiliesUplifted.split(' ')[0] : '18,400+'}
+                    <DynamicLiveCounter
+                      value={cms.about.statFamiliesUplifted?.split(' ')[0]}
+                      defaultValue={isBn ? '০' : '0'}
+                      fluctuateRange={[-1, 3]}
+                    />
                   </span>
                   <span className="font-label-md text-label-md text-text-muted mt-1 uppercase tracking-wider">
-                    {isBn ? cms.about.statFamiliesUplifted : 'Families Uplifted (Tamleek)'}
+                    {isBn ? (cms.about.statFamiliesUplifted?.includes(' ') ? cms.about.statFamiliesUplifted.substring(cms.about.statFamiliesUplifted.indexOf(' ') + 1) : 'পরিবার স্বাবলম্বী') : 'Families Uplifted (Tamleek)'}
                   </span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 text-center">

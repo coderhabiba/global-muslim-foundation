@@ -9,6 +9,7 @@ import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useModalState } from '@/lib/modal-context';
 import { getProjectAmounts } from '@/components/payment/EpsPaymentModal';
+import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 // ── EPS Callback Handler (needs Suspense wrapper for useSearchParams) ─────────
 function EpsCallbackHandler() {
@@ -260,7 +261,12 @@ export default function HomePage() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
-                        {isBn ? (cms.home.heroBadge1Value || '120,000+') : '120,000+'}
+                        <DynamicLiveCounter
+                          value={cms.home.heroBadge1Value}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-3, 5]}
+                          showLiveDot={false}
+                        />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
                         {isBn ? (cms.home.heroBadge1Label || 'পুষ্টিকর খাবার পরিবেশন') : 'Nutritious Meals Served'}
@@ -276,7 +282,12 @@ export default function HomePage() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
-                        {isBn ? (cms.home.heroBadge2Value || '8,400+') : '8,400+'}
+                        <DynamicLiveCounter
+                          value={cms.home.heroBadge2Value}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-2, 4]}
+                          showLiveDot={false}
+                        />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
                         {isBn ? (cms.home.heroBadge2Label || 'শিশু অস্ত্রোপচার ও সেবা') : 'Pediatric Surgery & Care'}
@@ -292,7 +303,11 @@ export default function HomePage() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-lg sm:text-xl font-bold text-zinc-950 font-mono tracking-tight leading-none mb-1">
-                        {isBn ? (cms.home.heroBadge3Value || '100%') : '100%'}
+                        <DynamicLiveCounter
+                          value={cms.home.heroBadge3Value}
+                          defaultValue="100%"
+                          fluctuateRange={[0, 0]}
+                        />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
                         {isBn ? (cms.home.heroBadge3Label || 'শরিয়াহ যাকাত নীতি') : 'Shariah Zakat Policy'}
@@ -623,7 +638,12 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x divide-white/10 text-center">
               <div className="px-3 sm:px-4">
                 <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                  {isBn ? (cms.home.bannerStat1Value || '120,000+') : '120,000+'}
+                  <DynamicLiveCounter
+                    value={cms.home.bannerStat1Value}
+                    defaultValue={isBn ? '০' : '0'}
+                    fluctuateRange={[-3, 6]}
+                    showLiveDot={false}
+                  />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat1Title || 'খাবার বিতরণ') : 'Meal Distribution'}
@@ -635,7 +655,12 @@ export default function HomePage() {
 
               <div className="px-3 sm:px-4">
                 <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                  {isBn ? (cms.home.bannerStat2Value || '8,400+') : '8,400+'}
+                  <DynamicLiveCounter
+                    value={cms.home.bannerStat2Value}
+                    defaultValue={isBn ? '০' : '0'}
+                    fluctuateRange={[-2, 4]}
+                    showLiveDot={false}
+                  />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat2Title || 'শিশুদের চিকিৎসা') : 'Child Medical Treatment'}
@@ -647,7 +672,12 @@ export default function HomePage() {
 
               <div className="px-3 sm:px-4">
                 <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                  {isBn ? (cms.home.bannerStat3Value || '350+') : '350+'}
+                  <DynamicLiveCounter
+                    value={cms.home.bannerStat3Value}
+                    defaultValue={isBn ? '০' : '0'}
+                    fluctuateRange={[-1, 3]}
+                    showLiveDot={false}
+                  />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat3Title || 'বিশুদ্ধ পানির নলকূপ ও টয়লেট') : 'Clean Water Wells & Sanitation'}
@@ -659,7 +689,11 @@ export default function HomePage() {
 
               <div className="px-3 sm:px-4">
                 <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
-                  {isBn ? (cms.home.bannerStat4Value || '100%') : '100%'}
+                  <DynamicLiveCounter
+                    value={cms.home.bannerStat4Value}
+                    defaultValue="100%"
+                    fluctuateRange={[0, 0]}
+                  />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat4Title || 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত') : 'Verified by Shariah Board'}
@@ -1230,10 +1264,15 @@ export default function HomePage() {
                   </div>
                   <div>
                     <p className="text-base font-bold text-on-surface">
-                      850+ Active Youth
+                      <DynamicLiveCounter
+                        value={cms.volunteer?.stat1Value}
+                        defaultValue={isBn ? '০' : '0'}
+                        fluctuateRange={[-2, 4]}
+                      />
+                      {' '}{isBn ? 'সক্রিয় তরুণ' : 'Active Youth'}
                     </p>
                     <p className="text-xs text-text-muted">
-                      Dedicated frontline relief volunteers
+                      {isBn ? 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী' : 'Dedicated frontline relief volunteers'}
                     </p>
                   </div>
                 </div>
@@ -1243,10 +1282,10 @@ export default function HomePage() {
 
               <div className="lg:col-span-6 space-y-5">
                 <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                  Community Action &amp; Stewardship
+                  {isBn ? 'কমিউনিটি ও সমাজকল্যাণ' : 'Community Action & Stewardship'}
                 </span>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface leading-tight">
-                  Join Our 850+ Dedicated Youth Volunteers
+                  {isBn ? 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন' : 'Join Our Dedicated Youth Volunteers'}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed">
                   Whether distributing emergency winter blankets, supporting

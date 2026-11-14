@@ -6,6 +6,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
+import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 export type FoundationProject = {
   id: string;
@@ -517,7 +518,11 @@ export default function ImpactPage() {
           <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto w-full">
             <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-emerald-300 transition-colors">
               <span className="text-2xl sm:text-3xl font-black text-[#0e4d36] font-mono tracking-tight block leading-none mb-2">
-                {metricWells.count}
+                <DynamicLiveCounter
+                  value={metricWells.count}
+                  defaultValue={isBn ? '০' : '0'}
+                  fluctuateRange={[-1, 2]}
+                />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
                 {metricWells.label}
@@ -526,7 +531,11 @@ export default function ImpactPage() {
 
             <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-amber-300 transition-colors">
               <span className="text-2xl sm:text-3xl font-black text-amber-600 font-mono tracking-tight block leading-none mb-2">
-                {metricMeals.count}
+                <DynamicLiveCounter
+                  value={metricMeals.count}
+                  defaultValue={isBn ? '০' : '0'}
+                  fluctuateRange={[-3, 5]}
+                />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
                 {metricMeals.label}
@@ -535,7 +544,11 @@ export default function ImpactPage() {
 
             <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-emerald-300 transition-colors">
               <span className="text-2xl sm:text-3xl font-black text-[#0e4d36] font-mono tracking-tight block leading-none mb-2">
-                {metricFamilies.count}
+                <DynamicLiveCounter
+                  value={metricFamilies.count}
+                  defaultValue={isBn ? '০' : '0'}
+                  fluctuateRange={[-1, 2]}
+                />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
                 {metricFamilies.label}
@@ -544,7 +557,11 @@ export default function ImpactPage() {
 
             <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-center hover:border-amber-300 transition-colors">
               <span className="text-2xl sm:text-3xl font-black text-amber-600 font-mono tracking-tight block leading-none mb-2">
-                {metricDistricts.count}
+                <DynamicLiveCounter
+                  value={metricDistricts.count}
+                  defaultValue={isBn ? '০' : '0'}
+                  fluctuateRange={[0, 1]}
+                />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
                 {metricDistricts.label}

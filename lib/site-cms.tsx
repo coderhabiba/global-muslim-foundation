@@ -247,28 +247,28 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     heroSecondaryBtn: 'আমাদের কার্যক্রম দেখুন',
     heroBgImage: '/images/hero-relief.jpg',
     // 3 Hero Metric Value Badges
-    heroBadge1Value: '120,000+',
+    heroBadge1Value: '০',
     heroBadge1Label: 'পুষ্টিকর খাবার পরিবেশন',
-    heroBadge2Value: '8,400+',
+    heroBadge2Value: '০',
     heroBadge2Label: 'শিশু অস্ত্রোপচার ও সেবা',
     heroBadge3Value: '100%',
     heroBadge3Label: 'শরিয়াহ যাকাত নীতি',
     // 4 Green Impact Banner Metrics
-    bannerStat1Value: '120,000+',
+    bannerStat1Value: '০',
     bannerStat1Title: 'খাবার বিতরণ',
     bannerStat1Desc: 'রেললাইন ও শহরের বস্তি',
-    bannerStat2Value: '8,400+',
+    bannerStat2Value: '০',
     bannerStat2Title: 'শিশুদের চিকিৎসা',
     bannerStat2Desc: 'শিশু অস্ত্রোপচার ও ওষুধ',
-    bannerStat3Value: '350+',
+    bannerStat3Value: '০',
     bannerStat3Title: 'বিশুদ্ধ পানির নলকূপ ও টয়লেট',
     bannerStat3Desc: 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র',
     bannerStat4Value: '100%',
     bannerStat4Title: 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত',
     bannerStat4Desc: 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়',
-    statsDonors: '১২,৫০০+ দাতা',
-    statsProjects: '৪৮+ সফল প্রকল্প',
-    statsBeneficiaries: '১,৫০,০০০+ উপকৃত',
+    statsDonors: '০',
+    statsProjects: '০',
+    statsBeneficiaries: '০',
     statsTransparency: '১০০% স্বচ্ছতা',
     quickDonationHeading: 'তাত্ক্ষণিক সাধারণ দান ও সদকা',
     quickDonationSubheading: 'সহজ EPS গেটওয়ের মাধ্যমে বিকাশ, নগদ, কার্ডে তাৎক্ষণিক অনুদান দিন।',
@@ -292,7 +292,7 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     pageSubtitle: 'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।',
     statZakatRatio: '১০০% যাকাত বণ্টন',
     statAdminCost: '৳০ কোনো প্রশাসনিক কর্তন নেই',
-    statFamiliesUplifted: '১৮,৪০০+ পরিবার স্বাবলম্বী',
+    statFamiliesUplifted: '০ পরিবার স্বাবলম্বী',
     statAuditRating: 'গ্রেড এ স্বাধীন সিএ অডিট',
     pillarTitle: 'আমানতদারিতা ও স্বচ্ছতার চার স্তম্ভ',
     pillarSubtitle: 'আমাদের সকল কার্যক্রমের মূলভিত্তি ইসলামী শরীয়াহ ও পূর্ণ জবাবদিহিতা।',
@@ -387,16 +387,16 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     bottomNotice: 'সকল আলোকচিত্র ফাউন্ডেশনের ফিল্ড অফিসার ও ভলান্টিয়ারদের দ্বারা সংগৃহীত।',
   },
   volunteer: {
-    pageBadge: 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন',
+    pageBadge: 'সম্মুখসারির মানবিক কাজ • স্বেচ্ছাসেবক টিমে যোগ দিন',
     pageTitle: 'সংকটে থাকা জনগোষ্ঠীর পথপ্রদর্শক আলো হয়ে উঠুন',
     pageSubtitle: 'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।',
-    stat1Value: '850+',
+    stat1Value: '০',
     stat1Title: 'সক্রিয় তরুণ স্বেচ্ছাসেবক',
     stat1Desc: 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব',
-    stat2Value: '45',
+    stat2Value: '০',
     stat2Title: 'মাঠ মোতায়েন',
     stat2Desc: 'সক্রিয় ত্রাণ অভিযান (2024-25)',
-    stat3Value: '12',
+    stat3Value: '০',
     stat3Title: 'আঞ্চলিক বিতরণ কেন্দ্র',
     stat3Desc: 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে',
     stat4Value: '100%',
@@ -493,6 +493,15 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
             parsed.home.heroSubtitle =
               'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।';
           }
+          const HOME_MOCK_VALS = new Set(['120,000+', '8,400+', '350+', '12,500+ দাতা', '৪৮+ সফল প্রকল্প', '১,৫০,০০০+ উপকৃত']);
+          if (HOME_MOCK_VALS.has(parsed.home.heroBadge1Value)) parsed.home.heroBadge1Value = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.heroBadge2Value)) parsed.home.heroBadge2Value = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.bannerStat1Value)) parsed.home.bannerStat1Value = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.bannerStat2Value)) parsed.home.bannerStat2Value = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.bannerStat3Value)) parsed.home.bannerStat3Value = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.statsDonors)) parsed.home.statsDonors = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.statsProjects)) parsed.home.statsProjects = '০';
+          if (HOME_MOCK_VALS.has(parsed.home.statsBeneficiaries)) parsed.home.statsBeneficiaries = '০';
         }
         if (parsed.about) {
           if (
@@ -513,6 +522,9 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.about.pageSubtitle =
               'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।';
+          }
+          if (parsed.about.statFamiliesUplifted === '১৮,৪০০+ পরিবার স্বাবলম্বী' || parsed.about.statFamiliesUplifted === '18,400+') {
+            parsed.about.statFamiliesUplifted = '০ পরিবার স্বাবলম্বী';
           }
         }
         if (parsed.sponsor_orphan) {
@@ -596,9 +608,10 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
         if (parsed.volunteer) {
           if (
             !parsed.volunteer.pageBadge ||
-            parsed.volunteer.pageBadge === 'BECOME A HUMANITARIAN AMBASSADOR'
+            parsed.volunteer.pageBadge === 'BECOME A HUMANITARIAN AMBASSADOR' ||
+            parsed.volunteer.pageBadge.includes('850+')
           ) {
-            parsed.volunteer.pageBadge = 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন';
+            parsed.volunteer.pageBadge = 'সম্মুখসারির মানবিক কাজ • স্বেচ্ছাসেবক টিমে যোগ দিন';
           }
           if (
             !parsed.volunteer.pageTitle ||
@@ -614,13 +627,14 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
             parsed.volunteer.pageSubtitle =
               'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।';
           }
-          if (!parsed.volunteer.stat1Value) parsed.volunteer.stat1Value = '850+';
+          const VOL_MOCKS = new Set(['850+', '45', '12']);
+          if (!parsed.volunteer.stat1Value || VOL_MOCKS.has(parsed.volunteer.stat1Value)) parsed.volunteer.stat1Value = '০';
           if (!parsed.volunteer.stat1Title) parsed.volunteer.stat1Title = 'সক্রিয় তরুণ স্বেচ্ছাসেবক';
           if (!parsed.volunteer.stat1Desc) parsed.volunteer.stat1Desc = 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব';
-          if (!parsed.volunteer.stat2Value) parsed.volunteer.stat2Value = '45';
+          if (!parsed.volunteer.stat2Value || VOL_MOCKS.has(parsed.volunteer.stat2Value)) parsed.volunteer.stat2Value = '০';
           if (!parsed.volunteer.stat2Title) parsed.volunteer.stat2Title = 'মাঠ মোতায়েন';
           if (!parsed.volunteer.stat2Desc) parsed.volunteer.stat2Desc = 'সক্রিয় ত্রাণ অভিযান (2024-25)';
-          if (!parsed.volunteer.stat3Value) parsed.volunteer.stat3Value = '12';
+          if (!parsed.volunteer.stat3Value || VOL_MOCKS.has(parsed.volunteer.stat3Value)) parsed.volunteer.stat3Value = '০';
           if (!parsed.volunteer.stat3Title) parsed.volunteer.stat3Title = 'আঞ্চলিক বিতরণ কেন্দ্র';
           if (!parsed.volunteer.stat3Desc) parsed.volunteer.stat3Desc = 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে';
           if (!parsed.volunteer.stat4Value) parsed.volunteer.stat4Value = '100%';

@@ -214,8 +214,8 @@ export default function VolunteerPage() {
                     </span>
                     <span className="tracking-wide">
                       {isBn
-                        ? (cmsVolunteer.pageBadge || 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন')
-                        : 'FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH'}
+                        ? (cmsVolunteer.pageBadge || 'সম্মুখসারির মানবিক কাজ • স্বেচ্ছাসেবক টিমে যোগ দিন')
+                        : 'FRONT-LINE HUMANITARIAN ACTION • JOIN VOLUNTEER YOUTH'}
                     </span>
                   </div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 tracking-tight leading-tight font-serif-heading">
@@ -414,7 +414,7 @@ export default function VolunteerPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat1Value}
-                  defaultBase="850+"
+                  defaultBase={isBn ? '০' : '0'}
                   title={isBn ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক') : 'Active Youth Volunteers'}
                   desc={isBn ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব') : 'Universities & Local Youth Clubs'}
                   fluctuateRange={[-3, 6]}
@@ -423,7 +423,7 @@ export default function VolunteerPage() {
 
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat2Value}
-                  defaultBase="45"
+                  defaultBase={isBn ? '০' : '0'}
                   title={isBn ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন') : 'Field Deployments'}
                   desc={isBn ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)') : 'Active Relief Operations (2024-25)'}
                   fluctuateRange={[-1, 2]}
@@ -432,7 +432,7 @@ export default function VolunteerPage() {
 
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat3Value}
-                  defaultBase="12"
+                  defaultBase={isBn ? '০' : '0'}
                   title={isBn ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র') : 'Regional Dispatch Hubs'}
                   desc={isBn ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে') : 'Covering 64 Districts Across Bangladesh'}
                   fluctuateRange={[0, 1]}

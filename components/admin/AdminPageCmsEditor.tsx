@@ -402,12 +402,12 @@ export default function AdminPageCmsEditor() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
                         <span className="font-bold text-slate-700 block">১ম কার্ড (খাবার)</span>
-                        <input type="text" placeholder="120,000+" value={pageData.heroBadge1Value || ''} onChange={e => handleFieldChange('heroBadge1Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
+                        <input type="text" placeholder="০" value={pageData.heroBadge1Value || ''} onChange={e => handleFieldChange('heroBadge1Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
                         <input type="text" placeholder="পুষ্টিকর খাবার পরিবেশন" value={pageData.heroBadge1Label || ''} onChange={e => handleFieldChange('heroBadge1Label', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded text-slate-600" />
                       </div>
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
                         <span className="font-bold text-slate-700 block">২য় কার্ড (চিকিৎসা)</span>
-                        <input type="text" placeholder="8,400+" value={pageData.heroBadge2Value || ''} onChange={e => handleFieldChange('heroBadge2Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
+                        <input type="text" placeholder="০" value={pageData.heroBadge2Value || ''} onChange={e => handleFieldChange('heroBadge2Value', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded font-mono font-bold" />
                         <input type="text" placeholder="শিশু অস্ত্রোপচার ও সেবা" value={pageData.heroBadge2Label || ''} onChange={e => handleFieldChange('heroBadge2Label', e.target.value)} className="w-full px-2 py-1.5 bg-white border rounded text-slate-600" />
                       </div>
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
@@ -424,19 +424,19 @@ export default function AdminPageCmsEditor() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
                         <span className="font-bold text-slate-700 block">১ম স্তম্ভ (খাবার)</span>
-                        <input type="text" placeholder="120,000+" value={pageData.bannerStat1Value || ''} onChange={e => handleFieldChange('bannerStat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="০" value={pageData.bannerStat1Value || ''} onChange={e => handleFieldChange('bannerStat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
                         <input type="text" placeholder="খাবার বিতরণ" value={pageData.bannerStat1Title || ''} onChange={e => handleFieldChange('bannerStat1Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
                         <input type="text" placeholder="রেললাইন ও শহরের বস্তি" value={pageData.bannerStat1Desc || ''} onChange={e => handleFieldChange('bannerStat1Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
                       </div>
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
                         <span className="font-bold text-slate-700 block">২য় স্তম্ভ (চিকিৎসা)</span>
-                        <input type="text" placeholder="8,400+" value={pageData.bannerStat2Value || ''} onChange={e => handleFieldChange('bannerStat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="০" value={pageData.bannerStat2Value || ''} onChange={e => handleFieldChange('bannerStat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
                         <input type="text" placeholder="শিশুদের চিকিৎসা" value={pageData.bannerStat2Title || ''} onChange={e => handleFieldChange('bannerStat2Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
                         <input type="text" placeholder="শিশু অস্ত্রোপচার ও ওষুধ" value={pageData.bannerStat2Desc || ''} onChange={e => handleFieldChange('bannerStat2Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
                       </div>
                       <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
                         <span className="font-bold text-slate-700 block">৩য় স্তম্ভ (পানি ও স্যানিটেশন)</span>
-                        <input type="text" placeholder="350+" value={pageData.bannerStat3Value || ''} onChange={e => handleFieldChange('bannerStat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
+                        <input type="text" placeholder="০" value={pageData.bannerStat3Value || ''} onChange={e => handleFieldChange('bannerStat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-amber-600" />
                         <input type="text" placeholder="বিশুদ্ধ পানির নলকূপ ও টয়লেট" value={pageData.bannerStat3Title || ''} onChange={e => handleFieldChange('bannerStat3Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-semibold text-slate-800" />
                         <input type="text" placeholder="গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র" value={pageData.bannerStat3Desc || ''} onChange={e => handleFieldChange('bannerStat3Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-500 text-[11px]" />
                       </div>
@@ -950,7 +950,7 @@ export default function AdminPageCmsEditor() {
                       <span className="font-bold text-emerald-900 block">১ম মেট্রিক</span>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
-                        <input type="text" placeholder="850+" value={pageData.stat1Value || ''} onChange={e => handleFieldChange('stat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                        <input type="text" placeholder="০" value={pageData.stat1Value || ''} onChange={e => handleFieldChange('stat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
                       </div>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
@@ -967,7 +967,7 @@ export default function AdminPageCmsEditor() {
                       <span className="font-bold text-emerald-900 block">২য় মেট্রিক</span>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
-                        <input type="text" placeholder="45" value={pageData.stat2Value || ''} onChange={e => handleFieldChange('stat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                        <input type="text" placeholder="০" value={pageData.stat2Value || ''} onChange={e => handleFieldChange('stat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
                       </div>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
@@ -984,7 +984,7 @@ export default function AdminPageCmsEditor() {
                       <span className="font-bold text-emerald-900 block">৩য় মেট্রিক</span>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
-                        <input type="text" placeholder="12" value={pageData.stat3Value || ''} onChange={e => handleFieldChange('stat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                        <input type="text" placeholder="০" value={pageData.stat3Value || ''} onChange={e => handleFieldChange('stat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
                       </div>
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>

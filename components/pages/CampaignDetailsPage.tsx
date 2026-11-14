@@ -5,6 +5,8 @@ import { useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
+import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 const TABS = [
   { id: 'tab-about', icon: 'menu_book', label: 'About Appeal' },
@@ -18,7 +20,9 @@ const TABS = [
 ];
 
 export default function CampaignDetailsPage() {
-  const { localize, currency } = useSiteSettings();
+  const { localize, currency, language } = useSiteSettings();
+  const isBn = language === 'bn';
+  const { cms } = useSiteCMS();
   const { openPaymentModal } = useModalState();
   const mainImageRef = useRef<HTMLImageElement | null>(null);
   const thumbRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -778,34 +782,50 @@ export default function CampaignDetailsPage() {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
                     <div className="flex flex-col items-center">
                       <span className="font-serif font-bold text-headline-md text-secondary-fixed-dim">
-                        124,580+
+                        <DynamicLiveCounter
+                          value={cms.home.bannerStat1Value}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-3, 5]}
+                        />
                       </span>
                       <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">
-                        Meals Served
+                        {isBn ? 'বিতরণকৃত খাবার' : 'Meals Served'}
                       </span>
                     </div>
                     <div className="flex flex-col items-center">
                       <span className="font-serif font-bold text-headline-md text-white">
-                        45
+                        <DynamicLiveCounter
+                          value={cms.volunteer.stat2Value}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-1, 2]}
+                        />
                       </span>
                       <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">
-                        Kitchen Networks
+                        {isBn ? 'রান্নাঘর ও নেটওয়ার্ক' : 'Kitchen Networks'}
                       </span>
                     </div>
                     <div className="flex flex-col items-center">
                       <span className="font-serif font-bold text-headline-md text-secondary-fixed-dim">
-                        9,200+
+                        <DynamicLiveCounter
+                          value={cms.home.bannerStat2Value}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-2, 3]}
+                        />
                       </span>
                       <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">
-                        Children Nourished
+                        {isBn ? 'পুষ্টিকর খাদ্যপ্রাপ্ত শিশু' : 'Children Nourished'}
                       </span>
                     </div>
                     <div className="flex flex-col items-center">
                       <span className="font-serif font-bold text-headline-md text-white">
-                        100%
+                        <DynamicLiveCounter
+                          value="100%"
+                          defaultValue="100%"
+                          fluctuateRange={[0, 0]}
+                        />
                       </span>
                       <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mt-1">
-                        Zero Admin Fee
+                        {isBn ? 'শূন্য প্রশাসনিক ফি' : 'Zero Admin Fee'}
                       </span>
                     </div>
                   </div>

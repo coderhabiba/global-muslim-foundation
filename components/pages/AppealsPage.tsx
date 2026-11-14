@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
+import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 const FILTER_PILLS = [
   { category: 'all', label: 'All Campaigns (6)' },
@@ -64,8 +66,10 @@ const CAMPAIGN_META = [
 ];
 
 export default function AppealsPage() {
-  const { localize, currency } = useSiteSettings();
+  const { localize, currency, language } = useSiteSettings();
+  const isBn = language === 'bn';
   const { openPaymentModal, showAlert } = useModalState();
+  const { cms } = useSiteCMS();
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -309,7 +313,11 @@ export default function AppealsPage() {
                       </span>
                     </div>
                     <div className="font-headline-sm text-emerald-dark">
-                      142,800+
+                      <DynamicLiveCounter
+                        value={cms.home.statsBeneficiaries}
+                        defaultValue={isBn ? '০' : '0'}
+                        fluctuateRange={[-2, 4]}
+                      />
                     </div>
                     <div className="font-label-sm text-on-surface-variant">
                       Fed &amp; Sheltered
@@ -1187,34 +1195,50 @@ export default function AppealsPage() {
               <div className="pt-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 <div>
                   <div className="font-headline-lg text-zakat-gold-light">
-                    340,000+
+                    <DynamicLiveCounter
+                      value={cms.home.bannerStat1Value}
+                      defaultValue={isBn ? '০' : '0'}
+                      fluctuateRange={[-3, 5]}
+                    />
                   </div>
                   <div className="font-label-md text-primary-fixed uppercase tracking-wider">
-                    Hot Meals Served
+                    {isBn ? 'বিতরণকৃত খাবার' : 'Hot Meals Served'}
                   </div>
                 </div>
                 <div>
                   <div className="font-headline-lg text-zakat-gold-light">
-                    420+
+                    <DynamicLiveCounter
+                      value={cms.impact.waterWellsCount}
+                      defaultValue={isBn ? '০' : '0'}
+                      fluctuateRange={[-1, 2]}
+                    />
                   </div>
                   <div className="font-label-md text-primary-fixed uppercase tracking-wider">
-                    Water Wells Dug
+                    {isBn ? 'খননকৃত নলকূপ' : 'Water Wells Dug'}
                   </div>
                 </div>
                 <div>
                   <div className="font-headline-lg text-zakat-gold-light">
-                    1,150+
+                    <DynamicLiveCounter
+                      value={cms.home.bannerStat2Value}
+                      defaultValue={isBn ? '০' : '0'}
+                      fluctuateRange={[-2, 3]}
+                    />
                   </div>
                   <div className="font-label-md text-primary-fixed uppercase tracking-wider">
-                    Sight Surgeries
+                    {isBn ? 'চক্ষু ও চিকিৎসা সেবা' : 'Sight Surgeries'}
                   </div>
                 </div>
                 <div>
                   <div className="font-headline-lg text-zakat-gold-light">
-                    100%
+                    <DynamicLiveCounter
+                      value="100%"
+                      defaultValue="100%"
+                      fluctuateRange={[0, 0]}
+                    />
                   </div>
                   <div className="font-label-md text-primary-fixed uppercase tracking-wider">
-                    Audit Rating
+                    {isBn ? 'নিরীক্ষা রেটিং' : 'Audit Rating'}
                   </div>
                 </div>
               </div>
