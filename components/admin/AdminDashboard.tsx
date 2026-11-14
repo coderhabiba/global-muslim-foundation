@@ -91,11 +91,14 @@ export type MemberRecord = {
   roleEn: string;
   category: 'board' | 'management' | 'advisor';
   departmentBn?: string;
+  departmentEn?: string;
   image: string;
   phone?: string;
   email?: string;
   locationBn?: string;
+  locationEn?: string;
   bioBn?: string;
+  bioEn?: string;
 };
 
 export type VolunteerCandidate = {
@@ -112,14 +115,14 @@ export type VolunteerCandidate = {
 };
 
 const PRESET_AVATARS = [
-  { label: 'ভলান্টিয়ার ১', url: '/images/humanitarian-volunteers.jpg' },
-  { label: 'ভলান্টিয়ার ২', url: '/images/youth-volunteers.jpg' },
-  { label: 'মা ও স্বাস্থ্য', url: '/images/resilient-mother-portrait.jpg' },
-  { label: 'চিকিৎসা কর্মী', url: '/images/pediatric-hope-saifan.jpg' },
-  { label: 'ফিল্ড কর্মী', url: '/images/clean-water-well.jpg' },
-  { label: 'খাদ্য বিতরণ', url: '/images/street-children-hot-meals.jpg' },
-  { label: 'মাদরাসা সেবা', url: '/images/rural-madrasa-children.jpg' },
-  { label: 'ডকুমেন্টারি', url: '/images/child-portrait-documentary.jpg' },
+  { label: 'ভলান্টিয়ার ১', labelEn: 'Volunteer 1', url: '/images/humanitarian-volunteers.jpg' },
+  { label: 'ভলান্টিয়ার ২', labelEn: 'Volunteer 2', url: '/images/youth-volunteers.jpg' },
+  { label: 'মা ও স্বাস্থ্য', labelEn: 'Maternal Care', url: '/images/resilient-mother-portrait.jpg' },
+  { label: 'চিকিৎসা কর্মী', labelEn: 'Medical Staff', url: '/images/pediatric-hope-saifan.jpg' },
+  { label: 'ফিল্ড কর্মী', labelEn: 'Field Officer', url: '/images/clean-water-well.jpg' },
+  { label: 'খাদ্য বিতরণ', labelEn: 'Meal Dispatch', url: '/images/street-children-hot-meals.jpg' },
+  { label: 'মাদরাসা সেবা', labelEn: 'Madrasa Care', url: '/images/rural-madrasa-children.jpg' },
+  { label: 'ডকুমেন্টারি', labelEn: 'Documentary', url: '/images/child-portrait-documentary.jpg' },
 ];
 
 const DEFAULT_MEMBERS: MemberRecord[] = [
@@ -212,6 +215,7 @@ const DEFAULT_MEMBERS: MemberRecord[] = [
 export default function AdminDashboard() {
   const router = useRouter();
   const { language, setLanguage } = useSiteSettings();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { campaigns } = useDynamicCards();
@@ -535,7 +539,7 @@ export default function AdminDashboard() {
   const handleSaveVolunteer = (e: React.FormEvent) => {
     e.preventDefault();
     if (!volunteerForm.name.trim() || !volunteerForm.phone.trim()) {
-      alert('স্বেচ্ছাসেবকের নাম ও ফোন নম্বর দেওয়া আবশ্যক!');
+      alert(isBn ? 'স্বেচ্ছাসেবকের নাম ও ফোন নম্বর দেওয়া আবশ্যক!' : 'Volunteer name and phone number are required!');
       return;
     }
     let updated: VolunteerCandidate[];
@@ -640,7 +644,7 @@ export default function AdminDashboard() {
   const handleSaveMember = (e: React.FormEvent) => {
     e.preventDefault();
     if (!memberForm.nameBn.trim() || !memberForm.roleBn.trim()) {
-      alert('সদস্যের নাম ও পদবী দেওয়া আবশ্যক!');
+      alert(isBn ? 'সদস্যের নাম ও পদবী দেওয়া আবশ্যক!' : 'Member name and role are required!');
       return;
     }
     let updated: MemberRecord[];
@@ -863,7 +867,7 @@ export default function AdminDashboard() {
 
     const map = new Map<string, { amount: number; donors: number }>();
     donations.forEach(d => {
-      const dateStr = d.date ? d.date.split(' ')[0] : 'আজ';
+      const dateStr = d.date ? d.date.split(' ')[0] : (isBn ? 'আজ' : 'Today');
       const existing = map.get(dateStr) || { amount: 0, donors: 0 };
       existing.amount += (d.currency === 'BDT' ? d.amount : d.amount * 122);
       existing.donors += 1;
@@ -881,7 +885,7 @@ export default function AdminDashboard() {
     if (donations.length === 0) return [];
     const map = new Map<string, number>();
     donations.forEach(d => {
-      const cause = d.cause || 'সাধারণ অনুদান';
+      const cause = d.cause || (isBn ? 'সাধারণ অনুদান' : 'General Donation');
       map.set(cause, (map.get(cause) || 0) + (d.currency === 'BDT' ? d.amount : d.amount * 122));
     });
     const total = Array.from(map.values()).reduce((a, b) => a + b, 0);
@@ -1061,7 +1065,7 @@ export default function AdminDashboard() {
               type="button"
               onClick={() => setIsMobileSidebarOpen(true)}
               className="lg:hidden p-1.5 -ml-1 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors cursor-pointer shrink-0 border border-zinc-200/80"
-              aria-label="মেনু খুলুন"
+              aria-label={isBn ? "মেনু খুলুন" : "Open Menu"}
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -1608,7 +1612,7 @@ export default function AdminDashboard() {
                       <div className="flex items-center gap-2">
                         <FolderKanban className="w-4 h-4 text-zinc-700" />
                         <h3 className="text-sm font-semibold text-zinc-900">
-                          চলমান প্রকল্পের তহবিল সংগ্রহ অগ্রগতি
+                          {isBn ? 'চলমান প্রকল্পের তহবিল সংগ্রহ অগ্রগতি' : 'Ongoing Projects Fundraising Progress'}
                         </h3>
                       </div>
                       <span className="text-[11px] font-mono text-zinc-500 uppercase">Target vs Raised</span>
@@ -1617,7 +1621,7 @@ export default function AdminDashboard() {
                     <div className="space-y-4 mt-4 text-xs">
                       {campaigns.length === 0 ? (
                         <div className="py-6 text-center text-zinc-400 text-xs">
-                          কোনো সক্রিয় ক্যাম্পেইন পাওয়া যায়নি।
+                          {isBn ? 'কোনো সক্রিয় ক্যাম্পেইন পাওয়া যায়নি।' : 'No active campaigns found.'}
                         </div>
                       ) : (
                         campaigns.slice(0, 4).map((c, idx) => {
@@ -1626,7 +1630,7 @@ export default function AdminDashboard() {
                           return (
                             <div key={c.id || idx} className="space-y-1.5">
                               <div className="flex items-center justify-between font-medium">
-                                <span className="text-zinc-900 truncate pr-2">{c.titleBn}</span>
+                                <span className="text-zinc-900 truncate pr-2">{isBn ? c.titleBn : (c.titleEn || c.titleBn)}</span>
                                 <span className="font-mono font-bold text-zinc-900 shrink-0">
                                   {pct}% (৳{c.raisedBDT.toLocaleString()})
                                 </span>
@@ -1651,11 +1655,11 @@ export default function AdminDashboard() {
                         <div className="flex items-center gap-2">
                           <ShieldCheck className="w-4 h-4 text-zinc-700" />
                           <h3 className="text-sm font-semibold text-zinc-900">
-                            সরকারি অডিট, কমপ্লায়েন্স ও দ্রুত শর্টকাট
+                            {isBn ? 'সরকারি অডিট, কমপ্লায়েন্স ও দ্রুত শর্টকাট' : 'Government Audit, Compliance & Shortcuts'}
                           </h3>
                         </div>
                         <span className="text-[11px] font-semibold text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
-                          এনজিও সনদ
+                          {isBn ? 'এনজিও সনদ' : 'NGO Charter'}
                         </span>
                       </div>
 
@@ -1671,8 +1675,12 @@ export default function AdminDashboard() {
                               <FileText className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold text-zinc-900">সরকারি লাইসেন্স পারমিট (PDF)</p>
-                              <p className="text-[11px] text-zinc-500 font-mono">রেজিস্ট্রেশন নং: S-14086/2023</p>
+                              <p className="text-xs font-semibold text-zinc-900">
+                                {isBn ? 'সরকারি লাইসেন্স পারমিট (PDF)' : 'Official License Permit (PDF)'}
+                              </p>
+                              <p className="text-[11px] text-zinc-500 font-mono">
+                                {isBn ? 'রেজিস্ট্রেশন নং: S-14086/2023' : 'Registration No: S-14086/2023'}
+                              </p>
                             </div>
                           </div>
                           <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
@@ -1688,8 +1696,12 @@ export default function AdminDashboard() {
                               <Plus className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold text-zinc-900">নতুন ভলান্টিয়ার তালিকাভুক্তি</p>
-                              <p className="text-[11px] text-zinc-500">মাঠপর্যায়ের টিম যুক্ত করুন</p>
+                              <p className="text-xs font-semibold text-zinc-900">
+                                {isBn ? 'নতুন ভলান্টিয়ার তালিকাভুক্তি' : 'Register New Volunteer'}
+                              </p>
+                              <p className="text-[11px] text-zinc-500">
+                                {isBn ? 'মাঠপর্যায়ের টিম যুক্ত করুন' : 'Add field relief crew'}
+                              </p>
                             </div>
                           </div>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
@@ -1705,8 +1717,12 @@ export default function AdminDashboard() {
                               <Layers className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold text-zinc-900">সেকশন এডিটর (WordPress-স্টাইল)</p>
-                              <p className="text-[11px] text-zinc-500">লাইভ পেইজ ও কার্ডসমূহ কাস্টমাইজ করুন</p>
+                              <p className="text-xs font-semibold text-zinc-900">
+                                {isBn ? 'সেকশন এডিটর (WordPress-স্টাইল)' : 'Section Editor (WP-Style)'}
+                              </p>
+                              <p className="text-[11px] text-zinc-500">
+                                {isBn ? 'লাইভ পেইজ ও কার্ডসমূহ কাস্টমাইজ করুন' : 'Customize live pages & cards'}
+                              </p>
                             </div>
                           </div>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900" />
@@ -1715,8 +1731,10 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
-                      <span>শরীয়াহ অডিট বোর্ড</span>
-                      <span className="font-semibold text-zinc-800">অনুমোদিত ও সক্রিয়</span>
+                      <span>{isBn ? 'শরীয়াহ অডিট বোর্ড' : 'Shariah Audit Board'}</span>
+                      <span className="font-semibold text-zinc-800">
+                        {isBn ? 'অনুমোদিত ও সক্রিয়' : 'Approved & Active'}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1728,14 +1746,16 @@ export default function AdminDashboard() {
                   <div className="p-4 flex items-center justify-between border-b border-zinc-100">
                     <div className="flex items-center gap-2">
                       <History className="w-4 h-4 text-zinc-700" />
-                      <h3 className="text-sm font-semibold text-zinc-900">সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)</h3>
+                      <h3 className="text-sm font-semibold text-zinc-900">
+                        {isBn ? 'সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)' : 'Recent Donations (Realtime Preview)'}
+                      </h3>
                     </div>
                     <button
                       type="button"
                       onClick={() => setActiveTab('donations')}
                       className="text-xs font-medium text-zinc-700 hover:text-zinc-900 flex items-center gap-1 cursor-pointer"
                     >
-                      <span>সম্পূর্ণ তালিকা দেখুন</span>
+                      <span>{isBn ? 'সম্পূর্ণ তালিকা দেখুন' : 'View Full List'}</span>
                       <ArrowRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1744,19 +1764,19 @@ export default function AdminDashboard() {
                     <table className="w-full text-left text-xs">
                       <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200/80 text-[11px]">
                         <tr>
-                          <th className="py-3 px-4">ট্রানজেকশন ID</th>
-                          <th className="py-3 px-4">দাতার নাম ও যোগাযোগ</th>
-                          <th className="py-3 px-4">মানবিক খাত</th>
-                          <th className="py-3 px-4">পরিমাণ</th>
-                          <th className="py-3 px-4">পদ্ধতি</th>
-                          <th className="py-3 px-4">স্ট্যাটাস</th>
+                          <th className="py-3 px-4">{isBn ? 'ট্রানজেকশন ID' : 'Transaction ID'}</th>
+                          <th className="py-3 px-4">{isBn ? 'দাতার নাম ও যোগাযোগ' : 'Donor Name & Contact'}</th>
+                          <th className="py-3 px-4">{isBn ? 'মানবিক খাত' : 'Humanitarian Cause'}</th>
+                          <th className="py-3 px-4">{isBn ? 'পরিমাণ' : 'Amount'}</th>
+                          <th className="py-3 px-4">{isBn ? 'পদ্ধতি' : 'Method'}</th>
+                          <th className="py-3 px-4">{isBn ? 'স্ট্যাটাস' : 'Status'}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-100 font-normal">
                         {donations.length === 0 ? (
                           <tr>
                             <td colSpan={6} className="py-8 text-center text-zinc-400">
-                              এখনও কোনো অনলাইন অনুদান রেকর্ড নেই।
+                              {isBn ? 'এখনও কোনো অনলাইন অনুদান রেকর্ড নেই।' : 'No online donation records yet.'}
                             </td>
                           </tr>
                         ) : (
@@ -1803,7 +1823,7 @@ export default function AdminDashboard() {
                     <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                     <input
                       type="text"
-                      placeholder="দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..."
+                      placeholder={isBn ? "দাতা, মোবাইল নম্বর, ট্রানজেকশন ID বা খাত দিয়ে খুঁজুন..." : "Search donor, phone, transaction ID or cause..."}
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
                       className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
@@ -1828,7 +1848,7 @@ export default function AdminDashboard() {
                     className="h-9 px-3 border border-zinc-200 hover:bg-zinc-50 rounded-md text-xs font-medium text-zinc-800 flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>CSV এক্সপোর্ট</span>
+                    <span>{isBn ? 'CSV এক্সপোর্ট' : 'Export CSV'}</span>
                   </button>
                 </div>
 
@@ -1836,20 +1856,20 @@ export default function AdminDashboard() {
                   <table className="w-full text-left text-xs">
                     <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
                       <tr>
-                        <th className="p-3.5">ট্রানজেকশন ID</th>
-                        <th className="p-3.5">দাতার নাম ও যোগাযোগ</th>
-                        <th className="p-3.5">উদ্দেশ্য / খাত</th>
-                        <th className="p-3.5">পরিমাণ</th>
-                        <th className="p-3.5">পেমেন্ট মাধ্যম</th>
-                        <th className="p-3.5">স্ট্যাটাস</th>
-                        <th className="p-3.5">তারিখ ও সময়</th>
+                        <th className="p-3.5">{isBn ? 'ট্রানজেকশন ID' : 'Transaction ID'}</th>
+                        <th className="p-3.5">{isBn ? 'দাতার নাম ও যোগাযোগ' : 'Donor Name & Contact'}</th>
+                        <th className="p-3.5">{isBn ? 'উদ্দেশ্য / খাত' : 'Cause / Fund'}</th>
+                        <th className="p-3.5">{isBn ? 'পরিমাণ' : 'Amount'}</th>
+                        <th className="p-3.5">{isBn ? 'পেমেন্ট মাধ্যম' : 'Payment Method'}</th>
+                        <th className="p-3.5">{isBn ? 'স্ট্যাটাস' : 'Status'}</th>
+                        <th className="p-3.5">{isBn ? 'তারিখ ও সময়' : 'Date & Time'}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-100 text-zinc-700">
                       {filteredDonations.length === 0 ? (
                         <tr>
                           <td colSpan={7} className="p-8 text-center text-zinc-400">
-                            কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।
+                            {isBn ? 'কোনো অনুদানের রেকর্ড খুঁজে পাওয়া যায়নি।' : 'No donation records found matching search.'}
                           </td>
                         </tr>
                       ) : (
@@ -1893,7 +1913,7 @@ export default function AdminDashboard() {
                     <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                     <input
                       type="text"
-                      placeholder="সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..."
+                      placeholder={isBn ? "সদস্যের নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..." : "Search member by name, role or phone..."}
                       value={memberSearchTerm}
                       onChange={e => setMemberSearchTerm(e.target.value)}
                       className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
@@ -1906,7 +1926,7 @@ export default function AdminDashboard() {
                     className="h-9 px-3.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>নতুন সদস্য যুক্ত করুন</span>
+                    <span>{isBn ? 'নতুন সদস্য যুক্ত করুন' : 'Add New Member'}</span>
                   </button>
                 </div>
 
@@ -1914,20 +1934,20 @@ export default function AdminDashboard() {
                   <table className="w-full text-left text-xs">
                     <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
                       <tr>
-                        <th className="p-3.5 w-14 text-center">ছবি</th>
-                        <th className="p-3.5">নাম ও পরিচিতি</th>
-                        <th className="p-3.5">পদবী ও দায়িত্ব</th>
-                        <th className="p-3.5">ক্যাটাগরি</th>
-                        <th className="p-3.5">যোগাযোগ</th>
-                        <th className="p-3.5">অবস্থান</th>
-                        <th className="p-3.5 text-right">অ্যাকশন</th>
+                        <th className="p-3.5 w-14 text-center">{isBn ? 'ছবি' : 'Photo'}</th>
+                        <th className="p-3.5">{isBn ? 'নাম ও পরিচিতি' : 'Name & Profile'}</th>
+                        <th className="p-3.5">{isBn ? 'পদবী ও দায়িত্ব' : 'Role & Responsibility'}</th>
+                        <th className="p-3.5">{isBn ? 'ক্যাটাগরি' : 'Category'}</th>
+                        <th className="p-3.5">{isBn ? 'যোগাযোগ' : 'Contact'}</th>
+                        <th className="p-3.5">{isBn ? 'অবস্থান' : 'Location'}</th>
+                        <th className="p-3.5 text-right">{isBn ? 'অ্যাকশন' : 'Action'}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-100 text-zinc-700">
                       {filteredMembers.length === 0 ? (
                         <tr>
                           <td colSpan={7} className="p-8 text-center text-zinc-400">
-                            কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।
+                            {isBn ? 'কোনো সদস্যের রেকর্ড খুঁজে পাওয়া যায়নি।' : 'No member records found matching search.'}
                           </td>
                         </tr>
                       ) : (
@@ -1938,7 +1958,7 @@ export default function AdminDashboard() {
                                 {m.image ? (
                                   <img
                                     src={m.image}
-                                    alt={m.nameBn}
+                                    alt={isBn ? m.nameBn : (m.nameEn || m.nameBn)}
                                     className="w-full h-full object-cover"
                                     onError={e => {
                                       (e.target as HTMLElement).style.display = 'none';
@@ -1950,12 +1970,12 @@ export default function AdminDashboard() {
                               </div>
                             </td>
                             <td className="p-3.5">
-                              <span className="font-semibold text-zinc-900 block">{m.nameBn}</span>
-                              <span className="text-zinc-500 text-[11px]">{m.nameEn}</span>
+                              <span className="font-semibold text-zinc-900 block">{isBn ? m.nameBn : (m.nameEn || m.nameBn)}</span>
+                              <span className="text-zinc-500 text-[11px]">{isBn ? m.nameEn : (m.nameBn || m.nameEn)}</span>
                             </td>
                             <td className="p-3.5">
-                              <span className="font-medium text-zinc-900 block">{m.roleBn}</span>
-                              <span className="text-zinc-500 text-[11px]">{m.departmentBn || m.roleEn}</span>
+                              <span className="font-medium text-zinc-900 block">{isBn ? m.roleBn : (m.roleEn || m.roleBn)}</span>
+                              <span className="text-zinc-500 text-[11px]">{isBn ? (m.departmentBn || m.roleEn) : (m.roleEn || m.roleBn)}</span>
                             </td>
                             <td className="p-3.5">
                               <span
@@ -1969,10 +1989,10 @@ export default function AdminDashboard() {
                                 )}
                               >
                                 {m.category === 'board'
-                                  ? 'ট্রাস্টি বোর্ড'
+                                  ? (isBn ? 'ট্রাস্টি বোর্ড' : 'Trustee Board')
                                   : m.category === 'advisor'
-                                  ? 'উপদেষ্টা'
-                                  : 'ব্যবস্থাপনা'}
+                                  ? (isBn ? 'উপদেষ্টা' : 'Advisor')
+                                  : (isBn ? 'ব্যবস্থাপনা' : 'Management')}
                               </span>
                             </td>
                             <td className="p-3.5">
@@ -1980,26 +2000,26 @@ export default function AdminDashboard() {
                               <span className="text-zinc-500 text-[11px] block">{m.email || '—'}</span>
                             </td>
                             <td className="p-3.5 text-zinc-600 max-w-[160px] truncate">
-                              {m.locationBn || 'ঢাকা, বাংলাদেশ'}
+                              {isBn ? (m.locationBn || 'ঢাকা, বাংলাদেশ') : (m.locationEn || 'Dhaka, Bangladesh')}
                             </td>
                             <td className="p-3.5 text-right space-x-1.5 whitespace-nowrap">
                               <button
                                 type="button"
                                 onClick={() => openEditMemberModal(m)}
                                 className="h-7 px-2.5 bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-700 rounded-md text-xs font-medium inline-flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
-                                title="সম্পাদনা করুন"
+                                title={isBn ? "সম্পাদনা করুন" : "Edit"}
                               >
                                 <Edit3 className="w-3 h-3" />
-                                <span>এডিট</span>
+                                <span>{isBn ? 'এডিট' : 'Edit'}</span>
                               </button>
                               <button
                                 type="button"
                                 onClick={() => handleDeleteMember(m.id, m.nameBn)}
                                 className="h-7 px-2.5 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-md text-xs font-medium inline-flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
-                                title="মুছে ফেলুন"
+                                title={isBn ? "মুছে ফেলুন" : "Delete"}
                               >
                                 <Trash2 className="w-3 h-3" />
-                                <span>ডিলিট</span>
+                                <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                               </button>
                             </td>
                           </tr>
@@ -2019,7 +2039,7 @@ export default function AdminDashboard() {
                     <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                     <input
                       type="text"
-                      placeholder="স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..."
+                      placeholder={isBn ? "স্বেচ্ছাসেবকের নাম, ফোন বা জেলা দিয়ে খুঁজুন..." : "Search volunteer by name, phone or district..."}
                       value={volunteerSearchTerm}
                       onChange={e => setVolunteerSearchTerm(e.target.value)}
                       className="w-full pl-9 pr-3 py-1.5 h-9 border border-zinc-200 rounded-md text-xs sm:text-sm bg-white focus:outline-none focus:ring-1 focus:ring-zinc-950 placeholder:text-zinc-400"
@@ -2032,7 +2052,7 @@ export default function AdminDashboard() {
                     className="h-9 px-3.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>নতুন স্বেচ্ছাসেবক যুক্ত করুন</span>
+                    <span>{isBn ? 'নতুন স্বেচ্ছাসেবক যুক্ত করুন' : 'Add New Volunteer'}</span>
                   </button>
                 </div>
 
@@ -2040,21 +2060,21 @@ export default function AdminDashboard() {
                   <table className="w-full text-left text-xs">
                     <thead className="bg-zinc-50/75 text-zinc-500 uppercase tracking-wider font-semibold border-b border-zinc-200 text-[11px]">
                       <tr>
-                        <th className="p-3.5 w-14 text-center">ছবি</th>
-                        <th className="p-3.5">আইডি ও নাম</th>
-                        <th className="p-3.5">যোগাযোগ</th>
-                        <th className="p-3.5">ঠিকানা / জেলা</th>
-                        <th className="p-3.5">মানবিক খাত</th>
-                        <th className="p-3.5">দক্ষতা</th>
-                        <th className="p-3.5">স্ট্যাটাস</th>
-                        <th className="p-3.5 text-right">পদক্ষেপ</th>
+                        <th className="p-3.5 w-14 text-center">{isBn ? 'ছবি' : 'Photo'}</th>
+                        <th className="p-3.5">{isBn ? 'আইডি ও নাম' : 'ID & Name'}</th>
+                        <th className="p-3.5">{isBn ? 'যোগাযোগ' : 'Contact'}</th>
+                        <th className="p-3.5">{isBn ? 'ঠিকানা / জেলা' : 'Address / District'}</th>
+                        <th className="p-3.5">{isBn ? 'মানবিক খাত' : 'Sector / Cause'}</th>
+                        <th className="p-3.5">{isBn ? 'দক্ষতা' : 'Skills'}</th>
+                        <th className="p-3.5">{isBn ? 'স্ট্যাটাস' : 'Status'}</th>
+                        <th className="p-3.5 text-right">{isBn ? 'পদক্ষেপ' : 'Actions'}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-100 text-zinc-700">
                       {filteredVolunteers.length === 0 ? (
                         <tr>
                           <td colSpan={8} className="p-8 text-center text-zinc-400">
-                            কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।
+                            {isBn ? 'কোনো স্বেচ্ছাসেবকের রেকর্ড খুঁজে পাওয়া যায়নি।' : 'No volunteer records found matching search.'}
                           </td>
                         </tr>
                       ) : (
@@ -2112,7 +2132,7 @@ export default function AdminDashboard() {
                                   onClick={() => handleStatusChange(v.id, 'APPROVED')}
                                   className="h-7 px-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-xs font-medium cursor-pointer transition-colors shadow-2xs"
                                 >
-                                  অনুমোদন
+                                  {isBn ? 'অনুমোদন' : 'Approve'}
                                 </button>
                               )}
                               {v.status !== 'REJECTED' && (
@@ -2121,14 +2141,14 @@ export default function AdminDashboard() {
                                   onClick={() => handleStatusChange(v.id, 'REJECTED')}
                                   className="h-7 px-2.5 bg-zinc-100 hover:bg-red-50 hover:text-red-700 text-zinc-700 rounded-md text-xs font-medium cursor-pointer transition-colors"
                                 >
-                                  বাতিল
+                                  {isBn ? 'বাতিল' : 'Reject'}
                                 </button>
                               )}
                               <button
                                 type="button"
                                 onClick={() => openEditVolunteerModal(v)}
                                 className="h-7 px-2 bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-700 rounded-md text-xs cursor-pointer transition-colors shadow-2xs"
-                                title="সম্পাদনা"
+                                title={isBn ? "সম্পাদনা" : "Edit"}
                               >
                                 <Edit3 className="w-3 h-3" />
                               </button>
@@ -2136,7 +2156,7 @@ export default function AdminDashboard() {
                                 type="button"
                                 onClick={() => handleDeleteVolunteer(v.id, v.name)}
                                 className="h-7 px-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-md text-xs cursor-pointer transition-colors shadow-2xs"
-                                title="মুছুন"
+                                title={isBn ? "মুছুন" : "Delete"}
                               >
                                 <Trash2 className="w-3 h-3" />
                               </button>
@@ -2161,22 +2181,26 @@ export default function AdminDashboard() {
                 <div className="bg-zinc-50/70 p-5 sm:p-6 rounded-xl border border-zinc-200 space-y-4 shadow-2xs">
                   <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-zinc-700" />
-                    প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)
+                    {isBn ? 'প্রাতিষ্ঠানিক সরকারি তথ্যাদি (GMCF Official)' : 'Institutional Official Information (GMCF Official)'}
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <div>
-                      <label className="text-zinc-600 font-medium block mb-1">চেয়ারম্যানের নাম</label>
+                      <label className="text-zinc-600 font-medium block mb-1">
+                        {isBn ? 'চেয়ারম্যানের নাম' : 'Chairman Name'}
+                      </label>
                       <input
                         type="text"
                         readOnly
-                        value="Mohammad Ali Mostafa"
+                        value={isBn ? (cms.header_footer.chairmanName || 'Mohammad Ali Mostafa') : 'Mohammad Ali Mostafa'}
                         className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
                       />
                     </div>
 
                     <div>
-                      <label className="text-zinc-600 font-medium block mb-1">ফাউন্ডেশনের পূর্ণ নাম</label>
+                      <label className="text-zinc-600 font-medium block mb-1">
+                        {isBn ? 'ফাউন্ডেশনের পূর্ণ নাম' : 'Foundation Full Name'}
+                      </label>
                       <input
                         type="text"
                         readOnly
@@ -2186,32 +2210,38 @@ export default function AdminDashboard() {
                     </div>
 
                     <div>
-                      <label className="text-zinc-600 font-medium block mb-1">অফিসিয়াল ইমেইল</label>
+                      <label className="text-zinc-600 font-medium block mb-1">
+                        {isBn ? 'অফিসিয়াল ইমেইল' : 'Official Email'}
+                      </label>
                       <input
                         type="text"
                         readOnly
-                        value="gmcfoundation2022@gmail.com"
+                        value={cms.header_footer.email || "gmcfoundation2022@gmail.com"}
                         className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
                       />
                     </div>
 
                     <div>
-                      <label className="text-zinc-600 font-medium block mb-1">অফিসিয়াল হটলাইন</label>
+                      <label className="text-zinc-600 font-medium block mb-1">
+                        {isBn ? 'অফিসিয়াল হটলাইন' : 'Official Hotline'}
+                      </label>
                       <input
                         type="text"
                         readOnly
-                        value="01913119525"
+                        value={cms.header_footer.hotline || "01913119525"}
                         className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium shadow-2xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-zinc-600 font-medium block mb-1 text-xs">নিবন্ধিত কেন্দ্রীয় কার্যালয়</label>
+                    <label className="text-zinc-600 font-medium block mb-1 text-xs">
+                      {isBn ? 'নিবন্ধিত কেন্দ্রীয় কার্যালয়' : 'Registered Central Head Office'}
+                    </label>
                     <input
                       type="text"
                       readOnly
-                      value="House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh"
+                      value={isBn ? (cms.header_footer.footerAddress || "House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh") : (cms.header_footer.footerAddressEn || "House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh")}
                       className="w-full bg-white px-3 py-2 border rounded-md border-zinc-200 text-zinc-900 font-medium text-xs shadow-2xs"
                     />
                   </div>
@@ -2220,10 +2250,12 @@ export default function AdminDashboard() {
                 <div className="bg-zinc-50/70 p-5 sm:p-6 rounded-xl border border-zinc-200 space-y-4 shadow-2xs">
                   <h3 className="text-sm font-semibold text-zinc-900 border-b border-zinc-200 pb-2.5 flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    সরকারি অনুদান ও অডিট কমপ্লায়েন্স
+                    {isBn ? 'সরকারি অনুদান ও অডিট কমপ্লায়েন্স' : 'Government Grant & Audit Compliance'}
                   </h3>
                   <p className="text-xs text-zinc-600 leading-relaxed">
-                    গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।
+                    {isBn
+                      ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন বাংলাদেশ সরকারের সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় নিবন্ধিত (রেজি নং: S-14086/2023)। সংগৃহীত সকল অনুদান চার্টার্ড একাউন্ট্যান্ট দ্বারা অডিটকৃত এবং পূর্ণাঙ্গভাবে শরীয়াহ সম্মত খাতসমূহে তামলিক নিশ্চিত করে ব্যয় করা হয়।'
+                      : 'Global Muslim Charitable Foundation is officially registered under the Societies Registration Act 1860 of the Government of Bangladesh (Reg No: S-14086/2023). All funds are audited by Chartered Accountants and disbursed strictly within Shariah-compliant sectors with verified Tamleek direct ownership.'}
                   </p>
                   <div className="pt-1">
                     <a
@@ -2233,7 +2265,7 @@ export default function AdminDashboard() {
                       className="inline-flex items-center gap-2 px-4 py-2.5 bg-zinc-900 text-white rounded-md text-xs font-medium hover:bg-zinc-800 transition-colors shadow-2xs cursor-pointer"
                     >
                       <Download className="w-4 h-4" />
-                      <span>অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন</span>
+                      <span>{isBn ? 'অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন' : 'Download Official Permit License'}</span>
                     </a>
                   </div>
                 </div>
@@ -2252,9 +2284,11 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
               <div>
                 <h3 className="text-base font-semibold text-zinc-900">
-                  {editingMemberId ? 'সদস্যের তথ্য সম্পাদনা করুন' : 'নতুন সদস্য যুক্ত করুন'}
+                  {editingMemberId ? (isBn ? 'সদস্যের তথ্য সম্পাদনা করুন' : 'Edit Member Details') : (isBn ? 'নতুন সদস্য যুক্ত করুন' : 'Add New Member')}
                 </h3>
-                <p className="text-xs text-zinc-500">পরিচালনা পর্ষদ বা ব্যবস্থাপনা টিমের প্রোফাইল হালনাগাদ</p>
+                <p className="text-xs text-zinc-500">
+                  {isBn ? 'পরিচালনা পর্ষদ বা ব্যবস্থাপনা টিমের প্রোফাইল হালনাগাদ' : 'Update governing board or management team profile'}
+                </p>
               </div>
               <button
                 type="button"
@@ -2268,18 +2302,22 @@ export default function AdminDashboard() {
             <form onSubmit={handleSaveMember} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">নাম (বাংলায়) *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'নাম (বাংলায়) *' : 'Name (Bangla) *'}
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="যেমন: মোঃ আল আমিন"
+                    placeholder={isBn ? "যেমন: মোঃ আল আমিন" : "e.g. Md. Al Amin"}
                     value={memberForm.nameBn}
                     onChange={e => setMemberForm({ ...memberForm, nameBn: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">Name (English)</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'নাম (ইংরেজিতে)' : 'Name (English)'}
+                  </label>
                   <input
                     type="text"
                     placeholder="e.g. Md. Al Amin"
@@ -2292,33 +2330,39 @@ export default function AdminDashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">পদবী / ভূমিকা (বাংলায়) *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'পদবী / ভূমিকা (বাংলায়) *' : 'Role / Title (Bangla) *'}
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="যেমন: সিনিয়র ট্রাস্টি / কোঅর্ডিনেটর"
+                    placeholder={isBn ? "যেমন: সিনিয়র ট্রাস্টি / কোঅর্ডিনেটর" : "e.g. Senior Trustee / Coordinator"}
                     value={memberForm.roleBn}
                     onChange={e => setMemberForm({ ...memberForm, roleBn: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">ক্যাটাগরি</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'ক্যাটাগরি' : 'Category'}
+                  </label>
                   <select
                     value={memberForm.category}
                     onChange={e => setMemberForm({ ...memberForm, category: e.target.value as any })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950 bg-white"
                   >
-                    <option value="board">পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড</option>
-                    <option value="management">নির্বাহী ব্যবস্থাপনা ও কোঅর্ডিনেটর</option>
-                    <option value="advisor">শরীয়াহ ও আইনি উপদেষ্টা</option>
+                    <option value="board">{isBn ? 'পরিচালনা পর্ষদ ও ট্রাস্টি বোর্ড' : 'Governing Board & Trustees'}</option>
+                    <option value="management">{isBn ? 'নির্বাহী ব্যবস্থাপনা ও কোঅর্ডিনেটর' : 'Executive Management & Coordinators'}</option>
+                    <option value="advisor">{isBn ? 'শরীয়াহ ও আইনি উপদেষ্টা' : 'Shariah & Legal Advisors'}</option>
                   </select>
                 </div>
               </div>
 
               {/* Photo Input */}
               <div>
-                <label className="font-medium text-zinc-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <label className="font-medium text-zinc-700 block mb-1">
+                  {isBn ? 'ছবির লিংক (Photo URL)' : 'Photo Link (Photo URL)'}
+                </label>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-md border border-zinc-200 overflow-hidden shrink-0 bg-zinc-50 flex items-center justify-center">
                     {memberForm.image ? (
@@ -2329,7 +2373,7 @@ export default function AdminDashboard() {
                   </div>
                   <input
                     type="text"
-                    placeholder="/images/humanitarian-volunteers.jpg বা ছবির URL"
+                    placeholder={isBn ? "/images/humanitarian-volunteers.jpg বা ছবির URL" : "/images/humanitarian-volunteers.jpg or image URL"}
                     value={memberForm.image}
                     onChange={e => setMemberForm({ ...memberForm, image: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2349,7 +2393,7 @@ export default function AdminDashboard() {
                           : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-200'
                       )}
                     >
-                      {av.label}
+                      {isBn ? av.label : av.labelEn}
                     </button>
                   ))}
                 </div>
@@ -2357,7 +2401,9 @@ export default function AdminDashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">মোবাইল নম্বর</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'মোবাইল নম্বর' : 'Mobile Number'}
+                  </label>
                   <input
                     type="text"
                     placeholder="01913119525"
@@ -2367,7 +2413,9 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">ইমেইল ঠিকানা</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'ইমেইল ঠিকানা' : 'Email Address'}
+                  </label>
                   <input
                     type="email"
                     placeholder="member@gmcf.org"
@@ -2379,10 +2427,12 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="font-medium text-zinc-700 block mb-1">অবস্থান / ঠিকানা</label>
+                <label className="font-medium text-zinc-700 block mb-1">
+                  {isBn ? 'অবস্থান / ঠিকানা' : 'Location / Address'}
+                </label>
                 <input
                   type="text"
-                  placeholder="যেমন: সাভার, ঢাকা"
+                  placeholder={isBn ? "যেমন: সাভার, ঢাকা" : "e.g. Savar, Dhaka"}
                   value={memberForm.locationBn}
                   onChange={e => setMemberForm({ ...memberForm, locationBn: e.target.value })}
                   className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2390,10 +2440,12 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="font-medium text-zinc-700 block mb-1">সংক্ষিপ্ত পরিচিতি (Bio)</label>
+                <label className="font-medium text-zinc-700 block mb-1">
+                  {isBn ? 'সংক্ষিপ্ত পরিচিতি (Bio)' : 'Bio / Short Summary'}
+                </label>
                 <textarea
                   rows={2}
-                  placeholder="সদস্যের অবদান বা দায়িত্বের সংক্ষিপ্ত বিবরণ..."
+                  placeholder={isBn ? "সদস্যের অবদান বা দায়িত্বের সংক্ষিপ্ত বিবরণ..." : "Brief overview of responsibilities and contributions..."}
                   value={memberForm.bioBn}
                   onChange={e => setMemberForm({ ...memberForm, bioBn: e.target.value })}
                   className="w-full px-3 py-1.5 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2406,13 +2458,13 @@ export default function AdminDashboard() {
                   onClick={() => setIsMemberModalOpen(false)}
                   className="h-9 px-4 border border-zinc-200 text-zinc-700 rounded-md hover:bg-zinc-50 font-medium cursor-pointer shadow-2xs"
                 >
-                  বাতিল
+                  {isBn ? 'বাতিল' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
-                  {editingMemberId ? 'হালনাগাদ সংরক্ষণ করুন' : 'সদস্য যোগ করুন'}
+                  {editingMemberId ? (isBn ? 'হালনাগাদ সংরক্ষণ করুন' : 'Update Member') : (isBn ? 'সদস্য যোগ করুন' : 'Save Member')}
                 </button>
               </div>
             </form>
@@ -2429,9 +2481,11 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
               <div>
                 <h3 className="text-base font-semibold text-zinc-900">
-                  {editingVolunteerId ? 'স্বেচ্ছাসেবকের তথ্য সম্পাদনা করুন' : 'নতুন স্বেচ্ছাসেবক যুক্ত করুন'}
+                  {editingVolunteerId ? (isBn ? 'স্বেচ্ছাসেবকের তথ্য সম্পাদনা করুন' : 'Edit Volunteer Details') : (isBn ? 'নতুন স্বেচ্ছাসেবক যুক্ত করুন' : 'Add New Volunteer')}
                 </h3>
-                <p className="text-xs text-zinc-500">মাঠপর্যায়ের ত্রাণ ও মেডিকেল টিমের ভলান্টিয়ার এন্ট্রি</p>
+                <p className="text-xs text-zinc-500">
+                  {isBn ? 'মাঠপর্যায়ের ত্রাণ ও মেডিকেল টিমের ভলান্টিয়ার এন্ট্রি' : 'Field relief and medical volunteer entry'}
+                </p>
               </div>
               <button
                 type="button"
@@ -2445,18 +2499,22 @@ export default function AdminDashboard() {
             <form onSubmit={handleSaveVolunteer} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">স্বেচ্ছাসেবকের পুরো নাম *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'স্বেচ্ছাসেবকের পুরো নাম *' : 'Volunteer Full Name *'}
+                  </label>
                   <input
                     type="text"
                     required
-                    placeholder="যেমন: সাব্বির আহমেদ"
+                    placeholder={isBn ? "যেমন: সাব্বির আহমেদ" : "e.g. Sabbir Ahmed"}
                     value={volunteerForm.name}
                     onChange={e => setVolunteerForm({ ...volunteerForm, name: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">মোবাইল নম্বর *</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'মোবাইল নম্বর *' : 'Mobile Number *'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -2470,7 +2528,9 @@ export default function AdminDashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">ইমেইল</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'ইমেইল' : 'Email Address'}
+                  </label>
                   <input
                     type="email"
                     placeholder="volunteer@gmcf.org"
@@ -2480,10 +2540,12 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">জেলা / ঠিকানা</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'জেলা / ঠিকানা' : 'District / Address'}
+                  </label>
                   <input
                     type="text"
-                    placeholder="যেমন: ঢাকা (সাভার)"
+                    placeholder={isBn ? "যেমন: ঢাকা (সাভার)" : "e.g. Dhaka (Savar)"}
                     value={volunteerForm.district}
                     onChange={e => setVolunteerForm({ ...volunteerForm, district: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2493,32 +2555,38 @@ export default function AdminDashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">পছন্দের মানবিক খাত</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'পছন্দের মানবিক খাত' : 'Preferred Cause / Sector'}
+                  </label>
                   <input
                     type="text"
-                    placeholder="যেমন: খাদ্য বিতরণ / চিকিৎসা ক্যাম্প"
+                    placeholder={isBn ? "যেমন: খাদ্য বিতরণ / চিকিৎসা ক্যাম্প" : "e.g. Food Relief / Medical Camps"}
                     value={volunteerForm.category}
                     onChange={e => setVolunteerForm({ ...volunteerForm, category: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
                   />
                 </div>
                 <div>
-                  <label className="font-medium text-zinc-700 block mb-1">অনুমোদন অবস্থা (Status)</label>
+                  <label className="font-medium text-zinc-700 block mb-1">
+                    {isBn ? 'অনুমোদন অবস্থা (Status)' : 'Approval Status'}
+                  </label>
                   <select
                     value={volunteerForm.status}
                     onChange={e => setVolunteerForm({ ...volunteerForm, status: e.target.value as any })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950 bg-white"
                   >
-                    <option value="APPROVED">APPROVED (অনুমোদিত)</option>
-                    <option value="PENDING">PENDING (অপেক্ষমান)</option>
-                    <option value="REJECTED">REJECTED (বাতিল)</option>
+                    <option value="APPROVED">{isBn ? 'APPROVED (অনুমোদিত)' : 'APPROVED (Approved)'}</option>
+                    <option value="PENDING">{isBn ? 'PENDING (অপেক্ষমান)' : 'PENDING (Pending)'}</option>
+                    <option value="REJECTED">{isBn ? 'REJECTED (বাতিল)' : 'REJECTED (Rejected)'}</option>
                   </select>
                 </div>
               </div>
 
               {/* Photo Input */}
               <div>
-                <label className="font-medium text-zinc-700 block mb-1">ছবির লিংক (Photo URL)</label>
+                <label className="font-medium text-zinc-700 block mb-1">
+                  {isBn ? 'ছবির লিংক (Photo URL)' : 'Photo Link (Photo URL)'}
+                </label>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-md border border-zinc-200 overflow-hidden shrink-0 bg-zinc-50 flex items-center justify-center">
                     {volunteerForm.image ? (
@@ -2529,7 +2597,7 @@ export default function AdminDashboard() {
                   </div>
                   <input
                     type="text"
-                    placeholder="/images/youth-volunteers.jpg বা ছবির URL"
+                    placeholder={isBn ? "/images/youth-volunteers.jpg বা ছবির URL" : "/images/youth-volunteers.jpg or photo URL"}
                     value={volunteerForm.image}
                     onChange={e => setVolunteerForm({ ...volunteerForm, image: e.target.value })}
                     className="w-full px-3 py-1.5 h-9 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2549,17 +2617,19 @@ export default function AdminDashboard() {
                           : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-200'
                       )}
                     >
-                      {av.label}
+                      {isBn ? av.label : av.labelEn}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="font-medium text-zinc-700 block mb-1">দক্ষতা ও অভিজ্ঞতা</label>
+                <label className="font-medium text-zinc-700 block mb-1">
+                  {isBn ? 'দক্ষতা ও অভিজ্ঞতা' : 'Skills & Experience'}
+                </label>
                 <textarea
                   rows={2}
-                  placeholder="যেমন: ফিল্ড কোঅর্ডিনেশন, নার্সিং, ডিএসএলআর ফটোগ্রাফি..."
+                  placeholder={isBn ? "যেমন: ফিল্ড কোঅর্ডিনেশন, নার্সিং, ডিএসএলআর ফটোগ্রাফি..." : "e.g. Field coordination, first aid, photography..."}
                   value={volunteerForm.skills}
                   onChange={e => setVolunteerForm({ ...volunteerForm, skills: e.target.value })}
                   className="w-full px-3 py-1.5 border rounded-md border-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-950"
@@ -2572,13 +2642,13 @@ export default function AdminDashboard() {
                   onClick={() => setIsVolunteerModalOpen(false)}
                   className="h-9 px-4 border border-zinc-200 text-zinc-700 rounded-md hover:bg-zinc-50 font-medium cursor-pointer shadow-2xs"
                 >
-                  বাতিল
+                  {isBn ? 'বাতিল' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
-                  {editingVolunteerId ? 'হালনাগাদ সংরক্ষণ করুন' : 'স্বেচ্ছাসেবক যোগ করুন'}
+                  {editingVolunteerId ? (isBn ? 'হালনাগাদ সংরক্ষণ করুন' : 'Update Volunteer') : (isBn ? 'স্বেচ্ছাসেবক যোগ করুন' : 'Add Volunteer')}
                 </button>
               </div>
             </form>
@@ -2597,12 +2667,21 @@ export default function AdminDashboard() {
             </div>
 
             <h3 className="text-base font-semibold text-zinc-900 mb-1.5">
-              মুছে ফেলার নিশ্চিতকরণ
+              {isBn ? 'মুছে ফেলার নিশ্চিতকরণ' : 'Confirm Permanent Deletion'}
             </h3>
 
             <p className="text-xs text-zinc-600 leading-relaxed mb-5">
-              আপনি কি নিশ্চিতভাবে <span className="font-semibold text-zinc-900">"{deleteConfirmation.name}"</span> কে{' '}
-              {deleteConfirmation.type === 'member' ? 'সদস্য তালিকা' : 'স্বেচ্ছাসেবক তালিকা'} থেকে স্থায়ীভাবে মুছে ফেলতে চান? এই প্রক্রিয়া অপরিবর্তনীয়।
+              {isBn ? (
+                <>
+                  আপনি কি নিশ্চিতভাবে <span className="font-semibold text-zinc-900">"{deleteConfirmation.name}"</span> কে{' '}
+                  {deleteConfirmation.type === 'member' ? 'সদস্য তালিকা' : 'স্বেচ্ছাসেবক তালিকা'} থেকে স্থায়ীভাবে মুছে ফেলতে চান? এই প্রক্রিয়া অপরিবর্তনীয়।
+                </>
+              ) : (
+                <>
+                  Are you sure you want to permanently delete <span className="font-semibold text-zinc-900">"{deleteConfirmation.name}"</span> from the{' '}
+                  {deleteConfirmation.type === 'member' ? 'member directory' : 'volunteer roster'}? This action cannot be undone.
+                </>
+              )}
             </p>
 
             <div className="flex items-center justify-center gap-2.5">
@@ -2611,14 +2690,14 @@ export default function AdminDashboard() {
                 onClick={() => setDeleteConfirmation({ isOpen: false, type: 'member', id: '', name: '' })}
                 className="w-1/2 h-9 px-4 rounded-md border border-zinc-200 text-zinc-700 font-medium hover:bg-zinc-50 transition-colors text-xs cursor-pointer shadow-2xs"
               >
-                বাতিল করুন
+                {isBn ? 'বাতিল করুন' : 'Cancel'}
               </button>
               <button
                 type="button"
                 onClick={confirmDeleteAction}
                 className="w-1/2 h-9 px-4 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium transition-colors text-xs cursor-pointer shadow-2xs active:scale-95"
               >
-                হ্যাঁ, মুছে ফেলুন
+                {isBn ? 'হ্যাঁ, মুছে ফেলুন' : 'Yes, Delete'}
               </button>
             </div>
           </div>

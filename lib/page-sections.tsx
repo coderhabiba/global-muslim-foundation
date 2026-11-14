@@ -38,6 +38,7 @@ export type PageSectionData = Record<string, string>; // fieldKey -> value
 export interface PageConfig {
   pageKey: string;
   pageTitle: string;
+  pageTitleEn?: string;
   pageIcon: string;
   pageUrl: string;
   sections: PageSection[];
@@ -54,6 +55,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'header_footer',
     pageTitle: 'ন্যাভবার ও ফুটার',
+    pageTitleEn: 'Navbar & Footer',
     pageIcon: 'view_quilt',
     pageUrl: '/',
     sections: [
@@ -140,6 +142,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'home',
     pageTitle: '১. হোমপেজ (Home)',
+    pageTitleEn: '1. Home Page',
     pageIcon: 'home',
     pageUrl: '/',
     sections: [
@@ -262,6 +265,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'about',
     pageTitle: '২. আমাদের সম্পর্কে (About)',
+    pageTitleEn: '2. About Us',
     pageIcon: 'info',
     pageUrl: '/about',
     sections: [
@@ -353,6 +357,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'sponsor_orphan',
     pageTitle: '৩. দুস্থ শিশু স্পনসর (Sponsor Child)',
+    pageTitleEn: '3. Sponsor Orphan',
     pageIcon: 'child_care',
     pageUrl: '/sponsor-orphan',
     sections: [
@@ -423,6 +428,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'upcoming_projects',
     pageTitle: '৪. আসন্ন প্রকল্প (Upcoming)',
+    pageTitleEn: '4. Upcoming Projects',
     pageIcon: 'construction',
     pageUrl: '/upcoming-projects',
     sections: [
@@ -489,6 +495,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'impact',
     pageTitle: '৫. আমাদের প্রজেক্ট (Impact)',
+    pageTitleEn: '5. Our Projects (Impact)',
     pageIcon: 'volunteer_activism',
     pageUrl: '/impact',
     sections: [
@@ -563,6 +570,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'zakat_calculator',
     pageTitle: '৬. যাকাত ক্যালকুলেটর (Zakat)',
+    pageTitleEn: '6. Zakat Calculator',
     pageIcon: 'calculate',
     pageUrl: '/zakat-calculator',
     sections: [
@@ -627,6 +635,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'gallery',
     pageTitle: '৭. ফটো গ্যালারি (Gallery)',
+    pageTitleEn: '7. Photo Gallery',
     pageIcon: 'photo_library',
     pageUrl: '/gallery',
     sections: [
@@ -668,6 +677,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'volunteer',
     pageTitle: '৮. স্বেচ্ছাসেবক নিবন্ধন (Volunteer)',
+    pageTitleEn: '8. Volunteers',
     pageIcon: 'group_add',
     pageUrl: '/volunteer',
     sections: [
@@ -744,6 +754,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'appeals',
     pageTitle: '৯. জরুরি আপিলসমূহ (Appeals)',
+    pageTitleEn: '9. Active Appeals',
     pageIcon: 'campaign',
     pageUrl: '/appeals',
     sections: [
@@ -768,6 +779,7 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
   {
     pageKey: 'news',
     pageTitle: '১০. ফিল্ড নিউজ ও ডিসপ্যাচ (News)',
+    pageTitleEn: '10. Field News & Dispatches',
     pageIcon: 'newspaper',
     pageUrl: '/news',
     sections: [

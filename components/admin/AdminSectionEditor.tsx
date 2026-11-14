@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS, SitePageKey, DEFAULT_CMS_CONTENT_EN } from '@/lib/site-cms';
 import { PAGE_SECTIONS_SCHEMA, PageConfig, PageSection, SectionField, useCustomSections, CustomSection } from '@/lib/page-sections';
 import ImageSelectorField from './ImageSelectorField';
@@ -328,7 +329,7 @@ function SectionAccordion({
             )}
           </div>
           <p className="text-[11px] text-slate-400">
-            {section.fields.length} {editorLang === 'en' ? 'Fields (Editable in EN)' : 'টি ফিল্ড (বাংলা ও English)'}
+            {section.fields.length} {editorLang === 'en' ? 'Fields (Bilingual)' : 'টি ফিল্ড (বাংলা ও English)'}
           </p>
         </button>
 
@@ -338,7 +339,7 @@ function SectionAccordion({
           <button
             type="button"
             onClick={onToggleVisibility}
-            title={isVisible ? 'এই সেকশনটি লুকান' : 'এই সেকশনটি দেখান'}
+            title={isVisible ? (editorLang === 'en' ? 'Hide this section' : 'এই সেকশনটি লুকান') : (editorLang === 'en' ? 'Show this section' : 'এই সেকশনটি দেখান')}
             className={`p-1.5 rounded-lg transition-colors ${
               isVisible
                 ? 'text-emerald-600 hover:bg-emerald-50'
@@ -353,7 +354,7 @@ function SectionAccordion({
             <button
               type="button"
               onClick={onDelete}
-              title="এই সেকশনটি মুছুন"
+              title={editorLang === 'en' ? "Delete this section" : "এই সেকশনটি মুছুন"}
               className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
             >
               <span className="material-symbols-outlined text-[18px]">delete</span>
@@ -599,6 +600,8 @@ function AddCustomSectionModal({
 // MAIN COMPONENT: AdminSectionEditor
 // =========================================================
 export default function AdminSectionEditor() {
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
   const { cms, updatePageContent, isSaving } = useSiteCMS();
   const { getPageCustomSections, addCustomSection, updateCustomSection, deleteCustomSection } = useCustomSections();
 
@@ -655,14 +658,14 @@ export default function AdminSectionEditor() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[10px] font-medium border border-purple-200 mb-1">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
-              <span>WordPress-স্টাইল পেজ বাই পেজ সেকশন এডিটর</span>
+              <span>{isBn ? 'WordPress-স্টাইল পেজ বাই পেজ সেকশন এডিটর' : 'WordPress-Style Section by Section Editor'}</span>
             </div>
             <h3 style={{ fontSize: '13px' }} className="font-semibold text-slate-800 flex items-center gap-1.5">
               <span className="material-symbols-outlined text-purple-700 text-[16px]">web</span>
-              <span>পেজ সেকশন কন্ট্রোল প্যানেল</span>
+              <span>{isBn ? 'পেজ সেকশন কন্ট্রোল প্যানেল' : 'Page Section Control Panel'}</span>
             </h3>
             <p style={{ fontSize: '11px' }} className="text-slate-400 mt-0.5">
-              প্রতিটি পেজের প্রতিটি সেকশন দেখুন, এডিট করুন, লুকান বা নতুন কাস্টম সেকশন যোগ করুন।
+              {isBn ? 'প্রতিটি পেজের প্রতিটি সেকশন দেখুন, এডিট করুন, লুকান বা নতুন কাস্টম সেকশন যোগ করুন।' : 'View, edit, toggle visibility, or add custom sections for each page.'}
             </p>
           </div>
 
@@ -671,7 +674,7 @@ export default function AdminSectionEditor() {
             {saveToast && (
               <div className="px-3.5 py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in">
                 <span className="material-symbols-outlined text-[16px]">check_circle</span>
-                লাইভ আপডেট হয়েছে!
+                {isBn ? 'লাইভ আপডেট হয়েছে!' : 'Live updated!'}
               </div>
             )}
             <button
@@ -681,7 +684,7 @@ export default function AdminSectionEditor() {
               className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-900/20 flex items-center gap-2 cursor-pointer transition-all active:scale-95 disabled:opacity-60"
             >
               <span className="material-symbols-outlined text-[18px]">save</span>
-              <span>{isSaving ? 'সংরক্ষণ হচ্ছে...' : 'পরিবর্তন সংরক্ষণ করুন'}</span>
+              <span>{isSaving ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সংরক্ষণ করুন' : 'Save Changes')}</span>
             </button>
           </div>
         </div>
@@ -692,7 +695,7 @@ export default function AdminSectionEditor() {
         {/* ===== LEFT: Page Selector ===== */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
           <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/60">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">পেজ বাই পেজ এডিটর</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{isBn ? 'পেজ বাই পেজ এডিটর' : 'PAGE BY PAGE EDITOR'}</p>
           </div>
 
           <nav className="p-2 space-y-1">
@@ -716,9 +719,9 @@ export default function AdminSectionEditor() {
                     <span className="material-symbols-outlined text-[18px]">{page.pageIcon}</span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-bold truncate leading-tight">{page.pageTitle}</p>
+                    <p className="text-xs font-bold truncate leading-tight">{isBn ? page.pageTitle : (page.pageTitleEn || page.pageTitle)}</p>
                     <p className={`text-[10px] mt-0.5 ${isSelected ? 'text-purple-200' : 'text-slate-400'}`}>
-                      {totalSections} সেকশন
+                      {totalSections} {isBn ? 'সেকশন' : 'Sections'}
                     </p>
                   </div>
                   {isSelected && (
@@ -740,10 +743,10 @@ export default function AdminSectionEditor() {
                 <span className="material-symbols-outlined text-[22px]">{selectedPageConfig?.pageIcon}</span>
               </div>
               <div>
-                <h4 className="font-bold text-slate-900">{selectedPageConfig?.pageTitle}</h4>
+                <h4 className="font-bold text-slate-900">{isBn ? selectedPageConfig?.pageTitle : (selectedPageConfig?.pageTitleEn || selectedPageConfig?.pageTitle)}</h4>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span className="text-[11px] text-slate-500">
-                    {coreSections.length} কোর + {pageCustomSections.length} কাস্টম সেকশন
+                    {coreSections.length} {isBn ? 'কোর' : 'Core'} + {pageCustomSections.length} {isBn ? 'কাস্টম সেকশন' : 'Custom Sections'}
                   </span>
                   <a
                     href={selectedPageConfig?.pageUrl}
@@ -752,7 +755,7 @@ export default function AdminSectionEditor() {
                     className="text-[11px] text-purple-700 hover:underline flex items-center gap-0.5"
                   >
                     <span className="material-symbols-outlined text-[13px]">open_in_new</span>
-                    পেজ দেখুন
+                    {isBn ? 'পেজ দেখুন' : 'View Page'}
                   </a>
                 </div>
               </div>
@@ -765,7 +768,7 @@ export default function AdminSectionEditor() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-dashed border-purple-300 text-purple-700 text-sm font-bold hover:bg-purple-50 transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[18px]">add</span>
-              নতুন সেকশন যোগ করুন
+              {isBn ? 'নতুন সেকশন যোগ করুন' : 'Add New Section'}
             </button>
           </div>
 
@@ -775,11 +778,11 @@ export default function AdminSectionEditor() {
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-purple-700 text-[20px]">translate</span>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-800">
-                  সেকশন কন্টেন্ট এডিটর ভাষা (Content Language)
+                  {isBn ? 'সেকশন কন্টেন্ট এডিটর ভাষা (Content Language)' : 'Section Content Editor Language'}
                 </h4>
               </div>
               <p className="text-[11px] text-slate-500 mt-0.5">
-                ইংরেজি বা বাংলা উভয় ভাষার কন্টেন্ট সরাসরি এডিট ও আপডেট করুন।
+                {isBn ? 'ইংরেজি বা বাংলা উভয় ভাষার কন্টেন্ট সরাসরি এডিট ও আপডেট করুন।' : 'Directly edit and update content for both Bengali and English.'}
               </p>
             </div>
 
@@ -824,19 +827,19 @@ export default function AdminSectionEditor() {
           <div className="flex items-center gap-4 text-[11px] text-slate-500 px-1">
             <span className="flex items-center gap-1">
               <span className="material-symbols-outlined text-[14px] text-emerald-600">visibility</span>
-              = সেকশন দৃশ্যমান
+              = {isBn ? 'সেকশন দৃশ্যমান' : 'Section Visible'}
             </span>
             <span className="flex items-center gap-1">
               <span className="material-symbols-outlined text-[14px] text-slate-400">visibility_off</span>
-              = সেকশন লুকানো
+              = {isBn ? 'সেকশন লুকানো' : 'Section Hidden'}
             </span>
             <span className="flex items-center gap-1">
               <span className="text-[9px] px-1 rounded bg-slate-100 font-bold text-slate-500">CORE</span>
-              = ডিলেট করা যাবে না
+              = {isBn ? 'ডিলেট করা যাবে না' : 'Cannot Delete'}
             </span>
             <span className="flex items-center gap-1">
               <span className="text-[9px] px-1 rounded bg-purple-100 font-bold text-purple-700">CUSTOM</span>
-              = আপনার নিজস্ব
+              = {isBn ? 'আপনার নিজস্ব' : 'Custom Added'}
             </span>
           </div>
 
@@ -861,7 +864,7 @@ export default function AdminSectionEditor() {
             <>
               <div className="flex items-center gap-2 pt-2">
                 <div className="h-px flex-1 bg-slate-200"></div>
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">কাস্টম সেকশনসমূহ</span>
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{isBn ? 'কাস্টম সেকশনসমূহ' : 'Custom Sections'}</span>
                 <div className="h-px flex-1 bg-slate-200"></div>
               </div>
 
@@ -891,13 +894,13 @@ export default function AdminSectionEditor() {
           {coreSections.length === 0 && pageCustomSections.length === 0 && (
             <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
               <span className="material-symbols-outlined text-5xl text-slate-200 block mb-3">web_stories</span>
-              <p className="text-slate-500 font-medium">এই পেজে এখনো কোনো সেকশন নেই</p>
+              <p className="text-slate-500 font-medium">{isBn ? 'এই পেজে এখনো কোনো সেকশন নেই' : 'No sections on this page yet'}</p>
               <button
                 type="button"
                 onClick={() => setShowAddModal(true)}
                 className="mt-4 px-4 py-2 bg-purple-700 text-white rounded-xl text-sm font-bold cursor-pointer hover:bg-purple-800"
               >
-                প্রথম সেকশন যোগ করুন
+                {isBn ? 'প্রথম সেকশন যোগ করুন' : 'Add First Section'}
               </button>
             </div>
           )}
@@ -905,7 +908,7 @@ export default function AdminSectionEditor() {
           {/* Bottom Save Bar */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
             <span className="text-xs text-slate-500">
-              পরিবর্তন সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।
+              {isBn ? 'পরিবর্তন সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।' : 'Saving changes immediately reflects on live website.'}
             </span>
             <button
               type="button"
@@ -914,7 +917,7 @@ export default function AdminSectionEditor() {
               className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-900/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-60"
             >
               <span className="material-symbols-outlined text-[18px]">save</span>
-              <span>{isSaving ? 'সংরক্ষণ হচ্ছে...' : 'পরিবর্তন সংরক্ষণ করুন'}</span>
+              <span>{isSaving ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সংরক্ষণ করুন' : 'Save Changes')}</span>
             </button>
           </div>
         </div>
@@ -942,8 +945,8 @@ export default function AdminSectionEditor() {
                 <span className="material-symbols-outlined">warning</span>
               </div>
               <div>
-                <h4 className="font-bold text-slate-900">সেকশন মুছে ফেলবেন?</h4>
-                <p className="text-xs text-slate-500">এই কাজ আর ফেরানো যাবে না।</p>
+                <h4 className="font-bold text-slate-900">{isBn ? 'সেকশন মুছে ফেলবেন?' : 'Delete Section?'}</h4>
+                <p className="text-xs text-slate-500">{isBn ? 'এই কাজ আর ফেরানো যাবে না।' : 'This action cannot be undone.'}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 justify-end">
@@ -951,7 +954,7 @@ export default function AdminSectionEditor() {
                 onClick={() => setPendingDeleteId(null)}
                 className="px-4 py-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer"
               >
-                বাতিল
+                {isBn ? 'বাতিল' : 'Cancel'}
               </button>
               <button
                 onClick={() => {
@@ -960,7 +963,7 @@ export default function AdminSectionEditor() {
                 }}
                 className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold cursor-pointer"
               >
-                হ্যাঁ, মুছে দিন
+                {isBn ? 'হ্যাঁ, মুছে দিন' : 'Yes, Delete'}
               </button>
             </div>
           </div>

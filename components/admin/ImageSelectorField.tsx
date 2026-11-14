@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSiteSettings } from '@/lib/site-settings';
 
 const PRESET_LIBRARY_IMAGES = [
   { url: '/images/hero-relief.jpg', label: 'হিরো ব্যানার (Relief Food)' },
@@ -31,6 +32,8 @@ interface ImageSelectorProps {
 }
 
 export default function ImageSelectorField({ label, value, onChange, helpText }: ImageSelectorProps) {
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
   const [isOpen, setIsOpen] = useState(false);
   const [customInput, setCustomInput] = useState(value);
 
@@ -75,7 +78,7 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
           <input
             type="text"
             value={value || ''}
-            placeholder="/images/hero-relief.jpg বা ছবির অনলাইন URL"
+            placeholder={isBn ? "/images/hero-relief.jpg বা ছবির অনলাইন URL" : "/images/hero-relief.jpg or online image URL"}
             onChange={e => {
               onChange(e.target.value);
               setCustomInput(e.target.value);
@@ -87,7 +90,7 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
         {/* Upload Button */}
         <label className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer border border-slate-300 flex items-center gap-1.5 shrink-0">
           <span className="material-symbols-outlined text-[16px]">upload</span>
-          <span className="hidden sm:inline">আপলোড</span>
+          <span className="hidden sm:inline">{isBn ? 'আপলোড' : 'Upload'}</span>
           <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
         </label>
 
@@ -98,7 +101,7 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
           className="px-3 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold transition-colors cursor-pointer border border-purple-200 flex items-center gap-1.5 shrink-0"
         >
           <span className="material-symbols-outlined text-[16px]">photo_library</span>
-          <span className="hidden sm:inline">লাইব্রেরি</span>
+          <span className="hidden sm:inline">{isBn ? 'লাইব্রেরি' : 'Library'}</span>
         </button>
       </div>
 
@@ -108,13 +111,13 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
       {isOpen && (
         <div className="p-3 bg-purple-50/50 rounded-2xl border border-purple-200 mt-2 space-y-2 animate-in fade-in">
           <div className="flex items-center justify-between text-xs font-bold text-purple-900 border-b border-purple-200/60 pb-1.5">
-            <span>মিডিয়া লাইব্রেরি থেকে ছবি বেছে নিন:</span>
+            <span>{isBn ? 'মিডিয়া লাইব্রেরি থেকে ছবি বেছে নিন:' : 'Choose photo from media library:'}</span>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="text-purple-600 hover:text-purple-900 text-xs"
+              className="text-purple-600 hover:text-purple-900 text-xs cursor-pointer"
             >
-              বন্ধ করুন ✕
+              {isBn ? 'বন্ধ করুন ✕' : 'Close ✕'}
             </button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1">
