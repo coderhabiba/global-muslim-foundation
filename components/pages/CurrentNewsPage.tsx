@@ -184,7 +184,7 @@ export default function CurrentNewsPage() {
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
               ? (cms.news?.pageSubtitle || 'মাঠপর্যায়ে ত্রাণ বিতরণ, আর্সেনিকমুক্ত নলকূপ স্থাপন এবং এতিম প্রতিপালন কার্যক্রমের সরাসরি খবরাখবর। আপনার দানকৃত প্রতিটি তহবিলের স্বচ্ছ চিত্র।')
-              : (cms.news?.pageSubtitleEn || 'Real-time updates, photographic reports, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.')}
+              : (cms.news?.pageSubtitleEn || 'Photographic reports, verified field evidence, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.')}
           </p>
         </div>
       </section>

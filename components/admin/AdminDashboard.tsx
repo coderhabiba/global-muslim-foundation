@@ -1177,7 +1177,7 @@ export default function AdminDashboard() {
               </div>
               <p className="text-xs text-zinc-500 truncate mt-0.5">
                 {activeTab === 'overview' && (isBn ? 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র' : 'Live financial analytics, donation flow & unified control center')}
-                {activeTab === 'section_editor' && (isBn ? 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর' : 'Real-time text & media editor for homepage and all public pages')}
+                {activeTab === 'section_editor' && (isBn ? 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট এডিটর' : 'Text & media editor for homepage and all public pages')}
                 {activeTab === 'donations' && (isBn ? 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা' : 'EPS payment gateway & mobile banking transaction records')}
                 {activeTab === 'members' && (isBn ? 'পরিচালনা পর্ষদ, উপদেষ্টা কমিটি ও ট্রাস্টি সদস্যদের প্রোফাইল' : 'Profiles of board members, advisory council & trustees')}
                 {activeTab === 'volunteers' && (isBn ? '৬৪ জেলার স্বেচ্ছাসেবকদের আবেদন যাচাই ও স্ট্যাটাস অনুমোদন' : 'Volunteer application review across 64 districts & approval')}
@@ -1411,8 +1411,8 @@ export default function AdminDashboard() {
                     </h2>
                     <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                       {isBn
-                        ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের রিয়েলটাইম অনুদান প্রবাহ, প্রকল্প বাস্তবায়ন ও আর্থিক অডিট তথ্যাদি নিচে ইন্টারেক্টিভ চার্টে প্রদর্শিত হচ্ছে।'
-                        : 'Real-time donation flow, project implementations, and financial audit intelligence for Global Muslim Charitable Foundation.'}
+                        ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের অনুদান প্রবাহ, প্রকল্প বাস্তবায়ন ও আর্থিক অডিট তথ্যাদি নিচে ইন্টারেক্টিভ চার্টে প্রদর্শিত হচ্ছে।'
+                        : 'Donation flow, project implementations, and financial audit intelligence for Global Muslim Charitable Foundation.'}
                     </p>
                     <div className="flex flex-wrap items-center gap-2.5 pt-2">
                       <button
@@ -1460,7 +1460,7 @@ export default function AdminDashboard() {
                             </h3>
                           </div>
                           <p className="text-xs text-zinc-500 mt-0.5">
-                            {isBn ? 'রিয়েলটাইম সংগ্রহ পরিমাণ ও দাতার সংখ্যার গ্রাফ' : 'Real-time chart of collection volume and donor count'}
+                            {isBn ? 'সংগ্রহের পরিমাণ ও দাতার সংখ্যার গ্রাফ' : 'Chart of collection volume and donor count'}
                           </p>
                         </div>
 
@@ -1573,7 +1573,7 @@ export default function AdminDashboard() {
                     <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
                       <span className="flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        {isBn ? 'রিয়েলটাইম ব্যাংক ও EPS ট্রানজেকশন সিঙ্ক' : 'Real-time Bank & EPS Transaction Sync'}
+                        {isBn ? 'ব্যাংক ও EPS ট্রানজেকশন সিঙ্ক' : 'Bank & EPS Transaction Sync'}
                       </span>
                       <span className="font-mono font-semibold text-zinc-800">
                         {isBn ? 'সর্বশেষ আপডেট: আজ' : 'Last update: Today'}
@@ -1824,7 +1824,7 @@ export default function AdminDashboard() {
                     <div className="flex items-center gap-2">
                       <History className="w-4 h-4 text-zinc-700" />
                       <h3 className="text-sm font-semibold text-zinc-900">
-                        {isBn ? 'সাম্প্রতিক অনুদানসমূহ (রিয়েলটাইম প্রিভিউ)' : 'Recent Donations (Realtime Preview)'}
+                        {isBn ? 'সাম্প্রতিক অনুদানসমূহ (প্রিভিউ)' : 'Recent Donations (Preview)'}
                       </h3>
                     </div>
                     <button

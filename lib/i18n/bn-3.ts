@@ -260,8 +260,8 @@ const bn: Record<string, string> = {
   'Read Full Investigation Dossier': 'সম্পূর্ণ তদন্ত ডসিয়ার পড়ুন',
   'Real Life Transformations: A Mother & Child Reunited':
     'বাস্তব জীবনের পরিবর্তন: মা ও শিশুর পুনর্মিলন',
-  'Real-time reports sent by our ground coordinators in Dhaka.':
-    'ঢাকার মাঠ সমন্বয়কদের পাঠানো রিয়েল-টাইম প্রতিবেদন।',
+  'Official reports sent by our ground coordinators in Dhaka.':
+    'ঢাকার মাঠ সমন্বয়কদের পাঠানো সরাসরি প্রতিবেদন।',
   'Receive verified field impact dispatch reports and tax exemption updates directly.':
     'যাচাইকৃত মাঠ প্রভাব প্রতিবেদন ও কর রেয়াতের হালনাগাদ তথ্য সরাসরি পান।',
   'Receive your volunteer badge, uniform kit, and squad leader invite.':

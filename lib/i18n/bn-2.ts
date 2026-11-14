@@ -143,7 +143,7 @@ const bn: Record<string, string> = {
   'Enlistment Application': 'তালিকাভুক্তির আবেদন',
   'Enter all assets possessed over one lunar year (Hawl). Debts and immediate living liabilities are deducted automatically before applying the obligatory 2.5% rate.':
     'এক চন্দ্রবর্ষ (হাওল) ধরে আপনার মালিকানাধীন সব সম্পদ লিখুন। ফরজ 2.5% হার প্রয়োগের আগে ঋণ ও তাৎক্ষণিক জীবনযাত্রার দায় স্বয়ংক্রিয়ভাবে বাদ যাবে।',
-  'Entrust your Zakat and Sadaqah where urgency meets real-time verified impact. Supporting malnourished children, desperate rural communities, clean water wells, and emergency eye surgeries across Bangladesh.':
+  'Entrust your Zakat and Sadaqah where urgency meets verified impact. Supporting malnourished children, desperate rural communities, clean water wells, and emergency eye surgeries across Bangladesh.':
     'আপনার যাকাত ও সদকা সেই জায়গায় দিন যেখানে জরুরি প্রয়োজন আর যাচাইকৃত প্রভাব একসাথে মেলে—অপুষ্ট শিশু, অসহায় গ্রামীণ জনগোষ্ঠী, বিশুদ্ধ পানির নলকূপ ও জরুরি চোখের অপারেশন।',
   'Error 404 • Page Not Found': 'ত্রুটি 404 • পেজ পাওয়া যায়নি',
   'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930':

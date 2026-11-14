@@ -646,7 +646,7 @@ export default function AdminSectionEditor() {
   const triggerSuccessToast = (title?: string, description?: string) => {
     setSaveToast({
       show: true,
-      title: title || (isBn ? 'সফলভাবে লাইভ আপডেট সম্পন্ন হয়েছে!' : 'Live Update Successful!'),
+      title: title || (isBn ? 'সফলভাবে সংরক্ষণ সম্পন্ন হয়েছে!' : 'Saved Successfully!'),
       description:
         description ||
         (isBn
@@ -791,7 +791,7 @@ export default function AdminSectionEditor() {
             {saveToast.show && (
               <div className="px-3.5 py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in">
                 <span className="material-symbols-outlined text-[16px]">check_circle</span>
-                {isBn ? 'লাইভ আপডেট হয়েছে!' : 'Live updated!'}
+                {isBn ? 'সংরক্ষিত হয়েছে!' : 'Saved successfully!'}
               </div>
             )}
             <button
@@ -1006,7 +1006,7 @@ export default function AdminSectionEditor() {
                   onSave={() => {
                     triggerSuccessToast(
                       isBn ? 'কাস্টম সেকশন সংরক্ষিত হয়েছে!' : 'Custom Section Saved!',
-                      isBn ? 'কাস্টম সেকশনের তথ্য সফলভাবে লাইভ আপডেট করা হয়েছে।' : 'Custom section data successfully live updated.'
+                      isBn ? 'কাস্টম সেকশনের তথ্য সফলভাবে সংরক্ষণ করা হয়েছে।' : 'Custom section data successfully saved.'
                     );
                   }}
                 />

@@ -294,7 +294,7 @@ export default function AppealsPage() {
                   <p className="font-body-lg text-on-surface-variant leading-relaxed max-w-2xl">
                     {isBn
                       ? (cms.appeals?.pageSubtitle || 'আপনার যাকাত ও সদকাহ পৌঁছে দিন চরম সংকটে থাকা অপুষ্টিতে ভোগা শিশু, বিধবা পরিবার, গভীর নলকূপ স্থাপন ও জরুরি সার্জারি কার্যক্রমে।')
-                      : (cms.appeals?.pageSubtitleEn || 'Entrust your Zakat and Sadaqah where urgency meets real-time verified impact. Supporting malnourished children, desperate rural communities, clean water wells, and emergency eye surgeries across Bangladesh.')}
+                      : (cms.appeals?.pageSubtitleEn || 'Entrust your Zakat and Sadaqah where urgency meets verified impact. Supporting malnourished children, desperate rural communities, clean water wells, and emergency eye surgeries across Bangladesh.')}
                   </p>
                 </div>
 

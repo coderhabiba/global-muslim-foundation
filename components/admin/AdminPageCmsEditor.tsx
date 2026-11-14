@@ -77,7 +77,7 @@ export default function AdminPageCmsEditor() {
           {saveToast && (
             <div className="px-3.5 py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in">
               <span className="material-symbols-outlined text-[18px]">check_circle</span>
-              <span>সফলভাবে লাইভ আপডেট হয়েছে!</span>
+              <span>সফলভাবে সংরক্ষণ হয়েছে!</span>
             </div>
           )}
         </div>

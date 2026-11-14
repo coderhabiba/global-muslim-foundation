@@ -574,15 +574,15 @@ export default function CampaignDetailsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="font-serif font-bold text-headline-sm text-emerald-dark">
-                            Live Verified Dispatch Log
+                            Verified Field Dispatch Log
                           </h3>
                           <p className="font-body-sm text-body-sm text-on-surface-variant">
-                            Real-time reports sent by our ground coordinators in
+                            Official reports sent by our ground coordinators in
                             Dhaka.
                           </p>
                         </div>
                         <span className="px-3 py-1 rounded-full bg-surface-subtle-mint text-primary font-label-md text-label-md font-bold">
-                          Updated 4 Hours Ago
+                          Verified Field Dispatch
                         </span>
                       </div>
 
