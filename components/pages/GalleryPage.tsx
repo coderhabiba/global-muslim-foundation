@@ -228,13 +228,81 @@ export default function GalleryPage() {
                     : 'Global Muslim Charitable Foundation — Verified Field Gallery'}
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-emerald-950 tracking-tight leading-tight font-serif-heading">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 tracking-tight leading-tight font-serif-heading max-w-4xl mx-auto">
                 {isBn ? (
-                  <span>{cmsGallery.pageTitle || 'মানবতার সেবায় আমাদের মাঠপর্যায়ের স্থিরচিত্র'}</span>
+                  (() => {
+                    const title = (
+                      cmsGallery.pageTitle ||
+                      'মানবতার সেবায় আমাদের মাঠপর্যায়ের স্থিরচিত্র'
+                    ).trim();
+
+                    if (title.includes('মাঠপর্যায়ের স্থিরচিত্র')) {
+                      const [first, ...rest] = title.split('মাঠপর্যায়ের স্থিরচিত্র');
+                      return (
+                        <>
+                          {first}
+                          <span className="text-amber-600 dark:text-amber-500">
+                            মাঠপর্যায়ের স্থিরচিত্র
+                          </span>
+                          {rest.join('')}
+                        </>
+                      );
+                    }
+
+                    if (title.includes('মাঠপর্যায়ের')) {
+                      const [first, ...rest] = title.split('মাঠপর্যায়ের');
+                      return (
+                        <>
+                          {first}
+                          <span className="text-amber-600 dark:text-amber-500">
+                            মাঠপর্যায়ের{rest.join('')}
+                          </span>
+                        </>
+                      );
+                    }
+
+                    if (title.includes('—')) {
+                      const parts = title.split('—');
+                      const first = parts[0];
+                      const rest = parts.slice(1).join('—').trim();
+                      return (
+                        <>
+                          {first} —{' '}
+                          <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                        </>
+                      );
+                    }
+
+                    if (title.includes(',')) {
+                      const parts = title.split(',');
+                      const first = parts[0];
+                      const rest = parts.slice(1).join(',').trim();
+                      return (
+                        <>
+                          {first},{' '}
+                          <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                        </>
+                      );
+                    }
+
+                    const words = title.split(' ');
+                    if (words.length > 2) {
+                      const first = words.slice(0, words.length - 2).join(' ');
+                      const last = words.slice(words.length - 2).join(' ');
+                      return (
+                        <>
+                          {first}{' '}
+                          <span className="text-amber-600 dark:text-amber-500">{last}</span>
+                        </>
+                      );
+                    }
+
+                    return title;
+                  })()
                 ) : (
                   <>
                     Visual Evidence of Our{' '}
-                    <span className="text-amber-600">Ground Operations</span>
+                    <span className="text-amber-600 dark:text-amber-500">Ground Operations</span>
                   </>
                 )}
               </h1>

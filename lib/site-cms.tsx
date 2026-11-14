@@ -363,9 +363,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     faq2A: 'বছরের শেষে অবিক্রিত পণ্যের পাইকারি ক্রয়মূল্য এবং চলতি দেনা বাদ দিয়ে অবশিষ্টের উপর ২.৫% যাকাত দিতে হয়।',
   },
   gallery: {
-    pageBadge: 'VERIFIED FIELD DISPATCHES & HIGH-RES MEDIA',
-    pageTitle: 'মাঠপর্যায়ের কাজের আলোকচিত্র গ্যালারি',
-    pageSubtitle: 'বন্যাদুর্গত অঞ্চল, রেলওয়ে স্লাম ও প্রত্যন্ত চরে আমাদের স্বেচ্ছাসেবকদের সেবামূলক কর্মকাণ্ড।',
+    pageBadge: 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — ফিল্ড ফটো গ্যালারি',
+    pageTitle: 'মানবতার সেবায় আমাদের মাঠপর্যায়ের স্থিরচিত্র',
+    pageSubtitle: 'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।',
     filterAll: 'সকল চিত্র',
     filterFood: 'খাদ্য বিতরণ',
     filterWater: 'বিশুদ্ধ সুপেয় পানি',
@@ -545,6 +545,27 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.zakat_calculator.pageSubtitle =
               'আপনার যাকাতের প্রতিটি পয়সা শূন্য পরিচালন ও প্রশাসনিক কর্তনীতে যাচাইকৃত আসনাফ পরিবারগুলোর কাছে পৌঁছে। যোগ্য আলেমদের তত্ত্বাবধান, স্বতন্ত্র নিরীক্ষা এবং মানুষের মর্যাদা রক্ষায় সরাসরি হস্তান্তর।';
+          }
+        }
+        if (parsed.gallery) {
+          if (
+            !parsed.gallery.pageBadge ||
+            parsed.gallery.pageBadge === 'VERIFIED FIELD DISPATCHES & HIGH-RES MEDIA'
+          ) {
+            parsed.gallery.pageBadge = 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — ফিল্ড ফটো গ্যালারি';
+          }
+          if (
+            !parsed.gallery.pageTitle ||
+            parsed.gallery.pageTitle === 'মাঠপর্যায়ের কাজের আলোকচিত্র গ্যালারি'
+          ) {
+            parsed.gallery.pageTitle = 'মানবতার সেবায় আমাদের মাঠপর্যায়ের স্থিরচিত্র';
+          }
+          if (
+            !parsed.gallery.pageSubtitle ||
+            parsed.gallery.pageSubtitle === 'বন্যাদুর্গত অঞ্চল, রেলওয়ে স্লাম ও প্রত্যন্ত চরে আমাদের স্বেচ্ছাসেবকদের সেবামূলক কর্মকাণ্ড।'
+          ) {
+            parsed.gallery.pageSubtitle =
+              'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।';
           }
         }
         setCms(prev => ({
