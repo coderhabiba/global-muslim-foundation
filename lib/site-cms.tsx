@@ -374,9 +374,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     bottomNotice: 'সকল আলোকচিত্র ফাউন্ডেশনের ফিল্ড অফিসার ও ভলান্টিয়ারদের দ্বারা সংগৃহীত।',
   },
   volunteer: {
-    pageBadge: 'BECOME A HUMANITARIAN AMBASSADOR',
-    pageTitle: 'আমাদের স্বেচ্ছাসেবক পরিবারের অংশ হোন',
-    pageSubtitle: 'আপনার মেধা, সময় ও মানবিক আবেগকে কাজে লাগিয়ে আর্তমানবতার পাশে দাঁড়ান।',
+    pageBadge: 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন',
+    pageTitle: 'সংকটে থাকা জনগোষ্ঠীর পথপ্রদর্শক আলো হয়ে উঠুন',
+    pageSubtitle: 'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।',
     formHeading: 'স্বেচ্ছাসেবক নিবন্ধন ফরম',
     formSubheading: 'নিচের প্রয়োজনীয় তথ্যসমূহ পূরণ করে আজই যুক্ত হোন আমাদের দেশব্যাপী স্বেচ্ছাসেবী টিমে।',
     joinRequirement: 'ন্যূনতম বয়স ১৮ বছর, সততা ও মানবিক সেবায় নিবেদিতপ্রাণ মনোভাব।',
@@ -566,6 +566,28 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.gallery.pageSubtitle =
               'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।';
+          }
+        }
+        if (parsed.volunteer) {
+          if (
+            !parsed.volunteer.pageBadge ||
+            parsed.volunteer.pageBadge === 'BECOME A HUMANITARIAN AMBASSADOR'
+          ) {
+            parsed.volunteer.pageBadge = 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন';
+          }
+          if (
+            !parsed.volunteer.pageTitle ||
+            parsed.volunteer.pageTitle === 'আমাদের স্বেচ্ছাসেবক পরিবারের অংশ হোন' ||
+            parsed.volunteer.pageTitle === 'মানবতার দুর্দিনে আপনিও হোন আশার বাতিঘর'
+          ) {
+            parsed.volunteer.pageTitle = 'সংকটে থাকা জনগোষ্ঠীর পথপ্রদর্শক আলো হয়ে উঠুন';
+          }
+          if (
+            !parsed.volunteer.pageSubtitle ||
+            parsed.volunteer.pageSubtitle === 'আপনার মেধা, সময় ও মানবিক আবেগকে কাজে লাগিয়ে আর্তমানবতার পাশে দাঁড়ান।'
+          ) {
+            parsed.volunteer.pageSubtitle =
+              'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।';
           }
         }
         setCms(prev => ({

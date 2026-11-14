@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useSiteSettings } from '@/lib/site-settings';
 
 const SECTOR_OPTIONS = [
   { value: 'Emergency Relief', icon: 'soup_kitchen', label: 'Food & Relief' },
@@ -15,6 +16,8 @@ const SECTOR_OPTIONS = [
 ];
 
 export default function VolunteerPage() {
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
   const { cms } = useSiteCMS();
   const cmsVolunteer = cms.volunteer;
   const successMsgRef = useRef<HTMLDivElement | null>(null);
@@ -104,49 +107,134 @@ export default function VolunteerPage() {
                 {/* Left: Editorial Title Block */}
 
                 <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-subtle-mint text-primary w-fit">
-                    <span className="material-symbols-outlined text-base">
-                      emergency_share
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold w-fit shadow-2xs">
+                    <span className="material-symbols-outlined text-[16px] text-emerald-700">
+                      podcasts
                     </span>
-                    <span className="font-label-sm text-label-sm uppercase tracking-wider font-bold">
-                      {cmsVolunteer.pageBadge || 'FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH'}
+                    <span className="tracking-wide">
+                      {isBn
+                        ? (cmsVolunteer.pageBadge || 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন')
+                        : 'FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH'}
                     </span>
                   </div>
-                  <h1 className="font-headline-xl text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                    {cmsVolunteer.pageTitle || 'মানবতার দুর্দিনে আপনিও হোন আশার বাতিঘর'}
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 tracking-tight leading-tight font-serif-heading">
+                    {isBn ? (
+                      (() => {
+                        const title = (
+                          cmsVolunteer.pageTitle ||
+                          'সংকটে থাকা জনগোষ্ঠীর পথপ্রদর্শক আলো হয়ে উঠুন'
+                        ).trim();
+
+                        if (title.includes('—')) {
+                          const parts = title.split('—');
+                          return (
+                            <>
+                              {parts[0]} —{' '}
+                              <span className="text-amber-600 dark:text-amber-500">
+                                {parts.slice(1).join('—').trim()}
+                              </span>
+                            </>
+                          );
+                        }
+
+                        if (title.includes(',')) {
+                          const parts = title.split(',');
+                          return (
+                            <>
+                              {parts[0]},{' '}
+                              <span className="text-amber-600 dark:text-amber-500">
+                                {parts.slice(1).join(',').trim()}
+                              </span>
+                            </>
+                          );
+                        }
+
+                        if (title.includes('পথপ্রদর্শক আলো হয়ে উঠুন')) {
+                          const [first, ...rest] = title.split('পথপ্রদর্শক আলো হয়ে উঠুন');
+                          return (
+                            <>
+                              {first}
+                              <span className="text-amber-600 dark:text-amber-500">
+                                পথপ্রদর্শক আলো হয়ে উঠুন
+                              </span>
+                              {rest.join('')}
+                            </>
+                          );
+                        }
+
+                        if (title.includes('আলো হয়ে উঠুন')) {
+                          const [first, ...rest] = title.split('আলো হয়ে উঠুন');
+                          return (
+                            <>
+                              {first}
+                              <span className="text-amber-600 dark:text-amber-500">
+                                আলো হয়ে উঠুন
+                              </span>
+                              {rest.join('')}
+                            </>
+                          );
+                        }
+
+                        const words = title.split(' ');
+                        if (words.length > 2) {
+                          const splitIdx = Math.ceil(words.length / 2);
+                          const first = words.slice(0, splitIdx).join(' ');
+                          const last = words.slice(splitIdx).join(' ');
+                          return (
+                            <>
+                              {first}{' '}
+                              <span className="text-amber-600 dark:text-amber-500">{last}</span>
+                            </>
+                          );
+                        }
+
+                        return title;
+                      })()
+                    ) : (
+                      <>
+                        Become the Guiding Light for{' '}
+                        <span className="text-amber-600 dark:text-amber-500">
+                          Communities in Crisis
+                        </span>
+                      </>
+                    )}
                   </h1>
-                  <p className="font-body-lg text-body-lg text-text-muted leading-relaxed">
-                    {cmsVolunteer.pageSubtitle || 'রেলওয়ে প্ল্যাটফর্মে অনাহারী শিশুদের মুখে গরম খাবার তুলে দেওয়া, পাহাড়ি ঢলে পানিবন্দী মানুষের কাছে নৌকা নিয়ে ত্রাণ পৌঁছানো কিংবা শিশুদের চিকিৎসায় সহায়তা—আপনার মেধা ও শ্রম হতে পারে কোনো এক অসহায় মানুষের বেঁচে থাকার অবলম্বন।'}
+                  <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
+                    {isBn
+                      ? (cmsVolunteer.pageSubtitle || 'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।')
+                      : 'From serving hot meals on train platforms to deploying emergency blankets in floodzones, your dedicated time transforms charity into tangible human salvation.'}
                   </p>
 
                   {/* Quick Trust Highlights */}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
-                      <span className="material-symbols-outlined text-primary text-2xl mt-0.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                    <div className="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-emerald-300 transition-colors">
+                      <span className="material-symbols-outlined text-emerald-700 text-2xl mt-0.5">
                         verified_user
                       </span>
                       <div>
-                        <h4 className="font-title-md text-title-md text-emerald-dark">
-                          Accredited Service
+                        <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                          {isBn ? 'স্বীকৃত সেবা' : 'Accredited Service'}
                         </h4>
-                        <p className="font-body-sm text-body-sm text-text-muted">
-                          Verified volunteer transcripts &amp; academic credit
-                          certification.
+                        <p className="text-xs text-slate-500 mt-0.5 leading-normal">
+                          {isBn
+                            ? 'যাচাইকৃত স্বেচ্ছাসেবক ট্রান্সক্রিপ্ট ও একাডেমিক ক্রেডিট সনদ।'
+                            : 'Verified volunteer transcripts & academic credit certification.'}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-surface-clean shadow-sm">
-                      <span className="material-symbols-outlined text-secondary-container text-2xl mt-0.5">
+                    <div className="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-amber-300 transition-colors">
+                      <span className="material-symbols-outlined text-amber-600 text-2xl mt-0.5">
                         health_and_safety
                       </span>
                       <div>
-                        <h4 className="font-title-md text-title-md text-emerald-dark">
-                          Field Safety First
+                        <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                          {isBn ? 'মাঠে নিরাপত্তাই প্রথম' : 'Field Safety First'}
                         </h4>
-                        <p className="font-body-sm text-body-sm text-text-muted">
-                          Medical standby kits, high-visibility uniforms &amp;
-                          emergency transport.
+                        <p className="text-xs text-slate-500 mt-0.5 leading-normal">
+                          {isBn
+                            ? 'চিকিৎসা স্ট্যান্ডবাই কিট, সহজে দৃশ্যমান ইউনিফর্ম ও জরুরি পরিবহন।'
+                            : 'Medical standby kits, high-visibility uniforms & emergency transport.'}
                         </p>
                       </div>
                     </div>
@@ -156,46 +244,50 @@ export default function VolunteerPage() {
                 {/* Right: Real Field Snapshot Mosaic */}
 
                 <div className="lg:col-span-5 flex flex-col space-y-4">
-                  <div className="relative rounded-2xl overflow-hidden shadow-lg bg-surface-clean">
+                  <div className="relative rounded-2xl overflow-hidden shadow-xl bg-slate-900 min-h-[300px]">
                     <img
-                      className="w-full h-72 object-cover object-center"
-                      data-alt="A large, united group of young Bangladeshi humanitarian volunteers in light blue t-shirts gathered around a polished wooden conference table during an official field planning orientation. The atmosphere is warm, disciplined, and optimistic, with green indoor foliage in the foreground."
+                      className="w-full h-72 sm:h-80 object-cover object-center"
+                      alt={isBn ? 'স্বেচ্ছাসেবক ফিল্ড টিম' : 'Humanitarian volunteers in light blue shirts'}
                       src="/images/youth-volunteer-group.jpg"
                     />
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-emerald-dark/90 via-emerald-dark/40 to-transparent p-5 text-on-primary">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-vibrant text-surface-clean font-label-sm text-label-sm uppercase font-bold mb-1">
-                        Dhaka Field Council Assembly
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-emerald-950/95 via-emerald-950/50 to-transparent p-5 text-white">
+                      <span className="inline-block px-2.5 py-1 rounded bg-[#e65100] text-white text-xs font-bold uppercase mb-1.5 shadow-xs">
+                        {isBn ? 'ঢাকা মাঠ কাউন্সিল অধিবেশন' : 'Dhaka Field Council Assembly'}
                       </span>
-                      <p className="font-title-md text-title-md font-bold text-surface-clean">
-                        Volunteer Leadership Session 2025
+                      <p className="text-lg font-bold text-white font-serif-heading leading-tight">
+                        {isBn ? 'স্বেচ্ছাসেবক নেতৃত্ব সেশন 2025' : 'Volunteer Leadership Session 2025'}
                       </p>
-                      <p className="font-body-sm text-body-sm text-surface-container-high opacity-90">
-                        Bangladesh Shishu Kalyan Parishad Central Hall, Dhaka
+                      <p className="text-xs sm:text-sm text-slate-200 mt-1 opacity-90">
+                        {isBn
+                          ? 'বাংলাদেশ শিশু কল্যাণ পরিষদ সেন্ট্রাল হল, ঢাকা'
+                          : 'Bangladesh Shishu Kalyan Parishad Central Hall, Dhaka'}
                       </p>
                     </div>
                   </div>
 
                   {/* Live Activity Bar */}
 
-                  <div className="p-4 rounded-xl bg-surface-subtle-mint flex items-center justify-between">
+                  <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-2xs flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <span className="material-symbols-outlined text-primary text-2xl">
+                      <span className="material-symbols-outlined text-emerald-700 text-2xl">
                         schedule
                       </span>
                       <div>
-                        <span className="font-label-md text-label-md text-emerald-dark block font-bold">
-                          Next Deployment Briefing
+                        <span className="text-xs sm:text-sm text-emerald-950 block font-bold">
+                          {isBn ? 'পরবর্তী মোতায়েন ব্রিফিং' : 'Next Deployment Briefing'}
                         </span>
-                        <span className="font-body-sm text-body-sm text-text-muted">
-                          Friday, 08:30 AM • Tejgaon Railway Node
+                        <span className="text-xs text-slate-600 block mt-0.5">
+                          {isBn
+                            ? 'শুক্রবার, সকাল 08:30 • তেজগাঁও রেল নোড'
+                            : 'Friday, 08:30 AM • Tejgaon Railway Node'}
                         </span>
                       </div>
                     </div>
                     <a
-                      className="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-emerald-dark transition-colors"
+                      className="px-4 py-2 rounded-lg bg-emerald-800 hover:bg-emerald-950 text-white font-bold text-xs shadow-xs transition-colors shrink-0"
                       href="#volunteer-application"
                     >
-                      Join Cohort
+                      {isBn ? 'ব্যাচে যোগ দিন' : 'Join Cohort'}
                     </a>
                   </div>
                 </div>
