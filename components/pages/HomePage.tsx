@@ -79,12 +79,47 @@ export default function HomePage() {
   const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, openLicenseModal, showAlert } = useModalState();
   const { cms } = useSiteCMS();
-  const { campaigns } = useDynamicCards();
+  const { campaigns, upcomingProjects, foundationProjects } = useDynamicCards();
   const { isSectionVisible } = useSectionVisibility();
   const { getPageCustomSections } = useCustomSections();
   const pageCustomSections = getPageCustomSections('home');
   const isBn = language === 'bn';
   const [campaignTab, setCampaignTab] = useState<'all' | 'food' | 'healthcare' | 'water'>('all');
+
+  // Fully dynamic unified project list for the instant donation form
+  const allCausesList = useMemo(() => {
+    const list = [
+      {
+        id: 'general',
+        title: isBn ? '১. সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল (100% Policy)' : '1. General Humanitarian Relief Fund (100% Policy)',
+        cleanTitle: isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund',
+      },
+      ...campaigns.map((c, i) => ({
+        id: c.id,
+        title: `${i + 2}. ${isBn ? c.titleBn : c.titleEn}`,
+        cleanTitle: isBn ? c.titleBn : c.titleEn,
+      })),
+      ...upcomingProjects.map((p, i) => ({
+        id: p.id,
+        title: `${campaigns.length + i + 2}. ${isBn ? p.titleBn : p.titleEn}`,
+        cleanTitle: isBn ? p.titleBn : p.titleEn,
+      })),
+      ...(foundationProjects || []).map((f, i) => ({
+        id: f.id,
+        title: `${campaigns.length + upcomingProjects.length + i + 2}. ${isBn ? f.titleBn : f.titleEn}`,
+        cleanTitle: isBn ? f.titleBn : f.titleEn,
+      })),
+    ];
+
+    // Deduplicate by clean title
+    const seen = new Set<string>();
+    return list.filter(item => {
+      const key = item.cleanTitle.trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [campaigns, upcomingProjects, foundationProjects, isBn]);
 
   const filteredCampaigns = useMemo(() => {
     if (campaignTab === 'all') return campaigns;
@@ -114,9 +149,36 @@ export default function HomePage() {
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>(
     'one-time',
   );
-  const [fund, setFund] = useState('meal');
-  const [amountChoice, setAmountChoice] = useState('50');
-  const [customAmount, setCustomAmount] = useState('50');
+  const [fund, setFund] = useState('general');
+  const isBDT = currency === 'BDT';
+
+  const presetAmounts = useMemo(() => {
+    if (isBDT) {
+      return [
+        { value: '500', label: '৳৫০০', bordered: true, span: false },
+        { value: '1000', label: '৳১,০০০', bordered: false, span: false },
+        { value: '2500', label: '৳২,৫০০', bordered: true, span: false },
+        { value: '5000', label: '৳৫,০০০', bordered: true, span: false },
+        { value: 'custom', label: isBn ? 'অন্য পরিমাণ' : 'Custom Amount', bordered: true, span: true },
+      ];
+    }
+    return [
+      { value: '25', label: '$25', bordered: true, span: false },
+      { value: '50', label: '$50', bordered: false, span: false },
+      { value: '100', label: '$100', bordered: true, span: false },
+      { value: '250', label: '$250', bordered: true, span: false },
+      { value: 'custom', label: 'Custom Amount', bordered: true, span: true },
+    ];
+  }, [isBDT, isBn]);
+
+  const [amountChoice, setAmountChoice] = useState(isBDT ? '1000' : '50');
+  const [customAmount, setCustomAmount] = useState(isBDT ? '1000' : '50');
+
+  useEffect(() => {
+    const defaultVal = currency === 'BDT' ? '1000' : '50';
+    setAmountChoice(defaultVal);
+    setCustomAmount(defaultVal);
+  }, [currency]);
   const [isAmountHighlighted, setIsAmountHighlighted] = useState(false);
   const customAmountRef = useRef<HTMLInputElement>(null);
   const [zakatFields, setZakatFields] = useState({
@@ -410,10 +472,14 @@ export default function HomePage() {
                   <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
                     <div>
                       <span className="text-xs uppercase tracking-wider text-primary font-extrabold">
-                        Instant Secure Donation
+                        {isBn ? 'তাৎক্ষণিক নিরাপদ অনুদান' : 'Instant Secure Donation'}
                       </span>
                       <h3 className="font-serif-heading text-2xl font-bold text-on-surface mt-0.5">
-                        Extend a Helping Hand
+                        {isBn ? 'সহায়তার হাত বাড়িয়ে দিন' : (
+                          <>
+                            Extend a <span className="text-emerald-700 italic">Helping Hand</span>
+                          </>
+                        )}
                       </h3>
                     </div>
                     <div className="w-11 h-11 rounded-2xl bg-surface-subtle-mint flex items-center justify-center text-primary shadow-sm">
@@ -427,7 +493,7 @@ export default function HomePage() {
 
                   <div className="mt-5">
                     <label className="text-xs font-bold text-on-surface-variant block mb-1.5 uppercase tracking-wider">
-                      Donation Frequency
+                      {isBn ? 'অনুদানের ধরন' : 'Donation Frequency'}
                     </label>
                     <div
                       className="grid grid-cols-2 gap-2 bg-surface-subtle-mint/70 p-1.5 rounded-xl border border-primary/10"
@@ -443,7 +509,7 @@ export default function HomePage() {
                         type="button"
                         onClick={() => setFrequency('one-time')}
                       >
-                        One-off Gift
+                        {isBn ? 'এককালীন অনুদান' : 'One-off Gift'}
                       </button>
                       <button
                         className={`freq-btn py-2 text-center rounded-lg text-sm font-semibold transition-all ${
@@ -455,7 +521,7 @@ export default function HomePage() {
                         type="button"
                         onClick={() => setFrequency('monthly')}
                       >
-                        Monthly Sadaqah
+                        {isBn ? 'মাসিক সদকাহ' : 'Monthly Sadaqah'}
                       </button>
                     </div>
                   </div>
@@ -482,19 +548,16 @@ export default function HomePage() {
                         onChange={event => {
                           const newFund = event.target.value;
                           setFund(newFund);
-                          const matchedCampaign = campaigns.find(c => c.id === newFund);
-                          const targetTitle = matchedCampaign ? (isBn ? matchedCampaign.titleBn : matchedCampaign.titleEn) : 'General Relief';
-                          const amtConfig = getProjectAmounts(targetTitle, 'USD');
+                          const matchedCause = allCausesList.find(c => c.id === newFund);
+                          const targetTitle = matchedCause ? matchedCause.cleanTitle : 'General Relief';
+                          const amtConfig = getProjectAmounts(targetTitle, currency);
                           setCustomAmount(String(amtConfig.defaultAmt));
                           setAmountChoice(String(amtConfig.defaultAmt));
                         }}
                       >
-                        <option value="general">
-                          {isBn ? '১. সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল (100% Policy)' : 'General Humanitarian Relief Fund'}
-                        </option>
-                        {campaigns.map((c, i) => (
+                        {allCausesList.map((c) => (
                           <option key={c.id} value={c.id}>
-                            {i + 2}. {isBn ? c.titleBn : c.titleEn}
+                            {c.title}
                           </option>
                         ))}
                       </select>
@@ -508,10 +571,10 @@ export default function HomePage() {
 
                   <div className="mt-4">
                     <label className="text-xs font-bold text-on-surface-variant block mb-2 uppercase tracking-wider">
-                      Select Gift Amount (USD $)
+                      {isBn ? `অনুদানের পরিমাণ (${isBDT ? 'টাকা ৳' : 'USD $'})` : `Select Gift Amount (${isBDT ? 'BDT ৳' : 'USD $'})`}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {GIFT_AMOUNTS.map(option => (
+                      {presetAmounts.map(option => (
                         <button
                           key={option.value}
                           className={`amt-btn py-2.5 rounded-xl text-sm font-bold transition-all ${
@@ -536,7 +599,7 @@ export default function HomePage() {
                   <div className="mt-3">
                     <div className="flex items-center rounded-xl bg-surface border border-border-subtle px-3.5 py-2.5 focus-within:ring-2 focus-within:ring-primary">
                       <span className="text-xl font-bold text-primary mr-2">
-                        $
+                        {currencySymbol}
                       </span>
                       <input
                         ref={customAmountRef}
@@ -544,13 +607,13 @@ export default function HomePage() {
                           isAmountHighlighted ? 'bg-surface-subtle-mint' : ''
                         }`}
                         id="custom-amount-input"
-                        placeholder="Enter amount"
+                        placeholder={isBn ? 'পরিমাণ লিখুন' : 'Enter amount'}
                         type="number"
                         value={customAmount}
                         onChange={event => setCustomAmount(event.target.value)}
                       />
                       <span className="text-xs font-bold text-text-muted">
-                        USD
+                        {currency}
                       </span>
                     </div>
                   </div>
@@ -560,14 +623,14 @@ export default function HomePage() {
                   <div className="mt-3.5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <input
                       className="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary"
-                      placeholder="Full Name (Optional)"
+                      placeholder={isBn ? 'পূর্ণ নাম (ঐচ্ছিক)' : 'Full Name (Optional)'}
                       type="text"
                       value={donorName}
                       onChange={e => setDonorName(e.target.value)}
                     />
                     <input
                       className="w-full bg-surface border border-border-subtle rounded-xl px-3.5 py-2 text-xs sm:text-sm text-on-surface focus:outline-none focus:border-primary"
-                      placeholder="Email / Phone"
+                      placeholder={isBn ? 'ইমেইল অথবা মোবাইল নম্বর' : 'Email / Phone'}
                       type="text"
                       value={donorContact}
                       onChange={e => setDonorContact(e.target.value)}
@@ -580,14 +643,14 @@ export default function HomePage() {
                       className="w-full py-3.5 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
                       type="button"
                       onClick={() => {
-                        const parsedAmt = parseFloat(customAmount) || 50;
-                        const selectedCampaign = campaigns.find(c => c.id === fund);
-                        const targetCause = selectedCampaign
-                          ? (isBn ? selectedCampaign.titleBn : selectedCampaign.titleEn)
+                        const parsedAmt = parseFloat(customAmount) || (isBDT ? 1000 : 50);
+                        const selectedCause = allCausesList.find(c => c.id === fund);
+                        const targetCause = selectedCause
+                          ? selectedCause.cleanTitle
                           : (isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund');
 
                         openPaymentModal({
-                          amount: currency === 'BDT' ? parsedAmt * 122 : parsedAmt,
+                          amount: parsedAmt,
                           currency: currency,
                           cause: targetCause,
                           donorName: donorName,
