@@ -595,53 +595,53 @@ export default function HomePage() {
 
         {/* Dynamic Impact Banner - 4 Pillars (Screenshot 2 Style) */}
 
-        <section className="w-full bg-[#044E42] text-on-primary py-12 sm:py-14 shadow-inner">
+        <section className="w-full bg-[#044E42] text-on-primary py-6 sm:py-8 shadow-inner">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/10 text-center">
-              <div className="px-4">
-                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x divide-white/10 text-center">
+              <div className="px-3 sm:px-4">
+                <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
                   {isBn ? (cms.home.bannerStat1Value || '120,000+') : '120,000+'}
                 </div>
-                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat1Title || 'খাবার বিতরণ') : 'Meal Distribution'}
                 </p>
-                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
                   {isBn ? (cms.home.bannerStat1Desc || 'রেললাইন ও শহরের বস্তি') : 'Railways & Urban Slums'}
                 </span>
               </div>
 
-              <div className="px-4">
-                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+              <div className="px-3 sm:px-4">
+                <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
                   {isBn ? (cms.home.bannerStat2Value || '8,400+') : '8,400+'}
                 </div>
-                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat2Title || 'শিশুদের চিকিৎসা') : 'Child Medical Treatment'}
                 </p>
-                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
                   {isBn ? (cms.home.bannerStat2Desc || 'শিশু অস্ত্রোপচার ও ওষুধ') : 'Pediatric Surgery & Medicine'}
                 </span>
               </div>
 
-              <div className="px-4">
-                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+              <div className="px-3 sm:px-4">
+                <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
                   {isBn ? (cms.home.bannerStat3Value || '350+') : '350+'}
                 </div>
-                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat3Title || 'বিশুদ্ধ পানির নলকূপ ও টয়লেট') : 'Clean Water Wells & Sanitation'}
                 </p>
-                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
                   {isBn ? (cms.home.bannerStat3Desc || 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র') : 'Deep Groundwater & Hygiene Centers'}
                 </span>
               </div>
 
-              <div className="px-4">
-                <div className="font-serif-heading text-4xl sm:text-5xl text-[#E5A93C] font-black tracking-tight font-mono">
+              <div className="px-3 sm:px-4">
+                <div className="font-serif-heading text-3xl sm:text-4xl lg:text-[42px] text-[#E5A93C] font-black tracking-tight font-mono leading-none">
                   {isBn ? (cms.home.bannerStat4Value || '100%') : '100%'}
                 </div>
-                <p className="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
                   {isBn ? (cms.home.bannerStat4Title || 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত') : 'Verified by Shariah Board'}
                 </p>
-                <span className="text-xs sm:text-sm text-emerald-200/80 block mt-1 leading-normal">
+                <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
                   {isBn ? (cms.home.bannerStat4Desc || 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়') : 'Zero overhead deducted from Zakat'}
                 </span>
               </div>
