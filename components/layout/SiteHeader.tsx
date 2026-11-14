@@ -155,7 +155,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             }`}
           >
             <span className="material-symbols-outlined text-[14px] sm:text-[17px]">
-              favorite
+              volunteer_activism
             </span>
             <span>{isBn ? 'অনুদান' : 'Donate'}</span>
           </button>
@@ -245,7 +245,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
             }}
           >
             <span className="material-symbols-outlined text-[18px]">
-              favorite
+              volunteer_activism
             </span>
             <span>{isBn ? 'অনলাইন অনুদান দিন' : 'Donate Now'}</span>
           </button>

@@ -903,7 +903,7 @@ export default function ImpactPage() {
               onClick={() => openPaymentModal({ amount: currency === 'BDT' ? 70000 : 600, currency, cause: 'Full Shelter / Water Well Sponsorship with Dedication Plaque' })}
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[18px]">verified</span>
+              <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
               <span>{isBn ? 'নামফলকসহ পূর্ণাঙ্গ স্পনসর' : 'Sponsor Full Project'}</span>
             </button>
             <Link

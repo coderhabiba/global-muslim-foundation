@@ -397,7 +397,7 @@ export default function CurrentNewsPage() {
                   }}
                   className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[16px]">favorite</span>
+                  <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
                   <span>{isBn ? 'এই উদ্যোগে সহায়তা দিন' : 'Support this Initiative'}</span>
                 </button>
                 <button

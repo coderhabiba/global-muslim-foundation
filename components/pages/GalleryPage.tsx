@@ -361,7 +361,7 @@ export default function GalleryPage() {
                   onClick={() => openPaymentModal({ amount: isBn ? 1000 : 25 })}
                   className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md flex items-center gap-1.5 transition-all"
                 >
-                  <span className="material-symbols-outlined text-[16px]">favorite</span>
+                  <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
                   <span>{isBn ? 'এই মানুষগুলোকে দান করুন' : 'Support Beneficiaries'}</span>
                 </button>
               </div>
@@ -641,7 +641,7 @@ export default function GalleryPage() {
                         }
                         className="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-sm flex items-center gap-1 transition-all"
                       >
-                        <span className="material-symbols-outlined text-[15px]">favorite</span>
+                        <span className="material-symbols-outlined text-[15px]">volunteer_activism</span>
                         <span>{isBn ? 'দান করুন' : 'Donate'}</span>
                       </button>
                     </div>
@@ -674,7 +674,7 @@ export default function GalleryPage() {
                   className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-sm shadow-lg transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[18px]">
-                    favorite
+                    volunteer_activism
                   </span>
                   <span>{isBn ? 'দান করুন' : 'Donate'}</span>
                 </button>

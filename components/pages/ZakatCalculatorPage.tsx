@@ -862,7 +862,7 @@ export default function ZakatCalculatorPage() {
                       onClick={fulfillZakat}
                     >
                       <span className="material-symbols-outlined text-[20px]">
-                        payments
+                        volunteer_activism
                       </span>
                       <span>{isBn ? 'এখনই যাকাত প্রদান করুন' : 'Fulfill Zakat Now'}</span>
                     </button>

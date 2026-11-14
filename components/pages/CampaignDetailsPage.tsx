@@ -1370,7 +1370,7 @@ export default function CampaignDetailsPage() {
                     onClick={submitDonation}
                   >
                     <span className="material-symbols-outlined text-[24px]">
-                      favorite
+                      volunteer_activism
                     </span>
                     <span id="btn-donate-label" className="">
                       {`Sponsor ${mealsCount} Meals${isMonthly ? '/month' : ' Now'} ($${numericAmount})`}

@@ -613,7 +613,7 @@ export default function SponsorOrphanPage() {
                             : 'bg-slate-900 hover:bg-slate-800 text-white'
                         }`}
                       >
-                        <span className="material-symbols-outlined text-[16px]">payment</span>
+                        <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
                         <span>{isBn ? 'এই প্যাকেজে পেমেন্ট করুন' : 'Select & Pay'}</span>
                       </button>
                     </div>

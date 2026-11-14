@@ -354,8 +354,8 @@ export default function HomePage() {
                     }
                     className="w-full sm:w-[260px] h-[52px] rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer shrink-0"
                   >
-                    <span className="material-symbols-outlined text-[20px] text-error">
-                      favorite
+                    <span className="material-symbols-outlined text-[20px] text-amber-900">
+                      volunteer_activism
                     </span>
                     <span>{isBn ? (cms.home.heroPrimaryBtn || 'অনলাইন অনুদান দিন') : 'Make an Immediate Donation'}</span>
                   </button>
@@ -587,7 +587,7 @@ export default function HomePage() {
                       }}
                     >
                       <span className="material-symbols-outlined text-[18px]">
-                        lock
+                        volunteer_activism
                       </span>
                       <span>
                         {isBn ? 'নিরাপদ অনুদান দিন' : 'Give Securely'}

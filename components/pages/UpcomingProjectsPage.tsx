@@ -518,7 +518,7 @@ export default function UpcomingProjectsPage() {
               onClick={() => handlePledgeClick('Named Memorial Sadaqah Jariyah Pledge')}
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[18px]">verified</span>
+              <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
               <span>{isBn ? 'স্থায়ী ফলকসহ দান করুন' : 'Sponsor with Name Plaque'}</span>
             </button>
             <Link

@@ -89,7 +89,7 @@ export default function SiteFooter() {
               onClick={() => openPaymentModal({ amount: isBn ? 1000 : 25, cause: 'General Zakat Fund' })}
               className="bg-surface-clean text-primary hover:bg-surface-subtle-mint text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
-              <span className="material-symbols-outlined text-[16px]">favorite</span>
+              <span className="material-symbols-outlined text-[16px]">volunteer_activism</span>
               {isBn ? 'অনুদান দিন' : 'Donate'}
             </button>
           </div>

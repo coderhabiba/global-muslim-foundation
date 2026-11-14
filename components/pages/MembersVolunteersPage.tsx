@@ -507,7 +507,7 @@ export default function MembersVolunteersPage() {
                 onClick={() => openPaymentModal({ amount: isBn ? 1000 : 25 })}
                 className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-emerald-900 font-bold text-xs sm:text-sm border border-slate-300 shadow-sm transition-all flex items-center gap-2 cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[18px] text-amber-600">favorite</span>
+                <span className="material-symbols-outlined text-[18px] text-amber-600">volunteer_activism</span>
                 <span>{isBn ? 'স্বেচ্ছাসেবক কার্যক্রমে অনুদান দিন' : 'Support Volunteer Operations'}</span>
               </button>
             </div>

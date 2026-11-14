@@ -254,7 +254,7 @@ export default function AppealsPage() {
                   id="modal-submit-btn"
                   onClick={submitDonation}
                 >
-                  <span className="material-symbols-outlined">payments</span>
+                  <span className="material-symbols-outlined">volunteer_activism</span>
                   <span className="">Complete Secure Donation</span>
                 </button>
               </div>
@@ -502,7 +502,7 @@ export default function AppealsPage() {
                         onClick={() => openDonate('One Meal One Hope')}
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          favorite
+                          volunteer_activism
                         </span>
                         <span className="">Donate Meal</span>
                       </button>
@@ -625,7 +625,7 @@ export default function AppealsPage() {
                         }
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          medical_services
+                          volunteer_activism
                         </span>
                         <span className="">Sponsor Surgery</span>
                       </button>
@@ -747,7 +747,7 @@ export default function AppealsPage() {
                         }
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          water_drop
+                          volunteer_activism
                         </span>
                         <span className="">Fund a Water Well</span>
                       </button>
@@ -871,7 +871,7 @@ export default function AppealsPage() {
                         }
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          favorite
+                          volunteer_activism
                         </span>
                         <span className="">Send Warmth ($25)</span>
                       </button>
@@ -993,7 +993,7 @@ export default function AppealsPage() {
                         }
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          medical_information
+                          volunteer_activism
                         </span>
                         <span className="">Donate Emergency Care</span>
                       </button>
@@ -1115,7 +1115,7 @@ export default function AppealsPage() {
                         }
                       >
                         <span className="material-symbols-outlined text-[18px]">
-                          favorite
+                          volunteer_activism
                         </span>
                         <span className="">Sponsor Care</span>
                       </button>
