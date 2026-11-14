@@ -174,37 +174,8 @@ export default function VolunteerPage() {
     <>
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
-          {/* Top Ambient Banner / Breadcrumb & Motivation Ribbon */}
-          {isSectionVisible('volunteer-header') && (
-          <>
-          <section className="w-full bg-surface-subtle-mint px-4 sm:px-8 py-4">
-            <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-emerald-dark">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-on-primary">
-                  <span className="material-symbols-outlined text-sm">
-                    groups
-                  </span>
-                </span>
-                <span className="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">
-                  Youth Volunteer Corps • Bangladesh Field Division
-                </span>
-                <span className="hidden sm:inline text-outline-variant">•</span>
-                <span className="hidden sm:inline font-body-sm text-body-sm text-text-muted">
-                  "The best among you are those who bring greatest benefit to
-                  humankind." (Hadith)
-                </span>
-              </div>
-              <div className="flex items-center gap-4 text-xs font-semibold">
-                <span className="flex items-center gap-1.5 text-oceanic-teal-deep">
-                  <span className="w-2 h-2 rounded-full bg-amber-vibrant animate-pulse"></span>
-                  Spring 2025 Cohort Open (Dhaka, Chittagong, Sylhet)
-                </span>
-              </div>
-            </div>
-          </section>
-
           {/* Impact Hero Statement & Metrics Mosaic */}
-
+          {isSectionVisible('volunteer-header') && (
           <section className="w-full bg-surface px-4 sm:px-8 pt-8 pb-12">
             <div className="max-w-[1280px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -400,7 +371,6 @@ export default function VolunteerPage() {
               </div>
             </div>
           </section>
-          </>
           )}
 
           {/* High-Contrast Live Metric Bar (Fully Dynamic + Real-time Subtle Fluctuation) */}
