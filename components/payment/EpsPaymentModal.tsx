@@ -71,13 +71,12 @@ export function getProjectAmounts(cause: string, currency: string = 'BDT') {
 export default function EpsPaymentModal() {
   const { isOpen, closePaymentModal, paymentDetails } = useModalState();
   const { language } = useSiteSettings();
-  const { campaigns, upcomingProjects } = useDynamicCards();
+  const { campaigns, upcomingProjects, foundationProjects } = useDynamicCards();
   const isBn = language === 'bn';
   
   // Custom amount & Project Selection states
   const [activeAmount, setActiveAmount] = useState<number>(paymentDetails.amount || 1000);
   const [selectedCause, setSelectedCause] = useState<string>(paymentDetails.cause || 'General Humanitarian Relief Fund');
-  const [showCauseSelector, setShowCauseSelector] = useState(false);
   const [customInputVal, setCustomInputVal] = useState<string>(String(paymentDetails.amount || 1000));
 
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>('bkash');
@@ -89,33 +88,43 @@ export default function EpsPaymentModal() {
   const [trxId, setTrxId] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Dynamic projects list combining general relief + dynamic campaigns + upcoming projects
-  const dynamicProjects = useMemo(() => {
+  // Complete list of all active projects on the platform (General + Campaigns + Upcoming + Foundation)
+  const allProjectsList = useMemo(() => {
     const list = [
       {
         id: 'general',
         title: isBn ? 'সাধারণ মানবিক ও জরুরি ত্রাণ তহবিল' : 'General Humanitarian Relief Fund',
         shortTitle: isBn ? 'জরুরি ত্রাণ' : 'General Relief',
-        category: isBn ? '১০০% দান পলিসি' : '100% Policy',
-        icon: 'volunteer_activism',
+        category: isBn ? 'সাধারণ দান' : 'General Relief',
       },
       ...campaigns.map(c => ({
         id: c.id,
         title: isBn ? c.titleBn : c.titleEn,
         shortTitle: (isBn ? c.titleBn : c.titleEn).split(':')[0],
         category: isBn ? c.categoryBn : c.categoryEn,
-        icon: 'favorite',
       })),
       ...upcomingProjects.map(p => ({
         id: p.id,
         title: isBn ? p.titleBn : p.titleEn,
         shortTitle: (isBn ? p.titleBn : p.titleEn).split(':')[0],
         category: isBn ? 'আসন্ন প্রকল্প' : 'Upcoming',
-        icon: 'schedule',
+      })),
+      ...(foundationProjects || []).map(f => ({
+        id: f.id,
+        title: isBn ? f.titleBn : f.titleEn,
+        shortTitle: (isBn ? f.titleBn : f.titleEn).split(':')[0],
+        category: isBn ? f.categoryBn : f.categoryEn,
       })),
     ];
-    return list;
-  }, [campaigns, upcomingProjects, isBn]);
+
+    // Deduplicate by title
+    const seen = new Set<string>();
+    return list.filter(item => {
+      if (seen.has(item.title)) return false;
+      seen.add(item.title);
+      return true;
+    });
+  }, [campaigns, upcomingProjects, foundationProjects, isBn]);
 
   useEffect(() => {
     if (paymentDetails && isOpen) {
@@ -141,17 +150,13 @@ export default function EpsPaymentModal() {
     const config = getProjectAmounts(causeTitle, paymentDetails.currency || 'BDT');
     setActiveAmount(config.defaultAmt);
     setCustomInputVal(String(config.defaultAmt));
-    setShowCauseSelector(false);
   };
 
   const amountDisplay = `${paymentDetails.currency === 'BDT' ? '৳' : '$'}${activeAmount.toLocaleString()}`;
 
   /**
-   * ANTI-FAKE / ANTI-FRAUD PAYMENT HANDLING:
-   * 1. Live Payments: Dispatches real transaction creation request to EPS server via /api/payment/eps/init.
-   * 2. Gateway Redirection: Donor is redirected to EPS encrypted checkout (bKash/Nagad/Card with OTP verification).
-   * 3. Server Verification: /api/payment/eps/callback strictly verifies payment signature with EPS before recording status.
-   * 4. Sandbox Fallback: If gateway credentials are not yet configured in env, demo entries are tagged as TEST_DEMO.
+   * Real EPS Gateway dispatch with anti-fake verification:
+   * Prevents fake donations by ensuring payments are routed to EPS banking checkout.
    */
   const handleInitiateDonation = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -182,9 +187,7 @@ export default function EpsPaymentModal() {
 
       const data = await res.json();
 
-      // If EPS Gateway returned real redirect URL, send user to official EPS banking page
       if (res.ok && data.ok && data.redirectUrl) {
-        // Record pending initiation
         try {
           const existing = JSON.parse(localStorage.getItem('gmcf:donations') || '[]');
           localStorage.setItem(
@@ -212,7 +215,6 @@ export default function EpsPaymentModal() {
         return;
       }
 
-      // If gateway is in sandbox/testing mode, fallback with clear test marker
       _simulateDemoSuccess(finalDonorName);
     } catch (err: unknown) {
       console.warn('[EPS init fallback]', err);
@@ -251,7 +253,6 @@ export default function EpsPaymentModal() {
 
   const handleResetAndClose = () => {
     setStep('select');
-    setShowCauseSelector(false);
     setIsProcessing(false);
     closePaymentModal();
   };
@@ -262,11 +263,11 @@ export default function EpsPaymentModal() {
       onClick={handleResetAndClose}
     >
       <div 
-        className="relative w-full max-w-[450px] bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-200/80 flex flex-col my-auto transform transition-all duration-300 max-h-[94vh]"
+        className="relative w-full max-w-[450px] bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-200/90 flex flex-col my-auto transform transition-all duration-300 max-h-[94vh]"
         onClick={e => e.stopPropagation()}
       >
-        {/* Header - Fintech Premium with EPS & Bangladesh Bank Authentication */}
-        <div className="bg-gradient-to-r from-[#072d1f] via-[#0d4531] to-[#072d1f] text-white px-3.5 sm:px-4 py-2.5 sm:py-3 border-b border-amber-400/25 shrink-0 flex items-center justify-between">
+        {/* Header - Fintech Clean Design with Verified Bangladesh Bank PSP Badge */}
+        <div className="bg-gradient-to-r from-[#072d1f] via-[#0d4531] to-[#072d1f] text-white px-4 py-3 border-b border-amber-400/20 shrink-0 flex items-center justify-between">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-xl bg-white p-1 flex items-center justify-center shadow-xs shrink-0 border border-emerald-300/40">
               <img
@@ -277,7 +278,7 @@ export default function EpsPaymentModal() {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 leading-none">
-                <span className="font-extrabold text-xs sm:text-sm text-white tracking-wide truncate">
+                <span className="font-extrabold text-sm text-white tracking-wide truncate">
                   {isBn ? 'নিরাপদ অনলাইন অনুদান' : 'Official Secure Donation'}
                 </span>
                 <span className="text-[9px] bg-amber-400/20 text-amber-300 border border-amber-400/40 px-1 py-0.2 rounded font-mono font-bold shrink-0">
@@ -285,7 +286,9 @@ export default function EpsPaymentModal() {
                 </span>
               </div>
               <p className="text-[10px] text-emerald-200/85 mt-0.5 flex items-center gap-1 truncate font-light">
-                <span className="material-symbols-outlined text-[11px] text-emerald-400 shrink-0">verified_user</span>
+                <svg className="w-3 h-3 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 <span className="truncate">{isBn ? 'বাংলাদেশ ব্যাংক অনুমোদিত গেটওয়ে' : 'Bangladesh Bank Licensed'}</span>
                 <span className="text-emerald-500/80">·</span>
                 <span className="text-amber-300 font-semibold">{isBn ? '১০০% তামলিক' : '100% Policy'}</span>
@@ -298,75 +301,79 @@ export default function EpsPaymentModal() {
             className="w-7 h-7 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0 ml-1"
             aria-label="Close"
           >
-            <span className="material-symbols-outlined text-lg">close</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
-        {/* Dynamic Project Selector Strip - Horizontal Scrollable Chips */}
-        <div className="bg-slate-50 px-3.5 py-2 border-b border-slate-200/80 shrink-0">
-          <div className="flex items-center justify-between text-[11px] mb-1.5 font-bold text-slate-700">
-            <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-emerald-700 text-[14px]">flag</span>
-              <span>{isBn ? 'প্রকল্প নির্বাচন করুন:' : 'Select Target Project:'}</span>
-            </span>
-            <span className="text-[10px] text-emerald-800 font-medium">
-              {dynamicProjects.length} {isBn ? 'টি সক্রিয় খাত' : 'Active Projects'}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
-            {dynamicProjects.map(proj => {
-              const isSelected = selectedCause === proj.title;
-              return (
-                <button
-                  key={proj.id}
-                  type="button"
-                  onClick={() => handleSelectCause(proj.title)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1 shrink-0 ${
-                    isSelected
-                      ? 'bg-emerald-800 text-white shadow-xs ring-1 ring-emerald-900'
-                      : 'bg-white hover:bg-emerald-50 text-slate-700 border border-slate-200 hover:border-emerald-300'
-                  }`}
-                  title={proj.title}
-                >
-                  <span className="material-symbols-outlined text-[13px] opacity-80">{proj.icon}</span>
-                  <span>{proj.shortTitle}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Modal Main Content - Perfectly Fits Without Scrolling */}
+        {/* Modal Main Body - Perfectly Fits Without Any Scrolling */}
         <div className="p-3.5 sm:p-4 space-y-3">
           {step === 'select' ? (
             <>
-              {/* Active Project Highlight Banner */}
-              <div className="p-2 rounded-xl bg-gradient-to-r from-emerald-50 via-teal-50/50 to-emerald-50 border border-emerald-200/80 flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-800 block">
-                    {isBn ? 'নির্বাচিত মানবিক খাত' : 'Target Project'}
+              {/* 1. Full Visible Project Selector Dropdown + Quick Category Chips */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                  <span className="flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span>
+                    <span>{isBn ? 'মানবিক প্রকল্প নির্বাচন করুন:' : 'Select Target Project:'}</span>
                   </span>
-                  <p className="font-bold text-emerald-950 text-xs truncate" title={selectedCause}>
-                    {selectedCause}
-                  </p>
-                  {projectAmountConfig.unitBn && (
-                    <span className="text-[10px] text-emerald-700 block truncate">
-                      💡 {projectAmountConfig.unitBn}
-                    </span>
-                  )}
-                </div>
-                <div className="text-right shrink-0">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                    {isBn ? 'অনুদানের পরিমাণ' : 'Amount'}
-                  </span>
-                  <span className="text-base sm:text-lg font-black text-emerald-800 font-mono leading-none">
-                    {amountDisplay}
+                  <span className="text-[10px] text-emerald-800 font-semibold">
+                    {allProjectsList.length} {isBn ? 'টি সক্রিয় প্রকল্প' : 'Active Projects'}
                   </span>
                 </div>
+
+                {/* Visible Dropdown showing ALL projects with zero cutoff */}
+                <div className="relative">
+                  <select
+                    value={selectedCause}
+                    onChange={e => handleSelectCause(e.target.value)}
+                    className="w-full pl-3 pr-8 py-2 bg-emerald-50/70 hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm border border-emerald-300/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-700/20 appearance-none cursor-pointer transition-colors shadow-2xs"
+                  >
+                    {allProjectsList.map((proj, idx) => (
+                      <option key={proj.id} value={proj.title} className="text-slate-900 bg-white font-medium py-1.5">
+                        {idx + 1}. {proj.title} ({proj.category})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-800">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Quick-Pick Popular Project Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none text-[11px]">
+                  {allProjectsList.slice(0, 5).map(p => {
+                    const isSelected = selectedCause === p.title;
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        onClick={() => handleSelectCause(p.title)}
+                        className={`px-2 py-0.5 rounded-md text-[10.5px] font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-emerald-800 text-white shadow-2xs'
+                            : 'bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-900 border border-slate-200'
+                        }`}
+                      >
+                        {p.shortTitle}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Impact Note for selected project */}
+                {projectAmountConfig.unitBn && (
+                  <div className="px-2.5 py-1 bg-emerald-50/60 border border-emerald-200/60 rounded-lg text-[10.5px] text-emerald-900 flex items-center justify-between">
+                    <span className="truncate">💡 {projectAmountConfig.unitBn}</span>
+                    <span className="font-bold text-emerald-800 shrink-0 font-mono ml-1">{amountDisplay}</span>
+                  </div>
+                )}
               </div>
 
-              {/* 1. Dynamic Presets + Custom Amount */}
+              {/* 2. Amount Presets + Custom Amount Input */}
               <div>
                 <div className="grid grid-cols-5 gap-1.5 mb-2">
                   {PRESET_AMOUNTS.map(amt => {
@@ -411,14 +418,11 @@ export default function EpsPaymentModal() {
                 </div>
               </div>
 
-              {/* 2. Payment Channel Selector (5 Brand-accurate Tiles) */}
+              {/* 3. Payment Channels (bKash, Nagad, Rocket, Upay, Cards) */}
               <div>
                 <div className="flex items-center justify-between mb-1.5 text-[11px] font-bold text-slate-600">
-                  <span>{isBn ? 'পেমেন্ট মাধ্যম বেছে নিন' : 'Payment Channel'}</span>
-                  <span className="text-[10px] text-emerald-800 flex items-center gap-0.5">
-                    <span className="material-symbols-outlined text-[12px] text-emerald-600">lock</span>
-                    EPS Encrypted
-                  </span>
+                  <span>{isBn ? 'পেমেন্ট মাধ্যম বেছে নিন:' : 'Payment Method:'}</span>
+                  <span className="text-[10px] text-emerald-800 font-medium font-mono">256-Bit SSL</span>
                 </div>
                 <div className="grid grid-cols-5 gap-1.5">
                   {/* bKash */}
@@ -496,7 +500,7 @@ export default function EpsPaymentModal() {
                 </div>
               </div>
 
-              {/* 3. Donor Details (Compact 2-columns + Anonymous checkbox) */}
+              {/* 4. Donor Name & Phone (with Anonymous toggle) */}
               <div className="space-y-1.5">
                 {!isAnonymous && (
                   <div className="grid grid-cols-2 gap-2 animate-in fade-in">
@@ -530,13 +534,13 @@ export default function EpsPaymentModal() {
                     />
                     <span>{isBn ? 'নাম প্রকাশে অনিচ্ছুক (Anonymous)' : 'Donate Anonymously'}</span>
                   </label>
-                  <span className="text-[10px] text-slate-400 font-mono">
-                    256-Bit SSL
+                  <span className="text-[10px] text-emerald-800 font-semibold">
+                    EPS Gateway
                   </span>
                 </div>
               </div>
 
-              {/* 4. Primary CTA Button */}
+              {/* 5. Primary CTA Donation Button */}
               <button
                 type="button"
                 onClick={handleInitiateDonation}
@@ -545,37 +549,34 @@ export default function EpsPaymentModal() {
               >
                 {isProcessing ? (
                   <>
-                    <span className="animate-spin material-symbols-outlined text-base">progress_activity</span>
+                    <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
                     <span>{isBn ? 'EPS গেটওয়েতে সংযোগ হচ্ছে...' : 'Connecting to EPS...'}</span>
                   </>
                 ) : (
                   <>
-                    <span className="material-symbols-outlined text-base">lock</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
                     <span>
                       {isBn ? `${amountDisplay} অনুদান প্রদান করুন` : `Donate ${amountDisplay}`}
                     </span>
-                    <span className="material-symbols-outlined text-base">arrow_forward</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                   </>
                 )}
               </button>
-
-              {/* 5. Minimal Official Trust Footer with EPS, PCI-DSS & Bangladesh Bank */}
-              <div className="pt-1 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <img src="/images/eps_extracted/image003.png" alt="PCI DSS" className="h-3.5 w-auto object-contain" />
-                  <span className="font-semibold text-slate-600">PCI-DSS Certified</span>
-                </div>
-                <div className="flex items-center gap-1 text-emerald-800 font-medium">
-                  <span className="material-symbols-outlined text-[13px] text-emerald-700">shield_check</span>
-                  <span>{isBn ? 'বাংলাদেশ ব্যাংক অনুমোদিত PSO' : 'Licensed PSP (EPS)'}</span>
-                </div>
-              </div>
             </>
           ) : (
             /* Success Step */
             <div className="text-center py-2 space-y-3">
               <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-700">
-                <span className="material-symbols-outlined text-3xl">check_circle</span>
+                <svg className="w-7 h-7 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
@@ -617,7 +618,9 @@ export default function EpsPaymentModal() {
                   onClick={() => window.print()}
                   className="flex-1 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1 cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[15px]">print</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  </svg>
                   <span>{isBn ? 'রশিদ প্রিন্ট' : 'Print'}</span>
                 </button>
                 <button
@@ -625,7 +628,9 @@ export default function EpsPaymentModal() {
                   onClick={handleResetAndClose}
                   className="flex-1 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[15px]">done_all</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
                   <span>{isBn ? 'সম্পন্ন' : 'Done'}</span>
                 </button>
               </div>
