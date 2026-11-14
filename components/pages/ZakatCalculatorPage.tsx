@@ -182,66 +182,97 @@ export default function ZakatCalculatorPage() {
                 {/* Text Column */}
 
                 <div className="lg:col-span-7 flex flex-col space-y-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle-mint text-primary w-fit shadow-sm">
-                    <span className="material-symbols-outlined text-[18px]">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold w-fit shadow-2xs">
+                    <span className="material-symbols-outlined text-[16px] text-emerald-700">
                       verified_user
                     </span>
-                    <span className="font-label-md text-label-md tracking-wider uppercase">
-                      {isBn ? (cmsZakat.pageBadge || '১০০% যাকাত তামলিক পলিসি') : '100% Zakat Policy Guaranteed'}
+                    <span className="tracking-wide">
+                      {isBn ? (cmsZakat.pageBadge || '100% যাকাত নীতি নিশ্চিত') : '100% Zakat Policy Guaranteed'}
                     </span>
                   </div>
-                  <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight">
                     {isBn ? (
-                      <span>{cmsZakat.pageTitle || 'আপনার সম্পদ পবিত্র করুন সম্পূর্ণ শরীয়াহ মোতাবেক'}</span>
+                      (() => {
+                        const title = (
+                          cmsZakat.pageTitle ||
+                          'আপনার সম্পদ পবিত্র করুন — পূর্ণ শরিয়াহ নিষ্ঠার সাথে'
+                        ).trim();
+                        if (title.includes('—')) {
+                          const parts = title.split('—');
+                          const first = parts[0];
+                          const rest = parts.slice(1).join('—').trim();
+                          return (
+                            <>
+                              {first} —{' '}
+                              <span className="text-emerald-700 dark:text-emerald-500 italic">{rest}</span>
+                            </>
+                          );
+                        }
+                        if (title.includes(',')) {
+                          const parts = title.split(',');
+                          const first = parts[0];
+                          const rest = parts.slice(1).join(',').trim();
+                          return (
+                            <>
+                              {first},{' '}
+                              <span className="text-emerald-700 dark:text-emerald-500 italic">{rest}</span>
+                            </>
+                          );
+                        }
+                        return title;
+                      })()
                     ) : (
                       <>
                         Purify Your Wealth with{' '}
-                        <span className="text-primary italic">
+                        <span className="text-emerald-700 italic">
                           Absolute Shariah Integrity
                         </span>
                       </>
                     )}
                   </h1>
-                  <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                  <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
                     {isBn
-                      ? (cmsZakat.pageSubtitle || 'আপনার দেওয়া প্রতিটি পয়সা কোনো রকম প্রশাসনিক কর্তন ছাড়া সরাসরি হকদার এতিম, বিধবা ও অতিদরিদ্র পরিবারের কাছে পৌঁছানো হয়। শরীয়াহ বিশেষজ্ঞদের নিয়মিত তত্ত্বাবধান ও নিরপেক্ষ অডিট নিশ্চিত করে সর্বোচ্চ স্বচ্ছতা।')
+                      ? (cmsZakat.pageSubtitle || 'আপনার যাকাতের প্রতিটি পয়সা শূন্য পরিচালন ও প্রশাসনিক কর্তনীতে যাচাইকৃত আসনাফ পরিবারগুলোর কাছে পৌঁছে। যোগ্য আলেমদের তত্ত্বাবধান, স্বতন্ত্র নিরীক্ষা এবং মানুষের মর্যাদা রক্ষায় সরাসরি হস্তান্তর।')
                       : 'Every single cent of your Zakat reaches vetted Asnaf families with zero operational or administrative deductions. Supervised by qualified scholars, independently audited, and directly transferred to preserve human dignity.'}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                    <div className="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
-                      <div className="flex items-center gap-2 text-primary font-title-md text-title-md">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4">
+                    <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex flex-col space-y-1.5 hover:border-emerald-300 transition-colors">
+                      <div className="flex items-center gap-2 text-emerald-700 font-bold text-sm sm:text-base">
                         <span className="material-symbols-outlined text-[20px]">
                           account_balance
                         </span>
-                        <span>Ring-Fenced</span>
+                        <span>{isBn ? 'সুরক্ষিত তহবিল' : 'Ring-Fenced'}</span>
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Separate trust accounts solely for designated Zakat
-                        payouts.
+                      <p className="text-xs text-slate-500 leading-normal">
+                        {isBn
+                          ? 'শুধু নির্ধারিত যাকাত বিতরণের জন্য পৃথক ট্রাস্ট হিসাব।'
+                          : 'Separate trust accounts solely for designated Zakat payouts.'}
                       </p>
                     </div>
-                    <div className="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
-                      <div className="flex items-center gap-2 text-primary font-title-md text-title-md">
+                    <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex flex-col space-y-1.5 hover:border-emerald-300 transition-colors">
+                      <div className="flex items-center gap-2 text-emerald-700 font-bold text-sm sm:text-base">
                         <span className="material-symbols-outlined text-[20px]">
                           transfer_within_a_station
                         </span>
-                        <span>Tamleek Direct</span>
+                        <span>{isBn ? 'সরাসরি তামলিক' : 'Tamleek Direct'}</span>
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Unconditional ownership transferred to verified
-                        recipients.
+                      <p className="text-xs text-slate-500 leading-normal">
+                        {isBn
+                          ? 'যাচাইকৃত প্রাপকদের কাছে নিঃশর্ত মালিকানা হস্তান্তর করা হয়েছে।'
+                          : 'Unconditional ownership transferred to verified recipients.'}
                       </p>
                     </div>
-                    <div className="bg-surface-clean rounded-xl p-4 shadow-sm flex flex-col space-y-1">
-                      <div className="flex items-center gap-2 text-primary font-title-md text-title-md">
+                    <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex flex-col space-y-1.5 hover:border-emerald-300 transition-colors">
+                      <div className="flex items-center gap-2 text-emerald-700 font-bold text-sm sm:text-base">
                         <span className="material-symbols-outlined text-[20px]">
-                          assignment_turned_in
+                          task_alt
                         </span>
-                        <span>0% Overhead</span>
+                        <span>{isBn ? '0% ওভারহেড' : '0% Overhead'}</span>
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Operational expenditures funded exclusively via separate
-                        gift funds.
+                      <p className="text-xs text-slate-500 leading-normal">
+                        {isBn
+                          ? 'পরিচালন ব্যয় কেবল আলাদা দান তহবিল থেকে বহন করা হয়।'
+                          : 'Operational expenditures funded exclusively via separate gift funds.'}
                       </p>
                     </div>
                   </div>
@@ -250,25 +281,26 @@ export default function ZakatCalculatorPage() {
                 {/* Field Photo Spotlight (Project Alo / Dignity) */}
 
                 <div className="lg:col-span-5 relative">
-                  <div className="relative rounded-2xl overflow-hidden bg-surface-clean shadow-xl group">
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-900 shadow-xl group min-h-[340px] sm:min-h-[380px] flex flex-col justify-end">
                     <img
-                      className="w-full h-80 sm:h-96 object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      data-alt="A portrait of a resilient mother in a soft white veil gently cradling her young child in an impoverished village setting, capturing quiet human dignity and resilience with warm daylight tones, soft greenery in the background, and deep emerald oceanic green accents reflecting the charitable foundation visual identity."
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      alt={isBn ? 'মাঠ কেস প্রোজেক্ট আলো' : 'A portrait of a resilient mother cradling her child'}
                       src="/images/resilient-mother-portrait.jpg"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-oceanic-teal-deep/90 via-oceanic-teal-deep/30 to-transparent flex flex-col justify-end p-6 text-on-primary">
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-vibrant text-on-secondary font-label-sm text-label-sm w-fit uppercase mb-2">
+                    <div className="relative z-10 bg-gradient-to-t from-emerald-950/95 via-emerald-950/60 to-transparent p-6 text-white flex flex-col justify-end">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#e65100] text-white text-xs font-bold w-fit uppercase mb-2 shadow-xs">
                         <span className="material-symbols-outlined text-[14px]">
-                          local_hospital
+                          add_box
                         </span>
-                        <span>Field Case #ZA-482: Project Alo</span>
+                        <span>{isBn ? 'মাঠ কেস #ZA-482: প্রোজেক্ট আলো' : 'Field Case #ZA-482: Project Alo'}</span>
                       </div>
-                      <h2 className="font-title-lg text-title-lg text-on-primary leading-tight">
-                        Pediatric Sight Restoration &amp; Family Rehabilitation
+                      <h2 className="text-lg sm:text-xl font-bold text-white leading-tight font-serif-heading">
+                        {isBn ? 'শিশুদের দৃষ্টি পুনরুদ্ধার ও পরিবার পুনর্বাসন' : 'Pediatric Sight Restoration & Family Rehabilitation'}
                       </h2>
-                      <p className="font-body-sm text-body-sm text-on-primary/80 mt-1">
-                        Direct Zakat beneficiary receiving surgical trauma care
-                        in Kurigram district.
+                      <p className="text-xs sm:text-sm text-slate-200 mt-1 leading-snug">
+                        {isBn
+                          ? 'কুড়িগ্রাম জেলায় সরাসরি যাকাত সুবিধাভোগী আঘাতজনিত অস্ত্রোপচার সেবা নিচ্ছেন।'
+                          : 'Direct Zakat beneficiary receiving surgical trauma care in Kurigram district.'}
                       </p>
                     </div>
                   </div>

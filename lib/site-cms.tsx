@@ -349,9 +349,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     reportDownloadTitle: 'বাৎসরিক অডিট রিপোর্ট ডাউনলোড করুন (PDF)',
   },
   zakat_calculator: {
-    pageBadge: 'ACCURATE SHARIAH COMPLIANT ZAKAT CALCULATION',
-    pageTitle: 'সহজ ও নির্ভুল শরীয়াহ সম্মত যাকাত ক্যালকুলেটর',
-    pageSubtitle: 'আপনার বাৎসরিক সঞ্চয়, সোনা, রূপা ও ব্যবসার সম্পদের যাকাত হিসাব করুন নিমেষেই।',
+    pageBadge: '100% যাকাত নীতি নিশ্চিত',
+    pageTitle: 'আপনার সম্পদ পবিত্র করুন — পূর্ণ শরিয়াহ নিষ্ঠার সাথে',
+    pageSubtitle: 'আপনার যাকাতের প্রতিটি পয়সা শূন্য পরিচালন ও প্রশাসনিক কর্তনীতে যাচাইকৃত আসনাফ পরিবারগুলোর কাছে পৌঁছে। যোগ্য আলেমদের তত্ত্বাবধান, স্বতন্ত্র নিরীক্ষা এবং মানুষের মর্যাদা রক্ষায় সরাসরি হস্তান্তর।',
     nisabSilverBdt: '৯৫,০০০',
     nisabGoldBdt: '৭,৫০,০০০',
     ruleText: 'সম্পদ নিসাব পরিমাণ পৌঁছানোর পর পুরো এক চন্দ্র বছর অতিবাহিত হলে ২.৫% হারে যাকাত প্রদান ফরজ।',
@@ -500,6 +500,30 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.upcoming_projects.pageSubtitle =
               'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।';
+          }
+        }
+        if (parsed.zakat_calculator) {
+          if (
+            !parsed.zakat_calculator.pageBadge ||
+            parsed.zakat_calculator.pageBadge === 'ACCURATE SHARIAH COMPLIANT ZAKAT CALCULATION' ||
+            parsed.zakat_calculator.pageBadge === '১০০% যাকাত তামলিক পলিসি'
+          ) {
+            parsed.zakat_calculator.pageBadge = '100% যাকাত নীতি নিশ্চিত';
+          }
+          if (
+            !parsed.zakat_calculator.pageTitle ||
+            parsed.zakat_calculator.pageTitle === 'সহজ ও নির্ভুল শরীয়াহ সম্মত যাকাত ক্যালকুলেটর' ||
+            parsed.zakat_calculator.pageTitle === 'আপনার সম্পদ পবিত্র করুন সম্পূর্ণ শরীয়াহ মোতাবেক'
+          ) {
+            parsed.zakat_calculator.pageTitle = 'আপনার সম্পদ পবিত্র করুন — পূর্ণ শরিয়াহ নিষ্ঠার সাথে';
+          }
+          if (
+            !parsed.zakat_calculator.pageSubtitle ||
+            parsed.zakat_calculator.pageSubtitle === 'আপনার বাৎসরিক সঞ্চয়, সোনা, রূপা ও ব্যবসার সম্পদের যাকাত হিসাব করুন নিমেষেই।' ||
+            parsed.zakat_calculator.pageSubtitle.includes('আপনার দেওয়া প্রতিটি পয়সা কোনো রকম')
+          ) {
+            parsed.zakat_calculator.pageSubtitle =
+              'আপনার যাকাতের প্রতিটি পয়সা শূন্য পরিচালন ও প্রশাসনিক কর্তনীতে যাচাইকৃত আসনাফ পরিবারগুলোর কাছে পৌঁছে। যোগ্য আলেমদের তত্ত্বাবধান, স্বতন্ত্র নিরীক্ষা এবং মানুষের মর্যাদা রক্ষায় সরাসরি হস্তান্তর।';
           }
         }
         setCms(prev => ({
