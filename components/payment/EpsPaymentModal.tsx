@@ -343,27 +343,6 @@ export default function EpsPaymentModal() {
                   </div>
                 </div>
 
-                {/* Quick-Pick Popular Project Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none text-[11px]">
-                  {allProjectsList.slice(0, 5).map(p => {
-                    const isSelected = selectedCause === p.title;
-                    return (
-                      <button
-                        key={p.id}
-                        type="button"
-                        onClick={() => handleSelectCause(p.title)}
-                        className={`px-2 py-0.5 rounded-md text-[10.5px] font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                          isSelected
-                            ? 'bg-emerald-800 text-white shadow-2xs'
-                            : 'bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-900 border border-slate-200'
-                        }`}
-                      >
-                        {p.shortTitle}
-                      </button>
-                    );
-                  })}
-                </div>
-
                 {/* Impact Note for selected project */}
                 {projectAmountConfig.unitBn && (
                   <div className="px-2.5 py-1 bg-emerald-50/60 border border-emerald-200/60 rounded-lg text-[10.5px] text-emerald-900 flex items-center justify-between">
