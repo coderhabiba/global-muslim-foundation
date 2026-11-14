@@ -9,6 +9,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import ImageSelectorField from './ImageSelectorField';
 
 type CardTab = 'campaigns' | 'upcoming' | 'foundation' | 'orphans' | 'news' | 'gallery';
+const VALID_CARD_TABS: CardTab[] = ['campaigns', 'upcoming', 'foundation', 'orphans', 'news', 'gallery'];
 
 export default function AdminCardManager() {
   const {
@@ -42,7 +43,46 @@ export default function AdminCardManager() {
   const { language } = useSiteSettings();
   const isBn = language === 'bn';
 
-  const [activeTab, setActiveTab] = useState<CardTab>('campaigns');
+  const [activeTab, setActiveTabState] = useState<CardTab>('campaigns');
+
+  const setActiveTab = React.useCallback((tab: CardTab) => {
+    setActiveTabState(tab);
+    try {
+      localStorage.setItem('gmcf:admin_card_tab', tab);
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        if (tab === 'campaigns') {
+          url.searchParams.delete('cardTab');
+        } else {
+          url.searchParams.set('cardTab', tab);
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
+    } catch (e) {}
+  }, []);
+
+  React.useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryTab = urlParams.get('cardTab') as CardTab | null;
+        if (queryTab && VALID_CARD_TABS.includes(queryTab)) {
+          setActiveTabState(queryTab);
+          localStorage.setItem('gmcf:admin_card_tab', queryTab);
+        } else {
+          const savedTab = localStorage.getItem('gmcf:admin_card_tab') as CardTab | null;
+          if (savedTab && VALID_CARD_TABS.includes(savedTab)) {
+            setActiveTabState(savedTab);
+            const url = new URL(window.location.href);
+            if (savedTab !== 'campaigns') {
+              url.searchParams.set('cardTab', savedTab);
+              window.history.replaceState({}, '', url.toString());
+            }
+          }
+        }
+      }
+    } catch (e) {}
+  }, []);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Delete modal state

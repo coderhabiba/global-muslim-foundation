@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -212,6 +212,9 @@ const DEFAULT_MEMBERS: MemberRecord[] = [
   },
 ];
 
+export type AdminTab = 'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings';
+const VALID_ADMIN_TABS: AdminTab[] = ['overview', 'section_editor', 'donations', 'members', 'volunteers', 'campaigns', 'settings'];
+
 export default function AdminDashboard() {
   const router = useRouter();
   const { language, setLanguage } = useSiteSettings();
@@ -219,7 +222,25 @@ export default function AdminDashboard() {
   const isBn = language === 'bn';
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { campaigns } = useDynamicCards();
-  const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
+  const [activeTab, setActiveTabState] = useState<AdminTab>('overview');
+
+  const setActiveTab = useCallback((tab: AdminTab) => {
+    setActiveTabState(tab);
+    try {
+      localStorage.setItem('gmcf:admin_active_tab', tab);
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        if (tab === 'overview') {
+          url.searchParams.delete('tab');
+        } else {
+          url.searchParams.set('tab', tab);
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
   const [chartTimeframe, setChartTimeframe] = useState<'7d' | '30d' | 'year'>('7d');
   const [isMounted, setIsMounted] = useState(false);
 
@@ -302,6 +323,41 @@ export default function AdminDashboard() {
 
     // Refresh activity timestamp immediately so reload or back button never logs out
     localStorage.setItem('gmcf:last_activity', Date.now().toString());
+
+    // Restore active tab from URL search param or localStorage
+    try {
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryTab = urlParams.get('tab') as AdminTab | null;
+        if (queryTab && VALID_ADMIN_TABS.includes(queryTab)) {
+          setActiveTabState(queryTab);
+          localStorage.setItem('gmcf:admin_active_tab', queryTab);
+        } else {
+          const savedTab = localStorage.getItem('gmcf:admin_active_tab') as AdminTab | null;
+          if (savedTab && VALID_ADMIN_TABS.includes(savedTab)) {
+            setActiveTabState(savedTab);
+            const url = new URL(window.location.href);
+            if (savedTab !== 'overview') {
+              url.searchParams.set('tab', savedTab);
+              window.history.replaceState({}, '', url.toString());
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    const handlePopState = () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryTab = (urlParams.get('tab') as AdminTab) || 'overview';
+        if (VALID_ADMIN_TABS.includes(queryTab)) {
+          setActiveTabState(queryTab);
+        }
+      } catch (e) {}
+    };
+    window.addEventListener('popstate', handlePopState);
 
     // Verify session with backend API
     const token = localStorage.getItem('gmcf:admin_token');
@@ -436,6 +492,10 @@ export default function AdminDashboard() {
           });
         }
       });
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, [router]);
 
   const handleLogout = async () => {

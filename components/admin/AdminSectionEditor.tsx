@@ -661,6 +661,19 @@ export default function AdminSectionEditor() {
   // Load local data when page changes
   const handleSelectPage = (pageKey: string) => {
     setSelectedPageKey(pageKey);
+    try {
+      localStorage.setItem('gmcf:admin_editor_page', pageKey);
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        if (pageKey === 'home') {
+          url.searchParams.delete('page');
+        } else {
+          url.searchParams.set('page', pageKey);
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
+    } catch (e) {}
+
     const pageConfig = PAGE_SECTIONS_SCHEMA.find(p => p.pageKey === pageKey);
     if (pageConfig) {
       const cmsPage = (cms as any)[pageKey] || {};
@@ -668,11 +681,33 @@ export default function AdminSectionEditor() {
     }
   };
 
-  // Initialize with home page data
+  // Initialize with persisted page or query param or home
   React.useEffect(() => {
-    const cmsPage = (cms as any)['home'] || {};
+    let initialPage = 'home';
+    try {
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryPage = urlParams.get('page');
+        if (queryPage && PAGE_SECTIONS_SCHEMA.some(p => p.pageKey === queryPage)) {
+          initialPage = queryPage;
+        } else {
+          const savedPage = localStorage.getItem('gmcf:admin_editor_page');
+          if (savedPage && PAGE_SECTIONS_SCHEMA.some(p => p.pageKey === savedPage)) {
+            initialPage = savedPage;
+            const url = new URL(window.location.href);
+            if (savedPage !== 'home') {
+              url.searchParams.set('page', savedPage);
+              window.history.replaceState({}, '', url.toString());
+            }
+          }
+        }
+      }
+    } catch (e) {}
+
+    setSelectedPageKey(initialPage);
+    const cmsPage = (cms as any)[initialPage] || {};
     setLocalData({ ...cmsPage });
-  }, []);
+  }, [cms]);
 
   const handleFieldChange = (key: string, val: string) => {
     setLocalData(prev => ({ ...prev, [key]: val }));
