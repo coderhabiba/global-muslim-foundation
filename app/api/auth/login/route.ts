@@ -81,8 +81,12 @@ export async function POST(req: NextRequest) {
       sessionMaxAge
     );
 
+    const proto = req.headers.get('x-forwarded-proto') || req.nextUrl.protocol || '';
+    const isHttps = proto.includes('https');
+
     const response = NextResponse.json({
       success: true,
+      token,
       user: {
         email: matchedUser.email,
         name: matchedUser.name,
@@ -90,22 +94,22 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // 4. Set HttpOnly, SameSite=Lax, Secure session cookie
+    // 4. Set HttpOnly, SameSite=Lax, Secure session cookie (secure true only when on HTTPS)
     response.cookies.set({
       name: 'gmcf_admin_session',
       value: token,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isHttps,
       sameSite: 'lax',
       path: '/',
       maxAge: sessionMaxAge,
     });
 
-    // Also set client-accessible flag cookie for Next.js middleware if needed
+    // Also set client-accessible flag cookie
     response.cookies.set({
       name: 'gmcf_admin_token',
-      value: 'active_session',
-      secure: process.env.NODE_ENV === 'production',
+      value: token,
+      secure: isHttps,
       sameSite: 'lax',
       path: '/',
       maxAge: sessionMaxAge,

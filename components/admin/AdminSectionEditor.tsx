@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS, SitePageKey, DEFAULT_CMS_CONTENT_EN } from '@/lib/site-cms';
 import { PAGE_SECTIONS_SCHEMA, PageConfig, PageSection, SectionField, useCustomSections, CustomSection } from '@/lib/page-sections';
@@ -274,6 +275,7 @@ function SectionAccordion({
   onFieldChange,
   onToggleVisibility,
   onDelete,
+  onSave,
   isCustom = false,
   customData,
   onCustomFieldChange,
@@ -285,6 +287,7 @@ function SectionAccordion({
   onFieldChange: (key: string, val: string) => void;
   onToggleVisibility: () => void;
   onDelete?: () => void;
+  onSave?: () => void;
   isCustom?: boolean;
   customData?: Record<string, string>;
   onCustomFieldChange?: (key: string, val: string) => void;
@@ -403,6 +406,28 @@ function SectionAccordion({
               />
             );
           })}
+
+          {/* Section Direct Save Action */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-3 mt-3 border-t border-slate-200">
+            <span className="text-[11px] text-slate-500 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-emerald-600">check_circle</span>
+              <span>
+                {editorLang === 'en'
+                  ? 'Changes apply to the live site when saved.'
+                  : 'সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে পরিবর্তন সক্রিয় হবে।'}
+              </span>
+            </span>
+            {onSave && (
+              <button
+                type="button"
+                onClick={onSave}
+                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all self-end sm:self-auto"
+              >
+                <span className="material-symbols-outlined text-[16px]">save</span>
+                <span>{editorLang === 'en' ? 'Save This Section' : 'এই সেকশনটি সংরক্ষণ করুন'}</span>
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -610,8 +635,27 @@ export default function AdminSectionEditor() {
   const [localData, setLocalData] = useState<Record<string, string>>({});
   const [sectionVisibility, setSectionVisibility] = useState<Record<string, boolean>>({});
   const [showAddModal, setShowAddModal] = useState(false);
-  const [saveToast, setSaveToast] = useState(false);
+  const [saveToast, setSaveToast] = useState<{
+    show: boolean;
+    title?: string;
+    description?: string;
+  }>({ show: false });
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+
+  const triggerSuccessToast = (title?: string, description?: string) => {
+    setSaveToast({
+      show: true,
+      title: title || (isBn ? 'সফলভাবে লাইভ আপডেট সম্পন্ন হয়েছে!' : 'Live Update Successful!'),
+      description:
+        description ||
+        (isBn
+          ? 'পেজের সকল সেকশন পরিবর্তন সরাসরি মূল ওয়েবসাইটে সফলভাবে প্রয়োগ করা হয়েছে।'
+          : 'All section changes have been applied live to the website.'),
+    });
+    setTimeout(() => {
+      setSaveToast(prev => ({ ...prev, show: false }));
+    }, 4000);
+  };
 
   // Load local data when page changes
   const handleSelectPage = (pageKey: string) => {
@@ -635,12 +679,18 @@ export default function AdminSectionEditor() {
 
   const handleSave = () => {
     updatePageContent(selectedPageKey as SitePageKey, localData);
-    setSaveToast(true);
-    setTimeout(() => setSaveToast(false), 2500);
+    triggerSuccessToast();
   };
 
   const handleToggleSectionVisibility = (sectionId: string, currentVal: boolean) => {
-    setSectionVisibility(prev => ({ ...prev, [sectionId]: !currentVal }));
+    const newVal = !currentVal;
+    setSectionVisibility(prev => ({ ...prev, [sectionId]: newVal }));
+    triggerSuccessToast(
+      isBn ? 'দৃশ্যমানতা আপডেট হয়েছে' : 'Visibility Updated',
+      newVal
+        ? (isBn ? 'সেকশনটি এখন মূল ওয়েবসাইটে দৃশ্যমান।' : 'Section is now visible on the website.')
+        : (isBn ? 'সেকশনটি ওয়েবসাইট থেকে সাময়িকভাবে লুকানো হয়েছে।' : 'Section is temporarily hidden from the website.')
+    );
   };
 
   const selectedPageConfig = PAGE_SECTIONS_SCHEMA.find(p => p.pageKey === selectedPageKey);
@@ -650,7 +700,39 @@ export default function AdminSectionEditor() {
   const coreSections = selectedPageConfig?.sections.slice().sort((a, b) => a.order - b.order) || [];
 
   return (
-    <div className="p-3 sm:p-5 bg-slate-50/70 flex-1 min-h-0">
+    <div className="p-3 sm:p-5 bg-slate-50/70 flex-1 min-h-0 relative">
+      {/* Floating Eye-Catching Success Toast Banner */}
+      <AnimatePresence>
+        {saveToast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: -25, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -25, scale: 0.95 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="fixed top-6 right-6 z-[9999] max-w-md w-[calc(100vw-3rem)] bg-white border-2 border-emerald-500 shadow-2xl rounded-2xl p-4 flex items-start gap-3.5 ring-4 ring-emerald-500/15 pointer-events-auto"
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 shadow-inner">
+              <span className="material-symbols-outlined text-[24px]">check_circle</span>
+            </div>
+            <div className="flex-1 min-w-0 pt-0.5">
+              <h4 className="text-sm font-bold text-slate-900 leading-tight">
+                {saveToast.title}
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                {saveToast.description}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSaveToast(prev => ({ ...prev, show: false }))}
+              className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 cursor-pointer shrink-0 transition-colors"
+              title="Close"
+            >
+              <span className="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Top Header */}
       <div className="bg-white rounded-xl p-3 sm:p-4 border border-slate-200 shadow-2xs mb-4">
@@ -671,7 +753,7 @@ export default function AdminSectionEditor() {
 
           {/* Save Toast & Button */}
           <div className="flex items-center gap-3 shrink-0">
-            {saveToast && (
+            {saveToast.show && (
               <div className="px-3.5 py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in">
                 <span className="material-symbols-outlined text-[16px]">check_circle</span>
                 {isBn ? 'লাইভ আপডেট হয়েছে!' : 'Live updated!'}
@@ -855,6 +937,7 @@ export default function AdminSectionEditor() {
                 editorLang={editorLang}
                 onFieldChange={handleFieldChange}
                 onToggleVisibility={() => handleToggleSectionVisibility(section.id, visibility)}
+                onSave={handleSave}
               />
             );
           })}
@@ -885,6 +968,12 @@ export default function AdminSectionEditor() {
                     updateCustomSection(cs.id, { isVisible: !cs.isVisible })
                   }
                   onDelete={() => setPendingDeleteId(cs.id)}
+                  onSave={() => {
+                    triggerSuccessToast(
+                      isBn ? 'কাস্টম সেকশন সংরক্ষিত হয়েছে!' : 'Custom Section Saved!',
+                      isBn ? 'কাস্টম সেকশনের তথ্য সফলভাবে লাইভ আপডেট করা হয়েছে।' : 'Custom section data successfully live updated.'
+                    );
+                  }}
                 />
               ))}
             </>
@@ -930,8 +1019,10 @@ export default function AdminSectionEditor() {
           onClose={() => setShowAddModal(false)}
           onAdd={section => {
             addCustomSection(section);
-            setSaveToast(true);
-            setTimeout(() => setSaveToast(false), 2000);
+            triggerSuccessToast(
+              isBn ? 'নতুন কাস্টম সেকশন যুক্ত হয়েছে!' : 'Custom Section Added!',
+              isBn ? 'আপনার নতুন সেকশনটি পেজে যুক্ত ও লাইভ সক্রিয় করা হয়েছে।' : 'Your new section has been added and activated live.'
+            );
           }}
         />
       )}
@@ -960,6 +1051,10 @@ export default function AdminSectionEditor() {
                 onClick={() => {
                   deleteCustomSection(pendingDeleteId);
                   setPendingDeleteId(null);
+                  triggerSuccessToast(
+                    isBn ? 'সেকশন মুছে ফেলা হয়েছে' : 'Section Deleted',
+                    isBn ? 'সেকশনটি সফলভাবে পেজ থেকে মুছে ফেলা হয়েছে।' : 'The section was successfully deleted.'
+                  );
                 }}
                 className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold cursor-pointer"
               >

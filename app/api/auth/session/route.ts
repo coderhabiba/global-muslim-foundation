@@ -3,7 +3,12 @@ import { verifySessionToken } from '@/lib/server-auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const sessionCookie = req.cookies.get('gmcf_admin_session')?.value;
+    const authHeader = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '').trim();
+    const sessionCookie =
+      req.cookies.get('gmcf_admin_session')?.value ||
+      req.cookies.get('gmcf_admin_token')?.value ||
+      authHeader;
+
     if (!sessionCookie) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }

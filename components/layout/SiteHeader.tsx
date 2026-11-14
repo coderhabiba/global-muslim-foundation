@@ -37,6 +37,14 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
   const { currency, setCurrency, language, setLanguage } = useSiteSettings();
   const { openPaymentModal, openLicenseModal } = useModalState();
   const { cms } = useSiteCMS();
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  useEffect(() => {
+    try {
+      const auth = localStorage.getItem('gmcf:admin_auth');
+      setIsAdminLoggedIn(Boolean(auth));
+    } catch {}
+  }, [pathname]);
 
   const isBn = language === 'bn';
   const isSimple = variant === 'simple';
@@ -173,13 +181,20 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
 
           {!isSimple && (
             <Link
-              className="hidden sm:flex w-9 h-9 sm:w-9.5 sm:h-9.5 rounded-full bg-slate-100 hover:bg-emerald-50 border border-slate-200 items-center justify-center text-slate-700 hover:text-emerald-800 transition-colors shrink-0"
-              href="/login"
-              title={isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal Login'}
+              className="hidden sm:flex w-9 h-9 sm:w-9.5 sm:h-9.5 rounded-full bg-slate-100 hover:bg-emerald-50 border border-slate-200 items-center justify-center text-slate-700 hover:text-emerald-800 transition-colors shrink-0 relative"
+              href={isAdminLoggedIn ? "/admin" : "/login"}
+              title={
+                isAdminLoggedIn
+                  ? (isBn ? 'অ্যাডমিন ড্যাশবোর্ড' : 'Admin Dashboard')
+                  : (isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal Login')
+              }
             >
               <span className="material-symbols-outlined text-[19px]">
                 admin_panel_settings
               </span>
+              {isAdminLoggedIn && (
+                <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white" />
+              )}
             </Link>
           )}
 
@@ -274,12 +289,18 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               <span>{isBn ? 'লাইসেন্স ও সনদ' : 'Govt. License'}</span>
             </button>
             <Link
-              href="/login"
+              href={isAdminLoggedIn ? "/admin" : "/login"}
               className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300"
               onClick={() => setIsDrawerOpen(false)}
             >
-              <span className="material-symbols-outlined text-[16px]">login</span>
-              <span>{isBn ? 'লগইন' : 'Login'}</span>
+              <span className="material-symbols-outlined text-[16px]">
+                {isAdminLoggedIn ? 'dashboard' : 'login'}
+              </span>
+              <span>
+                {isAdminLoggedIn
+                  ? (isBn ? 'অ্যাডমিন ড্যাশবোর্ড' : 'Admin Dashboard')
+                  : (isBn ? 'লগইন' : 'Login')}
+              </span>
             </Link>
           </div>
         </div>

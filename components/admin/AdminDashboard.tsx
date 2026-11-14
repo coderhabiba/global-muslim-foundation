@@ -287,13 +287,32 @@ export default function AdminDashboard() {
       return;
     }
 
-    // Verify secure session with backend API
-    fetch('/api/auth/session')
+    try {
+      const parsed = JSON.parse(authData);
+      if (!parsed || !parsed.email) {
+        localStorage.removeItem('gmcf:admin_auth');
+        router.push('/login');
+        return;
+      }
+    } catch {
+      localStorage.removeItem('gmcf:admin_auth');
+      router.push('/login');
+      return;
+    }
+
+    // Refresh activity timestamp immediately so reload or back button never logs out
+    localStorage.setItem('gmcf:last_activity', Date.now().toString());
+
+    // Verify session with backend API
+    const token = localStorage.getItem('gmcf:admin_token');
+    fetch('/api/auth/session', {
+      credentials: 'include',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
       .then(res => res.json())
       .then(data => {
-        if (!data.authenticated) {
-          localStorage.removeItem('gmcf:admin_auth');
-          router.push('/login');
+        if (data.authenticated && data.user) {
+          // Session is healthy and confirmed
         }
       })
       .catch(e => {
@@ -426,6 +445,7 @@ export default function AdminDashboard() {
       console.error('Logout error:', e);
     }
     localStorage.removeItem('gmcf:admin_auth');
+    localStorage.removeItem('gmcf:admin_token');
     localStorage.removeItem('gmcf:last_activity');
     document.cookie = 'gmcf_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     router.push('/login');
@@ -444,6 +464,7 @@ export default function AdminDashboard() {
         console.error('Idle logout error:', e);
       }
       localStorage.removeItem('gmcf:admin_auth');
+      localStorage.removeItem('gmcf:admin_token');
       localStorage.removeItem('gmcf:last_activity');
       document.cookie = 'gmcf_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       router.push('/login?reason=idle_timeout');
@@ -451,7 +472,9 @@ export default function AdminDashboard() {
 
     const checkIdleTimeout = () => {
       const lastActiveStr = localStorage.getItem('gmcf:last_activity');
-      const lastActive = lastActiveStr ? parseInt(lastActiveStr, 10) : Date.now();
+      if (!lastActiveStr) return;
+      const lastActive = parseInt(lastActiveStr, 10);
+      if (isNaN(lastActive) || lastActive <= 0) return;
       if (Date.now() - lastActive >= IDLE_TIMEOUT_MS) {
         triggerIdleLogout();
       }
@@ -460,34 +483,28 @@ export default function AdminDashboard() {
     const recordActivity = () => {
       const now = Date.now();
       const lastActiveStr = localStorage.getItem('gmcf:last_activity');
-      const lastActive = lastActiveStr ? parseInt(lastActiveStr, 10) : 0;
-      if (now - lastActive >= IDLE_TIMEOUT_MS) {
+      const lastActive = lastActiveStr ? parseInt(lastActiveStr, 10) : now;
+      if (!isNaN(lastActive) && lastActive > 0 && now - lastActive >= IDLE_TIMEOUT_MS) {
         triggerIdleLogout();
         return;
       }
       // Throttle localStorage updates to at most once every 10 seconds
-      if (now - lastActive > 10000) {
+      if (now - (isNaN(lastActive) ? 0 : lastActive) > 10000) {
         localStorage.setItem('gmcf:last_activity', now.toString());
       }
     };
 
-    // Baseline initialization
-    if (!localStorage.getItem('gmcf:last_activity')) {
-      localStorage.setItem('gmcf:last_activity', Date.now().toString());
-    } else {
-      checkIdleTimeout();
-    }
+    // Baseline initialization: ALWAYS reset timestamp to now when entering admin dashboard
+    localStorage.setItem('gmcf:last_activity', Date.now().toString());
 
     const events = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
     events.forEach(evt => window.addEventListener(evt, recordActivity, { passive: true }));
-    document.addEventListener('visibilitychange', checkIdleTimeout);
 
-    // Periodic check every 15 seconds
-    const intervalId = setInterval(checkIdleTimeout, 15000);
+    // Periodic check every 30 seconds
+    const intervalId = setInterval(checkIdleTimeout, 30000);
 
     return () => {
       events.forEach(evt => window.removeEventListener(evt, recordActivity));
-      document.removeEventListener('visibilitychange', checkIdleTimeout);
       clearInterval(intervalId);
     };
   }, [router]);

@@ -50,6 +50,12 @@ export default function AdminCardManager() {
 
   // Edit / Add modal states
   const [editingItem, setEditingItem] = useState<{ type: CardTab; isNew: boolean; data: any } | null>(null);
+  const [successToast, setSuccessToast] = useState<{ show: boolean; msg: string }>({ show: false, msg: '' });
+
+  const showSuccess = (msg: string) => {
+    setSuccessToast({ show: true, msg });
+    setTimeout(() => setSuccessToast({ show: false, msg: '' }), 3500);
+  };
 
   // Filtered lists
   const filteredCampaigns = campaigns.filter(c =>
@@ -294,6 +300,7 @@ export default function AdminCardManager() {
     }
 
     setEditingItem(null);
+    showSuccess(isBn ? 'কার্ডটি সফলভাবে লাইভ সেভ হয়েছে!' : 'Card successfully saved live!');
   };
 
   const handleConfirmDelete = () => {
@@ -307,10 +314,29 @@ export default function AdminCardManager() {
     else if (type === 'gallery') deleteGalleryTopic(id);
 
     setDeleteTarget(null);
+    showSuccess(isBn ? 'কার্ডটি সফলভাবে মুছে ফেলা হয়েছে!' : 'Card successfully deleted!');
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 bg-slate-50/70">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 bg-slate-50/70 relative">
+      {/* Floating Success Toast */}
+      {successToast.show && (
+        <div className="fixed top-6 right-6 z-[9999] max-w-sm w-[calc(100vw-3rem)] bg-white border-2 border-emerald-500 shadow-2xl rounded-2xl p-4 flex items-center gap-3 ring-4 ring-emerald-500/15 animate-in fade-in slide-in-from-top-4">
+          <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-[22px]">check_circle</span>
+          </div>
+          <p className="text-sm font-bold text-slate-800 flex-1 leading-snug">
+            {successToast.msg}
+          </p>
+          <button
+            type="button"
+            onClick={() => setSuccessToast({ show: false, msg: '' })}
+            className="text-slate-400 hover:text-slate-700 p-1 rounded-lg"
+          >
+            <span className="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+      )}
       {/* Top Header Card */}
       <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>

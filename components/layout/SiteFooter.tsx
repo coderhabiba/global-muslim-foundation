@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NewsletterForm from "./NewsletterForm";
@@ -12,6 +13,15 @@ export default function SiteFooter() {
   const { openLicenseModal, openPaymentModal, showAlert } = useModalState();
   const { language } = useSiteSettings();
   const { cms } = useSiteCMS();
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  useEffect(() => {
+    try {
+      const auth = localStorage.getItem('gmcf:admin_auth');
+      setIsAdminLoggedIn(Boolean(auth));
+    } catch {}
+  }, [pathname]);
+
   const isBn = language === 'bn';
 
   const showPrivacyPolicy = () => {
@@ -488,11 +498,19 @@ export default function SiteFooter() {
             <span className="text-slate-300 hidden sm:inline">·</span>
             <Link
               className="hover:text-emerald-950 transition-colors font-bold text-emerald-800 flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-200"
-              href="/login"
-              title={isBn ? 'অনুমোদিত স্টাফ ও অ্যাডমিনদের জন্য' : 'Authorized Staff & Admin Login'}
+              href={isAdminLoggedIn ? "/admin" : "/login"}
+              title={
+                isAdminLoggedIn
+                  ? (isBn ? 'অ্যাডমিন ড্যাশবোর্ড' : 'Admin Dashboard')
+                  : (isBn ? 'অনুমোদিত স্টাফ ও অ্যাডমিনদের জন্য' : 'Authorized Staff & Admin Login')
+              }
             >
               <span className="material-symbols-outlined text-[13px] text-emerald-700">lock</span>
-              <span>{isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal'}</span>
+              <span>
+                {isAdminLoggedIn
+                  ? (isBn ? 'অ্যাডমিন ড্যাশবোর্ড' : 'Admin Dashboard')
+                  : (isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal')}
+              </span>
             </Link>
           </div>
         </div>

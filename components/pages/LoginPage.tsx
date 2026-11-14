@@ -21,8 +21,21 @@ export default function LoginPage() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('reason') === 'idle_timeout') {
+      const isIdleTimeout = params.get('reason') === 'idle_timeout';
+      if (isIdleTimeout) {
         setSessionTimeoutNotice(true);
+      } else {
+        // If already logged in, seamlessly redirect to /admin without asking for login again
+        const auth = localStorage.getItem('gmcf:admin_auth');
+        if (auth) {
+          try {
+            const parsed = JSON.parse(auth);
+            if (parsed && parsed.email) {
+              router.replace('/admin');
+              return;
+            }
+          } catch {}
+        }
       }
       const savedEmail = localStorage.getItem('gmcf:saved_email');
       if (savedEmail) {
@@ -30,7 +43,7 @@ export default function LoginPage() {
         setRememberMe(true);
       }
     }
-  }, []);
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +80,10 @@ export default function LoginPage() {
       // Initialize timestamp for 30-min idle activity tracking
       localStorage.setItem('gmcf:last_activity', Date.now().toString());
 
-      // Store client session info for instant hydration
+      // Store client session info and token for rock-solid session hydration
+      if (data.token) {
+        localStorage.setItem('gmcf:admin_token', data.token);
+      }
       localStorage.setItem(
         'gmcf:admin_auth',
         JSON.stringify({
