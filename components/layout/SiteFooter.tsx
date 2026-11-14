@@ -231,93 +231,93 @@ export default function SiteFooter() {
             <h3 className="font-bold text-xs uppercase tracking-wider text-primary border-b border-border-subtle pb-2">
               {isBn ? 'বিশেষ মানবিক আপিলসমূহ' : 'Featured Appeals'}
             </h3>
-            <ul className="space-y-2 text-xs text-on-surface-variant">
+            <ul className="space-y-2.5 text-xs text-on-surface-variant">
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/sponsor-orphan"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-amber-500">
-                    child_care
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'দুস্থ শিশু স্পনসর ও হেফজ সহায়তা' : 'Sponsor Vulnerable Children & Quran Hifz'}
+                  <span>{isBn ? 'দুস্থ শিশু স্পনসর ও হেফজ সহায়তা' : 'Sponsor Vulnerable Children & Quran Hifz'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/news"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">
-                    newspaper
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট' : 'Current News & Field Reports'}
+                  <span>{isBn ? 'সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট' : 'Current News & Field Reports'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/impact"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    volunteer_activism
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'আমাদের প্রজেক্ট সমূহ' : 'Our Foundation Projects'}
+                  <span>{isBn ? 'আমাদের প্রজেক্ট সমূহ' : 'Our Foundation Projects'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/upcoming-projects"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    construction
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'আসন্ন প্রকল্পসমূহ' : 'Upcoming Strategic Projects'}
+                  <span>{isBn ? 'আসন্ন প্রকল্পসমূহ' : 'Upcoming Strategic Projects'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/gallery"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    photo_library
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'মাঠপর্যায়ের স্থিরচিত্র গ্যালারি' : 'Verified Field Photo Gallery'}
+                  <span>{isBn ? 'মাঠপর্যায়ের স্থিরচিত্র গ্যালারি' : 'Verified Field Photo Gallery'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/zakat-calculator"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-amber-600">
-                    calculate
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'শরীয়াহ যাকাত ক্যালকুলেটর' : 'Shariah Zakat Calculator'}
+                  <span>{isBn ? 'শরীয়াহ যাকাত ক্যালকুলেটর' : 'Shariah Zakat Calculator'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/volunteer"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">
-                    groups
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'স্বেচ্ছাসেবক হিসেবে যোগ দিন' : 'Join as Youth Volunteer'}
+                  <span>{isBn ? 'স্বেচ্ছাসেবক হিসেবে যোগ দিন' : 'Join as Youth Volunteer'}</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  className="group hover:text-primary transition-all flex items-center gap-1.5"
                   href="/about"
                 >
-                  <span className="material-symbols-outlined text-[15px] text-primary">
-                    info
+                  <span className="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                    chevron_right
                   </span>
-                  {isBn ? 'আমাদের লক্ষ্য ও ভিশন' : 'About Foundation & Governance'}
+                  <span>{isBn ? 'আমাদের লক্ষ্য ও ভিশন' : 'About Foundation & Governance'}</span>
                 </Link>
               </li>
             </ul>
