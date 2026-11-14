@@ -4,6 +4,10 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FOUNDATION_PROJECTS, FoundationProject } from '@/components/pages/ImpactPage';
 import { UPCOMING_PROJECTS, UpcomingProject } from '@/components/pages/UpcomingProjectsPage';
 import { ORPHAN_PROFILES, OrphanProfile } from '@/lib/data/orphans';
+import { NEWS_ARTICLES, NewsArticle } from '@/components/pages/CurrentNewsPage';
+import { PROJECT_TOPICS, ProjectTopic } from '@/components/pages/GalleryPage';
+
+export type { NewsArticle, ProjectTopic };
 
 export interface DynamicCampaign {
   id: string;
@@ -114,6 +118,16 @@ interface CardContextType {
   updateOrphan: (id: string, item: Partial<OrphanProfile>) => void;
   deleteOrphan: (id: string) => void;
 
+  newsArticles: NewsArticle[];
+  addNewsArticle: (item: Omit<NewsArticle, 'id'>) => void;
+  updateNewsArticle: (id: string, item: Partial<NewsArticle>) => void;
+  deleteNewsArticle: (id: string) => void;
+
+  galleryTopics: ProjectTopic[];
+  addGalleryTopic: (item: Omit<ProjectTopic, 'id'>) => void;
+  updateGalleryTopic: (id: string, item: Partial<ProjectTopic>) => void;
+  deleteGalleryTopic: (id: string) => void;
+
   resetAllCards: () => void;
 }
 
@@ -124,6 +138,8 @@ const STORAGE_KEYS = {
   upcoming: 'gmcf:dynamic_upcoming_v1',
   foundation: 'gmcf:dynamic_foundation_v1',
   orphans: 'gmcf:dynamic_orphans_v1',
+  news: 'gmcf:dynamic_news_v1',
+  gallery: 'gmcf:dynamic_gallery_v1',
 };
 
 export function DynamicCardProvider({ children }: { children: React.ReactNode }) {
@@ -131,6 +147,8 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
   const [upcomingProjects, setUpcomingProjects] = useState<UpcomingProject[]>(UPCOMING_PROJECTS);
   const [foundationProjects, setFoundationProjects] = useState<FoundationProject[]>(FOUNDATION_PROJECTS);
   const [orphans, setOrphans] = useState<OrphanProfile[]>(ORPHAN_PROFILES);
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>(NEWS_ARTICLES);
+  const [galleryTopics, setGalleryTopics] = useState<ProjectTopic[]>(PROJECT_TOPICS);
 
   // Initialize from LocalStorage with automatic merge for newly added items
   useEffect(() => {
@@ -190,6 +208,34 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
           setOrphans(parsed);
         }
       }
+
+      const storedNews = localStorage.getItem(STORAGE_KEYS.news);
+      if (storedNews) {
+        const parsed: NewsArticle[] = JSON.parse(storedNews);
+        const existingIds = new Set(parsed.map(n => n.id));
+        const missing = NEWS_ARTICLES.filter(n => !existingIds.has(n.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setNewsArticles(merged);
+          localStorage.setItem(STORAGE_KEYS.news, JSON.stringify(merged));
+        } else {
+          setNewsArticles(parsed);
+        }
+      }
+
+      const storedGal = localStorage.getItem(STORAGE_KEYS.gallery);
+      if (storedGal) {
+        const parsed: ProjectTopic[] = JSON.parse(storedGal);
+        const existingIds = new Set(parsed.map(g => g.id));
+        const missing = PROJECT_TOPICS.filter(g => !existingIds.has(g.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setGalleryTopics(merged);
+          localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(merged));
+        } else {
+          setGalleryTopics(parsed);
+        }
+      }
     } catch (e) {
       console.error('Error loading card records from localStorage:', e);
     }
@@ -230,6 +276,26 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     setOrphans(list);
     try {
       localStorage.setItem(STORAGE_KEYS.orphans, JSON.stringify(list));
+      window.dispatchEvent(new Event('gmcf:cards_updated'));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const persistNews = (list: NewsArticle[]) => {
+    setNewsArticles(list);
+    try {
+      localStorage.setItem(STORAGE_KEYS.news, JSON.stringify(list));
+      window.dispatchEvent(new Event('gmcf:cards_updated'));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const persistGallery = (list: ProjectTopic[]) => {
+    setGalleryTopics(list);
+    try {
+      localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(list));
       window.dispatchEvent(new Event('gmcf:cards_updated'));
     } catch (e) {
       console.error(e);
@@ -304,11 +370,47 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     persistOrphans(orphans.filter(o => o.id !== id));
   };
 
+  // News Actions
+  const addNewsArticle = (item: Omit<NewsArticle, 'id'>) => {
+    const newItem: NewsArticle = {
+      ...item,
+      id: 'news-' + (newsArticles.length + 1).toString().padStart(2, '0'),
+    };
+    persistNews([newItem, ...newsArticles]);
+  };
+
+  const updateNewsArticle = (id: string, patch: Partial<NewsArticle>) => {
+    persistNews(newsArticles.map(n => (n.id === id ? { ...n, ...patch } : n)));
+  };
+
+  const deleteNewsArticle = (id: string) => {
+    persistNews(newsArticles.filter(n => n.id !== id));
+  };
+
+  // Gallery Actions
+  const addGalleryTopic = (item: Omit<ProjectTopic, 'id'>) => {
+    const newItem: ProjectTopic = {
+      ...item,
+      id: 'gal-' + (galleryTopics.length + 1).toString().padStart(2, '0'),
+    };
+    persistGallery([newItem, ...galleryTopics]);
+  };
+
+  const updateGalleryTopic = (id: string, patch: Partial<ProjectTopic>) => {
+    persistGallery(galleryTopics.map(g => (g.id === id ? { ...g, ...patch } : g)));
+  };
+
+  const deleteGalleryTopic = (id: string) => {
+    persistGallery(galleryTopics.filter(g => g.id !== id));
+  };
+
   const resetAllCards = () => {
     persistCampaigns(DEFAULT_CAMPAIGNS);
     persistUpcoming(UPCOMING_PROJECTS);
     persistFoundation(FOUNDATION_PROJECTS);
     persistOrphans(ORPHAN_PROFILES);
+    persistNews(NEWS_ARTICLES);
+    persistGallery(PROJECT_TOPICS);
   };
 
   return (
@@ -330,6 +432,14 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
         addOrphan,
         updateOrphan,
         deleteOrphan,
+        newsArticles,
+        addNewsArticle,
+        updateNewsArticle,
+        deleteNewsArticle,
+        galleryTopics,
+        addGalleryTopic,
+        updateGalleryTopic,
+        deleteGalleryTopic,
         resetAllCards,
       }}
     >
@@ -358,6 +468,14 @@ export function useDynamicCards() {
       addOrphan: () => {},
       updateOrphan: () => {},
       deleteOrphan: () => {},
+      newsArticles: NEWS_ARTICLES,
+      addNewsArticle: () => {},
+      updateNewsArticle: () => {},
+      deleteNewsArticle: () => {},
+      galleryTopics: PROJECT_TOPICS,
+      addGalleryTopic: () => {},
+      updateGalleryTopic: () => {},
+      deleteGalleryTopic: () => {},
       resetAllCards: () => {},
     };
   }

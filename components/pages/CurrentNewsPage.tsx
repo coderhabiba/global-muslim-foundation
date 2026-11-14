@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 
-type NewsArticle = {
+export type NewsArticle = {
   id: string;
   categoryEn: string;
   categoryBn: string;
@@ -26,7 +27,7 @@ type NewsArticle = {
   tagBn: string;
 };
 
-const NEWS_ARTICLES: NewsArticle[] = [
+export const NEWS_ARTICLES: NewsArticle[] = [
   {
     id: 'news-01',
     categoryEn: 'Emergency Response',
@@ -130,15 +131,16 @@ export default function CurrentNewsPage() {
   const { language } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { newsArticles } = useDynamicCards();
   const isBn = language === 'bn';
 
   const [activeTab, setActiveTab] = useState<'all' | 'relief' | 'water' | 'orphan'>('all');
   const [selectedNews, setSelectedNews] = useState<NewsArticle | null>(null);
 
-  const filteredNews = NEWS_ARTICLES.filter(item => {
-    if (activeTab === 'relief') return item.id === 'news-01' || item.id === 'news-04';
-    if (activeTab === 'water') return item.id === 'news-02';
-    if (activeTab === 'orphan') return item.id === 'news-03';
+  const filteredNews = newsArticles.filter(item => {
+    if (activeTab === 'relief') return item.categoryEn.toLowerCase().includes('relief') || item.categoryEn.toLowerCase().includes('emergency') || item.categoryEn.toLowerCase().includes('shelter') || item.id === 'news-01' || item.id === 'news-04';
+    if (activeTab === 'water') return item.categoryEn.toLowerCase().includes('water') || item.id === 'news-02';
+    if (activeTab === 'orphan') return item.categoryEn.toLowerCase().includes('orphan') || item.categoryEn.toLowerCase().includes('child') || item.id === 'news-03';
     return true;
   });
 

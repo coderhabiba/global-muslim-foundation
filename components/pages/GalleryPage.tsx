@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useDynamicCards } from '@/lib/dynamic-cards';
 
 // Import Swiper React components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,7 +17,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-type ProjectTopic = {
+export type ProjectTopic = {
   id: string;
   category: 'water' | 'food' | 'house' | 'orphan' | 'medical';
   titleEn: string;
@@ -33,7 +34,7 @@ type ProjectTopic = {
   images: string[];
 };
 
-const PROJECT_TOPICS: ProjectTopic[] = [
+export const PROJECT_TOPICS: ProjectTopic[] = [
   // 1. One Meal One Hope (Topic: Food) - Includes 3 photos of food outreach
   {
     id: 'food-relief',
@@ -201,6 +202,7 @@ export default function GalleryPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { galleryTopics } = useDynamicCards();
   const cmsGallery = cms.gallery;
   const isBn = language === 'bn';
 
@@ -208,8 +210,8 @@ export default function GalleryPage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   const filteredTopics = activeCategory === 'all'
-    ? PROJECT_TOPICS
-    : PROJECT_TOPICS.filter(item => item.category === activeCategory);
+    ? galleryTopics
+    : galleryTopics.filter(item => item.category === activeCategory);
 
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">

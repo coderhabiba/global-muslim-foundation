@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useDynamicCards, DynamicCampaign } from '@/lib/dynamic-cards';
+import { useDynamicCards, DynamicCampaign, NewsArticle, ProjectTopic } from '@/lib/dynamic-cards';
 import { FoundationProject } from '@/components/pages/ImpactPage';
 import { UpcomingProject } from '@/components/pages/UpcomingProjectsPage';
 import { OrphanProfile } from '@/lib/data/orphans';
 import ImageSelectorField from './ImageSelectorField';
 
-type CardTab = 'campaigns' | 'upcoming' | 'foundation' | 'orphans';
+type CardTab = 'campaigns' | 'upcoming' | 'foundation' | 'orphans' | 'news' | 'gallery';
 
 export default function AdminCardManager() {
   const {
@@ -27,6 +27,14 @@ export default function AdminCardManager() {
     addOrphan,
     updateOrphan,
     deleteOrphan,
+    newsArticles,
+    addNewsArticle,
+    updateNewsArticle,
+    deleteNewsArticle,
+    galleryTopics,
+    addGalleryTopic,
+    updateGalleryTopic,
+    deleteGalleryTopic,
     resetAllCards,
   } = useDynamicCards();
 
@@ -62,6 +70,20 @@ export default function AdminCardManager() {
     o.nameBn.includes(searchTerm) ||
     o.nameEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
     o.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredNews = newsArticles.filter(n =>
+    n.titleBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    n.titleEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    n.categoryBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    n.tagBn.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredGallery = galleryTopics.filter(g =>
+    g.titleBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    g.titleEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    g.categoryLabelBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    g.locationBn.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleOpenAdd = () => {
@@ -163,6 +185,50 @@ export default function AdminCardManager() {
           statusEn: 'Needs Immediate Sponsor',
         },
       });
+    } else if (activeTab === 'news') {
+      setEditingItem({
+        type: 'news',
+        isNew: true,
+        data: {
+          titleBn: '',
+          titleEn: '',
+          categoryBn: 'জরুরি ত্রাণ তৎপরতা',
+          categoryEn: 'Emergency Response',
+          tagBn: 'মাঠপর্যায়ের রিপোর্ট',
+          tagEn: 'Field Report',
+          dateBn: 'নভেম্বর ২০২৬',
+          dateEn: 'November 2026',
+          readTimeBn: '৩ মিনিট পঠন',
+          readTimeEn: '3 min read',
+          image: '/images/drive-food-1.jpg',
+          featured: false,
+          excerptBn: '',
+          excerptEn: '',
+          contentBnText: 'বিগত এক সপ্তাহে GMCF টিম চরাঞ্চলের দুর্গম এলাকায় পৌঁছে জরুরি সহায়তা প্রদান করেছে।\n\nপ্রতিটি পরিবারের মাঝে পুষ্টিকর খাদ্যপণ্য ও খাবার পানি সফলভাবে বিতরণ করা হয়েছে।',
+          contentEnText: 'GMCF field teams successfully distributed critical relief across riverine islands.\n\nEach relief pack included staple food, pure water, and pediatric essentials.',
+        },
+      });
+    } else if (activeTab === 'gallery') {
+      setEditingItem({
+        type: 'gallery',
+        isNew: true,
+        data: {
+          titleBn: '',
+          titleEn: '',
+          category: 'food',
+          categoryLabelBn: 'ক্ষুধা নিবারণ ও খাদ্য',
+          categoryLabelEn: 'Hunger Relief & Food',
+          locationBn: 'ঢাকা ও উত্তরাঞ্চলের বিভিন্ন এলাকা',
+          locationEn: 'Dhaka & Northern Region',
+          dateBn: '২০২৫ - ২০২৬',
+          dateEn: '2025 - 2026',
+          descBn: '',
+          descEn: '',
+          image: '/images/drive-food-1.jpg',
+          additionalImages: '/images/drive-food-2.jpg\n/images/drive-food-3.jpg',
+          images: ['/images/drive-food-1.jpg', '/images/drive-food-2.jpg', '/images/drive-food-3.jpg'],
+        },
+      });
     }
   };
 
@@ -184,6 +250,43 @@ export default function AdminCardManager() {
     } else if (type === 'orphans') {
       if (isNew) addOrphan(data);
       else updateOrphan(data.id, data);
+    } else if (type === 'news') {
+      const rawBn = data.contentBnText !== undefined ? data.contentBnText : data.contentBn;
+      const rawEn = data.contentEnText !== undefined ? data.contentEnText : data.contentEn;
+      const payload = {
+        ...data,
+        contentBn: Array.isArray(rawBn)
+          ? rawBn
+          : typeof rawBn === 'string'
+          ? rawBn.split('\n\n').map((s: string) => s.trim()).filter(Boolean)
+          : [],
+        contentEn: Array.isArray(rawEn)
+          ? rawEn
+          : typeof rawEn === 'string'
+          ? rawEn.split('\n\n').map((s: string) => s.trim()).filter(Boolean)
+          : [],
+      };
+      delete payload.contentBnText;
+      delete payload.contentEnText;
+      if (isNew) addNewsArticle(payload);
+      else updateNewsArticle(payload.id, payload);
+    } else if (type === 'gallery') {
+      const cover = data.image || (data.images && data.images[0]) || '/images/drive-food-1.jpg';
+      let extraImgs: string[] = [];
+      if (data.additionalImages && typeof data.additionalImages === 'string') {
+        extraImgs = data.additionalImages.split('\n').map((s: string) => s.trim()).filter(Boolean);
+      } else if (Array.isArray(data.images)) {
+        extraImgs = data.images.slice(1);
+      }
+      const combinedImages = [cover, ...extraImgs.filter((img: string) => img !== cover)];
+      const payload = {
+        ...data,
+        images: combinedImages,
+      };
+      delete payload.additionalImages;
+      delete payload.image;
+      if (isNew) addGalleryTopic(payload);
+      else updateGalleryTopic(payload.id, payload);
     }
 
     setEditingItem(null);
@@ -196,6 +299,8 @@ export default function AdminCardManager() {
     else if (type === 'upcoming') deleteUpcomingProject(id);
     else if (type === 'foundation') deleteFoundationProject(id);
     else if (type === 'orphans') deleteOrphan(id);
+    else if (type === 'news') deleteNewsArticle(id);
+    else if (type === 'gallery') deleteGalleryTopic(id);
 
     setDeleteTarget(null);
   };
@@ -283,6 +388,32 @@ export default function AdminCardManager() {
           >
             <span className="material-symbols-outlined text-[18px]">child_care</span>
             <span>৪. এতিম শিশু প্রোফাইল ({orphans.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => { setActiveTab('news'); setSearchTerm(''); }}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeTab === 'news'
+                ? 'bg-emerald-800 text-white shadow-xs'
+                : 'text-slate-600 hover:bg-slate-100'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px]">newspaper</span>
+            <span>৫. ফিল্ড নিউজ ও ডিসপ্যাচ ({newsArticles.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => { setActiveTab('gallery'); setSearchTerm(''); }}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeTab === 'gallery'
+                ? 'bg-emerald-800 text-white shadow-xs'
+                : 'text-slate-600 hover:bg-slate-100'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px]">photo_library</span>
+            <span>৬. ফটো গ্যালারি অ্যালবাম ({galleryTopics.length})</span>
           </button>
         </div>
 
@@ -492,155 +623,586 @@ export default function AdminCardManager() {
         </div>
       )}
 
+      {/* 5. Tab: News Articles List */}
+      {activeTab === 'news' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredNews.map(article => (
+            <div key={article.id} className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
+              <div>
+                <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                  <img src={article.image} alt={article.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <span className="absolute top-3 left-3 bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                    {article.categoryBn}
+                  </span>
+                  <span className="absolute top-3 right-3 bg-slate-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                    {article.tagBn}
+                  </span>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                    <span className="material-symbols-outlined text-[14px]">calendar_today</span>
+                    <span>{article.dateBn}</span>
+                    <span>•</span>
+                    <span className="material-symbols-outlined text-[14px]">schedule</span>
+                    <span>{article.readTimeBn}</span>
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{article.titleBn}</h4>
+                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">{article.excerptBn}</p>
+                </div>
+              </div>
+
+              <div className="p-4 pt-0 border-t border-slate-100 flex items-center justify-end gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingItem({
+                    type: 'news',
+                    isNew: false,
+                    data: {
+                      ...article,
+                      contentBnText: Array.isArray(article.contentBn) ? article.contentBn.join('\n\n') : (article.contentBn || ''),
+                      contentEnText: Array.isArray(article.contentEn) ? article.contentEn.join('\n\n') : (article.contentEn || ''),
+                    }
+                  })}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px]">edit</span>
+                  <span>এডিট</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeleteTarget({ id: article.id, title: article.titleBn, type: 'news' })}
+                  className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px]">delete</span>
+                  <span>ডিলিট</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 6. Tab: Gallery Topics List */}
+      {activeTab === 'gallery' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredGallery.map(topic => (
+            <div key={topic.id} className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
+              <div>
+                <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                  <img src={topic.images[0] || '/images/drive-food-1.jpg'} alt={topic.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <span className="absolute top-3 left-3 bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                    {topic.categoryLabelBn}
+                  </span>
+                  <span className="absolute top-3 right-3 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[13px]">photo_library</span>
+                    <span>{topic.images.length} টি ছবি</span>
+                  </span>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                    <span className="material-symbols-outlined text-[14px]">location_on</span>
+                    <span className="line-clamp-1">{topic.locationBn}</span>
+                    <span>•</span>
+                    <span>{topic.dateBn}</span>
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{topic.titleBn}</h4>
+                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">{topic.descBn}</p>
+                </div>
+              </div>
+
+              <div className="p-4 pt-0 border-t border-slate-100 flex items-center justify-end gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingItem({
+                    type: 'gallery',
+                    isNew: false,
+                    data: {
+                      ...topic,
+                      image: topic.images[0] || '',
+                      additionalImages: topic.images.slice(1).join('\n')
+                    }
+                  })}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px]">edit</span>
+                  <span>এডিট</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeleteTarget({ id: topic.id, title: topic.titleBn, type: 'gallery' })}
+                  className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px]">delete</span>
+                  <span>ডিলিট</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Edit / Add Modal */}
       {editingItem && (
         <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl p-6 space-y-5 my-8">
-            <div className="flex items-center justify-between border-b pb-3 border-slate-100">
-              <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <span className="material-symbols-outlined text-emerald-700">edit_note</span>
-                <span>{editingItem.isNew ? 'নতুন কার্ড যুক্ত করুন' : 'কার্ড এডিট করুন'}</span>
-              </h4>
+          <div className="bg-white rounded-2xl max-w-3xl w-full border border-slate-200 shadow-2xl p-6 space-y-5 my-8 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b pb-3 border-slate-100 sticky top-0 bg-white z-10">
+              <div>
+                <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-emerald-700">edit_note</span>
+                  <span>{editingItem.isNew ? 'নতুন আইটেম / কার্ড যুক্ত করুন' : 'আইটেম / কার্ড এডিট করুন'}</span>
+                </h4>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  বিভাগ: {
+                    editingItem.type === 'campaigns' ? 'হোমপেইজ ক্যাম্পেইন' :
+                    editingItem.type === 'upcoming' ? 'আসন্ন প্রকল্প' :
+                    editingItem.type === 'foundation' ? 'ফাউন্ডেশনের প্রজেক্ট' :
+                    editingItem.type === 'orphans' ? 'এতিম শিশু প্রোফাইল' :
+                    editingItem.type === 'news' ? 'ফিল্ড নিউজ ও ডিসপ্যাচ' : 'ফটো গ্যালারি অ্যালবাম'
+                  }
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={() => setEditingItem(null)}
-                className="text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="text-slate-400 hover:text-slate-600 cursor-pointer p-1 rounded-lg hover:bg-slate-100"
               >
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
 
             <form onSubmit={handleSaveModal} className="space-y-4 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">শিরোনাম (বাংলা)</label>
-                  <input
-                    type="text"
-                    required
-                    value={editingItem.data.titleBn || editingItem.data.nameBn || ''}
-                    onChange={e =>
-                      setEditingItem({
-                        ...editingItem,
-                        data: {
-                          ...editingItem.data,
-                          titleBn: e.target.value,
-                          nameBn: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-2 border rounded-xl"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">শিরোনাম (ইংরেজি)</label>
-                  <input
-                    type="text"
-                    required
-                    value={editingItem.data.titleEn || editingItem.data.nameEn || ''}
-                    onChange={e =>
-                      setEditingItem({
-                        ...editingItem,
-                        data: {
-                          ...editingItem.data,
-                          titleEn: e.target.value,
-                          nameEn: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-2 border rounded-xl"
-                  />
-                </div>
-              </div>
+              {/* === NEWS FORM === */}
+              {editingItem.type === 'news' && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">সংবাদের শিরোনাম (বাংলা) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="যেমন: উত্তরবঙ্গের বন্যাকবলিত এলাকায় খাদ্য ত্রাণ বিতরণ..."
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Headline / Title (English) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleEn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleEn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="e.g. Emergency Food Relief Distribution Across Northern Bangladesh..."
+                      />
+                    </div>
+                  </div>
 
-              {/* Image Selector Field */}
-              <div>
-                <ImageSelectorField
-                  label="কার্ডের কভার ইমেজ"
-                  value={editingItem.data.image || ''}
-                  onChange={url =>
-                    setEditingItem({
-                      ...editingItem,
-                      data: { ...editingItem.data, image: url },
-                    })
-                  }
-                />
-              </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি (বাংলা)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.categoryBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, categoryBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="জরুরি ত্রাণ তৎপরতা"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Category (English)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.categoryEn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, categoryEn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="Emergency Response"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ট্যাগ (বাংলা)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.tagBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, tagBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="মাঠপর্যায়ের রিপোর্ট"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">পঠন সময় ও তারিখ</label>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        <input
+                          type="text"
+                          value={editingItem.data.dateBn || ''}
+                          onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, dateBn: e.target.value } })}
+                          className="w-full px-2 py-2 border rounded-xl"
+                          placeholder="৮ নভেম্বর, ২০২৬"
+                        />
+                        <input
+                          type="text"
+                          value={editingItem.data.readTimeBn || ''}
+                          onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, readTimeBn: e.target.value } })}
+                          className="w-full px-2 py-2 border rounded-xl"
+                          placeholder="৪ মিনিট পঠন"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Categorization & Financials */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি / বিভাগ</label>
-                  <input
-                    type="text"
-                    value={editingItem.data.categoryBn || editingItem.data.classBn || ''}
-                    onChange={e =>
-                      setEditingItem({
-                        ...editingItem,
-                        data: {
-                          ...editingItem.data,
-                          categoryBn: e.target.value,
-                          classBn: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-2 border rounded-xl"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">সংগৃহীত তহবিল (টাকা)</label>
-                  <input
-                    type="number"
-                    value={editingItem.data.raisedBDT ?? 0}
-                    onChange={e =>
-                      setEditingItem({
-                        ...editingItem,
-                        data: {
-                          ...editingItem.data,
-                          raisedBDT: Number(e.target.value),
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-2 border rounded-xl font-mono"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">লক্ষ্যমাত্রা / বাজেট (টাকা)</label>
-                  <input
-                    type="number"
-                    value={editingItem.data.goalBDT ?? editingItem.data.estimatedBudgetBDT ?? 100000}
-                    onChange={e =>
-                      setEditingItem({
-                        ...editingItem,
-                        data: {
-                          ...editingItem.data,
-                          goalBDT: Number(e.target.value),
-                          estimatedBudgetBDT: Number(e.target.value),
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-2 border rounded-xl font-mono"
-                  />
-                </div>
-              </div>
+                  <div>
+                    <ImageSelectorField
+                      label="সংবাদের কভার ছবি"
+                      value={editingItem.data.image || ''}
+                      onChange={url => setEditingItem({ ...editingItem, data: { ...editingItem.data, image: url } })}
+                    />
+                  </div>
 
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">বিস্তারিত বিবরণ (বাংলা)</label>
-                <textarea
-                  rows={3}
-                  value={editingItem.data.descriptionBn || editingItem.data.storyBn || ''}
-                  onChange={e =>
-                    setEditingItem({
-                      ...editingItem,
-                      data: {
-                        ...editingItem.data,
-                        descriptionBn: e.target.value,
-                        storyBn: e.target.value,
-                      },
-                    })
-                  }
-                  className="w-full px-3 py-2 border rounded-xl text-sm"
-                />
-              </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">সংক্ষিপ্ত সারসংক্ষেপ (বাংলা)</label>
+                    <textarea
+                      rows={2}
+                      value={editingItem.data.excerptBn || ''}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, excerptBn: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl leading-relaxed"
+                      placeholder="কার্ডের সামনে প্রদর্শিত সংক্ষিপ্ত ২-৩ লাইনের বিবরণ..."
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="font-bold text-slate-700 block">মূল প্রতিবেদনের বিস্তারিত বিবরণ (বাংলা)</label>
+                      <span className="text-[10px] text-emerald-700 font-semibold">প্যারাগ্রাফ আলাদা করতে ডাবল এন্টার (ফাঁকা লাইন) দিন</span>
+                    </div>
+                    <textarea
+                      rows={4}
+                      value={editingItem.data.contentBnText ?? (Array.isArray(editingItem.data.contentBn) ? editingItem.data.contentBn.join('\n\n') : editingItem.data.contentBn || '')}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, contentBnText: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl leading-relaxed font-sans"
+                      placeholder="প্রথম প্যারাগ্রাফ...&#10;&#10;দ্বিতীয় প্যারাগ্রাফ..."
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* === GALLERY FORM === */}
+              {editingItem.type === 'gallery' && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">অ্যালবামের নাম (বাংলা) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="যেমন: ওয়ান মিল ওয়ান হোপ: নিয়মিত খাদ্য বিতরণ কর্মসূচি"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Album Title (English) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleEn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleEn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="e.g. One Meal One Hope: Hot Nourishing Food Outreach"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি টাইপ</label>
+                      <select
+                        value={editingItem.data.category || 'food'}
+                        onChange={e => {
+                          const cat = e.target.value;
+                          const labels: Record<string, { bn: string; en: string }> = {
+                            food: { bn: 'ক্ষুধা নিবারণ ও খাদ্য', en: 'Hunger Relief & Food' },
+                            water: { bn: 'নিরাপদ খাবার পানি', en: 'Clean Water Project' },
+                            house: { bn: 'আবাসন ও পুনর্বাসন', en: 'Shelter & Rehabilitation' },
+                            orphan: { bn: 'এতিম প্রতিপালন ও শিক্ষা', en: 'Orphan Care & Education' },
+                            medical: { bn: 'চিকিৎসা ও স্বাস্থ্যসেবা', en: 'Medical & Healthcare' },
+                          };
+                          setEditingItem({
+                            ...editingItem,
+                            data: {
+                              ...editingItem.data,
+                              category: cat,
+                              categoryLabelBn: labels[cat]?.bn || 'অন্যান্য',
+                              categoryLabelEn: labels[cat]?.en || 'General Relief',
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-2 border rounded-xl bg-white"
+                      >
+                        <option value="food">ক্ষুধা নিবারণ ও খাদ্য (Food)</option>
+                        <option value="water">নিরাপদ খাবার পানি (Water)</option>
+                        <option value="house">আবাসন ও পুনর্বাসন (House / Shelter)</option>
+                        <option value="orphan">এতিম প্রতিপালন ও শিক্ষা (Orphan)</option>
+                        <option value="medical">চিকিৎসা ও স্বাস্থ্যসেবা (Medical)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">স্থান (বাংলা)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.locationBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, locationBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="কমলাপুর ও তেজগাঁও বস্তি এলাকা"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">বছর বা সময়কাল (বাংলা)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.dateBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, dateBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="২০২৪ - ২০২৬"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <ImageSelectorField
+                      label="অ্যালবামের প্রধান কভার ফটো"
+                      value={editingItem.data.image || (editingItem.data.images && editingItem.data.images[0]) || ''}
+                      onChange={url => setEditingItem({ ...editingItem, data: { ...editingItem.data, image: url } })}
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="font-bold text-slate-700 block">অতিরিক্ত ফটোগুলোর তালিকা (প্রতি লাইনে একটি URL বা পাথ)</label>
+                      <span className="text-[10px] text-slate-500">গ্যালারি স্লাইডার ও মডেলে প্রদর্শিত হবে</span>
+                    </div>
+                    <textarea
+                      rows={3}
+                      value={editingItem.data.additionalImages ?? (Array.isArray(editingItem.data.images) ? editingItem.data.images.slice(1).join('\n') : '')}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, additionalImages: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl font-mono text-xs"
+                      placeholder="/images/drive-food-2.jpg&#10;/images/drive-food-3.jpg"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">অ্যালবামের বিবরণ (বাংলা)</label>
+                    <textarea
+                      rows={2}
+                      value={editingItem.data.descBn || ''}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, descBn: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl"
+                      placeholder="এই অ্যালবামের কার্যক্রম সম্পর্কে সংক্ষিপ্ত বিবরণ..."
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* === ORPHANS FORM === */}
+              {editingItem.type === 'orphans' && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">শিশুর নাম (বাংলা) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.nameBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, nameBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Child Name (English) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.nameEn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, nameEn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">বয়স (বছর)</label>
+                      <input
+                        type="number"
+                        value={editingItem.data.age ?? 8}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, age: Number(e.target.value) } })}
+                        className="w-full px-3 py-2 border rounded-xl font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">লিঙ্গ</label>
+                      <select
+                        value={editingItem.data.gender || 'boy'}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, gender: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl bg-white"
+                      >
+                        <option value="boy">ছেলে শিশু (Boy)</option>
+                        <option value="girl">মেয়ে শিশু (Girl)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">মাদরাসা শ্রেণি / বিভাগ</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.classBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, classBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="হিফজুল কুরআন বিভাগ"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">এলাকা / জেলা (বাংলা)</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.locationBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, locationBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                        placeholder="সাভার, ঢাকা"
+                      />
+                    </div>
+                    <div className="flex items-center pt-5">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={editingItem.data.isSponsored || false}
+                          onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, isSponsored: e.target.checked } })}
+                          className="w-4 h-4 text-emerald-600 rounded"
+                        />
+                        <span className="font-bold text-slate-700">ইতিমধ্যে স্পনসর পেয়েছে (Sponsored)?</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <ImageSelectorField
+                      label="শিশুর ছবি"
+                      value={editingItem.data.image || ''}
+                      onChange={url => setEditingItem({ ...editingItem, data: { ...editingItem.data, image: url } })}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">ভবিষ্যৎ স্বপ্ন / লক্ষ্য (বাংলা)</label>
+                    <input
+                      type="text"
+                      value={editingItem.data.dreamBn || ''}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, dreamBn: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl"
+                      placeholder="যেমন: হিফজ সম্পন্ন করে আদর্শ শিক্ষক হতে চায়"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">পারিবারিক পটভূমি ও গল্প (বাংলা)</label>
+                    <textarea
+                      rows={2}
+                      value={editingItem.data.storyBn || ''}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, storyBn: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl"
+                      placeholder="পিতা হারিয়ে অসহায়..."
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* === CAMPAIGNS / UPCOMING / FOUNDATION PROJECTS FORM === */}
+              {(editingItem.type === 'campaigns' || editingItem.type === 'upcoming' || editingItem.type === 'foundation') && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">প্রকল্পের নাম (বাংলা) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">Project Title (English) *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.data.titleEn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, titleEn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <ImageSelectorField
+                      label="কার্ডের কভার ইমেজ"
+                      value={editingItem.data.image || ''}
+                      onChange={url => setEditingItem({ ...editingItem, data: { ...editingItem.data, image: url } })}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">ক্যাটাগরি</label>
+                      <input
+                        type="text"
+                        value={editingItem.data.categoryBn || ''}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, categoryBn: e.target.value } })}
+                        className="w-full px-3 py-2 border rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">সংগৃহীত তহবিল (টাকা)</label>
+                      <input
+                        type="number"
+                        value={editingItem.data.raisedBDT ?? 0}
+                        onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, raisedBDT: Number(e.target.value) } })}
+                        className="w-full px-3 py-2 border rounded-xl font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">লক্ষ্যমাত্রা / বাজেট (টাকা)</label>
+                      <input
+                        type="number"
+                        value={editingItem.data.goalBDT ?? editingItem.data.estimatedBudgetBDT ?? 100000}
+                        onChange={e =>
+                          setEditingItem({
+                            ...editingItem,
+                            data: {
+                              ...editingItem.data,
+                              goalBDT: Number(e.target.value),
+                              estimatedBudgetBDT: Number(e.target.value),
+                            },
+                          })
+                        }
+                        className="w-full px-3 py-2 border rounded-xl font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">বিস্তারিত বিবরণ (বাংলা)</label>
+                    <textarea
+                      rows={3}
+                      value={editingItem.data.descriptionBn || ''}
+                      onChange={e => setEditingItem({ ...editingItem, data: { ...editingItem.data, descriptionBn: e.target.value } })}
+                      className="w-full px-3 py-2 border rounded-xl text-sm"
+                    />
+                  </div>
+                </>
+              )}
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
                 <button
