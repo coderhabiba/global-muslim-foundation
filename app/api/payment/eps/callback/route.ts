@@ -37,25 +37,38 @@ async function processCallback(
   merchantTxId: string | null,
   epsTxId: string | null,
 ) {
-  if (!merchantTxId) return;
+  if (!merchantTxId) return 'fail';
 
-  // Verify with EPS directly for security (skip on cancel — no payment was made)
-  let verifiedStatus = urlStatus;
+  // ANTI-FRAUD / FAKE PAYMENT PREVENTION:
+  // Never trust the client redirect URL query parameter alone.
+  // We strictly verify the transaction cryptographically with EPS Gateway servers.
+  let verifiedStatus = 'fail';
 
-  if (urlStatus !== 'cancel') {
+  if (urlStatus === 'cancel') {
+    verifiedStatus = 'cancel';
+  } else {
     try {
       const eps = getEpsClient();
       if (eps) {
         const result = await eps.verifyPayment({ merchantTransactionId: merchantTxId });
-        verifiedStatus = result.Status?.toLowerCase() === 'success' ? 'success' : 'fail';
+        // EPS official verification response must explicitly return 'success'
+        if (result && (result.Status?.toLowerCase() === 'success' || result.Status?.toLowerCase() === 'completed')) {
+          verifiedStatus = 'success';
+        } else {
+          console.warn('[EPS Anti-Fraud] Payment verification rejected by EPS:', result?.ErrorMessage || result?.Status);
+          verifiedStatus = 'fail';
+        }
+      } else {
+        console.warn('[EPS Callback] EPS client not configured for live verification.');
+        verifiedStatus = 'fail';
       }
     } catch (verifyErr) {
-      console.error('[EPS Callback] Verification error:', verifyErr);
-      // Fall back to URL status if EPS verify fails
+      console.error('[EPS Anti-Fraud Error] Verification failed with EPS servers:', verifyErr);
+      verifiedStatus = 'fail';
     }
   }
 
-  // Map to Supabase status
+  // Map to Supabase status strictly
   const dbStatus =
     verifiedStatus === 'success' ? 'completed' :
     verifiedStatus === 'cancel'  ? 'cancelled' : 'failed';
