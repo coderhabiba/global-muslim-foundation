@@ -1,98 +1,263 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { useSiteCMS, SitePageKey } from '@/lib/site-cms';
+import { useSiteCMS, SitePageKey, DEFAULT_CMS_CONTENT_EN } from '@/lib/site-cms';
 import { PAGE_SECTIONS_SCHEMA, PageConfig, PageSection, SectionField, useCustomSections, CustomSection } from '@/lib/page-sections';
 import ImageSelectorField from './ImageSelectorField';
 
 // =========================================================
-// FIELD RENDERER — renders a single editable field
+// FIELD RENDERER — renders a single editable field (Bilingual)
 // =========================================================
 function FieldRenderer({
   field,
-  value,
-  onChange,
+  editorLang,
+  valueBn,
+  valueEn,
+  placeholderEn,
+  onChangeBn,
+  onChangeEn,
 }: {
   field: SectionField;
-  value: string;
-  onChange: (val: string) => void;
+  editorLang: 'bn' | 'en' | 'both';
+  valueBn: string;
+  valueEn: string;
+  placeholderEn?: string;
+  onChangeBn: (val: string) => void;
+  onChangeEn: (val: string) => void;
 }) {
   const baseInput = 'w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-400 transition-colors';
+  const enInput = 'w-full px-3 py-2 bg-white border border-purple-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/30 focus:border-purple-500 transition-colors';
 
   if (field.type === 'image') {
     return (
       <ImageSelectorField
-        label={field.label}
-        value={value}
-        onChange={onChange}
+        label={editorLang === 'en' ? (field.labelEn || field.label) : field.label}
+        value={valueBn}
+        onChange={val => {
+          onChangeBn(val);
+          onChangeEn(val);
+        }}
         helpText={field.helpText}
       />
     );
   }
 
-  if (field.type === 'textarea') {
+  if (field.type === 'url') {
+    if (editorLang === 'bn') {
+      return (
+        <div>
+          <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+            <span>{field.label}</span>
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+          </label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
+            <input
+              type="url"
+              className={baseInput + ' pl-8'}
+              placeholder={field.placeholder || 'https://...'}
+              value={valueBn}
+              onChange={e => onChangeBn(e.target.value)}
+            />
+          </div>
+        </div>
+      );
+    }
+    if (editorLang === 'en') {
+      return (
+        <div>
+          <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+            <span>{field.labelEn || field.label} [English URL]</span>
+            <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+          </label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
+            <input
+              type="url"
+              className={enInput + ' pl-8'}
+              placeholder={field.placeholderEn || field.placeholder || 'https://...'}
+              value={valueEn || valueBn}
+              onChange={e => onChangeEn(e.target.value)}
+            />
+          </div>
+        </div>
+      );
+    }
+    // both
     return (
-      <div>
-        <label className="text-xs font-bold text-slate-600 block mb-1">{field.label}</label>
-        {field.helpText && <p className="text-[11px] text-slate-400 mb-1">{field.helpText}</p>}
-        <textarea
-          rows={field.rows || 2}
-          className={baseInput}
-          placeholder={field.placeholder}
-          value={value}
-          onChange={e => onChange(e.target.value)}
-        />
+      <div className="space-y-2 bg-slate-50/70 p-3 rounded-xl border border-slate-200/80">
+        <div>
+          <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+            <span>{field.label} (বাংলা)</span>
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+          </label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
+            <input
+              type="url"
+              className={baseInput + ' pl-8'}
+              placeholder={field.placeholder || 'https://...'}
+              value={valueBn}
+              onChange={e => onChangeBn(e.target.value)}
+            />
+          </div>
+        </div>
+        <div>
+          <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+            <span>{field.labelEn || field.label} (English URL)</span>
+            <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+          </label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
+            <input
+              type="url"
+              className={enInput + ' pl-8'}
+              placeholder={field.placeholderEn || field.placeholder || 'https://...'}
+              value={valueEn || valueBn}
+              onChange={e => onChangeEn(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
     );
   }
 
-  if (field.type === 'url') {
+  if (field.type === 'textarea') {
+    if (editorLang === 'bn') {
+      return (
+        <div>
+          <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+            <span>{field.label}</span>
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+          </label>
+          {field.helpText && <p className="text-[11px] text-slate-400 mb-1">{field.helpText}</p>}
+          <textarea
+            rows={field.rows || 2}
+            className={baseInput}
+            placeholder={field.placeholder}
+            value={valueBn}
+            onChange={e => onChangeBn(e.target.value)}
+          />
+        </div>
+      );
+    }
+    if (editorLang === 'en') {
+      return (
+        <div>
+          <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+            <span>{field.labelEn || field.label} (English Description)</span>
+            <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+          </label>
+          <textarea
+            rows={field.rows || 2}
+            className={enInput}
+            placeholder={field.placeholderEn || placeholderEn || 'Enter English description...'}
+            value={valueEn}
+            onChange={e => onChangeEn(e.target.value)}
+          />
+        </div>
+      );
+    }
+    // both
     return (
-      <div>
-        <label className="text-xs font-bold text-slate-600 block mb-1">{field.label}</label>
-        <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
-          <input
-            type="url"
-            className={baseInput + ' pl-8'}
-            placeholder={field.placeholder || 'https://...'}
-            value={value}
-            onChange={e => onChange(e.target.value)}
+      <div className="p-3 bg-slate-50/70 rounded-xl border border-slate-200 space-y-3">
+        <div>
+          <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+            <span>{field.label} (বাংলা)</span>
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+          </label>
+          <textarea
+            rows={field.rows || 2}
+            className={baseInput}
+            placeholder={field.placeholder}
+            value={valueBn}
+            onChange={e => onChangeBn(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+            <span>{field.labelEn || field.label} (English)</span>
+            <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+          </label>
+          <textarea
+            rows={field.rows || 2}
+            className={enInput}
+            placeholder={field.placeholderEn || placeholderEn || 'Enter English description...'}
+            value={valueEn}
+            onChange={e => onChangeEn(e.target.value)}
           />
         </div>
       </div>
     );
   }
 
-  if (field.type === 'select' && field.options) {
+  // Default: text / number
+  if (editorLang === 'bn') {
     return (
       <div>
-        <label className="text-xs font-bold text-slate-600 block mb-1">{field.label}</label>
-        <select
-          className={baseInput + ' appearance-none cursor-pointer'}
-          value={value}
-          onChange={e => onChange(e.target.value)}
-        >
-          {field.options.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
+        <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+          <span>{field.label}</span>
+          <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+        </label>
+        {field.helpText && <p className="text-[11px] text-slate-400 mb-1">{field.helpText}</p>}
+        <input
+          type={field.type === 'number' ? 'number' : 'text'}
+          className={baseInput}
+          placeholder={field.placeholder}
+          value={valueBn}
+          onChange={e => onChangeBn(e.target.value)}
+        />
       </div>
     );
   }
 
-  // Default: text / number
+  if (editorLang === 'en') {
+    return (
+      <div>
+        <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+          <span>{field.labelEn || field.label} [English]</span>
+          <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+        </label>
+        <input
+          type={field.type === 'number' ? 'number' : 'text'}
+          className={enInput}
+          placeholder={field.placeholderEn || placeholderEn || 'Enter English text...'}
+          value={valueEn}
+          onChange={e => onChangeEn(e.target.value)}
+        />
+      </div>
+    );
+  }
+
+  // both
   return (
-    <div>
-      <label className="text-xs font-bold text-slate-600 block mb-1">{field.label}</label>
-      {field.helpText && <p className="text-[11px] text-slate-400 mb-1">{field.helpText}</p>}
-      <input
-        type={field.type === 'number' ? 'number' : 'text'}
-        className={baseInput}
-        placeholder={field.placeholder}
-        value={value}
-        onChange={e => onChange(e.target.value)}
-      />
+    <div className="p-3 bg-slate-50/70 rounded-xl border border-slate-200 space-y-2.5">
+      <div>
+        <label className="text-xs font-bold text-slate-700 block mb-1 flex items-center justify-between">
+          <span>{field.label} (বাংলা)</span>
+          <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.2 rounded border border-emerald-200">🇧🇩 BN</span>
+        </label>
+        <input
+          type={field.type === 'number' ? 'number' : 'text'}
+          className={baseInput}
+          placeholder={field.placeholder}
+          value={valueBn}
+          onChange={e => onChangeBn(e.target.value)}
+        />
+      </div>
+      <div>
+        <label className="text-xs font-bold text-purple-900 block mb-1 flex items-center justify-between">
+          <span>{field.labelEn || field.label} (English)</span>
+          <span className="text-[10px] bg-purple-50 text-purple-700 font-bold px-1.5 py-0.2 rounded border border-purple-200">🇬🇧 EN</span>
+        </label>
+        <input
+          type={field.type === 'number' ? 'number' : 'text'}
+          className={enInput}
+          placeholder={field.placeholderEn || placeholderEn || 'Enter English text...'}
+          value={valueEn}
+          onChange={e => onChangeEn(e.target.value)}
+        />
+      </div>
     </div>
   );
 }
@@ -103,6 +268,8 @@ function FieldRenderer({
 function SectionAccordion({
   section,
   pageData,
+  selectedPageKey,
+  editorLang,
   onFieldChange,
   onToggleVisibility,
   onDelete,
@@ -112,6 +279,8 @@ function SectionAccordion({
 }: {
   section: PageSection | CustomSection;
   pageData: Record<string, string>;
+  selectedPageKey: string;
+  editorLang: 'bn' | 'en' | 'both';
   onFieldChange: (key: string, val: string) => void;
   onToggleVisibility: () => void;
   onDelete?: () => void;
@@ -124,6 +293,7 @@ function SectionAccordion({
 
   const data = isCustom ? (customData || {}) : pageData;
   const handleChange = isCustom ? (onCustomFieldChange || (() => {})) : onFieldChange;
+  const enDefaults = (DEFAULT_CMS_CONTENT_EN as any)[selectedPageKey] || {};
 
   return (
     <div className={`rounded-2xl border transition-all overflow-hidden ${
@@ -149,8 +319,17 @@ function SectionAccordion({
           className="flex-1 text-left min-w-0 cursor-pointer"
           onClick={() => setIsOpen(o => !o)}
         >
-          <p className="text-sm font-bold text-slate-800 truncate">{section.label}</p>
-          <p className="text-[11px] text-slate-400">{section.fields.length} টি ফিল্ড</p>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-bold text-slate-800 truncate">
+              {editorLang === 'en' ? (section.labelEn || section.label) : section.label}
+            </p>
+            {editorLang === 'both' && section.labelEn && (
+              <span className="text-[11px] text-purple-700 font-medium">({section.labelEn})</span>
+            )}
+          </div>
+          <p className="text-[11px] text-slate-400">
+            {section.fields.length} {editorLang === 'en' ? 'Fields (Editable in EN)' : 'টি ফিল্ড (বাংলা ও English)'}
+          </p>
         </button>
 
         {/* Controls */}
@@ -204,15 +383,25 @@ function SectionAccordion({
 
       {/* Section Fields (Collapsible) */}
       {isOpen && (
-        <div className="px-4 pb-4 pt-1 border-t border-slate-100 space-y-3 bg-slate-50/40">
-          {section.fields.map(field => (
-            <FieldRenderer
-              key={field.key}
-              field={field}
-              value={data[field.key] || ''}
-              onChange={val => handleChange(field.key, val)}
-            />
-          ))}
+        <div className="px-4 pb-4 pt-2 border-t border-slate-100 space-y-3.5 bg-slate-50/40">
+          {section.fields.map(field => {
+            const valBn = data[field.key] || '';
+            const valEn = data[`${field.key}En`] !== undefined ? data[`${field.key}En`] : (enDefaults[field.key] || '');
+            const placeholderEn = enDefaults[field.key] || '';
+
+            return (
+              <FieldRenderer
+                key={field.key}
+                field={field}
+                editorLang={editorLang}
+                valueBn={valBn}
+                valueEn={valEn}
+                placeholderEn={placeholderEn}
+                onChangeBn={val => handleChange(field.key, val)}
+                onChangeEn={val => handleChange(`${field.key}En`, val)}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -414,6 +603,7 @@ export default function AdminSectionEditor() {
   const { getPageCustomSections, addCustomSection, updateCustomSection, deleteCustomSection } = useCustomSections();
 
   const [selectedPageKey, setSelectedPageKey] = useState<string>('home');
+  const [editorLang, setEditorLang] = useState<'bn' | 'en' | 'both'>('bn');
   const [localData, setLocalData] = useState<Record<string, string>>({});
   const [sectionVisibility, setSectionVisibility] = useState<Record<string, boolean>>({});
   const [showAddModal, setShowAddModal] = useState(false);
@@ -579,6 +769,57 @@ export default function AdminSectionEditor() {
             </button>
           </div>
 
+          {/* Bilingual Language Control for Section Editor */}
+          <div className="bg-gradient-to-r from-purple-50 via-indigo-50 to-emerald-50 rounded-2xl border border-purple-200/80 p-3 sm:p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-purple-700 text-[20px]">translate</span>
+                <h4 className="text-xs sm:text-sm font-bold text-slate-800">
+                  সেকশন কন্টেন্ট এডিটর ভাষা (Content Language)
+                </h4>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                ইংরেজি বা বাংলা উভয় ভাষার কন্টেন্ট সরাসরি এডিট ও আপডেট করুন।
+              </p>
+            </div>
+
+            <div className="inline-flex items-center p-1 rounded-xl bg-white border border-slate-200 shadow-2xs self-start sm:self-auto">
+              <button
+                type="button"
+                onClick={() => setEditorLang('bn')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  editorLang === 'bn'
+                    ? 'bg-emerald-700 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🇧🇩 বাংলা</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditorLang('en')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  editorLang === 'en'
+                    ? 'bg-purple-700 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🇬🇧 English</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditorLang('both')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  editorLang === 'both'
+                    ? 'bg-indigo-700 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>🌐 উভয় ভাষা (Dual View)</span>
+              </button>
+            </div>
+          </div>
+
           {/* Legend */}
           <div className="flex items-center gap-4 text-[11px] text-slate-500 px-1">
             <span className="flex items-center gap-1">
@@ -607,6 +848,8 @@ export default function AdminSectionEditor() {
                 key={section.id}
                 section={{ ...section, isVisible: visibility }}
                 pageData={localData}
+                selectedPageKey={selectedPageKey}
+                editorLang={editorLang}
                 onFieldChange={handleFieldChange}
                 onToggleVisibility={() => handleToggleSectionVisibility(section.id, visibility)}
               />
@@ -627,6 +870,8 @@ export default function AdminSectionEditor() {
                   key={cs.id}
                   section={cs}
                   pageData={{}}
+                  selectedPageKey={selectedPageKey}
+                  editorLang={editorLang}
                   onFieldChange={() => {}}
                   isCustom
                   customData={cs.data}

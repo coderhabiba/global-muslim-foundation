@@ -205,7 +205,7 @@ export default function UpcomingProjectsPage() {
             <span>
               {isBn
                 ? (cmsUpcoming.pageBadge || 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা')
-                : 'Sustainable Sadaqah Jariyah & Future Vision'}
+                : (cmsUpcoming.pageBadgeEn || 'Sustainable Sadaqah Jariyah & Future Vision')}
             </span>
           </div>
 
@@ -241,17 +241,19 @@ export default function UpcomingProjectsPage() {
                 return title;
               })()
             ) : (
-              <>
-                Upcoming Strategic Projects —{' '}
-                <span className="text-amber-600">Invest in Enduring Sadaqah Jariyah</span>
-              </>
+              cmsUpcoming.pageTitleEn || (
+                <>
+                  Upcoming Strategic Projects —{' '}
+                  <span className="text-amber-600">Invest in Enduring Sadaqah Jariyah</span>
+                </>
+              )
             )}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {isBn
               ? (cmsUpcoming.pageSubtitle || 'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।')
-              : 'Beyond emergency relief, GMCF is committed to enduring institutional infrastructure. Join hands as a founding sponsor and build permanent sources of continuous reward.'}
+              : (cmsUpcoming.pageSubtitleEn || 'Beyond emergency relief, GMCF is committed to enduring institutional infrastructure. Join hands as a founding sponsor and build permanent sources of continuous reward.')}
           </p>
 
           <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
@@ -320,8 +322,12 @@ export default function UpcomingProjectsPage() {
           {filteredProjects.map(project => {
             const isFeatured = project.id === 'proj-01';
             const projectImg = isFeatured && cmsUpcoming.featuredProjectImage ? cmsUpcoming.featuredProjectImage : project.image;
-            const projectTitle = isFeatured && cmsUpcoming.featuredProjectTitle && isBn ? cmsUpcoming.featuredProjectTitle : (isBn ? project.titleBn : project.titleEn);
-            const projectDesc = isFeatured && cmsUpcoming.featuredProjectDesc && isBn ? cmsUpcoming.featuredProjectDesc : (isBn ? project.descriptionBn : project.descriptionEn);
+            const projectTitle = isFeatured && (isBn ? cmsUpcoming.featuredProjectTitle : (cmsUpcoming.featuredProjectTitleEn || cmsUpcoming.featuredProjectTitle))
+              ? (isBn ? cmsUpcoming.featuredProjectTitle : (cmsUpcoming.featuredProjectTitleEn || cmsUpcoming.featuredProjectTitle))
+              : (isBn ? project.titleBn : project.titleEn);
+            const projectDesc = isFeatured && (isBn ? cmsUpcoming.featuredProjectDesc : (cmsUpcoming.featuredProjectDescEn || cmsUpcoming.featuredProjectDesc))
+              ? (isBn ? cmsUpcoming.featuredProjectDesc : (cmsUpcoming.featuredProjectDescEn || cmsUpcoming.featuredProjectDesc))
+              : (isBn ? project.descriptionBn : project.descriptionEn);
 
             const budget = currency === 'BDT' ? project.estimatedBudgetBDT : project.estimatedBudgetUSD;
             const raised = currency === 'BDT' ? project.raisedBDT : project.raisedUSD;

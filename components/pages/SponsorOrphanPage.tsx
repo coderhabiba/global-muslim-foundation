@@ -170,7 +170,7 @@ export default function SponsorOrphanPage() {
             <span>
               {isBn
                 ? cms.sponsor_orphan.pageBadge
-                : 'Prophetic Sunnah — Guardian of a Vulnerable Child'}
+                : (cms.sponsor_orphan.pageBadgeEn || 'Prophetic Sunnah — Guardian of a Vulnerable Child')}
             </span>
           </div>
 
@@ -216,19 +216,21 @@ export default function SponsorOrphanPage() {
                 return title;
               })()
             ) : (
-              <>
-                Sponsor a Vulnerable Child &amp;{' '}
-                <span className="text-amber-600 dark:text-amber-500">
-                  Earn Eternal Jannah with the Prophet (ﷺ)
-                </span>
-              </>
+              cms.sponsor_orphan.pageTitleEn || (
+                <>
+                  Sponsor a Vulnerable Child &amp;{' '}
+                  <span className="text-amber-600 dark:text-amber-500">
+                    Earn Eternal Jannah with the Prophet (ﷺ)
+                  </span>
+                </>
+              )
             )}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
               ? cms.sponsor_orphan.pageSubtitle
-              : 'The Prophet Muhammad (ﷺ) said: "I and the person who looks after an orphan and provides for him, will be in Paradise like this," putting his index and middle fingers together. (Sahih al-Bukhari).'}
+              : (cms.sponsor_orphan.pageSubtitleEn || 'The Prophet Muhammad (ﷺ) said: "I and the person who looks after an orphan and provides for him, will be in Paradise like this," putting his index and middle fingers together. (Sahih al-Bukhari).')}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">

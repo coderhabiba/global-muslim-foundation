@@ -11,9 +11,12 @@ export type FieldType = 'text' | 'textarea' | 'image' | 'url' | 'number' | 'sele
 export interface SectionField {
   key: string;
   label: string;
+  labelEn?: string;
   type: FieldType;
   placeholder?: string;
+  placeholderEn?: string;
   helpText?: string;
+  helpTextEn?: string;
   options?: { value: string; label: string }[];
   rows?: number;
 }
@@ -21,6 +24,7 @@ export interface SectionField {
 export interface PageSection {
   id: string;             // unique slug e.g. 'hero-banner'
   label: string;          // Bengali display name
+  labelEn?: string;        // English display name
   icon: string;           // Material Symbol icon name
   fields: SectionField[]; // List of editable fields
   isCore?: boolean;       // If true, cannot be deleted
@@ -792,6 +796,7 @@ export interface CustomSection {
   id: string;
   pageKey: string;
   label: string;
+  labelEn?: string;
   icon: string;
   fields: SectionField[];
   data: PageSectionData;

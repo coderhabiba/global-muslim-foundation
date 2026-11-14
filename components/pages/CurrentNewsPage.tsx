@@ -154,30 +154,34 @@ export default function CurrentNewsPage() {
               newspaper
             </span>
             <span>
-              {cms.news?.pageBadge || (isBn
-                ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট'
-                : 'Global Muslim Charitable Foundation — Current News & Ground Updates')}
+              {isBn
+                ? (cms.news?.pageBadge || 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট')
+                : (cms.news?.pageBadgeEn || 'Global Muslim Charitable Foundation — Current News & Ground Updates')}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight">
-            {cms.news?.pageTitle || (isBn ? (
-              <>
-                আমাদের প্রতিটি পদক্ষেপের{' '}
-                <span className="text-amber-600">বাস্তব অগ্রগতি ও সংবাদ</span>
-              </>
+            {isBn ? (
+              cms.news?.pageTitle || (
+                <>
+                  আমাদের প্রতিটি পদক্ষেপের{' '}
+                  <span className="text-amber-600">বাস্তব অগ্রগতি ও সংবাদ</span>
+                </>
+              )
             ) : (
-              <>
-                Latest Press Releases &amp;{' '}
-                <span className="text-amber-600">Humanitarian Field News</span>
-              </>
-            ))}
+              cms.news?.pageTitleEn || (
+                <>
+                  Latest Press Releases &amp;{' '}
+                  <span className="text-amber-600">Humanitarian Field News</span>
+                </>
+              )
+            )}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            {cms.news?.pageSubtitle || (isBn
-              ? 'মাঠপর্যায়ে ত্রাণ বিতরণ, আর্সেনিকমুক্ত নলকূপ স্থাপন এবং এতিম প্রতিপালন কার্যক্রমের সরাসরি খবরাখবর। আপনার দানকৃত প্রতিটি তহবিলের স্বচ্ছ চিত্র।'
-              : 'Real-time updates, photographic reports, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.')}
+            {isBn
+              ? (cms.news?.pageSubtitle || 'মাঠপর্যায়ে ত্রাণ বিতরণ, আর্সেনিকমুক্ত নলকূপ স্থাপন এবং এতিম প্রতিপালন কার্যক্রমের সরাসরি খবরাখবর। আপনার দানকৃত প্রতিটি তহবিলের স্বচ্ছ চিত্র।')
+              : (cms.news?.pageSubtitleEn || 'Real-time updates, photographic reports, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.')}
           </p>
         </div>
       </section>

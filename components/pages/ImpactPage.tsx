@@ -473,22 +473,22 @@ export default function ImpactPage() {
   const metricWells = parseMetric(
     cmsImpact.waterWellsCount,
     isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells',
-    isBn ? cmsImpact.waterWellsLabel : undefined
+    isBn ? cmsImpact.waterWellsLabel : (cmsImpact.waterWellsLabelEn || undefined)
   );
   const metricMeals = parseMetric(
     cmsImpact.mealsDelivered,
     isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served',
-    isBn ? cmsImpact.mealsDeliveredLabel : undefined
+    isBn ? cmsImpact.mealsDeliveredLabel : (cmsImpact.mealsDeliveredLabelEn || undefined)
   );
   const metricFamilies = parseMetric(
     cmsImpact.familiesRehabilitated,
     isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families',
-    isBn ? cmsImpact.familiesRehabilitatedLabel : undefined
+    isBn ? cmsImpact.familiesRehabilitatedLabel : (cmsImpact.familiesRehabilitatedLabelEn || undefined)
   );
   const metricDistricts = parseMetric(
     cmsImpact.districtsCovered,
     isBn ? 'জেলা কভারেজ' : 'Districts Reached',
-    isBn ? cmsImpact.districtsCoveredLabel : undefined
+    isBn ? cmsImpact.districtsCoveredLabel : (cmsImpact.districtsCoveredLabelEn || undefined)
   );
 
   return (
@@ -503,7 +503,7 @@ export default function ImpactPage() {
             <span>
               {isBn
                 ? (cmsImpact.pageBadge || 'মাঠপর্যায়ে বাস্তবায়িত ও চলমান মানবিক প্রকল্পসমূহ • শতভাগ শরীয়াহ নিরীক্ষিত')
-                : 'Verified Field Projects & Continuous Impact • 100% Shariah Audited'}
+                : (cmsImpact.pageBadgeEn || 'Verified Field Projects & Continuous Impact • 100% Shariah Audited')}
             </span>
           </div>
 
@@ -539,19 +539,21 @@ export default function ImpactPage() {
                 return title;
               })()
             ) : (
-              <>
-                Our Foundation Projects —{' '}
-                <span className="text-amber-600 dark:text-amber-500">
-                  Sustainable Impact for Humanity
-                </span>
-              </>
+              cmsImpact.pageTitleEn || (
+                <>
+                  Our Foundation Projects —{' '}
+                  <span className="text-amber-600 dark:text-amber-500">
+                    Sustainable Impact for Humanity
+                  </span>
+                </>
+              )
             )}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             {isBn
               ? (cmsImpact.pageSubtitle || 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)-এর প্রতিটি প্রজেক্ট সরাসরি প্রান্তিক মানুষের জীবনে টেকসই পরিবর্তন আনে। গৃহহীনদের নিরাপদ টিনের ঘর, ক্ষুধার্তদের ওয়ান মিল ওয়ান হোপ, চোখের আলো ফিরিয়ে দেওয়া কিংবা সুপেয় পানি—আপনার প্রতিটি অনুদান পৌঁছে যায় নির্ধারিত খাতে।')
-              : 'GMCF executes permanent, transparent field projects across Bangladesh: constructing resilient tin shelters, daily hot meals, free cataract surgeries, clean water wells, and orphan guardianship.'}
+              : (cmsImpact.pageSubtitleEn || 'GMCF executes permanent, transparent field projects across Bangladesh: constructing resilient tin shelters, daily hot meals, free cataract surgeries, clean water wells, and orphan guardianship.')}
           </p>
 
           {/* Quick Metrics Bar - Strictly Vertical Stacked: Number on Top, Label on Bottom */}
@@ -622,15 +624,15 @@ export default function ImpactPage() {
             <div className="lg:col-span-5 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30">
                 <span className="material-symbols-outlined text-[16px] text-amber-400">videocam</span>
-                <span>{isBn ? (cmsImpact.videoBadge || 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও') : 'Field Documentary • Monthly Project Video'}</span>
+                <span>{isBn ? (cmsImpact.videoBadge || 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও') : (cmsImpact.videoBadgeEn || 'Field Documentary • Monthly Project Video')}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black font-serif-heading leading-snug tracking-tight text-white">
-                {isBn ? (cmsImpact.videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি') : 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight'}
+                {isBn ? (cmsImpact.videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি') : (cmsImpact.videoTitleEn || 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight')}
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                {isBn ? (cmsImpact.videoSubtitle || 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।') : 'Real on-ground documentary capturing late-night warm meal packages delivered directly to destitute individuals sleeping on Dhaka pavements.'}
+                {isBn ? (cmsImpact.videoSubtitle || 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।') : (cmsImpact.videoSubtitleEn || 'Real on-ground documentary capturing late-night warm meal packages delivered directly to destitute individuals sleeping on Dhaka pavements.')}
               </p>
 
               {/* Package Highlights Badge Grid */}
@@ -680,9 +682,9 @@ export default function ImpactPage() {
                 videoUrl={cmsImpact.videoUrl}
                 coverImage={cmsImpact.videoCoverImage}
                 videoDuration={cmsImpact.videoDuration}
-                videoTitle={isBn ? cmsImpact.videoTitle : undefined}
-                videoSubtitle={isBn ? cmsImpact.videoSubtitle : undefined}
-                videoBadge={isBn ? cmsImpact.videoBadge : undefined}
+                videoTitle={isBn ? cmsImpact.videoTitle : (cmsImpact.videoTitleEn || undefined)}
+                videoSubtitle={isBn ? cmsImpact.videoSubtitle : (cmsImpact.videoSubtitleEn || undefined)}
+                videoBadge={isBn ? cmsImpact.videoBadge : (cmsImpact.videoBadgeEn || undefined)}
                 isBn={isBn}
                 onDonateClick={() =>
                   openPaymentModal({

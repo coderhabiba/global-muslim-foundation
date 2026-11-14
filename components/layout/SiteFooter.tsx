@@ -110,12 +110,12 @@ export default function SiteFooter() {
                 />
               </Link>
               <p className="text-xs font-semibold text-emerald-800 italic">
-                {cms.header_footer.slogan || '“Your Kindness is someone\'s hope”'}
+                {isBn ? (cms.header_footer.slogan || '“Your Kindness is someone\'s hope”') : (cms.header_footer.sloganEn || cms.header_footer.slogan || '“Your Kindness is someone\'s hope”')}
               </p>
               <span className="text-xs text-text-muted font-medium">
                 {isBn
                   ? `চেয়ারম্যান: ${cms.header_footer.chairmanName || 'মোহাম্মদ আলী মোস্তফা'}`
-                  : 'Chairman: Mohammad Ali Mostafa'}
+                  : `Chairman: ${cms.header_footer.chairmanNameEn || 'Mohammad Ali Mostafa'}`}
               </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
@@ -337,7 +337,7 @@ export default function SiteFooter() {
                   <strong>{isBn ? 'প্রধান কার্যালয়:' : 'Head Office:'}</strong>{' '}
                   {isBn
                     ? (cms.header_footer.address || '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা, বাংলাদেশ')
-                    : '99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh'}
+                    : (cms.header_footer.addressEn || '99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh')}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -348,7 +348,7 @@ export default function SiteFooter() {
                   <strong>{isBn ? 'চেয়ারম্যান:' : 'Chairman:'}</strong>{' '}
                   {isBn
                     ? (cms.header_footer.chairmanName || 'মোহাম্মদ আলী মোস্তফা')
-                    : 'Mohammad Ali Mostafa'}
+                    : (cms.header_footer.chairmanNameEn || 'Mohammad Ali Mostafa')}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -456,9 +456,9 @@ export default function SiteFooter() {
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
           <div className="flex items-center text-center sm:text-left">
             <p>
-              {cms.header_footer.copyrightText || (isBn
-                ? '© ২০২৬ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
-                : '© 2026 Global Muslim Charitable Foundation (GMCF). All rights reserved.')}
+              {isBn
+                ? (cms.header_footer.copyrightText || '© ২০২৬ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।')
+                : (cms.header_footer.copyrightTextEn || '© 2026 Global Muslim Charitable Foundation (GMCF). All rights reserved.')}
             </p>
           </div>
           <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center text-xs">

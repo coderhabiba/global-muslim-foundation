@@ -215,7 +215,7 @@ export default function VolunteerPage() {
                     <span className="tracking-wide">
                       {isBn
                         ? (cmsVolunteer.pageBadge || 'সম্মুখসারির মানবিক কাজ • স্বেচ্ছাসেবক টিমে যোগ দিন')
-                        : 'FRONT-LINE HUMANITARIAN ACTION • JOIN VOLUNTEER YOUTH'}
+                        : (cmsVolunteer.pageBadgeEn || 'FRONT-LINE HUMANITARIAN ACTION • JOIN VOLUNTEER YOUTH')}
                     </span>
                   </div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 tracking-tight leading-tight font-serif-heading">
@@ -292,18 +292,20 @@ export default function VolunteerPage() {
                         return title;
                       })()
                     ) : (
-                      <>
-                        Become the Guiding Light for{' '}
-                        <span className="text-amber-600 dark:text-amber-500">
-                          Communities in Crisis
-                        </span>
-                      </>
+                      cmsVolunteer.pageTitleEn || (
+                        <>
+                          Become the Guiding Light for{' '}
+                          <span className="text-amber-600 dark:text-amber-500">
+                            Communities in Crisis
+                          </span>
+                        </>
+                      )
                     )}
                   </h1>
                   <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
                     {isBn
                       ? (cmsVolunteer.pageSubtitle || 'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।')
-                      : 'From serving hot meals on train platforms to deploying emergency blankets in floodzones, your dedicated time transforms charity into tangible human salvation.'}
+                      : (cmsVolunteer.pageSubtitleEn || 'From serving hot meals on train platforms to deploying emergency blankets in floodzones, your dedicated time transforms charity into tangible human salvation.')}
                   </p>
 
                   {/* Quick Trust Highlights */}
@@ -415,8 +417,8 @@ export default function VolunteerPage() {
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat1Value}
                   defaultBase={isBn ? '০' : '0'}
-                  title={isBn ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক') : 'Active Youth Volunteers'}
-                  desc={isBn ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব') : 'Universities & Local Youth Clubs'}
+                  title={isBn ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক') : (cmsVolunteer.stat1TitleEn || 'Active Youth Volunteers')}
+                  desc={isBn ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব') : (cmsVolunteer.stat1DescEn || 'Universities & Local Youth Clubs')}
                   fluctuateRange={[-3, 6]}
                   intervalMs={4200}
                 />
@@ -424,8 +426,8 @@ export default function VolunteerPage() {
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat2Value}
                   defaultBase={isBn ? '০' : '0'}
-                  title={isBn ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন') : 'Field Deployments'}
-                  desc={isBn ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)') : 'Active Relief Operations (2024-25)'}
+                  title={isBn ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন') : (cmsVolunteer.stat2TitleEn || 'Field Deployments')}
+                  desc={isBn ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)') : (cmsVolunteer.stat2DescEn || 'Active Relief Operations (2024-25)')}
                   fluctuateRange={[-1, 2]}
                   intervalMs={5800}
                 />
@@ -433,8 +435,8 @@ export default function VolunteerPage() {
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat3Value}
                   defaultBase={isBn ? '০' : '0'}
-                  title={isBn ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র') : 'Regional Dispatch Hubs'}
-                  desc={isBn ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে') : 'Covering 64 Districts Across Bangladesh'}
+                  title={isBn ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র') : (cmsVolunteer.stat3TitleEn || 'Regional Dispatch Hubs')}
+                  desc={isBn ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে') : (cmsVolunteer.stat3DescEn || 'Covering 64 Districts Across Bangladesh')}
                   fluctuateRange={[0, 1]}
                   intervalMs={7500}
                 />
@@ -442,8 +444,8 @@ export default function VolunteerPage() {
                 <DynamicLiveStatItem
                   baseValue={cmsVolunteer.stat4Value}
                   defaultBase="100%"
-                  title={isBn ? (cmsVolunteer.stat4Title || 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ') : 'Certified Safety Training'}
-                  desc={isBn ? (cmsVolunteer.stat4Desc || 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড') : 'Shariah Volunteer Ethics & First Aid'}
+                  title={isBn ? (cmsVolunteer.stat4Title || 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ') : (cmsVolunteer.stat4TitleEn || 'Certified Safety Training')}
+                  desc={isBn ? (cmsVolunteer.stat4Desc || 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড') : (cmsVolunteer.stat4DescEn || 'Shariah Volunteer Ethics & First Aid')}
                   fluctuateRange={[0, 0]}
                   intervalMs={10000}
                 />

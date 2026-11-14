@@ -17,6 +17,7 @@ export type SitePageKey =
 
 export interface SiteCMSContent {
   header_footer: {
+    [key: string]: any;
     logoImage: string;
     footerLogoImage: string;
     slogan: string;
@@ -42,6 +43,7 @@ export interface SiteCMSContent {
     navDonateBtn: string;
   };
   home: {
+    [key: string]: any;
     heroBadge: string;
     heroTitle: string;
     heroSubtitle: string;
@@ -107,6 +109,7 @@ export interface SiteCMSContent {
     story2Image?: string;
   };
   about: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -162,6 +165,7 @@ export interface SiteCMSContent {
     office3Email?: string;
   };
   sponsor_orphan: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -182,6 +186,7 @@ export interface SiteCMSContent {
     ctaSubheading: string;
   };
   upcoming_projects: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -198,6 +203,7 @@ export interface SiteCMSContent {
     project3Desc: string;
   };
   impact: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -223,6 +229,7 @@ export interface SiteCMSContent {
     videoDuration?: string;
   };
   zakat_calculator: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -237,6 +244,7 @@ export interface SiteCMSContent {
     faq2A: string;
   };
   gallery: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -248,6 +256,7 @@ export interface SiteCMSContent {
     bottomNotice: string;
   };
   volunteer: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -273,6 +282,7 @@ export interface SiteCMSContent {
     contactNotice: string;
   };
   appeals: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -282,6 +292,7 @@ export interface SiteCMSContent {
     stat2Label?: string;
   };
   news: {
+    [key: string]: any;
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
@@ -560,6 +571,270 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
   },
 };
 
+export const DEFAULT_CMS_CONTENT_EN: SiteCMSContent = {
+  header_footer: {
+    logoImage: '/images/gmcf-logo-full.png',
+    footerLogoImage: '/images/gmcf-logo-full.png',
+    slogan: '“Your Kindness is someone\'s hope”',
+    hotline: '01913119525',
+    email: 'gmcfoundation2022@gmail.com',
+    address: 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh',
+    registrationNo: 'Govt Reg: S-14086/2023',
+    chairmanName: 'Mohammad Ali Mostafa',
+    facebookUrl: 'https://facebook.com/globalmuslimcharitablefoundation',
+    youtubeUrl: 'https://youtube.com',
+    whatsappNumber: '+8801913119525',
+    instagramUrl: 'https://instagram.com',
+    linkedinUrl: 'https://linkedin.com',
+    twitterUrl: 'https://twitter.com',
+    copyrightText: '© 2026 Global Muslim Charitable Foundation (GMCF). All Rights Reserved.',
+    navAbout: 'About Us',
+    navOrphan: 'Sponsor an Orphan',
+    navUpcoming: 'Upcoming Projects',
+    navProjects: 'Our Projects',
+    navZakat: 'Zakat Calculator',
+    navGallery: 'Photo Gallery',
+    navVolunteer: 'Volunteer Force',
+    navDonateBtn: 'Online Donation',
+  },
+  home: {
+    heroBadge: '100% Zakat Policy Guaranteed & Registered NGO',
+    heroTitle: 'Empowering Lives Through Faith, Compassion & Stewardship',
+    heroSubtitle: 'Transforming vulnerable communities across Bangladesh and beyond with emergency nourishment, pediatric surgical care, and sustainable Zakat empowerment programs.',
+    heroPrimaryBtn: 'Make an Immediate Donation',
+    heroSecondaryBtn: 'View Active Appeals & Impact',
+    heroBgImage: '/images/hero-relief.jpg',
+    heroBadge1Value: '0',
+    heroBadge1Label: 'Nutritious Meals Served',
+    heroBadge2Value: '0',
+    heroBadge2Label: 'Pediatric Surgery & Care',
+    heroBadge3Value: '100%',
+    heroBadge3Label: 'Shariah Zakat Policy',
+    bannerStat1Value: '0',
+    bannerStat1Title: 'Meal Distribution',
+    bannerStat1Desc: 'Railways & Urban Slums',
+    bannerStat2Value: '0',
+    bannerStat2Title: 'Child Medical Treatment',
+    bannerStat2Desc: 'Pediatric Surgery & Medicine',
+    bannerStat3Value: '0',
+    bannerStat3Title: 'Clean Water Wells & Sanitation',
+    bannerStat3Desc: 'Deep Groundwater & Hygiene Centers',
+    bannerStat4Value: '100%',
+    bannerStat4Title: 'Verified by Shariah Board',
+    bannerStat4Desc: 'Zero overhead deducted from Zakat',
+    statsDonors: '0',
+    statsProjects: '0',
+    statsBeneficiaries: '0',
+    statsTransparency: '100% Transparency',
+    quickDonationHeading: 'Instant General Donation & Sadaqah',
+    quickDonationSubheading: 'Instant donation via bKash, Nagad, Cards with seamless EPS gateway.',
+    appealTitle: 'Active Emergency Appeals & Dedicated Funds',
+    appealSubtitle: 'Extend your hand towards immediate relief, permanent shelter, clean water, and orphan guardianship.',
+    waterSectionTitle: 'Clean Drinking Water & Deep Tube-Well Projects',
+    waterSectionDesc: 'Securing permanent potable water access across remote arsenic and drought affected communities.',
+    waterSectionCost: '৳65,000',
+    waterSectionImage: '/images/clean-water-well.jpg',
+    foodSectionTitle: 'One Meal One Hope — Nourishing the Hungry',
+    foodSectionDesc: 'Daily nutritious food distribution for street children and destitute urban families.',
+    foodSectionCost: '৳120 per meal',
+    foodSectionImage: '/images/drive-food-1.jpg',
+    ctaBannerTitle: 'Make Your Zakat the Lifeline for Desperate Families',
+    ctaBannerDesc: 'Committed to 100% transparency and delivering directly into the hands of verified Mustahiq.',
+    ctaBannerBtn: 'Donate to Zakat Fund Now',
+    volunteerSectionBadge: 'Community Action & Stewardship',
+    volunteerSectionTitle: 'Join Our Dedicated Youth Volunteers',
+    volunteerCount: '0',
+    volunteerCountLabel: 'Active Youth',
+    volunteerSubtext: 'Dedicated frontline relief volunteers',
+    storySectionBadge: 'Documented Field Impact',
+    storySectionTitle: 'Real Life Transformations: A Mother & Child Reunited',
+    storySectionSubtitle: 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to destitute families.',
+    story1Tag: 'Family Reconnection & Child Welfare',
+    story1Location: 'Tejgaon Community Center • Verified by Local Authorities',
+    story1Title: '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion',
+    story1Desc: 'Found wandering distressed near railway terminals, 8-year-old Badshah was protected by our team and reunited with his mother after 21 days of intensive investigation.',
+    story1Image: '/images/badshah-reunion.jpg',
+    story2Title: "Saifan's Journey to Health & Recovery",
+    story2Desc: 'Born into extreme poverty with critical health risks, infant Saifan received emergency pediatric surgery and vital nutritional rehabilitation.',
+    story2Image: '/images/pediatric-hope-saifan.jpg',
+  },
+  about: {
+    pageBadge: 'Founded on Sacred Trust • Registered Charity #S-14086/2023',
+    pageTitle: 'Unyielding Integrity. Radical Transparency. Dignified Relief.',
+    pageSubtitle: 'Committed to zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.',
+    statZakatRatio: '100% Zakat Ratio',
+    statAdminCost: '৳0 Administrative Deductions',
+    statFamiliesUplifted: '0 Families Uplifted',
+    statAuditRating: 'Grade A Independent Audit',
+    storyResponseTime: '48 Hours',
+    storyResponseDesc: 'Emergency Disaster Response Time',
+    storyVolunteerCount: '0',
+    storyVolunteerDesc: 'Active Volunteers Nationwide',
+    pillarTitle: 'Four Pillars of Stewardship & Transparency',
+    pillarSubtitle: 'Islamic Shariah compliance and complete public accountability in all operations.',
+    pillar1Title: 'Shariah Integrity',
+    pillar1Desc: '100% of all Zakat donations are strictly ring-fenced. Zero admin fees deducted.',
+    pillar1Feature: 'Independent Fatwa Certified',
+    pillar2Title: 'Dignity & Tamleek',
+    pillar2Desc: 'Unconditional direct ownership (Tamleek) is granted immediately to verified Asnaf recipients.',
+    pillar2Feature: 'Direct Asset Transfer Protocol',
+    pillar3Title: 'Ground-Truth Verification',
+    pillar3Desc: 'Every distribution is documented with geo-tagged photographic evidence and national ID authentication.',
+    pillar3Feature: 'GPS Time-Stamped Audits',
+    pillar4Title: 'Radical Stewardship',
+    pillar4Desc: '100% of staff salaries, operations, and logistics are financed by separate institutional endowment funds.',
+    pillar4Feature: 'Zero-Admin Overhead Guarantee',
+    missionTitle: 'Our Sacred Mission',
+    missionDesc: 'Empowering marginalized and vulnerable families through Shariah-compliant Zakat and relief governance.',
+    visionTitle: 'Our Long-term Vision',
+    visionDesc: 'Achieving sustainable clean water, healthcare, and food security across disaster-prone communities.',
+    bannerImage: '/images/humanitarian-volunteers.jpg',
+    regTitle: 'Approved by the Government of Bangladesh',
+    regNumber: 'Registration No: S-14086/2023',
+    regDetails: 'Formally registered and licensed under the Societies Registration Act XXI of 1860.',
+    boardHeading: 'Distinguished Board of Trustees & Advisory Council',
+    boardSubheading: 'Guided by distinguished Islamic scholars, legal authorities, and community leaders.',
+    office1Title: 'Principal Head Office',
+    office1City: 'Savar, Dhaka (Bangladesh)',
+    office1Address: 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh',
+    office1Phone: '01913119525',
+    office1Email: 'gmcfoundation2022@gmail.com',
+    office2Title: 'UK Statutory Liaison',
+    office2City: 'London, United Kingdom',
+    office2Address: '104 Whitechapel High St, London E1 7PT, United Kingdom',
+    office2Phone: '+44 20 7946 0912',
+    office2Email: 'uk@gmcfoundation.org',
+    office3Title: 'North America Representative',
+    office3City: 'New York, United States',
+    office3Address: 'Jackson Heights, Queens, NY 11372, United States',
+    office3Phone: '+1 718 555 0194',
+    office3Email: 'usa@gmcfoundation.org',
+  },
+  sponsor_orphan: {
+    pageBadge: 'Sunnah of the Prophet (ﷺ) — Orphan Guardianship',
+    pageTitle: 'Bring a Smile to a Vulnerable Child, Accompany the Prophet (ﷺ) in Jannah',
+    pageSubtitle: 'The Prophet (ﷺ) said: "I and the sponsor of an orphan will be in Paradise like this" (joining his index and middle fingers) — Sahih al-Bukhari. Your monthly support changes an orphan\'s entire destiny.',
+    hadithQuote: '“I and the one who looks after an orphan will be together in Paradise like this.”',
+    hadithSource: 'Sahih al-Bukhari, Hadith 5304',
+    monthlyCostBdt: '3,500',
+    benefit1: 'Regular nutritious meals and secure, hygienic shelter',
+    benefit2: 'Quality formal schooling and Holy Quran Tahfeez education',
+    benefit3: 'Essential healthcare, seasonal clothing, and Eid gifts',
+    benefit4: 'Continuous progress reports and direct video updates',
+    package1Title: 'Monthly Basic Sponsorship',
+    package1Price: '৳3,500 / month',
+    package2Title: 'Annual Full Education & Boarding',
+    package2Price: '৳42,000 / year',
+    package3Title: 'Lifetime Quran Hifz Fund',
+    package3Price: '৳100,000 one-time',
+    ctaHeading: 'Take Responsibility for an Orphan Today',
+    ctaSubheading: 'Every penny of your donation is dedicated directly to the child\'s bright future.',
+  },
+  upcoming_projects: {
+    pageBadge: 'Perpetual Sadaqah Jariyah & Future Strategic Blueprint',
+    pageTitle: 'Our Upcoming Projects — Partner in Lasting Goodness',
+    pageSubtitle: 'Beyond temporary relief, GMCF establishes long-term sustainable infrastructure to permanently transform marginalized communities.',
+    featuredProjectTitle: 'Project Noor — State-of-the-Art Tahfeez & Technical Complex',
+    featuredProjectTarget: '5,000,000',
+    featuredProjectDesc: 'Construction of a modern complex for religious and technical IT education for underprivileged children.',
+    featuredProjectLocation: 'Savar, Dhaka',
+    featuredProjectImage: '/images/drive-house-1.jpg',
+    project2Title: 'Solar Water Treatment Plant (Coastal Belt)',
+    project2Target: '2,500,000',
+    project2Desc: 'Desalination and pure drinking water station for coastal families.',
+    project3Title: 'Emergency Mobile Medical Clinic & Ambulance',
+    project3Target: '3,000,000',
+    project3Desc: 'Mobile healthcare vans providing emergency triage across flooded riverine islands.',
+  },
+  impact: {
+    pageBadge: 'Field-Tested & Verified Impact • 100% Shariah Audited',
+    pageTitle: 'Our Projects — Driving Lasting Change in Humanity',
+    pageSubtitle: 'Every GMCF project directly impacts frontline lives: permanent shelters, One Meal One Hope, sight restorations, or clean deep tube-wells.',
+    waterWellsCount: '0',
+    waterWellsLabel: 'Clean Water Tube-Wells',
+    mealsDelivered: '0',
+    mealsDeliveredLabel: 'Food Packs Distributed',
+    familiesRehabilitated: '0',
+    familiesRehabilitatedLabel: 'Rehabilitated Families',
+    healthcareProvided: '0',
+    orphansSupported: '0',
+    districtsCovered: '0',
+    districtsCoveredLabel: 'District Coverage',
+    summaryHeading: '100% Financial Transparency & Chartered Audits',
+    summaryText: 'Bank statements, vouchers, and ground-truth video logs are made open to all verified donors.',
+    reportDownloadTitle: 'Download Annual Audit Report (PDF)',
+    videoBadge: 'Field Documentary • Monthly Operations',
+    videoTitle: 'Nourishing the Forgotten in the Dead of Night',
+    videoSubtitle: 'Direct field footage of midnight hot meal distributions and clean water delivery across Dhaka streets.',
+    videoUrl: '',
+    videoCoverImage: '/images/volunteers-cooking-pots.jpg',
+    videoDuration: '3 min 35 sec',
+  },
+  zakat_calculator: {
+    pageBadge: '100% Zakat Policy Guaranteed',
+    pageTitle: 'Purify Your Wealth — With Absolute Shariah Precision',
+    pageSubtitle: 'Your Zakat reaches verified Asnaf families with zero operational or admin cuts. Strict scholar supervision and direct Tamleek transfer.',
+    nisabSilverBdt: '95,000',
+    nisabGoldBdt: '750,000',
+    ruleText: 'Zakat of 2.5% becomes obligatory on qualifying surplus wealth held for one full lunar year exceeding the Nisab threshold.',
+    policyHeading: '100% Direct Tamleek Policy',
+    policyDescription: 'Zero overhead is deducted from Zakat. 100% is transferred into the unconditional possession of verified Mustahiq.',
+    faq1Q: 'How do I calculate Zakat on gold jewellery?',
+    faq1A: 'If you possess 7.5 tola (87.48g) of gold or surplus assets of equivalent Nisab value, 2.5% is due at current market rate.',
+    faq2Q: 'How is Zakat calculated on commercial merchandise?',
+    faq2A: 'Take the wholesale inventory value at the end of the Zakat year, minus current liabilities, and pay 2.5% on the balance.',
+  },
+  gallery: {
+    pageBadge: 'Global Muslim Charitable Foundation — Field Photo Gallery',
+    pageTitle: 'Photographic Dispatches from the Humanitarian Frontline',
+    pageSubtitle: 'Witness how your Zakat and Sadaqah bring light to vulnerable lives through project albums and verified recipient stories.',
+    filterAll: 'All Visuals',
+    filterFood: 'Food Aid',
+    filterWater: 'Clean Water',
+    filterOrphan: 'Orphan Care',
+    filterShelter: 'Shelter & Housing',
+    bottomNotice: 'All photographs are documented by GMCF field officers and verified volunteers.',
+  },
+  volunteer: {
+    pageBadge: 'Frontline Humanitarian Action • Join Our Volunteer Force',
+    pageTitle: 'Be the Guiding Light in Communities Facing Crisis',
+    pageSubtitle: 'Distributing hot meals at railway platforms, delivering blankets in flood zones, or assisting pediatric surgeons—your service saves lives.',
+    stat1Value: '0',
+    stat1Title: 'Active Youth Volunteers',
+    stat1Desc: 'University & local community clubs',
+    stat2Value: '0',
+    stat2Title: 'Field Deployments',
+    stat2Desc: 'Active emergency relief missions (2024-25)',
+    stat3Value: '0',
+    stat3Title: 'Regional Distribution Hubs',
+    stat3Desc: 'Covering 64 districts across Bangladesh',
+    stat4Value: '100%',
+    stat4Title: 'Certified Safety & Shariah Training',
+    stat4Desc: 'Shariah volunteer code & First Aid certified',
+    formHeading: 'Volunteer Registration Application',
+    formSubheading: 'Complete the required details below to join our nationwide frontline humanitarian force.',
+    joinRequirement: 'Minimum age 18, absolute integrity, and dedication to serving humanity.',
+    benefit1: 'Direct firsthand experience serving vulnerable communities',
+    benefit2: 'Official Volunteer Certificate & leadership portfolio',
+    benefit3: 'National disaster response & First Aid training',
+    contactNotice: 'Our coordination team will contact you within 7 working days.',
+  },
+  appeals: {
+    pageBadge: 'Verified Field Operations • 100% Direct Delivery',
+    pageTitle: 'Active Humanitarian Appeals & Emergency Funds',
+    pageSubtitle: 'Channel your Zakat and Sadaqah to malnourished children, destitute widows, deep tube-wells, and urgent surgeries.',
+    stat1Value: '100%',
+    stat1Label: 'Zakat Guarantee • Zero Admin Cut',
+    stat2Value: '0',
+    stat2Label: 'Families Directly Sheltered & Uplifted',
+  },
+  news: {
+    pageBadge: 'Field News & Humanitarian Dispatches',
+    pageTitle: 'Direct Field Reports & Humanitarian Updates',
+    pageSubtitle: 'Ground-truth dispatches covering emergency relief distributions, arsenic-free tube-wells, and orphan care.',
+  },
+};
+
 interface CMSContextValue {
   cms: SiteCMSContent;
   updatePageContent: <K extends SitePageKey>(pageKey: K, newContent: Partial<SiteCMSContent[K]>) => void;
@@ -571,8 +846,39 @@ const CMSContext = createContext<CMSContextValue | null>(null);
 
 const STORAGE_KEY = 'gmcf:site_cms_v2';
 
+function mergePageWithEnDefaults(pageKey: SitePageKey, parsedPage: any) {
+  const bn = (DEFAULT_CMS_CONTENT as any)[pageKey] || {};
+  const en = (DEFAULT_CMS_CONTENT_EN as any)[pageKey] || {};
+  const merged: any = { ...bn };
+
+  // Set default English keys ${k}En
+  for (const [k, v] of Object.entries(en)) {
+    merged[`${k}En`] = v;
+  }
+
+  // Overlay user edits
+  if (parsedPage && typeof parsedPage === 'object') {
+    Object.assign(merged, parsedPage);
+  }
+
+  return merged;
+}
+
+function getInitialCMS(): SiteCMSContent {
+  const pageKeys: SitePageKey[] = [
+    'header_footer', 'home', 'about', 'sponsor_orphan',
+    'upcoming_projects', 'impact', 'zakat_calculator',
+    'gallery', 'volunteer', 'appeals', 'news'
+  ];
+  const initial: any = {};
+  for (const pk of pageKeys) {
+    initial[pk] = mergePageWithEnDefaults(pk, null);
+  }
+  return initial;
+}
+
 export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
-  const [cms, setCms] = useState<SiteCMSContent>(DEFAULT_CMS_CONTENT);
+  const [cms, setCms] = useState<SiteCMSContent>(getInitialCMS);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -809,21 +1115,16 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (!parsed.volunteer.stat4Title) parsed.volunteer.stat4Title = 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ';
           if (!parsed.volunteer.stat4Desc) parsed.volunteer.stat4Desc = 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড';
         }
-        setCms(prev => ({
-          ...DEFAULT_CMS_CONTENT,
-          ...parsed,
-          header_footer: { ...DEFAULT_CMS_CONTENT.header_footer, ...(parsed.header_footer || {}) },
-          home: { ...DEFAULT_CMS_CONTENT.home, ...(parsed.home || {}) },
-          about: { ...DEFAULT_CMS_CONTENT.about, ...(parsed.about || {}) },
-          sponsor_orphan: { ...DEFAULT_CMS_CONTENT.sponsor_orphan, ...(parsed.sponsor_orphan || {}) },
-          upcoming_projects: { ...DEFAULT_CMS_CONTENT.upcoming_projects, ...(parsed.upcoming_projects || {}) },
-          impact: { ...DEFAULT_CMS_CONTENT.impact, ...(parsed.impact || {}) },
-          zakat_calculator: { ...DEFAULT_CMS_CONTENT.zakat_calculator, ...(parsed.zakat_calculator || {}) },
-          gallery: { ...DEFAULT_CMS_CONTENT.gallery, ...(parsed.gallery || {}) },
-          volunteer: { ...DEFAULT_CMS_CONTENT.volunteer, ...(parsed.volunteer || {}) },
-          appeals: { ...DEFAULT_CMS_CONTENT.appeals, ...(parsed.appeals || {}) },
-          news: { ...DEFAULT_CMS_CONTENT.news, ...(parsed.news || {}) },
-        }));
+        const pageKeys: SitePageKey[] = [
+          'header_footer', 'home', 'about', 'sponsor_orphan',
+          'upcoming_projects', 'impact', 'zakat_calculator',
+          'gallery', 'volunteer', 'appeals', 'news'
+        ];
+        const loaded: any = {};
+        for (const pk of pageKeys) {
+          loaded[pk] = mergePageWithEnDefaults(pk, parsed[pk]);
+        }
+        setCms(loaded);
       }
     } catch (e) {
       console.error('Failed to load CMS content from localStorage:', e);

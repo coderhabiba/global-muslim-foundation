@@ -33,7 +33,7 @@ export default function AboutPage() {
                 <span className="font-bold text-xs text-emerald-900 tracking-wide">
                   {isBn
                     ? (cms.about.pageBadge || 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930')
-                    : 'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930'}
+                    : (cms.about.pageBadgeEn || 'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930')}
                 </span>
               </div>
 
@@ -84,12 +84,14 @@ export default function AboutPage() {
                     return title;
                   })()
                 ) : (
-                  <>
-                    Faithful Stewardship. Absolute Transparency.{' '}
-                    <span className="text-amber-600 dark:text-amber-500">
-                      Dignified Humanitarian Action.
-                    </span>
-                  </>
+                  cms.about.pageTitleEn || (
+                    <>
+                      Faithful Stewardship. Absolute Transparency.{' '}
+                      <span className="text-amber-600 dark:text-amber-500">
+                        Dignified Humanitarian Action.
+                      </span>
+                    </>
+                  )
                 )}
               </h1>
 
@@ -98,7 +100,7 @@ export default function AboutPage() {
               <p className="font-body-lg text-body-lg text-slate-600 max-w-3xl leading-relaxed mb-10">
                 {isBn
                   ? (cms.about.pageSubtitle || 'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।')
-                  : 'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.'}
+                  : (cms.about.pageSubtitleEn || 'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.')}
               </p>
 
               {/* Institutional Metrics Quick-Bar */}
@@ -179,17 +181,17 @@ export default function AboutPage() {
                       01. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      {isBn ? (cms.about.pillar1Title || 'শরীয়াহ সততা ও বিশ্বস্ততা (Shariah Integrity)') : 'Shariah Integrity'}
+                      {isBn ? (cms.about.pillar1Title || 'শরীয়াহ সততা ও বিশ্বস্ততা (Shariah Integrity)') : (cms.about.pillar1TitleEn || 'Shariah Integrity')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      {isBn ? (cms.about.pillar1Desc || 'প্রতিটি যাকাত ও সদকাহ তহবিল সুনির্দিষ্ট শরীয়াহ নীতিমালায় ১০০% বিশ্বস্ততার সাথে সরাসরি হকদারদের কাছে পৌঁছানো হয়।') : '100% of all Zakat donations are strictly ring-fenced in a non-interest treasury account. Zero admin fees deducted.'}
+                      {isBn ? (cms.about.pillar1Desc || 'প্রতিটি যাকাত ও সদকাহ তহবিল সুনির্দিষ্ট শরীয়াহ নীতিমালায় ১০০% বিশ্বস্ততার সাথে সরাসরি হকদারদের কাছে পৌঁছানো হয়।') : (cms.about.pillar1DescEn || '100% of all Zakat donations are strictly ring-fenced in a non-interest treasury account. Zero admin fees deducted.')}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>{isBn ? (cms.about.pillar1Feature || 'স্বতন্ত্র শরীয়াহ বোর্ড অনুমোদিত') : 'Independent Fatwa Certified'}</span>
+                    <span>{isBn ? (cms.about.pillar1Feature || 'স্বতন্ত্র শরীয়াহ বোর্ড অনুমোদিত') : (cms.about.pillar1FeatureEn || 'Independent Fatwa Certified')}</span>
                   </div>
                 </div>
 
@@ -209,17 +211,17 @@ export default function AboutPage() {
                       02. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      {isBn ? (cms.about.pillar2Title || 'মর্যাদা ও পূর্ণ তামলিক (Dignity & Tamleek)') : 'Dignity & Tamleek'}
+                      {isBn ? (cms.about.pillar2Title || 'মর্যাদা ও পূর্ণ তামলিক (Dignity & Tamleek)') : (cms.about.pillar2TitleEn || 'Dignity & Tamleek')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      {isBn ? (cms.about.pillar2Desc || 'সহায়তা প্রদানের ক্ষেত্রে সুবিধাভোগীদের সম্মান রক্ষা এবং প্রত্যক্ষ মালিকানা নিশ্চিত করা আমাদের প্রধান নীতি।') : 'Unconditional direct ownership (Tamleek) is granted immediately to verified Asnaf recipients without intermediate institutional capture.'}
+                      {isBn ? (cms.about.pillar2Desc || 'সহায়তা প্রদানের ক্ষেত্রে সুবিধাভোগীদের সম্মান রক্ষা এবং প্রত্যক্ষ মালিকানা নিশ্চিত করা আমাদের প্রধান নীতি।') : (cms.about.pillar2DescEn || 'Unconditional direct ownership (Tamleek) is granted immediately to verified Asnaf recipients without intermediate institutional capture.')}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>{isBn ? (cms.about.pillar2Feature || 'প্রত্যক্ষ সম্পদ হস্তান্তর নীতিমালা') : 'Direct Asset Transfer Protocol'}</span>
+                    <span>{isBn ? (cms.about.pillar2Feature || 'প্রত্যক্ষ সম্পদ হস্তান্তর নীতিমালা') : (cms.about.pillar2FeatureEn || 'Direct Asset Transfer Protocol')}</span>
                   </div>
                 </div>
 
@@ -239,17 +241,17 @@ export default function AboutPage() {
                       03. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      {isBn ? (cms.about.pillar3Title || 'মাঠপর্যায়ে কঠোর যাচাই (Ground-Truth Verification)') : 'Ground-Truth Verification'}
+                      {isBn ? (cms.about.pillar3Title || 'মাঠপর্যায়ে কঠোর যাচাই (Ground-Truth Verification)') : (cms.about.pillar3TitleEn || 'Ground-Truth Verification')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      {isBn ? (cms.about.pillar3Desc || 'প্রতিটি বিতরণ কার্যক্রম জিও-ট্যাগ ছবি, জাতীয় পরিচয়পত্র যাচাই এবং স্বচ্ছ মাস্টাররোলের মাধ্যমে নথিবদ্ধ করা হয়।') : 'Every distribution is documented with geo-tagged photographic evidence, national ID authentication, and signed beneficiary ledgers.'}
+                      {isBn ? (cms.about.pillar3Desc || 'প্রতিটি বিতরণ কার্যক্রম জিও-ট্যাগ ছবি, জাতীয় পরিচয়পত্র যাচাই এবং স্বচ্ছ মাস্টাররোলের মাধ্যমে নথিবদ্ধ করা হয়।') : (cms.about.pillar3DescEn || 'Every distribution is documented with geo-tagged photographic evidence, national ID authentication, and signed beneficiary ledgers.')}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>{isBn ? (cms.about.pillar3Feature || 'জিপিএস সময়-চিহ্নিত অডিট রেকর্ড') : 'GPS Time-Stamped Audits'}</span>
+                    <span>{isBn ? (cms.about.pillar3Feature || 'জিপিএস সময়-চিহ্নিত অডিট রেকর্ড') : (cms.about.pillar3FeatureEn || 'GPS Time-Stamped Audits')}</span>
                   </div>
                 </div>
 
@@ -269,17 +271,17 @@ export default function AboutPage() {
                       04. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      {isBn ? (cms.about.pillar4Title || 'স্বাধীন প্রশাসন ও জিরো-ওভারহেড (Radical Stewardship)') : 'Radical Stewardship'}
+                      {isBn ? (cms.about.pillar4Title || 'স্বাধীন প্রশাসন ও জিরো-ওভারহেড (Radical Stewardship)') : (cms.about.pillar4TitleEn || 'Radical Stewardship')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      {isBn ? (cms.about.pillar4Desc || 'সকল প্রশাসনিক ও অপারেশনাল ব্যয় স্বতন্ত্র প্রাতিষ্ঠানিক তহবিল থেকে নির্বাহ করা হয়—সাধারণ অনুদান শতভাগ মাঠেই যায়।') : '100% of staff salaries, operational costs, software platforms, and vehicle logistics are underwritten separately through an endowment.'}
+                      {isBn ? (cms.about.pillar4Desc || 'সকল প্রশাসনিক ও অপারেশনাল ব্যয় স্বতন্ত্র প্রাতিষ্ঠানিক তহবিল থেকে নির্বাহ করা হয়—সাধারণ অনুদান শতভাগ মাঠেই যায়।') : (cms.about.pillar4DescEn || '100% of staff salaries, operational costs, software platforms, and vehicle logistics are underwritten separately through an endowment.')}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>{isBn ? (cms.about.pillar4Feature || '১০০% জিরো-প্রশাসনিক কর্তন গ্যারান্টি') : 'Zero-Cost Public Donorship'}</span>
+                    <span>{isBn ? (cms.about.pillar4Feature || '১০০% জিরো-প্রশাসনিক কর্তন গ্যারান্টি') : (cms.about.pillar4FeatureEn || 'Zero-Cost Public Donorship')}</span>
                   </div>
                 </div>
               </div>
@@ -550,7 +552,7 @@ export default function AboutPage() {
                       <span className="font-body-sm text-body-sm text-text-muted">
                         {isBn
                           ? (cms.about.storyResponseDesc || 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়')
-                          : 'Max response time during cyclone & flood crises'}
+                          : (cms.about.storyResponseDescEn || 'Max response time during cyclone & flood crises')}
                       </span>
                     </div>
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
@@ -564,7 +566,7 @@ export default function AboutPage() {
                       <span className="font-body-sm text-body-sm text-text-muted">
                         {isBn
                           ? (cms.about.storyVolunteerDesc || 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক')
-                          : 'Registered youth volunteers across all 64 districts'}
+                          : (cms.about.storyVolunteerDescEn || 'Registered youth volunteers across all 64 districts')}
                       </span>
                     </div>
                   </div>
@@ -647,14 +649,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {isBn ? (cms.about.office1Title || 'প্রধান কার্যালয়') : 'Principal Head Office'}
+                        {isBn ? (cms.about.office1Title || 'প্রধান কার্যালয়') : (cms.about.office1TitleEn || 'Principal Head Office')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         flag
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {isBn ? (cms.about.office1City || 'সাভার, ঢাকা') : 'Savar, Dhaka (Bangladesh)'}
+                      {isBn ? (cms.about.office1City || 'সাভার, ঢাকা') : (cms.about.office1CityEn || 'Savar, Dhaka (Bangladesh)')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office1Address || 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh'}
@@ -692,14 +694,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {isBn ? (cms.about.office2Title || 'যুক্তরাজ্য লিয়াজোঁ') : 'UK Statutory Liaison'}
+                        {isBn ? (cms.about.office2Title || 'যুক্তরাজ্য লিয়াজোঁ') : (cms.about.office2TitleEn || 'UK Statutory Liaison')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         account_balance
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {isBn ? (cms.about.office2City || 'লন্ডন, যুক্তরাজ্য') : 'London, United Kingdom'}
+                      {isBn ? (cms.about.office2City || 'লন্ডন, যুক্তরাজ্য') : (cms.about.office2CityEn || 'London, United Kingdom')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office2Address || '104 Whitechapel High St, London E1 7PT, United Kingdom'}
@@ -733,14 +735,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {isBn ? (cms.about.office3Title || 'উত্তর আমেরিকা প্রতিনিধি') : 'North America Representative'}
+                        {isBn ? (cms.about.office3Title || 'উত্তর আমেরিকা প্রতিনিধি') : (cms.about.office3TitleEn || 'North America Representative')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         public
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {isBn ? (cms.about.office3City || 'নিউ ইয়র্ক, যুক্তরাষ্ট্র') : 'New York, United States'}
+                      {isBn ? (cms.about.office3City || 'নিউ ইয়র্ক, যুক্তরাষ্ট্র') : (cms.about.office3CityEn || 'New York, United States')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office3Address || 'Rockefeller Center Plaza, 45 Rockefeller Plaza, New York, NY 10111'}

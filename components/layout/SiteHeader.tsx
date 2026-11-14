@@ -44,6 +44,17 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
     ? '/appeals'
     : pathname;
 
+  const getNavLabel = (item: typeof NAV_ITEMS[number]) => {
+    if (item.href === '/about') return isBn ? (cms.header_footer.navAbout || item.bn) : (cms.header_footer.navAboutEn || item.en);
+    if (item.href === '/sponsor-orphan') return isBn ? (cms.header_footer.navOrphan || item.bn) : (cms.header_footer.navOrphanEn || item.en);
+    if (item.href === '/upcoming-projects') return isBn ? (cms.header_footer.navUpcoming || item.bn) : (cms.header_footer.navUpcomingEn || item.en);
+    if (item.href === '/impact') return isBn ? (cms.header_footer.navProjects || item.bn) : (cms.header_footer.navProjectsEn || item.en);
+    if (item.href === '/zakat-calculator') return isBn ? (cms.header_footer.navZakat || item.bn) : (cms.header_footer.navZakatEn || item.en);
+    if (item.href === '/gallery') return isBn ? (cms.header_footer.navGallery || item.bn) : (cms.header_footer.navGalleryEn || item.en);
+    if (item.href === '/volunteer') return isBn ? (cms.header_footer.navVolunteer || item.bn) : (cms.header_footer.navVolunteerEn || item.en);
+    return isBn ? (item as any).bn : (item as any).en;
+  };
+
   useEffect(() => {
     function handleDocumentClick(event: MouseEvent) {
       if (!headerRef.current?.contains(event.target as Node)) {
@@ -80,7 +91,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
               className="h-8 sm:h-10 w-auto max-w-[150px] xs:max-w-[185px] sm:max-w-[220px] object-contain group-hover:scale-[1.01] transition-transform duration-200"
             />
             <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-800/90 tracking-tight leading-none mt-1 hidden xs:inline-block italic">
-              {cms.header_footer.slogan}
+              {isBn ? (cms.header_footer.slogan || '“Your Kindness is someone\'s hope”') : (cms.header_footer.sloganEn || cms.header_footer.slogan || '“Your Kindness is someone\'s hope”')}
             </span>
           </Link>
         </div>
@@ -89,7 +100,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[13px] xl:text-[14px] font-semibold text-slate-700">
           {NAV_ITEMS.map(item => {
             const isActive = !isSimple && item.href === activeHref;
-            const label = isBn ? item.bn : item.en;
+            const label = getNavLabel(item);
 
             return (
               <Link
@@ -208,7 +219,7 @@ export default function SiteHeader({ variant = 'default' }: SiteHeaderProps) {
         <nav className="max-h-[calc(100dvh-6.5rem)] overflow-y-auto px-3 pb-2 pt-2 flex flex-col gap-0.5 text-sm font-semibold text-slate-700">
           {NAV_ITEMS.map(item => {
             const isActive = !isSimple && item.href === activeHref;
-            const label = isBn ? item.bn : item.en;
+            const label = getNavLabel(item);
 
             return (
               <Link

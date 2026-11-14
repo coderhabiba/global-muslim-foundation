@@ -221,7 +221,7 @@ export default function HomePage() {
                     shield_with_heart
                   </span>
                   <span className="">
-                    {isBn ? cms.home.heroBadge : 'Trusted Global Humanitarian Relief & Shariah Stewardship'}
+                    {isBn ? cms.home.heroBadge : (cms.home.heroBadgeEn || 'Trusted Global Humanitarian Relief & Shariah Stewardship')}
                   </span>
                 </div>
                 <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-[54px] font-bold text-on-surface tracking-tight leading-[1.15]">
@@ -253,12 +253,14 @@ export default function HomePage() {
                       );
                     })()
                   ) : (
-                    <>
-                      Empowering Lives Through Faith,{' '}
-                      <span className="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">
-                        Compassion &amp; Stewardship
-                      </span>
-                    </>
+                    cms.home.heroTitleEn || (
+                      <>
+                        Empowering Lives Through Faith,{' '}
+                        <span className="text-primary italic underline decoration-gold-warm decoration-4 underline-offset-8">
+                          Compassion &amp; Stewardship
+                        </span>
+                      </>
+                    )
                   )}
                 </h1>
                 <p className="text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
@@ -266,12 +268,14 @@ export default function HomePage() {
                     cms.home.heroSubtitle ||
                     'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।'
                   ) : (
-                    <>
-                      <strong>One Meal One Hope</strong> — Transforming vulnerable
-                      communities across Bangladesh and beyond with emergency
-                      nourishment, pediatric surgical care, and sustainable Zakat
-                      empowerment programs.
-                    </>
+                    cms.home.heroSubtitleEn || (
+                      <>
+                        <strong>One Meal One Hope</strong> — Transforming vulnerable
+                        communities across Bangladesh and beyond with emergency
+                        nourishment, pediatric surgical care, and sustainable Zakat
+                        empowerment programs.
+                      </>
+                    )
                   )}
                 </p>
 
@@ -294,7 +298,7 @@ export default function HomePage() {
                         />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
-                        {isBn ? (cms.home.heroBadge1Label || 'পুষ্টিকর খাবার পরিবেশন') : 'Nutritious Meals Served'}
+                        {isBn ? (cms.home.heroBadge1Label || 'পুষ্টিকর খাবার পরিবেশন') : (cms.home.heroBadge1LabelEn || 'Nutritious Meals Served')}
                       </p>
                     </div>
                   </div>
@@ -315,7 +319,7 @@ export default function HomePage() {
                         />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
-                        {isBn ? (cms.home.heroBadge2Label || 'শিশু অস্ত্রোপচার ও সেবা') : 'Pediatric Surgery & Care'}
+                        {isBn ? (cms.home.heroBadge2Label || 'শিশু অস্ত্রোপচার ও সেবা') : (cms.home.heroBadge2LabelEn || 'Pediatric Surgery & Care')}
                       </p>
                     </div>
                   </div>
@@ -335,7 +339,7 @@ export default function HomePage() {
                         />
                       </p>
                       <p className="text-xs text-zinc-500 font-medium leading-tight truncate">
-                        {isBn ? (cms.home.heroBadge3Label || 'শরিয়াহ যাকাত নীতি') : 'Shariah Zakat Policy'}
+                        {isBn ? (cms.home.heroBadge3Label || 'শরিয়াহ যাকাত নীতি') : (cms.home.heroBadge3LabelEn || 'Shariah Zakat Policy')}
                       </p>
                     </div>
                   </div>
@@ -357,7 +361,7 @@ export default function HomePage() {
                     <span className="material-symbols-outlined text-[20px] text-amber-900">
                       volunteer_activism
                     </span>
-                    <span>{isBn ? (cms.home.heroPrimaryBtn || 'অনলাইন অনুদান দিন') : 'Make an Immediate Donation'}</span>
+                    <span>{isBn ? (cms.home.heroPrimaryBtn || 'অনলাইন অনুদান দিন') : (cms.home.heroPrimaryBtnEn || 'Make an Immediate Donation')}</span>
                   </button>
                   <Link
                     className="w-full sm:w-[260px] h-[52px] rounded-xl bg-surface-clean hover:bg-surface-subtle-mint text-primary font-bold text-sm border border-primary/20 shadow-sm transition-all flex items-center justify-center gap-2 shrink-0 text-center"
@@ -366,7 +370,7 @@ export default function HomePage() {
                     <span className="material-symbols-outlined text-[20px]">
                       explore
                     </span>
-                    <span>{isBn ? (cms.home.heroSecondaryBtn || 'আমাদের কার্যক্রম দেখুন') : 'View Active Appeals & Impact'}</span>
+                    <span>{isBn ? (cms.home.heroSecondaryBtn || 'আমাদের কার্যক্রম দেখুন') : (cms.home.heroSecondaryBtnEn || 'View Active Appeals & Impact')}</span>
                   </Link>
                 </div>
 
@@ -671,10 +675,10 @@ export default function HomePage() {
                   />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
-                  {isBn ? (cms.home.bannerStat1Title || 'খাবার বিতরণ') : 'Meal Distribution'}
+                  {isBn ? (cms.home.bannerStat1Title || 'খাবার বিতরণ') : (cms.home.bannerStat1TitleEn || 'Meal Distribution')}
                 </p>
                 <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
-                  {isBn ? (cms.home.bannerStat1Desc || 'রেললাইন ও শহরের বস্তি') : 'Railways & Urban Slums'}
+                  {isBn ? (cms.home.bannerStat1Desc || 'রেললাইন ও শহরের বস্তি') : (cms.home.bannerStat1DescEn || 'Railways & Urban Slums')}
                 </span>
               </div>
 
@@ -688,10 +692,10 @@ export default function HomePage() {
                   />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
-                  {isBn ? (cms.home.bannerStat2Title || 'শিশুদের চিকিৎসা') : 'Child Medical Treatment'}
+                  {isBn ? (cms.home.bannerStat2Title || 'শিশুদের চিকিৎসা') : (cms.home.bannerStat2TitleEn || 'Child Medical Treatment')}
                 </p>
                 <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
-                  {isBn ? (cms.home.bannerStat2Desc || 'শিশু অস্ত্রোপচার ও ওষুধ') : 'Pediatric Surgery & Medicine'}
+                  {isBn ? (cms.home.bannerStat2Desc || 'শিশু অস্ত্রোপচার ও ওষুধ') : (cms.home.bannerStat2DescEn || 'Pediatric Surgery & Medicine')}
                 </span>
               </div>
 
@@ -705,10 +709,10 @@ export default function HomePage() {
                   />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
-                  {isBn ? (cms.home.bannerStat3Title || 'বিশুদ্ধ পানির নলকূপ ও টয়লেট') : 'Clean Water Wells & Sanitation'}
+                  {isBn ? (cms.home.bannerStat3Title || 'বিশুদ্ধ পানির নলকূপ ও টয়লেট') : (cms.home.bannerStat3TitleEn || 'Clean Water Wells & Sanitation')}
                 </p>
                 <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
-                  {isBn ? (cms.home.bannerStat3Desc || 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র') : 'Deep Groundwater & Hygiene Centers'}
+                  {isBn ? (cms.home.bannerStat3Desc || 'গভীর ভূগর্ভস্থ পানি ও স্বাস্থ্যবিধি কেন্দ্র') : (cms.home.bannerStat3DescEn || 'Deep Groundwater & Hygiene Centers')}
                 </span>
               </div>
 
@@ -721,10 +725,10 @@ export default function HomePage() {
                   />
                 </div>
                 <p className="text-sm sm:text-base font-bold text-white mt-1.5 leading-snug">
-                  {isBn ? (cms.home.bannerStat4Title || 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত') : 'Verified by Shariah Board'}
+                  {isBn ? (cms.home.bannerStat4Title || 'শরিয়াহ বোর্ড কর্তৃক যাচাইকৃত') : (cms.home.bannerStat4TitleEn || 'Verified by Shariah Board')}
                 </p>
                 <span className="text-xs sm:text-[13px] text-emerald-200/80 block mt-0.5 leading-normal">
-                  {isBn ? (cms.home.bannerStat4Desc || 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়') : 'Zero overhead deducted from Zakat'}
+                  {isBn ? (cms.home.bannerStat4Desc || 'যাকাত থেকে শূন্য ওভারহেড কাটা হয়') : (cms.home.bannerStat4DescEn || 'Zero overhead deducted from Zakat')}
                 </span>
               </div>
             </div>
@@ -744,10 +748,10 @@ export default function HomePage() {
                   {isBn ? 'জরুরি মানবিক আবেদন' : 'Emergency Humanitarian Appeals'}
                 </div>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : 'Active Emergency Appeals & Dedicated Funds'}
+                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : (cms.home.appealTitleEn || 'Active Emergency Appeals & Dedicated Funds')}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant max-w-2xl mt-1.5">
-                  {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : 'Extend your hand towards immediate relief, permanent shelter, clean water, and orphan guardianship.'}
+                  {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : (cms.home.appealSubtitleEn || 'Extend your hand towards immediate relief, permanent shelter, clean water, and orphan guardianship.')}
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -903,13 +907,13 @@ export default function HomePage() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                {isBn ? (cms.home.storySectionBadge || 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প') : 'Documented Field Impact'}
+                {isBn ? (cms.home.storySectionBadge || 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প') : (cms.home.storySectionBadgeEn || 'Documented Field Impact')}
               </span>
               <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                {isBn ? (cms.home.storySectionTitle || 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন') : 'Real Life Transformations: A Mother & Child Reunited'}
+                {isBn ? (cms.home.storySectionTitle || 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন') : (cms.home.storySectionTitleEn || 'Real Life Transformations: A Mother & Child Reunited')}
               </h2>
               <p className="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
-                {isBn ? (cms.home.storySectionSubtitle || 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায় এবং অসহায় পরিবারগুলোকে আশার আলো দেখায়।') : 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to destitute families.'}
+                {isBn ? (cms.home.storySectionSubtitle || 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায় এবং অসহায় পরিবারগুলোকে আশার আলো দেখায়।') : (cms.home.storySectionSubtitleEn || 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to destitute families.')}
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -923,7 +927,7 @@ export default function HomePage() {
                     src={cms.home.story1Image || '/images/badshah-reunion.jpg'}
                   />
                   <div className="absolute bottom-4 left-4 bg-emerald-dark/95 text-white text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur shadow">
-                    {isBn ? (cms.home.story1Tag || 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ') : 'Family Reconnection & Child Welfare'}
+                    {isBn ? (cms.home.story1Tag || 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ') : (cms.home.story1TagEn || 'Family Reconnection & Child Welfare')}
                   </div>
                 </div>
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
@@ -933,14 +937,14 @@ export default function HomePage() {
                         verified
                       </span>
                       <span className="">
-                        {isBn ? (cms.home.story1Location || 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত') : 'Tejgaon Community Center • Verified by Local Authorities'}
+                        {isBn ? (cms.home.story1Location || 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত') : (cms.home.story1LocationEn || 'Tejgaon Community Center • Verified by Local Authorities')}
                       </span>
                     </div>
                     <h3 className="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">
-                      {isBn ? (cms.home.story1Title || '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা') : '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion'}
+                      {isBn ? (cms.home.story1Title || '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা') : (cms.home.story1TitleEn || '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion')}
                     </h3>
                     <p className="text-sm text-on-surface-variant mt-3 leading-relaxed">
-                      {isBn ? (cms.home.story1Desc || 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের অশ্রুসজল চোখে কোলে ফিরিয়ে দেওয়া হয়।') : 'Found wandering distressed near railway terminals, 8-year-old Badshah was protected by our team and reunited with his mother after 21 days of intensive investigation.'}
+                      {isBn ? (cms.home.story1Desc || 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের অশ্রুসজল চোখে কোলে ফিরিয়ে দেওয়া হয়।') : (cms.home.story1DescEn || 'Found wandering distressed near railway terminals, 8-year-old Badshah was protected by our team and reunited with his mother after 21 days of intensive investigation.')}
                     </p>
                   </div>
                   <div className="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between">
@@ -982,10 +986,10 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h4 className="font-serif-heading text-lg font-bold text-on-surface">
-                      {isBn ? (cms.home.story2Title || 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা') : "Saifan's Journey to Health & Recovery"}
+                      {isBn ? (cms.home.story2Title || 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা') : (cms.home.story2TitleEn || "Saifan's Journey to Health & Recovery")}
                     </h4>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-relaxed">
-                      {isBn ? (cms.home.story2Desc || 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।') : 'Born into extreme poverty with critical health risks, infant Saifan received emergency pediatric surgery and vital nutritional rehabilitation.'}
+                      {isBn ? (cms.home.story2Desc || 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।') : (cms.home.story2DescEn || 'Born into extreme poverty with critical health risks, infant Saifan received emergency pediatric surgery and vital nutritional rehabilitation.')}
                     </p>
                   </div>
                   <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
@@ -1315,10 +1319,10 @@ export default function HomePage() {
                         defaultValue={isBn ? '০' : '0'}
                         fluctuateRange={[-2, 4]}
                       />
-                      {' '}{isBn ? (cms.home.volunteerCountLabel || 'সক্রিয় তরুণ') : 'Active Youth'}
+                      {' '}{isBn ? (cms.home.volunteerCountLabel || 'সক্রিয় তরুণ') : (cms.home.volunteerCountLabelEn || 'Active Youth')}
                     </p>
                     <p className="text-xs text-text-muted">
-                      {isBn ? (cms.home.volunteerSubtext || 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী') : 'Dedicated frontline relief volunteers'}
+                      {isBn ? (cms.home.volunteerSubtext || 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী') : (cms.home.volunteerSubtextEn || 'Dedicated frontline relief volunteers')}
                     </p>
                   </div>
                 </div>
@@ -1328,10 +1332,10 @@ export default function HomePage() {
 
               <div className="lg:col-span-6 space-y-5">
                 <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                  {isBn ? (cms.home.volunteerSectionBadge || 'কমিউনিটি ও সমাজকল্যাণ') : 'Community Action & Stewardship'}
+                  {isBn ? (cms.home.volunteerSectionBadge || 'কমিউনিটি ও সমাজকল্যাণ') : (cms.home.volunteerSectionBadgeEn || 'Community Action & Stewardship')}
                 </span>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface leading-tight">
-                  {isBn ? (cms.home.volunteerSectionTitle || 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন') : 'Join Our Dedicated Youth Volunteers'}
+                  {isBn ? (cms.home.volunteerSectionTitle || 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন') : (cms.home.volunteerSectionTitleEn || 'Join Our Dedicated Youth Volunteers')}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed">
                   Whether distributing emergency winter blankets, supporting

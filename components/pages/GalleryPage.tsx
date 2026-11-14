@@ -227,7 +227,7 @@ export default function GalleryPage() {
                 <span>
                   {isBn
                     ? (cmsGallery.pageBadge || 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — ফিল্ড ফটো গ্যালারি')
-                    : 'Global Muslim Charitable Foundation — Verified Field Gallery'}
+                    : (cmsGallery.pageBadgeEn || 'Global Muslim Charitable Foundation — Verified Field Gallery')}
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 tracking-tight leading-tight font-serif-heading max-w-4xl mx-auto">
@@ -302,16 +302,18 @@ export default function GalleryPage() {
                     return title;
                   })()
                 ) : (
-                  <>
-                    Visual Evidence of Our{' '}
-                    <span className="text-amber-600 dark:text-amber-500">Ground Operations</span>
-                  </>
+                  cmsGallery.pageTitleEn || (
+                    <>
+                      Visual Evidence of Our{' '}
+                      <span className="text-amber-600 dark:text-amber-500">Ground Operations</span>
+                    </>
+                  )
                 )}
               </h1>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
                 {isBn
                   ? (cmsGallery.pageSubtitle || 'আপনার প্রতিটি যাকাত ও সাদাকাহ কীভাবে অভাবী মানুষের জীবনে আশার আলো জ্বালাচ্ছে — প্রকল্পভিত্তিক গ্যালারি এবং সহায়তাপ্রাপ্ত মানুষদের বাস্তব স্লাইডারে সরাসরি দেখুন।')
-                  : 'Witness how your Zakat and Sadaqah transform lives directly through categorized project albums and individual beneficiary spotlights.'}
+                  : (cmsGallery.pageSubtitleEn || 'Witness how your Zakat and Sadaqah transform lives directly through categorized project albums and individual beneficiary spotlights.')}
               </p>
 
               {/* Category Filter Pills */}

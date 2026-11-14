@@ -187,7 +187,7 @@ export default function ZakatCalculatorPage() {
                       verified_user
                     </span>
                     <span className="tracking-wide">
-                      {isBn ? (cmsZakat.pageBadge || '100% যাকাত নীতি নিশ্চিত') : '100% Zakat Policy Guaranteed'}
+                      {isBn ? (cmsZakat.pageBadge || '100% যাকাত নীতি নিশ্চিত') : (cmsZakat.pageBadgeEn || '100% Zakat Policy Guaranteed')}
                     </span>
                   </div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight">
@@ -222,18 +222,20 @@ export default function ZakatCalculatorPage() {
                         return title;
                       })()
                     ) : (
-                      <>
-                        Purify Your Wealth with{' '}
-                        <span className="text-emerald-700 italic">
-                          Absolute Shariah Integrity
-                        </span>
-                      </>
+                      cmsZakat.pageTitleEn || (
+                        <>
+                          Purify Your Wealth with{' '}
+                          <span className="text-emerald-700 italic">
+                            Absolute Shariah Integrity
+                          </span>
+                        </>
+                      )
                     )}
                   </h1>
                   <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
                     {isBn
                       ? (cmsZakat.pageSubtitle || 'আপনার যাকাতের প্রতিটি পয়সা শূন্য পরিচালন ও প্রশাসনিক কর্তনীতে যাচাইকৃত আসনাফ পরিবারগুলোর কাছে পৌঁছে। যোগ্য আলেমদের তত্ত্বাবধান, স্বতন্ত্র নিরীক্ষা এবং মানুষের মর্যাদা রক্ষায় সরাসরি হস্তান্তর।')
-                      : 'Every single cent of your Zakat reaches vetted Asnaf families with zero operational or administrative deductions. Supervised by qualified scholars, independently audited, and directly transferred to preserve human dignity.'}
+                      : (cmsZakat.pageSubtitleEn || 'Every single cent of your Zakat reaches vetted Asnaf families with zero operational or administrative deductions. Supervised by qualified scholars, independently audited, and directly transferred to preserve human dignity.')}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4">
                     <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex flex-col space-y-1.5 hover:border-emerald-300 transition-colors">
