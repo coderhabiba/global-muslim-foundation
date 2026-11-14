@@ -397,11 +397,12 @@ export default function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               title="EPS – Easy Payment System | Bangladesh Bank Licensed PSP"
+              className="w-full flex justify-center py-1"
             >
               <img
                 src="/images/payment/eps-footer-desktop-light.png"
                 alt="EPS – Easy Payment System | Bangladesh Bank Licensed PSP Gateway"
-                className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                className="h-14 md:h-16 w-auto max-w-full object-contain opacity-95 hover:opacity-100 transition-opacity"
               />
             </a>
             <div className="flex items-center gap-2 text-[10px] text-text-muted">
@@ -428,11 +429,12 @@ export default function SiteFooter() {
               href="https://eps.com.bd"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full flex justify-center py-1"
             >
               <img
                 src="/images/payment/eps-footer-mobile-light.png"
                 alt="EPS – Easy Payment System"
-                className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                className="h-14 w-auto max-w-[92vw] object-contain opacity-95 hover:opacity-100 transition-opacity"
               />
             </a>
             <div className="flex items-center gap-1.5 text-[10px] text-text-muted">
@@ -443,7 +445,7 @@ export default function SiteFooter() {
         </div>
 
         {/* Bottom Copyright & Legal */}
-        <div className="mt-10 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
           <div className="flex items-center text-center sm:text-left">
             <p>
               {cms.header_footer.copyrightText || (isBn
@@ -486,6 +488,7 @@ export default function SiteFooter() {
             </Link>
           </div>
         </div>
+     
       </div>
     </footer>
   );
