@@ -274,9 +274,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     ctaBannerBtn: 'এখনই যাকাত ফান্ডে দিন',
   },
   about: {
-    pageBadge: 'ESTABLISHED WITH SACRED TRUST • REGISTERED NGO',
-    pageTitle: 'আমাদের লক্ষ্য, ভিশন ও প্রাতিষ্ঠানিক ইতিহাস',
-    pageSubtitle: 'একটি ক্ষুধামুক্ত, স্বাবলম্বী ও ন্যায়ভিত্তিক মানবিক সমাজ গড়ার আজীবন প্রত্যয়।',
+    pageBadge: 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930',
+    pageTitle: 'নিষ্ঠাবান দায়িত্বশীলতা। পূর্ণ স্বচ্ছতা। মর্যাদাপূর্ণ মানবিক কাজ।',
+    pageSubtitle: 'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।',
     statZakatRatio: '১০০% যাকাত বণ্টন',
     statAdminCost: '৳০ কোনো প্রশাসনিক কর্তন নেই',
     statFamiliesUplifted: '১৮,৪০০+ পরিবার স্বাবলম্বী',
@@ -467,6 +467,27 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.home.heroSubtitle =
               'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।';
+          }
+        }
+        if (parsed.about) {
+          if (
+            !parsed.about.pageBadge ||
+            parsed.about.pageBadge === 'ESTABLISHED WITH SACRED TRUST • REGISTERED NGO'
+          ) {
+            parsed.about.pageBadge = 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930';
+          }
+          if (
+            !parsed.about.pageTitle ||
+            parsed.about.pageTitle === 'আমাদের লক্ষ্য, ভিশন ও প্রাতিষ্ঠানিক ইতিহাস'
+          ) {
+            parsed.about.pageTitle = 'নিষ্ঠাবান দায়িত্বশীলতা। পূর্ণ স্বচ্ছতা। মর্যাদাপূর্ণ মানবিক কাজ।';
+          }
+          if (
+            !parsed.about.pageSubtitle ||
+            parsed.about.pageSubtitle === 'একটি ক্ষুধামুক্ত, স্বাবলম্বী ও ন্যায়ভিত্তিক মানবিক সমাজ গড়ার আজীবন প্রত্যয়।'
+          ) {
+            parsed.about.pageSubtitle =
+              'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।';
           }
         }
         if (parsed.sponsor_orphan) {

@@ -22,28 +22,82 @@ export default function AboutPage() {
             <div className="max-w-[1280px] mx-auto flex flex-col items-center text-center">
               {/* Sacred Trust Badge */}
 
-              <div className="inline-flex items-center gap-2 bg-surface-clean shadow-sm px-4 py-1.5 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-300 shadow-2xs px-4 py-1.5 rounded-full mb-6">
                 <span
-                  className="material-symbols-outlined text-amber-vibrant text-[18px]"
+                  className="material-symbols-outlined text-amber-600 text-[18px]"
                   style={{ fontVariationSettings: "'FILL' 1" }}
                 >
                   verified
                 </span>
-                <span className="font-label-md text-label-md text-primary tracking-wider uppercase">
-                  {isBn ? cms.about.pageBadge : 'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930'}
+                <span className="font-bold text-xs text-emerald-900 tracking-wide">
+                  {isBn
+                    ? (cms.about.pageBadge || 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930')
+                    : 'ESTABLISHED WITH SACRED TRUST • REGISTERED CHARITY #1184930'}
                 </span>
               </div>
 
               {/* Main Headline */}
 
-              <h1 className="font-headline-xl text-headline-xl text-emerald-dark max-w-4xl tracking-tight leading-tight mb-6">
-                {isBn ? cms.about.pageTitle : 'Faithful Stewardship. Absolute Transparency. Dignified Humanitarian Action.'}
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading max-w-4xl tracking-tight leading-tight mb-6">
+                {isBn ? (
+                  (() => {
+                    const title = (
+                      cms.about.pageTitle ||
+                      'নিষ্ঠাবান দায়িত্বশীলতা। পূর্ণ স্বচ্ছতা। মর্যাদাপূর্ণ মানবিক কাজ।'
+                    ).trim();
+                    if (title.includes('।')) {
+                      const sentences = title.split('।').map(s => s.trim()).filter(Boolean);
+                      if (sentences.length >= 2) {
+                        const first = sentences.slice(0, sentences.length - 1).join('। ') + '।';
+                        const last = sentences[sentences.length - 1] + '।';
+                        return (
+                          <>
+                            {first}{' '}
+                            <span className="text-amber-600 dark:text-amber-500">{last}</span>
+                          </>
+                        );
+                      }
+                    }
+                    if (title.includes('—')) {
+                      const parts = title.split('—');
+                      const first = parts[0];
+                      const rest = parts.slice(1).join('—').trim();
+                      return (
+                        <>
+                          {first} —{' '}
+                          <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                        </>
+                      );
+                    }
+                    if (title.includes(',')) {
+                      const parts = title.split(',');
+                      const first = parts[0];
+                      const rest = parts.slice(1).join(',').trim();
+                      return (
+                        <>
+                          {first},{' '}
+                          <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                        </>
+                      );
+                    }
+                    return title;
+                  })()
+                ) : (
+                  <>
+                    Faithful Stewardship. Absolute Transparency.{' '}
+                    <span className="text-amber-600 dark:text-amber-500">
+                      Dignified Humanitarian Action.
+                    </span>
+                  </>
+                )}
               </h1>
 
               {/* Mission Statement */}
 
-              <p className="font-body-lg text-body-lg text-text-muted max-w-3xl leading-relaxed mb-10">
-                {isBn ? cms.about.pageSubtitle : 'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.'}
+              <p className="font-body-lg text-body-lg text-slate-600 max-w-3xl leading-relaxed mb-10">
+                {isBn
+                  ? (cms.about.pageSubtitle || 'শূন্য-ওভারহেড যাকাত বিতরণ, যাচাইকৃত তামলিক মালিকানা এবং টেকসই দারিদ্র্য বিমোচনের মাধ্যমে বাংলাদেশ ও তার বাইরের দুস্থ, এতিম ও দুর্যোগকবলিত পরিবারগুলোর জীবিকা উন্নয়নে প্রতিশ্রুতিবদ্ধ।')
+                  : 'Committed to lifting destitute, orphaned, and disaster-affected families through zero-overhead Zakat distribution, verified Tamleek ownership, and sustainable poverty eradication across Bangladesh and beyond.'}
               </p>
 
               {/* Institutional Metrics Quick-Bar */}
