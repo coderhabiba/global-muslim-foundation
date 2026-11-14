@@ -1149,16 +1149,6 @@ export default function AdminDashboard() {
 
             <button
               type="button"
-              onClick={() => openLicenseModal()}
-              className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-3.5 rounded-lg border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs sm:text-sm font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
-              title={isBn ? 'সরকারি লাইসেন্স সনদ দেখুন' : 'View Government Charity License'}
-            >
-              <ShieldCheck className="w-4 h-4 text-zinc-600 shrink-0" />
-              <span className="hidden md:inline">{isBn ? 'লাইসেন্স' : 'License'}</span>
-            </button>
-
-            <button
-              type="button"
               onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
               className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
               title={isBn ? 'EPS পেমেন্ট টেস্ট করুন' : 'Test EPS Gateway'}
