@@ -214,6 +214,13 @@ export interface SiteCMSContent {
     summaryHeading: string;
     summaryText: string;
     reportDownloadTitle: string;
+    // Project Documentary Video Showcase
+    videoBadge?: string;
+    videoTitle?: string;
+    videoSubtitle?: string;
+    videoUrl?: string;
+    videoCoverImage?: string;
+    videoDuration?: string;
   };
   zakat_calculator: {
     pageBadge: string;
@@ -480,6 +487,13 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     summaryHeading: 'শতভাগ স্বচ্ছতা ও চার্টার্ড একাউন্ট্যান্ট অডিট',
     summaryText: 'প্রতিটি অনুদানের ব্যাংক স্টেটমেন্ট, ভাউচার ও ভিডিও প্রমাণাদি দাতাদের কাছে উন্মুক্ত রাখা হয়।',
     reportDownloadTitle: 'বাৎসরিক অডিট রিপোর্ট ডাউনলোড করুন (PDF)',
+    // Project Documentary Video Showcase
+    videoBadge: 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও',
+    videoTitle: 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি',
+    videoSubtitle: 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoCoverImage: '/images/drive-food-1.jpg',
+    videoDuration: '৩ মিনিট ৩৫ সেকেন্ড',
   },
   zakat_calculator: {
     pageBadge: '100% যাকাত নীতি নিশ্চিত',

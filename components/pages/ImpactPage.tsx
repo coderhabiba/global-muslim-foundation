@@ -332,8 +332,57 @@ export const FOUNDATION_PROJECTS: FoundationProject[] = [
     ],
     impactReportBn: 'গত আকস্মিক বন্যায় ৩,৫০০-এর বেশি পরিবারের কাছে সরাসরি শুকনো খাদ্য ও বিশুদ্ধ পানি পৌঁছে দিয়েছে GMCF টিম।',
     impactReportEn: 'Over 3,500 stranded households reached with critical food packs during the recent flash floods.'
+  },
+  {
+    id: 'PRJ-09',
+    projectNoBn: '০৯',
+    projectNoEn: '09',
+    titleBn: 'মাসিক খাবার বিতরণ কার্যক্রম — রাতের পথঅনাহারীদের মাঝে বিরিয়ানি ও নিরাপদ পানি বিতরণ',
+    titleEn: 'Monthly Food Distribution — Nighttime Warm Meals & Pure Water for Dhaka Street Destitute',
+    categoryKey: 'food',
+    categoryBn: 'খাদ্য ও পুষ্টি সহায়তা',
+    categoryEn: 'Food & Nutrition Relief',
+    locationBn: 'ঢাকা শহরের বিভিন্ন এলাকা (কমলাপুর, কারওয়ান বাজার, সদরঘাট, মিরপুর ও গাবতলী)',
+    locationEn: 'Various Hubs across Dhaka (Kamalapur, Karwan Bazar, Sadarghat, Mirpur & Gabtoli)',
+    image: '/images/volunteers-cooking-pots.jpg',
+    statusBn: 'মাসিক নিয়মিত বিতরণ',
+    statusEn: 'Monthly Regular Drive',
+    descriptionBn: 'আমরা প্রতি মাসে ঢাকার বিভিন্ন এলাকায় রাত্রে পথ অনাহারীদের মাঝে খাবার বিতরণ করি। প্রতি পথঅনাহারীর জন্য এক প্যাকেট গরম সুস্বাদু বিরিয়ানি এবং ৫০০ মিলি সুপেয় পানির প্যাকেজ বাবদ মাত্র ১০০/- টাকা করে অনুদান সংগ্রহ করে থাকি।',
+    descriptionEn: 'Every month, we distribute meals to homeless destitute individuals across different areas of Dhaka at night. Sponsoring a meal package of 1 packet fresh warm biryani and 500ml pure drinking water costs only 100 BDT (~$1 USD) per person.',
+    raisedBDT: 0,
+    raisedUSD: 0,
+    goalBDT: 2500000,
+    goalUSD: 20500,
+    beneficiariesBn: '২৫,০০০+ পথঅনাহারী',
+    beneficiariesEn: '25,000+ Street Destitute',
+    featuresBn: [
+      'প্রতি পথঅনাহারীর জন্য ১ প্যাকেট গরম সুস্বাদু বিরিয়ানি',
+      'প্রতি প্যাকেটের সাথে ৫০০ মিলি বিশুদ্ধ বোতলজাত খাবার পানি',
+      'প্রতি প্যাকেট খাবারের জন্য মাত্র ১০০/- টাকা অনুদান',
+      'রাতের নিস্তব্ধতায় ঢাকা শহরের বিভিন্ন পয়েন্টে সুশৃঙ্খল বিতরণ',
+      '১০০% যাকাত ও সদকা তহবিল থেকে পরিচালিত বিশ্বস্ত আমানত'
+    ],
+    featuresEn: [
+      '1 hearty packet of freshly cooked hot biryani for each destitute person',
+      '500ml pure sealed drinking water bottle included with every meal',
+      'Only 100 BDT (~$1 USD) donation per complete meal package',
+      'Nighttime on-ground direct distribution across major Dhaka street clusters',
+      '100% Shariah-compliant Zakat & Sadaqah direct asset transfer'
+    ],
+    impactReportBn: 'মাত্র ১০০ টাকা অনুদানে একজন অনাহারী মানুষ রাতে পরম তৃপ্তিভরে পেট পুরে এক প্যাকেট বিরিয়ানি ও নিরাপদ পানি পান করে শান্তিতে ঘুমাতে পারে। বিগত প্রতি মাসেই আমাদের স্বেচ্ছাসেবকরা ঢাকার ফুটপাতে এই পুষ্টিকর খাবার পৌঁছে দিচ্ছেন।',
+    impactReportEn: 'A modest 100 BDT ($1) gift ensures a hungry homeless soul receives a satisfying, dignified dinner and clean water on the dark streets of Dhaka.'
   }
 ];
+
+function formatVideoEmbedUrl(url?: string): string {
+  if (!url) return 'https://www.youtube.com/embed/ScMzIvxBSi4';
+  const trimmed = url.trim();
+  const ytMatch = trimmed.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (ytMatch && ytMatch[1]) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
+  }
+  return trimmed;
+}
 
 export default function ImpactPage() {
   const { language, currency } = useSiteSettings();
@@ -346,6 +395,8 @@ export default function ImpactPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedProjectForModal, setSelectedProjectForModal] = useState<FoundationProject | null>(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState<boolean>(false);
+  const [isPlayingInline, setIsPlayingInline] = useState<boolean>(false);
 
   const categories = [
     { key: 'all', labelBn: 'সকল প্রজেক্ট', labelEn: 'All Projects' },
@@ -566,6 +617,128 @@ export default function ImpactPage() {
               <span className="text-xs sm:text-sm text-slate-600 font-medium leading-snug block">
                 {metricDistricts.label}
               </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Project Field Video Showcase (CMS Driven) */}
+      <section className="w-full px-4 sm:px-8 pt-8 pb-4 max-w-[1280px] mx-auto">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-[#0a3525] to-slate-950 border border-emerald-800/40 shadow-2xl text-white">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 relative z-10">
+            {/* Left Column: Context & Call to Action */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30">
+                <span className="material-symbols-outlined text-[16px] text-amber-400">videocam</span>
+                <span>{cmsImpact.videoBadge || (isBn ? 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও' : 'Field Documentary • Monthly Project Video')}</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-black font-serif-heading leading-snug tracking-tight text-white">
+                {cmsImpact.videoTitle || (isBn ? 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি' : 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight')}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                {cmsImpact.videoSubtitle || (isBn ? 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।' : 'Real on-ground documentary capturing late-night warm meal packages delivered directly to destitute individuals sleeping on Dhaka pavements.')}
+              </p>
+
+              {/* Package Highlights Badge Grid */}
+              <div className="grid grid-cols-3 gap-2.5 pt-2">
+                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="material-symbols-outlined text-amber-400 text-[20px] block mb-1 mx-auto">dinner_dining</span>
+                  <span className="text-[11px] font-bold block text-white">{isBn ? '১ প্যাকেট বিরিয়ানি' : '1 Box Biryani'}</span>
+                  <span className="text-[10px] text-slate-400 block">{isBn ? 'তাজা গরম খাবার' : 'Freshly cooked'}</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="material-symbols-outlined text-emerald-400 text-[20px] block mb-1 mx-auto">water_drop</span>
+                  <span className="text-[11px] font-bold block text-white">{isBn ? '৫০০ মিলি পানি' : '500ml Water'}</span>
+                  <span className="text-[10px] text-slate-400 block">{isBn ? 'বিশুদ্ধ বোতলজাত' : 'Pure sealed'}</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-center">
+                  <span className="text-sm font-black text-amber-400 block mb-0.5">{isBn ? '৳১০০/-' : '$1 / meal'}</span>
+                  <span className="text-[11px] font-bold block text-amber-200">{isBn ? 'প্রতি প্যাকেট' : 'Per Package'}</span>
+                  <span className="text-[10px] text-amber-300/80 block">{isBn ? 'সহজ অনুদান' : 'Affordable gift'}</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-3">
+                <button
+                  type="button"
+                  onClick={() => openPaymentModal({
+                    amount: currency === 'BDT' ? 100 : 1,
+                    currency,
+                    cause: 'Monthly Food Distribution — 1 Box Biryani & 500ml Water (মাসিক খাবার বিতরণ)'
+                  })}
+                  className="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
+                  <span>{isBn ? '১০০ টাকায় খাবার অনুদান দিন' : 'Donate 1 Meal (100 BDT)'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsPlayingInline(prev => !prev)}
+                  className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[18px] text-emerald-400">
+                    {isPlayingInline ? 'pause_circle' : 'play_circle'}
+                  </span>
+                  <span>{isPlayingInline ? (isBn ? 'ভিডিও বন্ধ করুন' : 'Stop Video') : (isBn ? 'ভিডিওটি দেখুন' : 'Watch Video')}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Interactive Video Player / Cover */}
+            <div className="lg:col-span-7">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black/60 border border-emerald-700/50 shadow-2xl group">
+                {isPlayingInline ? (
+                  <iframe
+                    src={formatVideoEmbedUrl(cmsImpact.videoUrl)}
+                    title="GMCF Field Documentary"
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <div
+                    className="relative w-full h-full cursor-pointer group"
+                    onClick={() => setIsPlayingInline(true)}
+                  >
+                    <img
+                      src={cmsImpact.videoCoverImage || '/images/volunteers-cooking-pots.jpg'}
+                      alt="Project Documentary"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+
+                    {/* Top Right Duration Pill */}
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-xs text-[11px] font-mono font-bold text-amber-300 flex items-center gap-1 border border-white/15">
+                      <span className="material-symbols-outlined text-[14px]">schedule</span>
+                      <span>{cmsImpact.videoDuration || (isBn ? '৩ মিনিট ৩৫ সেকেন্ড' : '3m 35s')}</span>
+                    </div>
+
+                    {/* Center Animated Play Button */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <div className="relative flex items-center justify-center">
+                        <span className="absolute w-20 h-20 rounded-full bg-emerald-400/30 animate-ping pointer-events-none" />
+                        <span className="absolute w-16 h-16 rounded-full bg-amber-400/40 blur-xs pointer-events-none" />
+                        <button
+                          type="button"
+                          className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                        >
+                          <span className="material-symbols-outlined text-[32px] ml-1">play_arrow</span>
+                        </button>
+                      </div>
+                      <span className="mt-3 text-xs font-bold text-white tracking-wide drop-shadow-md bg-black/60 px-3 py-1 rounded-full border border-white/10">
+                        {isBn ? 'ভিডিও চালু করতে ক্লিক করুন' : 'Click to Play Field Documentary'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

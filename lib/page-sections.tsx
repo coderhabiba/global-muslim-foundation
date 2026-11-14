@@ -534,6 +534,22 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
           { key: 'reportDownloadTitle', label: 'রিপোর্ট ডাউনলোড বাটন টেক্সট', type: 'text' },
         ],
       },
+      {
+        id: 'impact-video',
+        label: 'ফিল্ড ডকুমেন্টারি ভিডিও শোকেস (মাসিক কার্যক্রম)',
+        icon: 'smart_display',
+        isCore: true,
+        isVisible: true,
+        order: 4,
+        fields: [
+          { key: 'videoBadge', label: 'ভিডিও টপ ব্যাজ', type: 'text' },
+          { key: 'videoDuration', label: 'ভিডিও সময়কাল (যেমন: ৩ মিনিট ৩৫ সেকেন্ড)', type: 'text' },
+          { key: 'videoTitle', label: 'ভিডিও মূল শিরোনাম', type: 'text' },
+          { key: 'videoSubtitle', label: 'ভিডিও সাব-টাইটেল / বার্তা', type: 'textarea', rows: 2 },
+          { key: 'videoUrl', label: 'ভিডিও লিংক (YouTube Embed URL)', type: 'text' },
+          { key: 'videoCoverImage', label: 'ভিডিও কভার / থাম্বনেইল ছবি', type: 'image' },
+        ],
+      },
     ],
   },
 

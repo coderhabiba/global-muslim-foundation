@@ -77,6 +77,20 @@ export const DEFAULT_CAMPAIGNS: DynamicCampaign[] = [
     descriptionEn: 'Heavyweight double-ply winter fleece blankets delivered directly to impoverished rural communities.',
     isUrgent: false,
   },
+  {
+    id: 'camp-05',
+    titleBn: 'মাসিক খাবার বিতরণ: পথঅনাহারীদের মাঝে বিরিয়ানি ও নিরাপদ পানি বিতরণ',
+    titleEn: 'Monthly Food Distribution: Hot Biryani & Clean Water for Dhaka Street Destitute',
+    categoryBn: 'খাদ্য সহায়তা',
+    categoryEn: 'Food Relief',
+    image: '/images/volunteers-cooking-pots.jpg',
+    raisedBDT: 0,
+    goalBDT: 500000,
+    donorsCount: 0,
+    descriptionBn: 'প্রতি মাসে ঢাকার বিভিন্ন এলাকায় রাত্রে পথঅনাহারীদের মাঝে ১ প্যাকেট বিরিয়ানি ও ৫০০ মিলি পানি বিতরণ (প্রতি প্যাকেট মাত্র ১০০/- টাকা)।',
+    descriptionEn: 'Distributing warm biryani packets and 500ml water bottles to homeless street destitute in Dhaka at night (Only 100 BDT per packet).',
+    isUrgent: true,
+  },
 ];
 
 interface CardContextType {
@@ -118,20 +132,64 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
   const [foundationProjects, setFoundationProjects] = useState<FoundationProject[]>(FOUNDATION_PROJECTS);
   const [orphans, setOrphans] = useState<OrphanProfile[]>(ORPHAN_PROFILES);
 
-  // Initialize from LocalStorage
+  // Initialize from LocalStorage with automatic merge for newly added items
   useEffect(() => {
     try {
       const storedCamp = localStorage.getItem(STORAGE_KEYS.campaigns);
-      if (storedCamp) setCampaigns(JSON.parse(storedCamp));
+      if (storedCamp) {
+        const parsed: DynamicCampaign[] = JSON.parse(storedCamp);
+        const existingIds = new Set(parsed.map(c => c.id));
+        const missing = DEFAULT_CAMPAIGNS.filter(c => !existingIds.has(c.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setCampaigns(merged);
+          localStorage.setItem(STORAGE_KEYS.campaigns, JSON.stringify(merged));
+        } else {
+          setCampaigns(parsed);
+        }
+      }
 
       const storedUp = localStorage.getItem(STORAGE_KEYS.upcoming);
-      if (storedUp) setUpcomingProjects(JSON.parse(storedUp));
+      if (storedUp) {
+        const parsed: UpcomingProject[] = JSON.parse(storedUp);
+        const existingIds = new Set(parsed.map(u => u.id));
+        const missing = UPCOMING_PROJECTS.filter(u => !existingIds.has(u.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setUpcomingProjects(merged);
+          localStorage.setItem(STORAGE_KEYS.upcoming, JSON.stringify(merged));
+        } else {
+          setUpcomingProjects(parsed);
+        }
+      }
 
       const storedFnd = localStorage.getItem(STORAGE_KEYS.foundation);
-      if (storedFnd) setFoundationProjects(JSON.parse(storedFnd));
+      if (storedFnd) {
+        const parsed: FoundationProject[] = JSON.parse(storedFnd);
+        const existingIds = new Set(parsed.map(f => f.id));
+        const missing = FOUNDATION_PROJECTS.filter(f => !existingIds.has(f.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setFoundationProjects(merged);
+          localStorage.setItem(STORAGE_KEYS.foundation, JSON.stringify(merged));
+        } else {
+          setFoundationProjects(parsed);
+        }
+      }
 
       const storedOrp = localStorage.getItem(STORAGE_KEYS.orphans);
-      if (storedOrp) setOrphans(JSON.parse(storedOrp));
+      if (storedOrp) {
+        const parsed: OrphanProfile[] = JSON.parse(storedOrp);
+        const existingIds = new Set(parsed.map(o => o.id));
+        const missing = ORPHAN_PROFILES.filter(o => !existingIds.has(o.id));
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          setOrphans(merged);
+          localStorage.setItem(STORAGE_KEYS.orphans, JSON.stringify(merged));
+        } else {
+          setOrphans(parsed);
+        }
+      }
     } catch (e) {
       console.error('Error loading card records from localStorage:', e);
     }

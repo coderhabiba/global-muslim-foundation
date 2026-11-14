@@ -967,6 +967,73 @@ export default function AdminPageCmsEditor() {
                     <textarea rows={2} value={pageData.summaryText || ''} onChange={e => handleFieldChange('summaryText', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
                 </div>
+
+                {/* Field Documentary Video Showcase Section */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">
+                    ফিল্ড ডকুমেন্টারি ভিডিও শোকেস (প্রজেক্ট পেইজ ভিডিও)
+                  </h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">ভিডিও টপ ব্যাজ</label>
+                      <input
+                        type="text"
+                        placeholder="ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও"
+                        value={pageData.videoBadge || ''}
+                        onChange={e => handleFieldChange('videoBadge', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">ভিডিও সময়কাল / ডিউরেশন</label>
+                      <input
+                        type="text"
+                        placeholder="৩ মিনিট ৩৫ সেকেন্ড"
+                        value={pageData.videoDuration || ''}
+                        onChange={e => handleFieldChange('videoDuration', e.target.value)}
+                        className="w-full px-3 py-2 bg-white border rounded-xl text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">ভিডিওর মূল শিরোনাম</label>
+                    <input
+                      type="text"
+                      placeholder="রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি"
+                      value={pageData.videoTitle || ''}
+                      onChange={e => handleFieldChange('videoTitle', e.target.value)}
+                      className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">ভিডিও সাব-টাইটেল / বার্তা</label>
+                    <textarea
+                      rows={2}
+                      placeholder="ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।"
+                      value={pageData.videoSubtitle || ''}
+                      onChange={e => handleFieldChange('videoSubtitle', e.target.value)}
+                      className="w-full px-3 py-2 bg-white border rounded-xl text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">ভিডিও লিঙ্ক (YouTube Embed / URL)</label>
+                    <input
+                      type="text"
+                      placeholder="https://www.youtube.com/embed/ScMzIvxBSi4 বা https://www.youtube.com/watch?v=..."
+                      value={pageData.videoUrl || ''}
+                      onChange={e => handleFieldChange('videoUrl', e.target.value)}
+                      className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-mono"
+                    />
+                    <span className="text-[11px] text-slate-500 mt-1 block">ইউটিউব লিঙ্ক বা এম্বেড লিঙ্ক দিলে সরাসরি প্লেয়ারে চলবে।</span>
+                  </div>
+                  <div>
+                    <ImageSelectorField
+                      label="ভিডিও কভার / থাম্বনেইল ছবি"
+                      value={pageData.videoCoverImage || ''}
+                      onChange={url => handleFieldChange('videoCoverImage', url)}
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
