@@ -9,10 +9,43 @@ import { useSiteCMS } from "@/lib/site-cms";
 
 export default function SiteFooter() {
   const pathname = usePathname();
-  const { openLicenseModal, openPaymentModal } = useModalState();
+  const { openLicenseModal, openPaymentModal, showAlert } = useModalState();
   const { language } = useSiteSettings();
   const { cms } = useSiteCMS();
   const isBn = language === 'bn';
+
+  const showPrivacyPolicy = () => {
+    showAlert({
+      title: isBn ? 'গোপনীয়তা নীতি (Privacy Policy)' : 'Privacy Policy',
+      message: isBn
+        ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF) দাতাদের ব্যক্তিগত তথ্যের সর্বোচ্চ সুরক্ষা নিশ্চিত করে। আপনার নাম, ফোন নম্বর, ইমেইল এবং পেমেন্ট সংক্রান্ত তথ্য সম্পূর্ণ গোপন রাখা হয় এবং কখনোই কোনো তৃতীয় পক্ষের সাথে বাণিজ্যিক উদ্দেশ্যে শেয়ার বা বিক্রি করা হয় না। সকল অনুদান বাংলাদেশ ব্যাংকের অনুমোদিত এনক্রিপ্টেড পেমেন্ট গেটওয়ের মাধ্যমে সুরক্ষিতভাবে সম্পন্ন হয়।'
+        : 'Global Muslim Charitable Foundation (GMCF) upholds strict data privacy standards. Donor names, phone numbers, email addresses, and payment records are kept strictly confidential and never shared or sold. All donations are securely processed via Bangladesh Bank-licensed encrypted payment systems.',
+      type: 'info',
+      confirmText: isBn ? 'ঠিক আছে' : 'Understood',
+    });
+  };
+
+  const showTermsOfUse = () => {
+    showAlert({
+      title: isBn ? 'ব্যবহারের শর্তাবলি (Terms of Use)' : 'Terms of Use',
+      message: isBn
+        ? 'GMCF প্ল্যাটফর্মের মাধ্যমে প্রদত্ত সকল যাকাত, সদকা ও সাধারণ অনুদান নির্ধারিত ইসলামী শরীয়াহ নীতিমালা এবং বাংলাদেশ সরকারের সমাজকল্যাণ আইনের বিধান অনুযায়ী দুস্থ, এতিম ও দুর্যোগকবলিত মানুষের কল্যাণে শতভাগ স্বচ্ছতার সাথে ব্যবহৃত হয়। অনুদানকারী ব্যক্তি স্বেচ্ছায় ও সৎ উদ্দেশ্যে দান করছেন বলে গণ্য হবে।'
+        : 'All Zakat, Sadaqah, and charitable gifts made through GMCF are disbursed in strict accordance with Islamic Shariah governance and Bangladesh NGO regulatory statutes. Funds directly support impoverished families, orphans, and relief operations with 100% transparency.',
+      type: 'info',
+      confirmText: isBn ? 'ঠিক আছে' : 'Understood',
+    });
+  };
+
+  const showRefundPolicy = () => {
+    showAlert({
+      title: isBn ? 'অনুদান ও রিফান্ড নীতি (Donation & Refund Policy)' : 'Donation & Refund Policy',
+      message: isBn
+        ? 'যেহেতু অনুদানের অর্থ সরাসরি অভাবী মানুষের খাদ্য, চিকিৎসা বা জরুরি ত্রাণের কাজে বরাদ্দ হয়, তাই সাধারণত অনুদান রিফান্ডযোগ্য নয়। তবে ভুলবশত দ্বৈত লেনদেন (Duplicate Transaction) বা প্রযুক্তিগত ত্রুটি ঘটলে ২৪-৪৮ ঘণ্টার মধ্যে ট্রানজেকশন আইডিসহ আমাদের হটলাইনে (০১৯১৩১১৯৫২৫) যোগাযোগ করলে যাচাই সাপেক্ষে দ্রুত সমাধান ও অর্থ ফেরত দেওয়া হবে।'
+        : 'Charitable donations disbursed to field relief projects are generally non-refundable. However, in the case of inadvertent duplicate transactions or technical gateway errors, donors may contact our hotline (+8801913119525) within 48 hours with the transaction ID for swift resolution and refund.',
+      type: 'info',
+      confirmText: isBn ? 'ঠিক আছে' : 'Understood',
+    });
+  };
 
   if (pathname === '/login') {
     return null;
@@ -254,6 +287,39 @@ export default function SiteFooter() {
                   {isBn ? 'মাঠপর্যায়ের স্থিরচিত্র গ্যালারি' : 'Verified Field Photo Gallery'}
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  href="/zakat-calculator"
+                >
+                  <span className="material-symbols-outlined text-[15px] text-amber-600">
+                    calculate
+                  </span>
+                  {isBn ? 'শরীয়াহ যাকাত ক্যালকুলেটর' : 'Shariah Zakat Calculator'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  href="/volunteer"
+                >
+                  <span className="material-symbols-outlined text-[15px] text-emerald-600">
+                    groups
+                  </span>
+                  {isBn ? 'স্বেচ্ছাসেবক হিসেবে যোগ দিন' : 'Join as Youth Volunteer'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  href="/about"
+                >
+                  <span className="material-symbols-outlined text-[15px] text-primary">
+                    info
+                  </span>
+                  {isBn ? 'আমাদের লক্ষ্য ও ভিশন' : 'About Foundation & Governance'}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -377,44 +443,46 @@ export default function SiteFooter() {
         </div>
 
         {/* Bottom Copyright & Legal */}
-        <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted">
-          <div className="flex items-center">
+        <div className="mt-10 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+          <div className="flex items-center text-center sm:text-left">
             <p>
               {cms.header_footer.copyrightText || (isBn
-                ? '© ২০২৫ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
-                : '© 2025 Global Muslim Charitable Foundation (GMCF). All rights reserved worldwide.')}
+                ? '© ২০২৬ গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)। সর্বস্বত্ব সংরক্ষিত।'
+                : '© 2026 Global Muslim Charitable Foundation (GMCF). All rights reserved.')}
             </p>
           </div>
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <Link className="hover:text-primary transition-colors" href="/">
-              {isBn ? 'হোম' : 'Home'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/appeals">
-              {isBn ? 'আপিলসমূহ' : 'Appeals'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/zakat-calculator">
-              {isBn ? 'যাকাত ক্যালকুলেটর' : 'Zakat Calculator'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/impact">
-              {isBn ? 'প্রভাব ও রিপোর্ট' : 'Impact'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/gallery">
-              {isBn ? 'ফিল্ড গ্যালারি' : 'Gallery'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/members">
-              {isBn ? 'সদস্য ও ভলান্টিয়ার' : 'Members'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/about">
-              {isBn ? 'আমাদের সম্পর্কে' : 'About'}
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/upcoming-projects">
-              {isBn ? 'আসন্ন প্রকল্প' : 'Upcoming Projects'}
-            </Link>
-            <Link
-              className="hover:text-primary transition-colors font-semibold text-emerald-800"
-              href="/login"
+          <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center text-xs">
+            <button
+              type="button"
+              onClick={showPrivacyPolicy}
+              className="hover:text-primary transition-colors cursor-pointer font-medium"
             >
-              {isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal'}
+              {isBn ? 'গোপনীয়তা নীতি' : 'Privacy Policy'}
+            </button>
+            <span className="text-slate-300 hidden sm:inline">·</span>
+            <button
+              type="button"
+              onClick={showTermsOfUse}
+              className="hover:text-primary transition-colors cursor-pointer font-medium"
+            >
+              {isBn ? 'ব্যবহারের শর্তাবলি' : 'Terms of Use'}
+            </button>
+            <span className="text-slate-300 hidden sm:inline">·</span>
+            <button
+              type="button"
+              onClick={showRefundPolicy}
+              className="hover:text-primary transition-colors cursor-pointer font-medium"
+            >
+              {isBn ? 'অনুদান ও রিফান্ড নীতি' : 'Refund Policy'}
+            </button>
+            <span className="text-slate-300 hidden sm:inline">·</span>
+            <Link
+              className="hover:text-emerald-950 transition-colors font-bold text-emerald-800 flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-200"
+              href="/login"
+              title={isBn ? 'অনুমোদিত স্টাফ ও অ্যাডমিনদের জন্য' : 'Authorized Staff & Admin Login'}
+            >
+              <span className="material-symbols-outlined text-[13px] text-emerald-700">lock</span>
+              <span>{isBn ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal'}</span>
             </Link>
           </div>
         </div>
