@@ -295,9 +295,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     boardSubheading: 'যোগ্য ও আমানতদার আলেম এবং ট্রাস্টি বোর্ডের সার্বক্ষণিক দিকনির্দেশনায় পরিচালিত।',
   },
   sponsor_orphan: {
-    pageBadge: 'SPONSOR A VULNERABLE CHILD • SADQA JARIYAH',
-    pageTitle: 'একটি এতিম শিশুর অভিভাবক হোন',
-    pageSubtitle: 'আপনার সামান্য ভালোবাসায় বদলে যেতে পারে একজন এতিম শিশুর ভবিষ্যৎ ও আখিরাত।',
+    pageBadge: 'রাসূলুল্লাহ (ﷺ) এর সুন্নাহ — এতিম ও দুস্থ শিশুর অভিভাবকত্ব',
+    pageTitle: 'একটি দুস্থ শিশুর মুখে হাসি ফোটান, জান্নাতে রাসূল (ﷺ)-এর সঙ্গী হোন',
+    pageSubtitle: 'হাদিস শরিফে এসেছে: "আমি এবং এতিমের প্রতিপালনকারী জান্নাতে এভাবে থাকব" (তর্জনী ও মধ্যমা আঙুল একত্র করে দেখালেন) — সহিহ বুখারি। আপনার সামান্য মাসিক সহায়তা একটি অসহায় শিশুর সমগ্র ভবিষ্যৎ বদলে দিতে পারে।',
     hadithQuote: '“আমি ও এতিমের লালনপালনকারী জান্নাতে এভাবে পাশাপাশি থাকব — দুই আঙুল তুলে ইশারা করলেন।”',
     hadithSource: 'সহীহ বুখারী, হাদিস নং ৫৩০৪',
     monthlyCostBdt: '৩,৫০০',
@@ -448,6 +448,18 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           ) {
             parsed.home.heroSubtitle =
               'জরুরি খাদ্য সহায়তা, শিশুদের অস্ত্রোপচার সেবা এবং টেকসই যাকাতভিত্তিক ক্ষমতায়ন কর্মসূচির মাধ্যমে বাংলাদেশ ও তার বাইরের অসহায় জনগোষ্ঠীর জীবন বদলে দেওয়া।';
+          }
+        }
+        if (parsed.sponsor_orphan) {
+          if (!parsed.sponsor_orphan.pageBadge || parsed.sponsor_orphan.pageBadge === 'SPONSOR A VULNERABLE CHILD • SADQA JARIYAH') {
+            parsed.sponsor_orphan.pageBadge = 'রাসূলুল্লাহ (ﷺ) এর সুন্নাহ — এতিম ও দুস্থ শিশুর অভিভাবকত্ব';
+          }
+          if (!parsed.sponsor_orphan.pageTitle || parsed.sponsor_orphan.pageTitle === 'একটি এতিম শিশুর অভিভাবক হোন') {
+            parsed.sponsor_orphan.pageTitle = 'একটি দুস্থ শিশুর মুখে হাসি ফোটান, জান্নাতে রাসূল (ﷺ)-এর সঙ্গী হোন';
+          }
+          if (!parsed.sponsor_orphan.pageSubtitle || parsed.sponsor_orphan.pageSubtitle === 'আপনার সামান্য ভালোবাসায় বদলে যেতে পারে একজন এতিম শিশুর ভবিষ্যৎ ও আখিরাত।') {
+            parsed.sponsor_orphan.pageSubtitle =
+              'হাদিস শরিফে এসেছে: "আমি এবং এতিমের প্রতিপালনকারী জান্নাতে এভাবে থাকব" (তর্জনী ও মধ্যমা আঙুল একত্র করে দেখালেন) — সহিহ বুখারি। আপনার সামান্য মাসিক সহায়তা একটি অসহায় শিশুর সমগ্র ভবিষ্যৎ বদলে দিতে পারে।';
           }
         }
         setCms(prev => ({

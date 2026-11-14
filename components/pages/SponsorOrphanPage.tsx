@@ -176,11 +176,51 @@ export default function SponsorOrphanPage() {
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              cms.sponsor_orphan.pageTitle
+              (() => {
+                const title = (
+                  cms.sponsor_orphan.pageTitle ||
+                  'একটি দুস্থ শিশুর মুখে হাসি ফোটান, জান্নাতে রাসূল (ﷺ)-এর সঙ্গী হোন'
+                ).trim();
+                if (title.includes(',')) {
+                  const parts = title.split(',');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join(',').trim();
+                  return (
+                    <>
+                      {first},{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                if (title.includes('—')) {
+                  const parts = title.split('—');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join('—').trim();
+                  return (
+                    <>
+                      {first} —{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                if (title.includes('রাসূল (ﷺ)-এর সঙ্গী হোন')) {
+                  const [first, rest] = title.split('রাসূল (ﷺ)-এর সঙ্গী হোন');
+                  return (
+                    <>
+                      {first}
+                      <span className="text-amber-600 dark:text-amber-500">রাসূল (ﷺ)-এর সঙ্গী হোন</span>
+                      {rest}
+                    </>
+                  );
+                }
+                return title;
+              })()
             ) : (
               <>
                 Sponsor a Vulnerable Child &amp;{' '}
-                <span className="text-[#0e4d36]">Earn Eternal Jannah with the Prophet (ﷺ)</span>
+                <span className="text-amber-600 dark:text-amber-500">
+                  Earn Eternal Jannah with the Prophet (ﷺ)
+                </span>
               </>
             )}
           </h1>
