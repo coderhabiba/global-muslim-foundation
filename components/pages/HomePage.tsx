@@ -741,15 +741,13 @@ export default function HomePage() {
               <div>
                 <div className="inline-flex items-center gap-2 text-primary text-xs uppercase tracking-wider font-extrabold">
                   <span className="w-2.5 h-2.5 rounded-full bg-error animate-pulse"></span>
-                  Emergency Humanitarian Appeals
+                  {isBn ? 'জরুরি মানবিক আবেদন' : 'Emergency Humanitarian Appeals'}
                 </div>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                  Active Appeals &amp; Dedicated Funds
+                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : (cms.home.appealTitle || 'Active Appeals & Dedicated Funds')}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant max-w-2xl mt-1.5">
-                  Your charitable donation provides life-saving sustenance,
-                  emergency surgeries, clean drinking water, and winter
-                  protection to those facing acute hardship.
+                  {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : (cms.home.appealSubtitle || 'Your charitable donation provides life-saving sustenance, emergency surgeries, clean drinking water, and winter protection.')}
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -905,15 +903,13 @@ export default function HomePage() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                Documented Field Impact
+                {cms.home.storySectionBadge || (isBn ? 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প' : 'Documented Field Impact')}
               </span>
               <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                Real Life Transformations: A Mother &amp; Child Reunited
+                {cms.home.storySectionTitle || (isBn ? 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন' : 'Real Life Transformations: A Mother & Child Reunited')}
               </h2>
               <p className="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
-                Every donation is more than a metric—it saves lives, rescues
-                lost children, and restores hope to families in their darkest
-                hours.
+                {cms.home.storySectionSubtitle || (isBn ? 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায়।' : 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to families.')}
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -924,10 +920,10 @@ export default function HomePage() {
                   <img
                     alt="Lost child Badshah reunited with mother by foundation"
                     className="w-full h-full object-cover"
-                    src="/images/badshah-reunion.jpg"
+                    src={cms.home.story1Image || '/images/badshah-reunion.jpg'}
                   />
                   <div className="absolute bottom-4 left-4 bg-emerald-dark/95 text-white text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur shadow">
-                    Family Reconnection &amp; Child Welfare
+                    {cms.home.story1Tag || (isBn ? 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ' : 'Family Reconnection & Child Welfare')}
                   </div>
                 </div>
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
@@ -936,20 +932,13 @@ export default function HomePage() {
                       <span className="material-symbols-outlined text-[16px] text-primary">
                         verified
                       </span>
-                      <span className="">Tejgaon Community Center</span>
-                      <span className="">•</span>
-                      <span className="">Verified by Local Authorities</span>
+                      <span className="">{cms.home.story1Location || (isBn ? 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত' : 'Tejgaon Community Center • Verified by Local Authorities')}</span>
                     </div>
                     <h3 className="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">
-                      "Bringing Badshah Back to His Mother's Embrace" — A
-                      Miracle of Compassion
+                      {cms.home.story1Title || (isBn ? '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা' : '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion')}
                     </h3>
                     <p className="text-sm text-on-surface-variant mt-3 leading-relaxed">
-                      Found wandering and distressed near the railway terminals,
-                      8-year-old Badshah was taken into protective custody by
-                      our emergency field team. Following 21 days of meticulous
-                      cross-district verification and community coordination, he
-                      was safely reunited with his tearful mother.
+                      {cms.home.story1Desc || (isBn ? 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের কোলে ফিরিয়ে দেওয়া হয়।' : 'Found wandering and distressed near the railway terminals, 8-year-old Badshah was taken into protective custody and reunited with his mother.')}
                     </p>
                   </div>
                   <div className="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between">
@@ -959,7 +948,7 @@ export default function HomePage() {
                       </div>
                       <div>
                         <p className="text-xs sm:text-sm font-bold text-on-surface">
-                          Child Protection &amp; Welfare Division
+                          {isBn ? 'শিশু সুরক্ষা ও কল্যাণ বিভাগ' : 'Child Protection & Welfare Division'}
                         </p>
                         <p className="text-xs text-text-muted">
                           Global Muslim Charitable Foundation
@@ -967,7 +956,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <span className="text-primary font-bold text-xs sm:text-sm flex items-center gap-1 cursor-pointer hover:underline">
-                      Read Case Study →
+                      {isBn ? 'সম্পূর্ণ কেস স্টাডি দেখুন →' : 'Read Case Study →'}
                     </span>
                   </div>
                 </div>
@@ -983,28 +972,26 @@ export default function HomePage() {
                     <img
                       alt="Pediatric healthcare and maternal hope"
                       className="w-full h-full object-cover"
-                      src="/images/pediatric-hope-saifan.jpg"
+                      src={cms.home.story2Image || '/images/pediatric-hope-saifan.jpg'}
                     />
                     <span className="absolute top-2.5 right-2.5 bg-primary text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">
-                      Pediatric Hope
+                      {isBn ? 'পেডিয়াট্রিক সার্জারি' : 'Pediatric Hope'}
                     </span>
                   </div>
                   <div>
                     <h4 className="font-serif-heading text-lg font-bold text-on-surface">
-                      Saifan's Journey to Health &amp; Recovery
+                      {cms.home.story2Title || (isBn ? 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা' : "Saifan's Journey to Health & Recovery")}
                     </h4>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-relaxed">
-                      Born with critical medical distress into extreme poverty,
-                      Saifan received fully sponsored pediatric surgery and
-                      vital nutrition care.
+                      {cms.home.story2Desc || (isBn ? 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।' : 'Born with critical medical distress into extreme poverty, Saifan received fully sponsored pediatric surgery.')}
                     </p>
                   </div>
                   <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
                     <span className="text-text-muted font-medium">
-                      100% Sponsored Care
+                      {isBn ? '১০০% অনুদানে চিকিৎসা সম্পন্ন' : '100% Sponsored Care'}
                     </span>
                     <span className="text-primary font-bold">
-                      View Medical Records →
+                      {isBn ? 'মেডিকেল রেকর্ড দেখুন →' : 'View Medical Records →'}
                     </span>
                   </div>
                 </div>

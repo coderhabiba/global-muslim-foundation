@@ -179,19 +179,17 @@ export default function AboutPage() {
                       01. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      Shariah Integrity
+                      {isBn ? (cms.about.pillar1Title || 'শরীয়াহ সততা ও বিশ্বস্ততা (Shariah Integrity)') : 'Shariah Integrity'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      100% of all Zakat donations are strictly ring-fenced in a
-                      non-interest treasury account. Absolutely zero admin fees
-                      or operational costs are deducted.
+                      {isBn ? (cms.about.pillar1Desc || 'প্রতিটি যাকাত ও সদকাহ তহবিল সুনির্দিষ্ট শরীয়াহ নীতিমালায় ১০০% বিশ্বস্ততার সাথে সরাসরি হকদারদের কাছে পৌঁছানো হয়।') : '100% of all Zakat donations are strictly ring-fenced in a non-interest treasury account. Zero admin fees deducted.'}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>Independent Fatwa Certified</span>
+                    <span>{isBn ? (cms.about.pillar1Feature || 'স্বতন্ত্র শরীয়াহ বোর্ড অনুমোদিত') : 'Independent Fatwa Certified'}</span>
                   </div>
                 </div>
 
@@ -211,19 +209,17 @@ export default function AboutPage() {
                       02. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      Dignity &amp; Tamleek
+                      {isBn ? (cms.about.pillar2Title || 'মর্যাদা ও পূর্ণ তামলিক (Dignity & Tamleek)') : 'Dignity & Tamleek'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      Unconditional direct ownership (Tamleek) is granted
-                      immediately to verified Asnaf recipients without
-                      intermediate institutional capture or debt attachment.
+                      {isBn ? (cms.about.pillar2Desc || 'সহায়তা প্রদানের ক্ষেত্রে সুবিধাভোগীদের সম্মান রক্ষা এবং প্রত্যক্ষ মালিকানা নিশ্চিত করা আমাদের প্রধান নীতি।') : 'Unconditional direct ownership (Tamleek) is granted immediately to verified Asnaf recipients without intermediate institutional capture.'}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>Direct Asset Transfer Protocol</span>
+                    <span>{isBn ? (cms.about.pillar2Feature || 'প্রত্যক্ষ সম্পদ হস্তান্তর নীতিমালা') : 'Direct Asset Transfer Protocol'}</span>
                   </div>
                 </div>
 
@@ -243,19 +239,17 @@ export default function AboutPage() {
                       03. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      Ground-Truth Verification
+                      {isBn ? (cms.about.pillar3Title || 'মাঠপর্যায়ে কঠোর যাচাই (Ground-Truth Verification)') : 'Ground-Truth Verification'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      Every distribution is documented with geo-tagged
-                      photographic evidence, national ID authentication, and
-                      signed beneficiary acknowledgement ledgers.
+                      {isBn ? (cms.about.pillar3Desc || 'প্রতিটি বিতরণ কার্যক্রম জিও-ট্যাগ ছবি, জাতীয় পরিচয়পত্র যাচাই এবং স্বচ্ছ মাস্টাররোলের মাধ্যমে নথিবদ্ধ করা হয়।') : 'Every distribution is documented with geo-tagged photographic evidence, national ID authentication, and signed beneficiary ledgers.'}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>GPS Time-Stamped Audits</span>
+                    <span>{isBn ? (cms.about.pillar3Feature || 'জিপিএস সময়-চিহ্নিত অডিট রেকর্ড') : 'GPS Time-Stamped Audits'}</span>
                   </div>
                 </div>
 
@@ -275,19 +269,17 @@ export default function AboutPage() {
                       04. PILLAR
                     </span>
                     <h3 className="font-title-lg text-title-lg text-emerald-dark font-bold mt-1 mb-3">
-                      Radical Stewardship
+                      {isBn ? (cms.about.pillar4Title || 'স্বাধীন প্রশাসন ও জিরো-ওভারহেড (Radical Stewardship)') : 'Radical Stewardship'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted leading-relaxed">
-                      100% of staff salaries, operational costs, software
-                      platforms, and vehicle logistics are underwritten
-                      separately through an exclusive private endowment fund.
+                      {isBn ? (cms.about.pillar4Desc || 'সকল প্রশাসনিক ও অপারেশনাল ব্যয় স্বতন্ত্র প্রাতিষ্ঠানিক তহবিল থেকে নির্বাহ করা হয়—সাধারণ অনুদান শতভাগ মাঠেই যায়।') : '100% of staff salaries, operational costs, software platforms, and vehicle logistics are underwritten separately through an endowment.'}
                     </p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center gap-2 text-primary font-label-md text-label-md">
                     <span className="material-symbols-outlined text-[16px]">
                       check_circle
                     </span>
-                    <span>Zero-Cost Public Donorship</span>
+                    <span>{isBn ? (cms.about.pillar4Feature || '১০০% জিরো-প্রশাসনিক কর্তন গ্যারান্টি') : 'Zero-Cost Public Donorship'}</span>
                   </div>
                 </div>
               </div>
@@ -655,34 +647,34 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        Principal Head Office
+                        {cms.about.office1Title || (isBn ? 'প্রধান কার্যালয়' : 'Principal Head Office')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         flag
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      Savar, Dhaka
+                      {cms.about.office1City || (isBn ? 'সাভার, ঢাকা' : 'Savar, Dhaka')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
-                      99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh
+                      {cms.about.office1Address || 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh'}
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
                         <strong className="text-on-surface">
-                          Chairman:
+                          {isBn ? 'চেয়ারম্যান:' : 'Chairman:'}
                         </strong>{' '}
-                        Mohammad Ali Mostafa
+                        {cms.header_footer.chairmanName || 'Mohammad Ali Mostafa'}
                       </p>
                       <p>
-                        <strong className="text-on-surface">Mobile:</strong>{' '}
-                        01913119525
+                        <strong className="text-on-surface">{isBn ? 'মোবাইল:' : 'Mobile:'}</strong>{' '}
+                        {cms.about.office1Phone || cms.header_footer.hotline || '01913119525'}
                       </p>
                       <p>
                         <strong className="text-on-surface">
-                          Official Email:
+                          {isBn ? 'ইমেইল:' : 'Official Email:'}
                         </strong>{' '}
-                        gmcfoundation2022@gmail.com
+                        {cms.about.office1Email || cms.header_footer.email || 'gmcfoundation2022@gmail.com'}
                       </p>
                     </div>
                   </div>
@@ -700,30 +692,30 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        UK Statutory Reg
+                        {cms.about.office2Title || (isBn ? 'যুক্তরাজ্য লিয়াজোঁ' : 'UK Statutory Reg')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         account_balance
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      London, United Kingdom
+                      {cms.about.office2City || (isBn ? 'লন্ডন, যুক্তরাজ্য' : 'London, United Kingdom')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
-                      104 Whitechapel High St, London E1 7PT, United Kingdom
+                      {cms.about.office2Address || '104 Whitechapel High St, London E1 7PT, United Kingdom'}
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
-                        <strong className="text-on-surface">Reg Number:</strong>{' '}
+                        <strong className="text-on-surface">{isBn ? 'নিবন্ধন নং:' : 'Reg Number:'}</strong>{' '}
                         UK Charity Commission Reg #1184930
                       </p>
                       <p>
-                        <strong className="text-on-surface">Gift Aid:</strong>{' '}
-                        Registered for HMRC 25% Top-up
+                        <strong className="text-on-surface">{isBn ? 'ফোন:' : 'Desk:'}</strong>{' '}
+                        {cms.about.office2Phone || '+44 20 7946 0912'}
                       </p>
                       <p>
-                        <strong className="text-on-surface">Desk:</strong> +44
-                        20 7946 0991
+                        <strong className="text-on-surface">{isBn ? 'ইমেইল:' : 'Inquiries:'}</strong>{' '}
+                        {cms.about.office2Email || 'uk@gmcfoundation.org'}
                       </p>
                     </div>
                   </div>
@@ -731,7 +723,7 @@ export default function AboutPage() {
                     <span className="material-symbols-outlined text-[16px]">
                       domain_verification
                     </span>
-                    <span>European Oversight &amp; Treasury</span>
+                    <span>{isBn ? 'ইউরোপীয় সমন্বয় ও ট্রেজারি' : 'European Oversight & Treasury'}</span>
                   </div>
                 </div>
 
@@ -741,31 +733,30 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        US Tax-Exempt Status
+                        {cms.about.office3Title || (isBn ? 'উত্তর আমেরিকা লিয়াজোঁ' : 'US Tax-Exempt Status')}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         public
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      New York, United States
+                      {cms.about.office3City || (isBn ? 'নিউ ইয়র্ক, যুক্তরাষ্ট্র' : 'New York, United States')}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
-                      Rockefeller Center Plaza, 45 Rockefeller Plaza, New York,
-                      NY 10111
+                      {cms.about.office3Address || 'Rockefeller Center Plaza, 45 Rockefeller Plaza, New York, NY 10111'}
                     </p>
                     <div className="space-y-1.5 font-label-md text-label-md text-text-muted mb-6">
                       <p>
-                        <strong className="text-on-surface">Status:</strong>{' '}
+                        <strong className="text-on-surface">{isBn ? 'স্ট্যাটাস:' : 'Status:'}</strong>{' '}
                         501(c)(3) Partner Liaison Entity
                       </p>
                       <p>
-                        <strong className="text-on-surface">Tax Relief:</strong>{' '}
-                        IRS Tax-Deductible Receipts Issued
+                        <strong className="text-on-surface">{isBn ? 'ফোন:' : 'Phone:'}</strong>{' '}
+                        {cms.about.office3Phone || '+1 718 555 0194'}
                       </p>
                       <p>
-                        <strong className="text-on-surface">Inquiries:</strong>{' '}
-                        usa.partners@gmcf-global.org
+                        <strong className="text-on-surface">{isBn ? 'ইমেইল:' : 'Inquiries:'}</strong>{' '}
+                        {cms.about.office3Email || 'usa@gmcfoundation.org'}
                       </p>
                     </div>
                   </div>
@@ -773,7 +764,7 @@ export default function AboutPage() {
                     <span className="material-symbols-outlined text-[16px]">
                       domain_verification
                     </span>
-                    <span>North American Diaspora Grants</span>
+                    <span>{isBn ? 'উত্তর আমেরিকা প্রবাসী অনুদান' : 'North American Diaspora Grants'}</span>
                   </div>
                 </div>
               </div>

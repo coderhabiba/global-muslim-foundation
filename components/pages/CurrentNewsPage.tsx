@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
+import { useSiteCMS } from '@/lib/site-cms';
 
 type NewsArticle = {
   id: string;
@@ -128,6 +129,7 @@ const NEWS_ARTICLES: NewsArticle[] = [
 export default function CurrentNewsPage() {
   const { language } = useSiteSettings();
   const { openPaymentModal } = useModalState();
+  const { cms } = useSiteCMS();
   const isBn = language === 'bn';
 
   const [activeTab, setActiveTab] = useState<'all' | 'relief' | 'water' | 'orphan'>('all');
@@ -150,14 +152,14 @@ export default function CurrentNewsPage() {
               newspaper
             </span>
             <span>
-              {isBn
+              {cms.news?.pageBadge || (isBn
                 ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন — সাম্প্রতিক সংবাদ ও ফিল্ড আপডেট'
-                : 'Global Muslim Charitable Foundation — Current News & Ground Updates'}
+                : 'Global Muslim Charitable Foundation — Current News & Ground Updates')}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight">
-            {isBn ? (
+            {cms.news?.pageTitle || (isBn ? (
               <>
                 আমাদের প্রতিটি পদক্ষেপের{' '}
                 <span className="text-amber-600">বাস্তব অগ্রগতি ও সংবাদ</span>
@@ -167,13 +169,13 @@ export default function CurrentNewsPage() {
                 Latest Press Releases &amp;{' '}
                 <span className="text-amber-600">Humanitarian Field News</span>
               </>
-            )}
+            ))}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            {isBn
+            {cms.news?.pageSubtitle || (isBn
               ? 'মাঠপর্যায়ে ত্রাণ বিতরণ, আর্সেনিকমুক্ত নলকূপ স্থাপন এবং এতিম প্রতিপালন কার্যক্রমের সরাসরি খবরাখবর। আপনার দানকৃত প্রতিটি তহবিলের স্বচ্ছ চিত্র।'
-              : 'Real-time updates, photographic reports, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.'}
+              : 'Real-time updates, photographic reports, and press coverage of our ongoing relief, shelter, and orphan support programs across Bangladesh.')}
           </p>
         </div>
       </section>

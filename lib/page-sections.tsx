@@ -718,6 +718,54 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
       },
     ],
   },
+  // -------------------------------------------------------
+  // 10. APPEALS PAGE
+  // -------------------------------------------------------
+  {
+    pageKey: 'appeals',
+    pageTitle: '৯. জরুরি আপিলসমূহ (Appeals)',
+    pageIcon: 'campaign',
+    pageUrl: '/appeals',
+    sections: [
+      {
+        id: 'appeals-header',
+        label: 'আপিল পেজ ব্যানার ও তথ্য',
+        icon: 'campaign',
+        isCore: true,
+        isVisible: true,
+        order: 1,
+        fields: [
+          { key: 'pageBadge', label: 'টপ ভেরিফাইড ব্যাজ', type: 'text' },
+          { key: 'pageTitle', label: 'পেজ মূল শিরোনাম', type: 'text' },
+          { key: 'pageSubtitle', label: 'পেজ সাব-টাইটেল ও বিবরণ', type: 'textarea', rows: 2 },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------
+  // 11. NEWS PAGE
+  // -------------------------------------------------------
+  {
+    pageKey: 'news',
+    pageTitle: '১০. ফিল্ড নিউজ ও ডিসপ্যাচ (News)',
+    pageIcon: 'newspaper',
+    pageUrl: '/news',
+    sections: [
+      {
+        id: 'news-header',
+        label: 'নিউজ পেজ শীর্ষ ব্যানার',
+        icon: 'newspaper',
+        isCore: true,
+        isVisible: true,
+        order: 1,
+        fields: [
+          { key: 'pageBadge', label: 'টপ নিউজ ব্যাজ', type: 'text' },
+          { key: 'pageTitle', label: 'পেজ মূল শিরোনাম', type: 'text' },
+          { key: 'pageSubtitle', label: 'পেজ সাব-টাইটেল ও বিবরণ', type: 'textarea', rows: 2 },
+        ],
+      },
+    ],
+  },
 ];
 
 // =========================================================

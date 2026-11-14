@@ -14,6 +14,8 @@ const PAGE_DEFINITIONS: { key: SitePageKey; title: string; subtitle: string; ico
   { key: 'zakat_calculator', title: '৬. যাকাত ক্যালকুলেটর (Zakat)', subtitle: 'সোনার/রূপার নিসাব, যাকাত তামলিক পলিসি ও প্রশ্নোত্তর', icon: 'calculate', count: 11 },
   { key: 'gallery', title: '৭. ফটো গ্যালারি (Gallery)', subtitle: 'গ্যালারি শিরোনাম, ৫টি ফিল্টার ক্যাটাগরি ও নোটিশ', icon: 'photo_library', count: 8 },
   { key: 'volunteer', title: '৮. স্বেচ্ছাসেবক নিবন্ধন (Volunteer)', subtitle: 'আবেদন ফরম শিরোনাম, ৩টি সুবিধা, যোগ্যতা ও রুলস', icon: 'group_add', count: 10 },
+  { key: 'appeals', title: '৯. জরুরি আপিলসমূহ (Appeals)', subtitle: 'চলমান মানবিক আবেদন ব্যানার, টাইটেল ও সাবটাইটেল', icon: 'campaign', count: 5 },
+  { key: 'news', title: '১০. ফিল্ড নিউজ ও ডিসপ্যাচ (News)', subtitle: 'সংবাদ ও মাঠপর্যায়ের প্রতিবেদন পেজ ব্যানার ও তথ্য', icon: 'newspaper', count: 3 },
 ];
 
 export default function AdminPageCmsEditor() {
@@ -560,6 +562,45 @@ export default function AdminPageCmsEditor() {
                     </div>
                   </div>
                 </div>
+
+                {/* Section F: Transformation Story Spotlight */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">৬. মাঠপর্যায়ের মানবিক গল্প ও কেস স্টাডি (Transformation Story Spotlight)</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সেকশন ব্যাজ</label>
+                      <input type="text" placeholder="মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প" value={pageData.storySectionBadge || ''} onChange={e => handleFieldChange('storySectionBadge', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সেকশন মূল শিরোনাম</label>
+                      <input type="text" placeholder="বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন" value={pageData.storySectionTitle || ''} onChange={e => handleFieldChange('storySectionTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">সেকশন সাব-শিরোনাম ও বার্তা</label>
+                    <textarea rows={2} value={pageData.storySectionSubtitle || ''} onChange={e => handleFieldChange('storySectionSubtitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                  
+                  {/* Story 1 */}
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 space-y-2">
+                    <span className="text-xs font-bold text-slate-800 block">১ম মানবিক গল্প (বাদশাহর মায়ের কোলে ফেরা)</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <input type="text" placeholder="ট্যাগ (যেমন: পারিবারিক পুনর্মিলন)" value={pageData.story1Tag || ''} onChange={e => handleFieldChange('story1Tag', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="লোকেশন ও ভেরিফিকেশন স্ট্যাটাস" value={pageData.story1Location || ''} onChange={e => handleFieldChange('story1Location', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                    </div>
+                    <input type="text" placeholder="গল্পের মূল শিরোনাম" value={pageData.story1Title || ''} onChange={e => handleFieldChange('story1Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                    <textarea rows={2} placeholder="গল্পের বিস্তারিত বিবরণ" value={pageData.story1Desc || ''} onChange={e => handleFieldChange('story1Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                    <ImageSelectorField label="গল্পের ছবি" value={pageData.story1Image || ''} onChange={url => handleFieldChange('story1Image', url)} />
+                  </div>
+
+                  {/* Story 2 */}
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 space-y-2">
+                    <span className="text-xs font-bold text-slate-800 block">২য় মানবিক গল্প (সাইফানের সার্জারি ও সুস্থতা)</span>
+                    <input type="text" placeholder="গল্পের শিরোনাম" value={pageData.story2Title || ''} onChange={e => handleFieldChange('story2Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                    <textarea rows={2} placeholder="গল্পের বিস্তারিত বিবরণ" value={pageData.story2Desc || ''} onChange={e => handleFieldChange('story2Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                    <ImageSelectorField label="গল্পের ছবি" value={pageData.story2Image || ''} onChange={url => handleFieldChange('story2Image', url)} />
+                  </div>
+                </div>
               </div>
             )}
 
@@ -664,6 +705,75 @@ export default function AdminPageCmsEditor() {
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">সরকারি আইনের বিবরণী</label>
                     <input type="text" value={pageData.regDetails || ''} onChange={e => handleFieldChange('regDetails', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                </div>
+
+                {/* 4 Pillars detail cards */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">আমানতের ৪টি স্তম্ভের কার্ডসমূহ (4 Foundational Pillars)</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    {/* Pillar 1 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">১ম স্তম্ভ (শরীয়াহ ও সততা)</span>
+                      <input type="text" placeholder="১ম স্তম্ভ শিরোনাম" value={pageData.pillar1Title || ''} onChange={e => handleFieldChange('pillar1Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="১ম স্তম্ভ বিবরণ" value={pageData.pillar1Desc || ''} onChange={e => handleFieldChange('pillar1Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফিচার ব্যাজ টেক্সট" value={pageData.pillar1Feature || ''} onChange={e => handleFieldChange('pillar1Feature', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                    {/* Pillar 2 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">২য় স্তম্ভ (মর্যাদা ও তামলিক)</span>
+                      <input type="text" placeholder="২য় স্তম্ভ শিরোনাম" value={pageData.pillar2Title || ''} onChange={e => handleFieldChange('pillar2Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="২য় স্তম্ভ বিবরণ" value={pageData.pillar2Desc || ''} onChange={e => handleFieldChange('pillar2Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফিচার ব্যাজ টেক্সট" value={pageData.pillar2Feature || ''} onChange={e => handleFieldChange('pillar2Feature', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                    {/* Pillar 3 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">৩য় স্তম্ভ (মাঠপর্যায়ে যাচাই)</span>
+                      <input type="text" placeholder="৩য় স্তম্ভ শিরোনাম" value={pageData.pillar3Title || ''} onChange={e => handleFieldChange('pillar3Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="৩য় স্তম্ভ বিবরণ" value={pageData.pillar3Desc || ''} onChange={e => handleFieldChange('pillar3Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফিচার ব্যাজ টেক্সট" value={pageData.pillar3Feature || ''} onChange={e => handleFieldChange('pillar3Feature', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                    {/* Pillar 4 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">৪র্থ স্তম্ভ (স্বতন্ত্র প্রশাসন ও ০% ওভারহেড)</span>
+                      <input type="text" placeholder="৪র্থ স্তম্ভ শিরোনাম" value={pageData.pillar4Title || ''} onChange={e => handleFieldChange('pillar4Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="৪র্থ স্তম্ভ বিবরণ" value={pageData.pillar4Desc || ''} onChange={e => handleFieldChange('pillar4Desc', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফিচার ব্যাজ টেক্সট" value={pageData.pillar4Feature || ''} onChange={e => handleFieldChange('pillar4Feature', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3 Global Offices */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">৩টি নিবন্ধিত আন্তর্জাতিক কার্যালয় (Global Offices)</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    {/* Office 1 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">১. প্রধান কার্যালয় (সাভার, ঢাকা)</span>
+                      <input type="text" placeholder="কার্যালয় লেবেল" value={pageData.office1Title || ''} onChange={e => handleFieldChange('office1Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="শহর / স্থান" value={pageData.office1City || ''} onChange={e => handleFieldChange('office1City', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="সম্পূর্ণ ঠিকানা" value={pageData.office1Address || ''} onChange={e => handleFieldChange('office1Address', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="মোবাইল / হটলাইন" value={pageData.office1Phone || ''} onChange={e => handleFieldChange('office1Phone', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                      <input type="text" placeholder="অফিসিয়াল ইমেইল" value={pageData.office1Email || ''} onChange={e => handleFieldChange('office1Email', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                    {/* Office 2 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">২. যুক্তরাজ্য লিয়াজোঁ (লন্ডন)</span>
+                      <input type="text" placeholder="কার্যালয় লেবেল" value={pageData.office2Title || ''} onChange={e => handleFieldChange('office2Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="শহর / স্থান" value={pageData.office2City || ''} onChange={e => handleFieldChange('office2City', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="সম্পূর্ণ ঠিকানা" value={pageData.office2Address || ''} onChange={e => handleFieldChange('office2Address', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফোন" value={pageData.office2Phone || ''} onChange={e => handleFieldChange('office2Phone', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                      <input type="text" placeholder="ইমেইল" value={pageData.office2Email || ''} onChange={e => handleFieldChange('office2Email', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
+                    {/* Office 3 */}
+                    <div className="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1.5">
+                      <span className="font-bold text-slate-800 block">৩. উত্তর আমেরিকা লিয়াজোঁ (নিউ ইয়র্ক)</span>
+                      <input type="text" placeholder="কার্যালয় লেবেল" value={pageData.office3Title || ''} onChange={e => handleFieldChange('office3Title', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="শহর / স্থান" value={pageData.office3City || ''} onChange={e => handleFieldChange('office3City', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs font-bold" />
+                      <textarea rows={2} placeholder="সম্পূর্ণ ঠিকানা" value={pageData.office3Address || ''} onChange={e => handleFieldChange('office3Address', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-xs" />
+                      <input type="text" placeholder="ফোন" value={pageData.office3Phone || ''} onChange={e => handleFieldChange('office3Phone', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                      <input type="text" placeholder="ইমেইল" value={pageData.office3Email || ''} onChange={e => handleFieldChange('office3Email', e.target.value)} className="w-full px-2 py-1 bg-slate-50 border rounded text-[11px]" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1058,6 +1168,52 @@ export default function AdminPageCmsEditor() {
                         <input type="text" placeholder="শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড" value={pageData.stat4Desc || ''} onChange={e => handleFieldChange('stat4Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-[11px] text-slate-600" />
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 10. Appeals Page Fields */}
+            {selectedPage === 'appeals' && (
+              <div className="space-y-4">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">জরুরি আপিল ও মানবিক ক্যাম্পেইন ব্যানার</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">টপ ভেরিফাইড ব্যাজ</label>
+                      <input type="text" value={pageData.pageBadge || ''} onChange={e => handleFieldChange('pageBadge', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">পেইজ মূল শিরোনাম</label>
+                      <input type="text" value={pageData.pageTitle || ''} onChange={e => handleFieldChange('pageTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">পেইজ বিস্তারিত সাব-টাইটেল</label>
+                    <textarea rows={2} value={pageData.pageSubtitle || ''} onChange={e => handleFieldChange('pageSubtitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 11. News Page Fields */}
+            {selectedPage === 'news' && (
+              <div className="space-y-4">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">মাঠপর্যায়ের ফিল্ড নিউজ ও ডিসপ্যাচ ব্যানার</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">টপ নিউজ ব্যাজ</label>
+                      <input type="text" value={pageData.pageBadge || ''} onChange={e => handleFieldChange('pageBadge', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">পেইজ মূল শিরোনাম</label>
+                      <input type="text" value={pageData.pageTitle || ''} onChange={e => handleFieldChange('pageTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">পেইজ বিস্তারিত সাব-টাইটেল</label>
+                    <textarea rows={2} value={pageData.pageSubtitle || ''} onChange={e => handleFieldChange('pageSubtitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
                 </div>
               </div>

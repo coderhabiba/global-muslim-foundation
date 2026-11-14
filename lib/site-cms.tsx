@@ -11,7 +11,9 @@ export type SitePageKey =
   | 'impact'
   | 'zakat_calculator'
   | 'gallery'
-  | 'volunteer';
+  | 'volunteer'
+  | 'appeals'
+  | 'news';
 
 export interface SiteCMSContent {
   header_footer: {
@@ -91,6 +93,18 @@ export interface SiteCMSContent {
     volunteerCount?: string;
     volunteerCountLabel?: string;
     volunteerSubtext?: string;
+    // Transformation Story Spotlight in Home Page
+    storySectionBadge?: string;
+    storySectionTitle?: string;
+    storySectionSubtitle?: string;
+    story1Tag?: string;
+    story1Location?: string;
+    story1Title?: string;
+    story1Desc?: string;
+    story1Image?: string;
+    story2Title?: string;
+    story2Desc?: string;
+    story2Image?: string;
   };
   about: {
     pageBadge: string;
@@ -107,6 +121,19 @@ export interface SiteCMSContent {
     storyVolunteerDesc?: string;
     pillarTitle: string;
     pillarSubtitle: string;
+    // 4 Foundational Pillars
+    pillar1Title?: string;
+    pillar1Desc?: string;
+    pillar1Feature?: string;
+    pillar2Title?: string;
+    pillar2Desc?: string;
+    pillar2Feature?: string;
+    pillar3Title?: string;
+    pillar3Desc?: string;
+    pillar3Feature?: string;
+    pillar4Title?: string;
+    pillar4Desc?: string;
+    pillar4Feature?: string;
     missionTitle: string;
     missionDesc: string;
     visionTitle: string;
@@ -117,6 +144,22 @@ export interface SiteCMSContent {
     regDetails: string;
     boardHeading: string;
     boardSubheading: string;
+    // 3 Global Registered Offices
+    office1Title?: string;
+    office1City?: string;
+    office1Address?: string;
+    office1Phone?: string;
+    office1Email?: string;
+    office2Title?: string;
+    office2City?: string;
+    office2Address?: string;
+    office2Phone?: string;
+    office2Email?: string;
+    office3Title?: string;
+    office3City?: string;
+    office3Address?: string;
+    office3Phone?: string;
+    office3Email?: string;
   };
   sponsor_orphan: {
     pageBadge: string;
@@ -222,6 +265,20 @@ export interface SiteCMSContent {
     benefit3: string;
     contactNotice: string;
   };
+  appeals: {
+    pageBadge: string;
+    pageTitle: string;
+    pageSubtitle: string;
+    stat1Value?: string;
+    stat1Label?: string;
+    stat2Value?: string;
+    stat2Label?: string;
+  };
+  news: {
+    pageBadge: string;
+    pageTitle: string;
+    pageSubtitle: string;
+  };
 }
 
 export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
@@ -302,6 +359,18 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     volunteerCount: '০',
     volunteerCountLabel: 'সক্রিয় তরুণ',
     volunteerSubtext: 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী',
+    // Transformation Story Spotlight in Home Page
+    storySectionBadge: 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প',
+    storySectionTitle: 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন',
+    storySectionSubtitle: 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায় এবং অসহায় পরিবারগুলোকে আশার আলো দেখায়।',
+    story1Tag: 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ',
+    story1Location: 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত',
+    story1Title: '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা',
+    story1Desc: 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের অশ্রুসজল চোখে কোলে ফিরিয়ে দেওয়া হয়।',
+    story1Image: '/images/badshah-reunion.jpg',
+    story2Title: 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা',
+    story2Desc: 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।',
+    story2Image: '/images/pediatric-hope-saifan.jpg',
   },
   about: {
     pageBadge: 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930',
@@ -318,6 +387,19 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     storyVolunteerDesc: 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক',
     pillarTitle: 'আমানতদারিতা ও স্বচ্ছতার চার স্তম্ভ',
     pillarSubtitle: 'আমাদের সকল কার্যক্রমের মূলভিত্তি ইসলামী শরীয়াহ ও পূর্ণ জবাবদিহিতা।',
+    // 4 Foundational Pillars
+    pillar1Title: 'শরীয়াহ সততা ও বিশ্বস্ততা (Shariah Integrity)',
+    pillar1Desc: 'প্রতিটি যাকাত ও সদকাহ তহবিল সুনির্দিষ্ট শরীয়াহ নীতিমালায় ১০০% বিশ্বস্ততার সাথে সরাসরি হকদারদের কাছে পৌঁছানো হয়।',
+    pillar1Feature: 'স্বতন্ত্র শরীয়াহ বোর্ড অনুমোদিত',
+    pillar2Title: 'মর্যাদা ও পূর্ণ তামলিক (Dignity & Tamleek)',
+    pillar2Desc: 'সহায়তা প্রদানের ক্ষেত্রে সুবিধাভোগীদের সম্মান রক্ষা এবং প্রত্যক্ষ মালিকানা নিশ্চিত করা আমাদের প্রধান নীতি।',
+    pillar2Feature: 'প্রত্যক্ষ সম্পদ হস্তান্তর নীতিমালা',
+    pillar3Title: 'মাঠপর্যায়ে কঠোর যাচাই (Ground-Truth Verification)',
+    pillar3Desc: 'প্রতিটি বিতরণ কার্যক্রম জিও-ট্যাগ ছবি, জাতীয় পরিচয়পত্র যাচাই এবং স্বচ্ছ মাস্টাররোলের মাধ্যমে নথিবদ্ধ করা হয়।',
+    pillar3Feature: 'জিপিএস সময়-চিহ্নিত অডিট রেকর্ড',
+    pillar4Title: 'স্বাধীন প্রশাসন ও জিরো-ওভারহেড (Radical Stewardship)',
+    pillar4Desc: 'সকল প্রশাসনিক ও অপারেশনাল ব্যয় স্বতন্ত্র প্রাতিষ্ঠানিক তহবিল থেকে নির্বাহ করা হয়—সাধারণ অনুদান শতভাগ মাঠেই যায়।',
+    pillar4Feature: '১০০% জিরো-প্রশাসনিক কর্তন গ্যারান্টি',
     missionTitle: 'আমাদের মূল মিশন',
     missionDesc: 'শরীয়াহ সম্মত যাকাত ও অনুদান ব্যবস্থাপনার মাধ্যমে প্রান্তিক ও অসহায় মানুষের অধিকার প্রতিষ্ঠা করা।',
     visionTitle: 'আমাদের দীর্ঘমেয়াদী ভিশন',
@@ -328,6 +410,22 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     regDetails: 'সোসাইটি রেজিস্ট্রেশন অ্যাক্ট ১৮৬০ এর আওতায় সরকার কর্তৃক আনুষ্ঠানিকভাবে নিবন্ধিত ও অনুমোদিত।',
     boardHeading: 'সম্মানিত পরিচালনা পর্ষদ ও উপদেষ্টা পরিষদ',
     boardSubheading: 'যোগ্য ও আমানতদার আলেম এবং ট্রাস্টি বোর্ডের সার্বক্ষণিক দিকনির্দেশনায় পরিচালিত।',
+    // 3 Global Registered Offices
+    office1Title: 'প্রধান কার্যালয় (Principal Head Office)',
+    office1City: 'সাভার, ঢাকা (বাংলাদেশ)',
+    office1Address: 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh',
+    office1Phone: '01913119525',
+    office1Email: 'gmcfoundation2022@gmail.com',
+    office2Title: 'যুক্তরাজ্য লিয়াজোঁ (UK Statutory Reg)',
+    office2City: 'লন্ডন, যুক্তরাজ্য',
+    office2Address: '104 Whitechapel High St, London E1 7PT, United Kingdom',
+    office2Phone: '+44 20 7946 0912',
+    office2Email: 'uk@gmcfoundation.org',
+    office3Title: 'উত্তর আমেরিকা প্রতিনিধি (USA Liaison)',
+    office3City: 'নিউ ইয়র্ক, যুক্তরাষ্ট্র',
+    office3Address: 'Jackson Heights, Queens, NY 11372, United States',
+    office3Phone: '+1 718 555 0194',
+    office3Email: 'usa@gmcfoundation.org',
   },
   sponsor_orphan: {
     pageBadge: 'রাসূলুল্লাহ (ﷺ) এর সুন্নাহ — এতিম ও দুস্থ শিশুর অভিভাবকত্ব',
@@ -431,6 +529,20 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     benefit2: 'অফিসিয়াল স্বেচ্ছাসেবা সনদপত্র ও লিডারশিপ অভিজ্ঞতা',
     benefit3: 'জাতীয় দুর্যোগ ব্যবস্থাপনা ও ফার্স্ট এইড ট্রেনিং',
     contactNotice: 'আবেদন জমার পর আমাদের কোঅর্ডিনেশন টিম ৭ কার্যদিবসের মধ্যে যোগাযোগ করবে।',
+  },
+  appeals: {
+    pageBadge: 'যাচাইকৃত ফিল্ড অপারেশন • ১০০% সরাসরি বিতরণ',
+    pageTitle: 'আমাদের চলমান মানবিক আবেদন ও জরুরি ফান্ডসমূহ',
+    pageSubtitle: 'আপনার যাকাত ও সদকাহ পৌঁছে দিন চরম সংকটে থাকা অপুষ্টিতে ভোগা শিশু, বিধবা পরিবার, গভীর নলকূপ স্থাপন ও জরুরি সার্জারি কার্যক্রমে।',
+    stat1Value: '100%',
+    stat1Label: 'যাকাত গ্যারান্টি • জিরো অ্যাডমিন কাট',
+    stat2Value: '০',
+    stat2Label: 'সরাসরি সহায়তাপ্রাপ্ত ও আশ্রয়প্রাপ্ত',
+  },
+  news: {
+    pageBadge: 'ফিল্ড নিউজ ও মানবিক ডিসপ্যাচ',
+    pageTitle: 'সরাসরি মাঠপর্যায়ের প্রতিবেদন ও মানবিক খবর',
+    pageSubtitle: 'মাঠপর্যায়ে ত্রাণ বিতরণ, আর্সেনিকমুক্ত নলকূপ স্থাপন এবং এতিম প্রতিপালন কার্যক্রমের সরাসরি খবরাখবর ও স্বচ্ছ চিত্র।',
   },
 };
 
@@ -695,6 +807,8 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           zakat_calculator: { ...DEFAULT_CMS_CONTENT.zakat_calculator, ...(parsed.zakat_calculator || {}) },
           gallery: { ...DEFAULT_CMS_CONTENT.gallery, ...(parsed.gallery || {}) },
           volunteer: { ...DEFAULT_CMS_CONTENT.volunteer, ...(parsed.volunteer || {}) },
+          appeals: { ...DEFAULT_CMS_CONTENT.appeals, ...(parsed.appeals || {}) },
+          news: { ...DEFAULT_CMS_CONTENT.news, ...(parsed.news || {}) },
         }));
       }
     } catch (e) {

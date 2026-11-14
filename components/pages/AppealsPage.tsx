@@ -270,17 +270,16 @@ export default function AppealsPage() {
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-dark/10 text-emerald-dark">
                     <span className="w-2 h-2 rounded-full bg-amber-vibrant animate-pulse"></span>
                     <span className="font-label-sm uppercase tracking-wider text-emerald-dark">
-                      Verified Field Operations • 100% Direct Delivery
+                      {cms.appeals?.pageBadge || (isBn ? 'যাচাইকৃত ফিল্ড অপারেশন • ১০০% সরাসরি বিতরণ' : 'Verified Field Operations • 100% Direct Delivery')}
                     </span>
                   </div>
                   <h1 className="font-serif text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                    Our Ongoing Appeals &amp; Humanitarian Causes
+                    {cms.appeals?.pageTitle || (isBn ? 'আমাদের চলমান মানবিক আবেদন ও জরুরি ফান্ডসমূহ' : 'Our Ongoing Appeals & Humanitarian Causes')}
                   </h1>
                   <p className="font-body-lg text-on-surface-variant leading-relaxed max-w-2xl">
-                    Entrust your Zakat and Sadaqah where urgency meets real-time
-                    verified impact. Supporting malnourished children, desperate
-                    rural communities, clean water wells, and emergency eye
-                    surgeries across Bangladesh.
+                    {cms.appeals?.pageSubtitle || (isBn
+                      ? 'আপনার যাকাত ও সদকাহ পৌঁছে দিন চরম সংকটে থাকা অপুষ্টিতে ভোগা শিশু, বিধবা পরিবার, গভীর নলকূপ স্থাপন ও জরুরি সার্জারি কার্যক্রমে।'
+                      : 'Entrust your Zakat and Sadaqah where urgency meets real-time verified impact. Supporting malnourished children, desperate rural communities, clean water wells, and emergency eye surgeries across Bangladesh.')}
                   </p>
                 </div>
 
