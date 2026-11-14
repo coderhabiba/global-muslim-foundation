@@ -327,11 +327,12 @@ export default function ZakatCalculatorPage() {
                   </div>
                   <div>
                     <h3 className="font-title-md text-title-md text-on-primary">
-                      Today's Live Nisab Values
+                      {isBn ? 'আজকের লাইভ নিসাব মান (টাকায়)' : "Today's Live Nisab Values (in BDT)"}
                     </h3>
                     <p className="font-label-md text-label-md text-primary-fixed">
-                      Updated dynamically per London Bullion Market Association
-                      (LBMA) standards
+                      {isBn
+                        ? 'লন্ডন বুলিয়ন মার্কেট (LBMA) ও বাংলাদেশ বাজারদর অনুযায়ী টাকায় হিসাবকৃত'
+                        : 'Calculated in BDT per London Bullion Market Association (LBMA) & local rates'}
                     </p>
                   </div>
                 </div>
@@ -343,17 +344,17 @@ export default function ZakatCalculatorPage() {
 
                   <div className="bg-black/25 rounded-xl p-3 flex flex-col">
                     <div className="flex items-center justify-between text-primary-fixed font-label-sm text-label-sm">
-                      <span>Silver Nisab (612.36g)</span>
-                      <span className="text-zakat-gold-light">Preferred</span>
+                      <span>{isBn ? 'রুপার নিসাব (৬১২.৩৬ গ্রাম)' : 'Silver Nisab (612.36g)'}</span>
+                      <span className="text-zakat-gold-light">{isBn ? 'অগ্রাধিকারযোগ্য' : 'Preferred'}</span>
                     </div>
                     <span
                       className="font-headline-sm text-headline-sm text-on-primary font-bold mt-1"
                       id="nisab-silver-usd"
                     >
-                      $581.75
+                      {isBn ? '৳৭০,৯৭৫' : '৳70,975'}
                     </span>
                     <span className="font-label-sm text-label-sm text-on-primary/60">
-                      USD Benchmark
+                      {isBn ? 'আন্তর্জাতিক মান ($581.75 সমমান)' : 'USD Benchmark (equiv. $581.75)'}
                     </span>
                   </div>
 
@@ -361,16 +362,16 @@ export default function ZakatCalculatorPage() {
 
                   <div className="bg-black/25 rounded-xl p-3 flex flex-col">
                     <span className="text-primary-fixed font-label-sm text-label-sm">
-                      Silver Nisab (BDT)
+                      {isBn ? 'রুপার নিসাব (বাংলাদেশ)' : 'Silver Nisab (BDT)'}
                     </span>
                     <span
                       className="font-headline-sm text-headline-sm text-on-primary font-bold mt-1"
                       id="nisab-silver-bdt"
                     >
-                      ৳68,450
+                      {isBn ? '৳৬৮,৪৫০' : '৳68,450'}
                     </span>
                     <span className="font-label-sm text-label-sm text-on-primary/60">
-                      Local Market Rate
+                      {isBn ? 'স্থানীয় বাজার দর (বাংলাদেশ)' : 'Local Market Rate'}
                     </span>
                   </div>
 
@@ -378,16 +379,16 @@ export default function ZakatCalculatorPage() {
 
                   <div className="bg-black/25 rounded-xl p-3 flex flex-col">
                     <span className="text-primary-fixed font-label-sm text-label-sm">
-                      Silver Nisab (GBP)
+                      {isBn ? 'রুপার নিসাব (যুক্তরাজ্য মান)' : 'Silver Nisab (GBP)'}
                     </span>
                     <span
                       className="font-headline-sm text-headline-sm text-on-primary font-bold mt-1"
                       id="nisab-silver-gbp"
                     >
-                      £458.20
+                      {isBn ? '৳৭১,০২০' : '৳71,020'}
                     </span>
                     <span className="font-label-sm text-label-sm text-on-primary/60">
-                      UK Standard
+                      {isBn ? 'ইউকে স্ট্যান্ডার্ড (£458.20 সমমান)' : 'UK Standard (equiv. £458.20)'}
                     </span>
                   </div>
 
@@ -395,16 +396,16 @@ export default function ZakatCalculatorPage() {
 
                   <div className="bg-black/25 rounded-xl p-3 flex flex-col">
                     <span className="text-primary-fixed font-label-sm text-label-sm">
-                      Gold Nisab (87.48g)
+                      {isBn ? 'স্বর্ণের নিসাব (৮৭.৪৮ গ্রাম)' : 'Gold Nisab (87.48g)'}
                     </span>
                     <span
                       className="font-headline-sm text-headline-sm text-on-primary font-bold mt-1"
                       id="nisab-gold-usd"
                     >
-                      $6,820.00
+                      {isBn ? '৳৮,৩২,০৪০' : '৳8,32,040'}
                     </span>
                     <span className="font-label-sm text-label-sm text-on-primary/60">
-                      Alternative Benchmark
+                      {isBn ? 'বিকল্প মানদণ্ড ($6,820.00 সমমান)' : 'Alternative Benchmark (equiv. $6,820)'}
                     </span>
                   </div>
                 </div>
