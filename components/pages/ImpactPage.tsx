@@ -468,11 +468,41 @@ export default function ImpactPage() {
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              <span>{cmsImpact.pageTitle || 'আমাদের প্রজেক্ট সমূহ — মানবতার কল্যাণে স্থায়ী পরিবর্তন'}</span>
+              (() => {
+                const title = (
+                  cmsImpact.pageTitle ||
+                  'আমাদের প্রজেক্ট সমূহ — মানবতার কল্যাণে স্থায়ী পরিবর্তন'
+                ).trim();
+                if (title.includes('—')) {
+                  const parts = title.split('—');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join('—').trim();
+                  return (
+                    <>
+                      {first} —{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                if (title.includes(',')) {
+                  const parts = title.split(',');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join(',').trim();
+                  return (
+                    <>
+                      {first},{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                return title;
+              })()
             ) : (
               <>
                 Our Foundation Projects —{' '}
-                <span className="text-[#0e4d36]">Sustainable Impact for Humanity</span>
+                <span className="text-amber-600 dark:text-amber-500">
+                  Sustainable Impact for Humanity
+                </span>
               </>
             )}
           </h1>

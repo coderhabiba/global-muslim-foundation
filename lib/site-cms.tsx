@@ -331,9 +331,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     project3Desc: 'বন্যা ও দুর্যোগে প্রত্যন্ত চরাঞ্চলের রোগীদের জরুরি চিকিৎসায় মোবাইল ক্লিনিক ভ্যান।',
   },
   impact: {
-    pageBadge: 'FIELD AUDITED RESULTS • 100% ACCOUNTABILITY',
-    pageTitle: 'আমাদের কার্যক্রমের প্রভাব ও অগ্রগতি',
-    pageSubtitle: 'মাঠপর্যায়ে বাস্তবায়িত প্রতিটি প্রকল্পের বাস্তব ফলাফল, পরিসংখ্যান ও সংখ্যাগত অগ্রগতি।',
+    pageBadge: 'মাঠপর্যায়ে বাস্তবায়িত ও চলমান মানবিক প্রকল্পসমূহ • শতভাগ শরীয়াহ নিরীক্ষিত',
+    pageTitle: 'আমাদের প্রজেক্ট সমূহ — মানবতার কল্যাণে স্থায়ী পরিবর্তন',
+    pageSubtitle: 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)-এর প্রতিটি প্রজেক্ট সরাসরি প্রান্তিক মানুষের জীবনে টেকসই পরিবর্তন আনে। গৃহহীনদের নিরাপদ টিনের ঘর, ক্ষুধার্তদের ওয়ান মিল ওয়ান হোপ, চোখের আলো ফিরিয়ে দেওয়া কিংবা সুপেয় পানি—আপনার প্রতিটি অনুদান পৌঁছে যায় নির্ধারিত খাতে।',
     waterWellsCount: '০',
     waterWellsLabel: 'সুপেয় পানির নলকূপ',
     mealsDelivered: '০',
@@ -436,6 +436,25 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (MOCK_STRINGS.has(parsed.impact.districtsCovered)) parsed.impact.districtsCovered = '০';
           if (MOCK_STRINGS.has(parsed.impact.healthcareProvided)) parsed.impact.healthcareProvided = '০';
           if (MOCK_STRINGS.has(parsed.impact.orphansSupported)) parsed.impact.orphansSupported = '০';
+          if (
+            !parsed.impact.pageBadge ||
+            parsed.impact.pageBadge === 'FIELD AUDITED RESULTS • 100% ACCOUNTABILITY'
+          ) {
+            parsed.impact.pageBadge = 'মাঠপর্যায়ে বাস্তবায়িত ও চলমান মানবিক প্রকল্পসমূহ • শতভাগ শরীয়াহ নিরীক্ষিত';
+          }
+          if (
+            !parsed.impact.pageTitle ||
+            parsed.impact.pageTitle === 'আমাদের কার্যক্রমের প্রভাব ও অগ্রগতি'
+          ) {
+            parsed.impact.pageTitle = 'আমাদের প্রজেক্ট সমূহ — মানবতার কল্যাণে স্থায়ী পরিবর্তন';
+          }
+          if (
+            !parsed.impact.pageSubtitle ||
+            parsed.impact.pageSubtitle === 'মাঠপর্যায়ে বাস্তবায়িত প্রতিটি প্রকল্পের বাস্তব ফলাফল, পরিসংখ্যান ও সংখ্যাগত অগ্রগতি।'
+          ) {
+            parsed.impact.pageSubtitle =
+              'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশন (GMCF)-এর প্রতিটি প্রজেক্ট সরাসরি প্রান্তিক মানুষের জীবনে টেকসই পরিবর্তন আনে। গৃহহীনদের নিরাপদ টিনের ঘর, ক্ষুধার্তদের ওয়ান মিল ওয়ান হোপ, চোখের আলো ফিরিয়ে দেওয়া কিংবা সুপেয় পানি—আপনার প্রতিটি অনুদান পৌঁছে যায় নির্ধারিত খাতে।';
+          }
         }
         if (parsed.home) {
           if (parsed.home.heroTitle === 'মানবতার সেবায় নিবেদিত বিশ্বস্ত হাত') {
