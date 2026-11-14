@@ -79,6 +79,31 @@ export default function HomePage() {
   const { cms } = useSiteCMS();
   const { campaigns } = useDynamicCards();
   const isBn = language === 'bn';
+  const [campaignTab, setCampaignTab] = useState<'all' | 'food' | 'healthcare' | 'water'>('all');
+
+  const filteredCampaigns = useMemo(() => {
+    if (campaignTab === 'all') return campaigns;
+    if (campaignTab === 'food') {
+      return campaigns.filter(c => 
+        (c.categoryEn && c.categoryEn.toLowerCase().includes('food')) || 
+        (c.categoryBn && c.categoryBn.includes('খাদ্য'))
+      );
+    }
+    if (campaignTab === 'healthcare') {
+      return campaigns.filter(c => 
+        (c.categoryEn && (c.categoryEn.toLowerCase().includes('health') || c.categoryEn.toLowerCase().includes('medical') || c.categoryEn.toLowerCase().includes('pediatric') || c.categoryEn.toLowerCase().includes('eye'))) || 
+        (c.categoryBn && (c.categoryBn.includes('চিকিৎসা') || c.categoryBn.includes('স্বাস্থ্য') || c.categoryBn.includes('অস্ত্রোপচার')))
+      );
+    }
+    if (campaignTab === 'water') {
+      return campaigns.filter(c => 
+        (c.categoryEn && c.categoryEn.toLowerCase().includes('water')) || 
+        (c.categoryBn && c.categoryBn.includes('পানি'))
+      );
+    }
+    return campaigns;
+  }, [campaigns, campaignTab]);
+
   const [donorName, setDonorName] = useState('');
   const [donorContact, setDonorContact] = useState('');
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>(
@@ -727,22 +752,54 @@ export default function HomePage() {
                   protection to those facing acute hardship.
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <button className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-sm">
-                  All Campaigns
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setCampaignTab('all')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    campaignTab === 'all'
+                      ? 'bg-primary text-white shadow-sm ring-2 ring-primary/20'
+                      : 'bg-surface-subtle-mint text-primary hover:bg-surface-clean border border-primary/20'
+                  }`}
+                >
+                  {isBn ? 'সকল কার্যক্রম' : 'All Campaigns'}
                 </button>
-                <button className="px-4 py-2 rounded-xl bg-surface-subtle-mint text-primary text-xs font-semibold hover:bg-surface-clean border border-primary/20">
-                  Food Relief
+                <button
+                  type="button"
+                  onClick={() => setCampaignTab('food')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    campaignTab === 'food'
+                      ? 'bg-primary text-white shadow-sm ring-2 ring-primary/20'
+                      : 'bg-surface-subtle-mint text-primary hover:bg-surface-clean border border-primary/20'
+                  }`}
+                >
+                  {isBn ? 'খাদ্য সহায়তা' : 'Food Relief'}
                 </button>
-                <button className="px-4 py-2 rounded-xl bg-surface-subtle-mint text-primary text-xs font-semibold hover:bg-surface-clean border border-primary/20">
-                  Healthcare
+                <button
+                  type="button"
+                  onClick={() => setCampaignTab('healthcare')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    campaignTab === 'healthcare'
+                      ? 'bg-primary text-white shadow-sm ring-2 ring-primary/20'
+                      : 'bg-surface-subtle-mint text-primary hover:bg-surface-clean border border-primary/20'
+                  }`}
+                >
+                  {isBn ? 'চিকিৎসাসেবা' : 'Healthcare'}
                 </button>
               </div>
             </div>
 
             {/* Projects Cards Bento Grid (Dynamic campaigns from Card Context) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {campaigns.map((camp, idx) => {
+              {filteredCampaigns.length === 0 ? (
+                <div className="col-span-full py-12 text-center bg-white rounded-2xl border border-slate-200 shadow-xs">
+                  <span className="material-symbols-outlined text-4xl text-slate-400 mb-2">search_off</span>
+                  <p className="text-sm font-semibold text-slate-600">
+                    {isBn ? 'এই ক্যাটাগরিতে বর্তমানে কোনো ক্যাম্পেইন পাওয়া যায়নি।' : 'No campaigns currently found in this category.'}
+                  </p>
+                </div>
+              ) : (
+                filteredCampaigns.map((camp, idx) => {
                 const percentage = Math.min(100, Math.round((camp.raisedBDT / (camp.goalBDT || 1)) * 100));
                 const projNum = (idx + 1).toString().padStart(2, "0");
                 const title = isBn ? camp.titleBn : camp.titleEn;
@@ -834,7 +891,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 );
-              })}
+              }))}
             </div>
           </div>
         </section>
