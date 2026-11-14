@@ -435,7 +435,7 @@ export default function UpcomingProjectsPage() {
                           <span className="material-symbols-outlined text-[15px]">groups</span>
                           {isBn ? `উপকারভোগী: ${project.beneficiaryCountBn}` : `Beneficiaries: ${project.beneficiaryCountEn}`}
                         </span>
-                        <span className="text-[#0e4d36]">{percentage}% সংগ্রহ হয়েছে</span>
+                        <span className="text-[#0e4d36]">{percentage}% {isBn ? 'সংগ্রহ হয়েছে' : 'Funded'}</span>
                       </div>
                       <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                         <div
@@ -444,8 +444,8 @@ export default function UpcomingProjectsPage() {
                         />
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium mt-1.5">
-                        <span>সংগৃহীত: {symbol}{raised.toLocaleString()}</span>
-                        <span>মোট প্রাক্কলিত বাজেট: {symbol}{budget.toLocaleString()}</span>
+                        <span>{isBn ? 'সংগৃহীত:' : 'Raised:'} {symbol}{raised.toLocaleString()}</span>
+                        <span>{isBn ? 'মোট প্রাক্কলিত বাজেট:' : 'Total Estimated Budget:'} {symbol}{budget.toLocaleString()}</span>
                       </div>
                     </div>
 

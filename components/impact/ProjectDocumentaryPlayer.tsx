@@ -378,13 +378,13 @@ export default function ProjectDocumentaryPlayer({
               <div className="max-w-xl space-y-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-400/30 backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>{videoBadge || (isBn ? 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও' : 'Field Documentary • Monthly Drive')}</span>
+                  <span>{isBn ? (videoBadge || 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও') : 'Field Documentary • Monthly Drive'}</span>
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black font-serif-heading text-white drop-shadow-md">
-                  {videoTitle || (isBn ? 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি' : 'Midnight Warm Meals & Clean Water for Dhaka Destitute')}
+                  {isBn ? (videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি') : 'Midnight Warm Meals & Clean Water for Dhaka Destitute'}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 drop-shadow-xs max-w-lg mx-auto">
-                  {videoSubtitle || (isBn ? 'ঢাকার রাজপথে মধ্যরাতে বিরিয়ানি ও বিশুদ্ধ পানি বিতরণের প্রামাণ্যচিত্র।' : 'Documentary of late-night biryani hampers and bottled water on Dhaka streets.')}
+                  {isBn ? (videoSubtitle || 'ঢাকার রাজপথে মধ্যরাতে বিরিয়ানি ও বিশুদ্ধ পানি বিতরণের প্রামাণ্যচিত্র।') : 'Documentary of late-night biryani hampers and bottled water on Dhaka streets.'}
                 </p>
                 <div className="pt-2">
                   <span className="inline-flex items-center gap-2 text-xs font-bold text-amber-300 bg-black/60 px-3.5 py-1.5 rounded-full border border-amber-400/30">

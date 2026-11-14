@@ -115,7 +115,7 @@ export default function SiteFooter() {
               <span className="text-xs text-text-muted font-medium">
                 {isBn
                   ? `চেয়ারম্যান: ${cms.header_footer.chairmanName || 'মোহাম্মদ আলী মোস্তফা'}`
-                  : `Chairman: ${cms.header_footer.chairmanName || 'Mohammad Ali Mostafa'}`}
+                  : 'Chairman: Mohammad Ali Mostafa'}
               </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
@@ -335,9 +335,9 @@ export default function SiteFooter() {
                 </span>
                 <span>
                   <strong>{isBn ? 'প্রধান কার্যালয়:' : 'Head Office:'}</strong>{' '}
-                  {cms.header_footer.address || (isBn
-                    ? '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা, বাংলাদেশ'
-                    : '99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh')}
+                  {isBn
+                    ? (cms.header_footer.address || '৯৯, কায়সারচর, ভাকুর্তা, সাভার, ঢাকা, বাংলাদেশ')
+                    : '99, Kaisharchor, Vakurta, Savar, Dhaka, Bangladesh'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -346,7 +346,9 @@ export default function SiteFooter() {
                 </span>
                 <span>
                   <strong>{isBn ? 'চেয়ারম্যান:' : 'Chairman:'}</strong>{' '}
-                  {cms.header_footer.chairmanName || (isBn ? 'মোহাম্মদ আলী মোস্তফা' : 'Mohammad Ali Mostafa')}
+                  {isBn
+                    ? (cms.header_footer.chairmanName || 'মোহাম্মদ আলী মোস্তফা')
+                    : 'Mohammad Ali Mostafa'}
                 </span>
               </div>
               <div className="flex items-center gap-2">

@@ -744,10 +744,10 @@ export default function HomePage() {
                   {isBn ? 'জরুরি মানবিক আবেদন' : 'Emergency Humanitarian Appeals'}
                 </div>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : (cms.home.appealTitle || 'Active Appeals & Dedicated Funds')}
+                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : 'Active Emergency Appeals & Dedicated Funds'}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant max-w-2xl mt-1.5">
-                  {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : (cms.home.appealSubtitle || 'Your charitable donation provides life-saving sustenance, emergency surgeries, clean drinking water, and winter protection.')}
+                  {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : 'Extend your hand towards immediate relief, permanent shelter, clean water, and orphan guardianship.'}
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -860,10 +860,10 @@ export default function HomePage() {
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
                           <span className="font-bold text-primary">
-                            {isBn ? "সংগৃহীত: ৳" + camp.raisedBDT.toLocaleString() : "Raised: ৳" + camp.raisedBDT.toLocaleString()}
+                            {isBn ? `সংগৃহীত: ৳${camp.raisedBDT.toLocaleString()}` : `Raised: ${currencySymbol}${currency === 'USD' ? Math.round(camp.raisedBDT / 120).toLocaleString() : camp.raisedBDT.toLocaleString()}`}
                           </span>
                           <span className="text-text-muted">
-                            {isBn ? "লক্ষ্য: ৳" + camp.goalBDT.toLocaleString() : "Goal: ৳" + camp.goalBDT.toLocaleString()}
+                            {isBn ? `লক্ষ্য: ৳${camp.goalBDT.toLocaleString()}` : `Goal: ${currencySymbol}${currency === 'USD' ? Math.round(camp.goalBDT / 120).toLocaleString() : camp.goalBDT.toLocaleString()}`}
                           </span>
                         </div>
                         <div className="w-full h-2 bg-surface-subtle-mint rounded-full overflow-hidden">
@@ -903,13 +903,13 @@ export default function HomePage() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                {cms.home.storySectionBadge || (isBn ? 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প' : 'Documented Field Impact')}
+                {isBn ? (cms.home.storySectionBadge || 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প') : 'Documented Field Impact'}
               </span>
               <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                {cms.home.storySectionTitle || (isBn ? 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন' : 'Real Life Transformations: A Mother & Child Reunited')}
+                {isBn ? (cms.home.storySectionTitle || 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন') : 'Real Life Transformations: A Mother & Child Reunited'}
               </h2>
               <p className="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
-                {cms.home.storySectionSubtitle || (isBn ? 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায়।' : 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to families.')}
+                {isBn ? (cms.home.storySectionSubtitle || 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায় এবং অসহায় পরিবারগুলোকে আশার আলো দেখায়।') : 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to destitute families.'}
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -923,7 +923,7 @@ export default function HomePage() {
                     src={cms.home.story1Image || '/images/badshah-reunion.jpg'}
                   />
                   <div className="absolute bottom-4 left-4 bg-emerald-dark/95 text-white text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur shadow">
-                    {cms.home.story1Tag || (isBn ? 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ' : 'Family Reconnection & Child Welfare')}
+                    {isBn ? (cms.home.story1Tag || 'পারিবারিক পুনর্মিলন ও শিশু কল্যাণ') : 'Family Reconnection & Child Welfare'}
                   </div>
                 </div>
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
@@ -932,13 +932,15 @@ export default function HomePage() {
                       <span className="material-symbols-outlined text-[16px] text-primary">
                         verified
                       </span>
-                      <span className="">{cms.home.story1Location || (isBn ? 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত' : 'Tejgaon Community Center • Verified by Local Authorities')}</span>
+                      <span className="">
+                        {isBn ? (cms.home.story1Location || 'তেজগাঁও কমিউনিটি সেন্টার • প্রশাসন কর্তৃক যাচাইকৃত') : 'Tejgaon Community Center • Verified by Local Authorities'}
+                      </span>
                     </div>
                     <h3 className="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">
-                      {cms.home.story1Title || (isBn ? '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা' : '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion')}
+                      {isBn ? (cms.home.story1Title || '"বাদশাহকে তার মায়ের পরম স্নেহে ফিরিয়ে আনা" — সহানুভূতির এক বাস্তব অলৌকিক ঘটনা') : '"Bringing Badshah Back to His Mother\'s Embrace" — A Miracle of Compassion'}
                     </h3>
                     <p className="text-sm text-on-surface-variant mt-3 leading-relaxed">
-                      {cms.home.story1Desc || (isBn ? 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের কোলে ফিরিয়ে দেওয়া হয়।' : 'Found wandering and distressed near the railway terminals, 8-year-old Badshah was taken into protective custody and reunited with his mother.')}
+                      {isBn ? (cms.home.story1Desc || 'রেলওয়ে টার্মিনালের কাছে অসহায় অবস্থায় ঘুরে বেড়ানো ৮ বছর বয়সী বাদশাহকে আমাদের টিম পরম যত্নে উদ্ধার করে। ২১ দিনের নিবিড় তদন্তের পর তাকে মায়ের অশ্রুসজল চোখে কোলে ফিরিয়ে দেওয়া হয়।') : 'Found wandering distressed near railway terminals, 8-year-old Badshah was protected by our team and reunited with his mother after 21 days of intensive investigation.'}
                     </p>
                   </div>
                   <div className="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between">
@@ -980,10 +982,10 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h4 className="font-serif-heading text-lg font-bold text-on-surface">
-                      {cms.home.story2Title || (isBn ? 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা' : "Saifan's Journey to Health & Recovery")}
+                      {isBn ? (cms.home.story2Title || 'সাইফানের সুস্থতা ও নতুন জীবনের যাত্রা') : "Saifan's Journey to Health & Recovery"}
                     </h4>
                     <p className="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-relaxed">
-                      {cms.home.story2Desc || (isBn ? 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।' : 'Born with critical medical distress into extreme poverty, Saifan received fully sponsored pediatric surgery.')}
+                      {isBn ? (cms.home.story2Desc || 'চরম দারিদ্র্যের মাঝে মারাত্মক স্বাস্থ্যঝুঁকিতে থাকা শিশু সাইফানকে দেওয়া হয়েছে জরুরি পেডিয়াট্রিক সার্জারি ও পুষ্টি সেবা।') : 'Born into extreme poverty with critical health risks, infant Saifan received emergency pediatric surgery and vital nutritional rehabilitation.'}
                     </p>
                   </div>
                   <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">

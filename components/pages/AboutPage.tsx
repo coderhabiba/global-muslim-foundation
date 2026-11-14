@@ -542,7 +542,7 @@ export default function AboutPage() {
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
                       <span className="font-title-lg text-title-lg text-primary font-bold block">
                         <DynamicLiveCounter
-                          value={cms.about.storyResponseTime}
+                          value={isBn ? cms.about.storyResponseTime : (cms.about.storyResponseTime === '৪৮ ঘণ্টা' || !cms.about.storyResponseTime ? '48 Hours' : cms.about.storyResponseTime)}
                           defaultValue={isBn ? '৪৮ ঘণ্টা' : '48 Hours'}
                           fluctuateRange={[0, 0]}
                         />
@@ -647,14 +647,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {cms.about.office1Title || (isBn ? 'প্রধান কার্যালয়' : 'Principal Head Office')}
+                        {isBn ? (cms.about.office1Title || 'প্রধান কার্যালয়') : 'Principal Head Office'}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         flag
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {cms.about.office1City || (isBn ? 'সাভার, ঢাকা' : 'Savar, Dhaka')}
+                      {isBn ? (cms.about.office1City || 'সাভার, ঢাকা') : 'Savar, Dhaka (Bangladesh)'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office1Address || 'House #99, Kaisharchor, Vakurta, Savar, Dhaka-1340, Bangladesh'}
@@ -664,7 +664,7 @@ export default function AboutPage() {
                         <strong className="text-on-surface">
                           {isBn ? 'চেয়ারম্যান:' : 'Chairman:'}
                         </strong>{' '}
-                        {cms.header_footer.chairmanName || 'Mohammad Ali Mostafa'}
+                        {isBn ? (cms.header_footer.chairmanName || 'মোহাম্মদ আলী মোস্তফা') : 'Mohammad Ali Mostafa'}
                       </p>
                       <p>
                         <strong className="text-on-surface">{isBn ? 'মোবাইল:' : 'Mobile:'}</strong>{' '}
@@ -692,14 +692,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {cms.about.office2Title || (isBn ? 'যুক্তরাজ্য লিয়াজোঁ' : 'UK Statutory Reg')}
+                        {isBn ? (cms.about.office2Title || 'যুক্তরাজ্য লিয়াজোঁ') : 'UK Statutory Liaison'}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         account_balance
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {cms.about.office2City || (isBn ? 'লন্ডন, যুক্তরাজ্য' : 'London, United Kingdom')}
+                      {isBn ? (cms.about.office2City || 'লন্ডন, যুক্তরাজ্য') : 'London, United Kingdom'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office2Address || '104 Whitechapel High St, London E1 7PT, United Kingdom'}
@@ -733,14 +733,14 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-label-sm text-label-sm bg-surface-subtle-mint text-primary px-3 py-1 rounded-full font-bold uppercase">
-                        {cms.about.office3Title || (isBn ? 'উত্তর আমেরিকা লিয়াজোঁ' : 'US Tax-Exempt Status')}
+                        {isBn ? (cms.about.office3Title || 'উত্তর আমেরিকা প্রতিনিধি') : 'North America Representative'}
                       </span>
                       <span className="material-symbols-outlined text-primary text-[24px]">
                         public
                       </span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-emerald-dark font-bold mb-2">
-                      {cms.about.office3City || (isBn ? 'নিউ ইয়র্ক, যুক্তরাষ্ট্র' : 'New York, United States')}
+                      {isBn ? (cms.about.office3City || 'নিউ ইয়র্ক, যুক্তরাষ্ট্র') : 'New York, United States'}
                     </h3>
                     <p className="font-body-sm text-body-sm text-text-muted mb-4">
                       {cms.about.office3Address || 'Rockefeller Center Plaza, 45 Rockefeller Plaza, New York, NY 10111'}

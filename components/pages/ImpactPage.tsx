@@ -451,44 +451,44 @@ export default function ImpactPage() {
       '৩৫০+ এতিম শিশু সরাসরি প্রতিপালন',
     ]);
 
-    // If it's one of the old mock strings or empty, return clean '০'
+    // If it's one of the old mock strings or empty, return clean '০' or '0'
     if (!raw || MOCK_VALUES.has(raw)) {
-      return { count: '০', label: explicitLabel || defaultLabel };
+      return { count: isBn ? '০' : '0', label: (isBn ? explicitLabel : undefined) || defaultLabel };
     }
 
     // Match leading digits/bengali digits e.g. "৫০+", "১০০টি", "500"
     const match = raw.match(/^([০-৯0-9,.\+]+(?:\s*[+টি])?)\s*(.*)$/);
     if (match && match[1] && match[2].trim()) {
       return {
-        count: match[1].trim(),
-        label: explicitLabel || match[2].trim() || defaultLabel,
+        count: isBn ? match[1].trim() : match[1].trim().replace(/[০-৯]/g, d => '0123456789'['০১২৩৪৫৬৭৮৯'.indexOf(d)]),
+        label: isBn ? (explicitLabel || match[2].trim()) : defaultLabel,
       };
     }
     return {
-      count: raw,
-      label: explicitLabel || defaultLabel,
+      count: isBn ? raw : raw.replace(/[০-৯]/g, d => '0123456789'['০১২৩৪৫৬৭৮৯'.indexOf(d)]),
+      label: (isBn ? explicitLabel : undefined) || defaultLabel,
     };
   };
 
   const metricWells = parseMetric(
     cmsImpact.waterWellsCount,
     isBn ? 'সুপেয় পানির নলকূপ' : 'Clean Water Wells',
-    cmsImpact.waterWellsLabel
+    isBn ? cmsImpact.waterWellsLabel : undefined
   );
   const metricMeals = parseMetric(
     cmsImpact.mealsDelivered,
     isBn ? 'খাবার প্যাকেট বিতরণ' : 'Nutritious Meals Served',
-    cmsImpact.mealsDeliveredLabel
+    isBn ? cmsImpact.mealsDeliveredLabel : undefined
   );
   const metricFamilies = parseMetric(
     cmsImpact.familiesRehabilitated,
     isBn ? 'পুনর্বাসিত পরিবার' : 'Rehabilitated Families',
-    cmsImpact.familiesRehabilitatedLabel
+    isBn ? cmsImpact.familiesRehabilitatedLabel : undefined
   );
   const metricDistricts = parseMetric(
     cmsImpact.districtsCovered,
     isBn ? 'জেলা কভারেজ' : 'Districts Reached',
-    cmsImpact.districtsCoveredLabel
+    isBn ? cmsImpact.districtsCoveredLabel : undefined
   );
 
   return (
@@ -622,15 +622,15 @@ export default function ImpactPage() {
             <div className="lg:col-span-5 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30">
                 <span className="material-symbols-outlined text-[16px] text-amber-400">videocam</span>
-                <span>{cmsImpact.videoBadge || (isBn ? 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও' : 'Field Documentary • Monthly Project Video')}</span>
+                <span>{isBn ? (cmsImpact.videoBadge || 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও') : 'Field Documentary • Monthly Project Video'}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black font-serif-heading leading-snug tracking-tight text-white">
-                {cmsImpact.videoTitle || (isBn ? 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি' : 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight')}
+                {isBn ? (cmsImpact.videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি') : 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight'}
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                {cmsImpact.videoSubtitle || (isBn ? 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।' : 'Real on-ground documentary capturing late-night warm meal packages delivered directly to destitute individuals sleeping on Dhaka pavements.')}
+                {isBn ? (cmsImpact.videoSubtitle || 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।') : 'Real on-ground documentary capturing late-night warm meal packages delivered directly to destitute individuals sleeping on Dhaka pavements.'}
               </p>
 
               {/* Package Highlights Badge Grid */}
@@ -680,9 +680,9 @@ export default function ImpactPage() {
                 videoUrl={cmsImpact.videoUrl}
                 coverImage={cmsImpact.videoCoverImage}
                 videoDuration={cmsImpact.videoDuration}
-                videoTitle={cmsImpact.videoTitle}
-                videoSubtitle={cmsImpact.videoSubtitle}
-                videoBadge={cmsImpact.videoBadge}
+                videoTitle={isBn ? cmsImpact.videoTitle : undefined}
+                videoSubtitle={isBn ? cmsImpact.videoSubtitle : undefined}
+                videoBadge={isBn ? cmsImpact.videoBadge : undefined}
                 isBn={isBn}
                 onDonateClick={() =>
                   openPaymentModal({
@@ -858,7 +858,7 @@ export default function ImpactPage() {
                           </span>
                           {isBn ? project.beneficiariesBn : project.beneficiariesEn}
                         </span>
-                        <span className="text-[#0e4d36]">{percentage}% অর্জিত</span>
+                        <span className="text-[#0e4d36]">{percentage}% {isBn ? 'অর্জিত' : 'Achieved'}</span>
                       </div>
                       <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                         <div
@@ -867,8 +867,8 @@ export default function ImpactPage() {
                         />
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-500 mt-1">
-                        <span>সংগৃহীত: {symbol}{raised.toLocaleString()}</span>
-                        <span>লক্ষ্য: {symbol}{budget.toLocaleString()}</span>
+                        <span>{isBn ? 'সংগৃহীত:' : 'Raised:'} {symbol}{raised.toLocaleString()}</span>
+                        <span>{isBn ? 'লক্ষ্য:' : 'Goal:'} {symbol}{budget.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
