@@ -229,7 +229,7 @@ const bn: Record<string, string> = {
   'From Dhaka Railway Platforms to a Resilient Global Aid Network':
     'ঢাকার রেল প্ল্যাটফর্ম থেকে একটি সক্ষম বৈশ্বিক সহায়তা নেটওয়ার্ক',
   'FRONT-LINE HUMANITARIAN ACTION • JOIN 850+ YOUTH':
-    'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন',
+    'সম্মুখসারির মানবিক কাজ • স্বেচ্ছাসেবক টিমে যোগ দিন',
   'Fulfill Zakat Now': 'এখনই যাকাত আদায় করুন',
   'Full cost breakdown covered via 100% Zakat fund: Emergency pediatric triage ($45), Medication & post-operative rehabilitation ($85), 6 months growth nutrition packs ($50). Direct hospital receipts verified by Kurigram District Hospital.':
     '100% যাকাত তহবিলে সম্পূর্ণ ব্যয়ের বিবরণ: জরুরি শিশু প্রাথমিক চিকিৎসা ($45), ওষুধ ও অস্ত্রোপচার-পরবর্তী পুনর্বাসন ($85), ৬ মাসের বৃদ্ধি পুষ্টি প্যাক ($50)। সরাসরি হাসপাতালের রসিদ কুড়িগ্রাম জেলা হাসপাতাল কর্তৃক যাচাইকৃত।',

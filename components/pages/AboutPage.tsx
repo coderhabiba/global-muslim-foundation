@@ -549,18 +549,30 @@ export default function AboutPage() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
                       <span className="font-title-lg text-title-lg text-primary font-bold block">
-                        {isBn ? '৪৮ ঘণ্টা' : '48 Hours'}
+                        <DynamicLiveCounter
+                          value={cms.about.storyResponseTime}
+                          defaultValue={isBn ? '৪৮ ঘণ্টা' : '48 Hours'}
+                          fluctuateRange={[0, 0]}
+                        />
                       </span>
                       <span className="font-body-sm text-body-sm text-text-muted">
-                        {isBn ? 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়' : 'Max response time during cyclone & flood crises'}
+                        {isBn
+                          ? (cms.about.storyResponseDesc || 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়')
+                          : 'Max response time during cyclone & flood crises'}
                       </span>
                     </div>
                     <div className="p-4 bg-surface-subtle-mint rounded-xl">
                       <span className="font-title-lg text-title-lg text-emerald-dark font-bold block">
-                        {isBn ? '১,২০০+' : '1,200+'}
+                        <DynamicLiveCounter
+                          value={cms.about.storyVolunteerCount}
+                          defaultValue={isBn ? '০' : '0'}
+                          fluctuateRange={[-2, 5]}
+                        />
                       </span>
                       <span className="font-body-sm text-body-sm text-text-muted">
-                        {isBn ? 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক' : 'Registered youth volunteers across all 64 districts'}
+                        {isBn
+                          ? (cms.about.storyVolunteerDesc || 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক')
+                          : 'Registered youth volunteers across all 64 districts'}
                       </span>
                     </div>
                   </div>

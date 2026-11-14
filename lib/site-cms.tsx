@@ -85,6 +85,12 @@ export interface SiteCMSContent {
     ctaBannerTitle: string;
     ctaBannerDesc: string;
     ctaBannerBtn: string;
+    // Volunteer section in Home page
+    volunteerSectionBadge?: string;
+    volunteerSectionTitle?: string;
+    volunteerCount?: string;
+    volunteerCountLabel?: string;
+    volunteerSubtext?: string;
   };
   about: {
     pageBadge: string;
@@ -94,6 +100,11 @@ export interface SiteCMSContent {
     statAdminCost: string;
     statFamiliesUplifted: string;
     statAuditRating: string;
+    // Story Response & Field Volunteer Metrics
+    storyResponseTime?: string;
+    storyResponseDesc?: string;
+    storyVolunteerCount?: string;
+    storyVolunteerDesc?: string;
     pillarTitle: string;
     pillarSubtitle: string;
     missionTitle: string;
@@ -285,6 +296,12 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     ctaBannerTitle: 'আপনার যাকাত হোক অসহায় মানুষের বাঁচার সম্বল',
     ctaBannerDesc: 'শতভাগ স্বচ্ছতা ও সরাসরি মুস্তাহিকদের হাতে অর্থ পৌঁছে দিতে আমরা প্রতিশ্রুতিবদ্ধ।',
     ctaBannerBtn: 'এখনই যাকাত ফান্ডে দিন',
+    // Volunteer section in Home page
+    volunteerSectionBadge: 'কমিউনিটি ও সমাজকল্যাণ',
+    volunteerSectionTitle: 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন',
+    volunteerCount: '০',
+    volunteerCountLabel: 'সক্রিয় তরুণ',
+    volunteerSubtext: 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী',
   },
   about: {
     pageBadge: 'পবিত্র আমানতের ভিত্তিতে প্রতিষ্ঠিত • নিবন্ধিত দাতব্য সংস্থা #1184930',
@@ -294,6 +311,11 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     statAdminCost: '৳০ কোনো প্রশাসনিক কর্তন নেই',
     statFamiliesUplifted: '০ পরিবার স্বাবলম্বী',
     statAuditRating: 'গ্রেড এ স্বাধীন সিএ অডিট',
+    // Story Response & Field Volunteer Metrics
+    storyResponseTime: '৪৮ ঘণ্টা',
+    storyResponseDesc: 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়',
+    storyVolunteerCount: '০',
+    storyVolunteerDesc: 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক',
     pillarTitle: 'আমানতদারিতা ও স্বচ্ছতার চার স্তম্ভ',
     pillarSubtitle: 'আমাদের সকল কার্যক্রমের মূলভিত্তি ইসলামী শরীয়াহ ও পূর্ণ জবাবদিহিতা।',
     missionTitle: 'আমাদের মূল মিশন',
@@ -502,6 +524,11 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (HOME_MOCK_VALS.has(parsed.home.statsDonors)) parsed.home.statsDonors = '০';
           if (HOME_MOCK_VALS.has(parsed.home.statsProjects)) parsed.home.statsProjects = '০';
           if (HOME_MOCK_VALS.has(parsed.home.statsBeneficiaries)) parsed.home.statsBeneficiaries = '০';
+          if (parsed.home.volunteerCount === '850+' || parsed.home.volunteerCount === '৮৫০+') parsed.home.volunteerCount = '০';
+          if (!parsed.home.volunteerCount) parsed.home.volunteerCount = '০';
+          if (parsed.home.volunteerSectionTitle && parsed.home.volunteerSectionTitle.includes('850+')) {
+            parsed.home.volunteerSectionTitle = 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন';
+          }
         }
         if (parsed.about) {
           if (
@@ -525,6 +552,21 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           }
           if (parsed.about.statFamiliesUplifted === '১৮,৪০০+ পরিবার স্বাবলম্বী' || parsed.about.statFamiliesUplifted === '18,400+') {
             parsed.about.statFamiliesUplifted = '০ পরিবার স্বাবলম্বী';
+          }
+          if (parsed.about.storyVolunteerCount === '১,২০০+' || parsed.about.storyVolunteerCount === '1,200+') {
+            parsed.about.storyVolunteerCount = '০';
+          }
+          if (!parsed.about.storyVolunteerCount) {
+            parsed.about.storyVolunteerCount = '০';
+          }
+          if (!parsed.about.storyResponseTime) {
+            parsed.about.storyResponseTime = '৪৮ ঘণ্টা';
+          }
+          if (!parsed.about.storyResponseDesc) {
+            parsed.about.storyResponseDesc = 'ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়';
+          }
+          if (!parsed.about.storyVolunteerDesc) {
+            parsed.about.storyVolunteerDesc = 'সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক';
           }
         }
         if (parsed.sponsor_orphan) {

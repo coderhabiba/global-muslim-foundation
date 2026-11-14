@@ -1265,14 +1265,14 @@ export default function HomePage() {
                   <div>
                     <p className="text-base font-bold text-on-surface">
                       <DynamicLiveCounter
-                        value={cms.volunteer?.stat1Value}
+                        value={cms.home.volunteerCount || cms.volunteer?.stat1Value}
                         defaultValue={isBn ? '০' : '0'}
                         fluctuateRange={[-2, 4]}
                       />
-                      {' '}{isBn ? 'সক্রিয় তরুণ' : 'Active Youth'}
+                      {' '}{isBn ? (cms.home.volunteerCountLabel || 'সক্রিয় তরুণ') : 'Active Youth'}
                     </p>
                     <p className="text-xs text-text-muted">
-                      {isBn ? 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী' : 'Dedicated frontline relief volunteers'}
+                      {isBn ? (cms.home.volunteerSubtext || 'সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী') : 'Dedicated frontline relief volunteers'}
                     </p>
                   </div>
                 </div>
@@ -1282,10 +1282,10 @@ export default function HomePage() {
 
               <div className="lg:col-span-6 space-y-5">
                 <span className="text-xs font-bold text-primary uppercase tracking-widest">
-                  {isBn ? 'কমিউনিটি ও সমাজকল্যাণ' : 'Community Action & Stewardship'}
+                  {isBn ? (cms.home.volunteerSectionBadge || 'কমিউনিটি ও সমাজকল্যাণ') : 'Community Action & Stewardship'}
                 </span>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface leading-tight">
-                  {isBn ? 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন' : 'Join Our Dedicated Youth Volunteers'}
+                  {isBn ? (cms.home.volunteerSectionTitle || 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন') : 'Join Our Dedicated Youth Volunteers'}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed">
                   Whether distributing emergency winter blankets, supporting

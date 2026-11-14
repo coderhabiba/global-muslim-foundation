@@ -128,7 +128,7 @@ const bn: Record<string, string> = {
   '84 Children Saved': '84 জন শিশু রক্ষা পেয়েছে',
   '84% of $20,000': '$20,000-এর 84%',
   '85+ Enrolled': '85+ নিবন্ধিত',
-  '850+ Active Youth': '850+ সক্রিয় তরুণ',
+  '850+ Active Youth': 'সক্রিয় তরুণ স্বেচ্ছাসেবক',
   '91% Funded': '91% তহবিল পূর্ণ',
   'A server error occurred. Reload to try again.':
     'সার্ভার ত্রুটি ঘটেছে। আবার চেষ্টা করতে পেজ রিলোড করুন।',

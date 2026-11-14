@@ -48,7 +48,7 @@ const bn: Record<string, string> = {
   'JazakAllah Khayr!': 'জাযাকাল্লাহু খাইর!',
   'Join Cohort': 'ব্যাচে যোগ দিন',
   'Join Our 850+ Dedicated Youth Volunteers':
-    'আমাদের 850+ নিবেদিত তরুণ স্বেচ্ছাসেবকের সাথে যোগ দিন',
+    'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন',
   'Join Our Field Taskforce in 4 Simple Steps':
     '4টি সহজ ধাপে আমাদের মাঠ বাহিনীতে যোগ দিন',
   'Join Us →': 'যোগ দিন →',

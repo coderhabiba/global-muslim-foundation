@@ -531,6 +531,35 @@ export default function AdminPageCmsEditor() {
                     <input type="text" value={pageData.ctaBannerDesc || ''} onChange={e => handleFieldChange('ctaBannerDesc', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
                 </div>
+
+                {/* Section E: Volunteer & Community Section */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-purple-900">৫. হোম পেইজ স্বেচ্ছাসেবক ও যুব সেকশন (Volunteer Section)</h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সেকশন ব্যাজ</label>
+                      <input type="text" placeholder="কমিউনিটি ও সমাজকল্যাণ" value={pageData.volunteerSectionBadge || ''} onChange={e => handleFieldChange('volunteerSectionBadge', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সেকশন মূল শিরোনাম</label>
+                      <input type="text" placeholder="আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন" value={pageData.volunteerSectionTitle || ''} onChange={e => handleFieldChange('volunteerSectionTitle', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-bold" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">স্বেচ্ছাসেবক সংখ্যা (ডিফল্ট: ০)</label>
+                      <input type="text" placeholder="০" value={pageData.volunteerCount || ''} onChange={e => handleFieldChange('volunteerCount', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm font-mono font-bold text-emerald-800" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সংখ্যার লেবেল</label>
+                      <input type="text" placeholder="সক্রিয় তরুণ" value={pageData.volunteerCountLabel || ''} onChange={e => handleFieldChange('volunteerCountLabel', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">সাব-টেক্সট</label>
+                      <input type="text" placeholder="সম্মুখসারির নিবেদিত স্বেচ্ছাসেবী" value={pageData.volunteerSubtext || ''} onChange={e => handleFieldChange('volunteerSubtext', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm text-slate-600" />
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -577,6 +606,23 @@ export default function AdminPageCmsEditor() {
                     <div>
                       <label className="text-[11px] font-bold text-slate-600 block mb-1">মেট্রিক ৪ (অডিট রেটিং)</label>
                       <input type="text" value={pageData.statAuditRating || ''} onChange={e => handleFieldChange('statAuditRating', e.target.value)} className="w-full px-2.5 py-1.5 bg-white border rounded-lg text-xs" />
+                    </div>
+                  </div>
+
+                  {/* Story Section Response & Volunteer Metrics */}
+                  <div className="p-3 bg-white rounded-lg border border-slate-200 space-y-2 mt-2">
+                    <span className="text-xs font-bold text-purple-950 block">প্রতিষ্ঠার গল্প সেকশনের ফিল্ড রেসপন্স ও ভলান্টিয়ার মেট্রিক্স</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">দুর্যোগ রেসপন্স সময়</span>
+                        <input type="text" placeholder="৪৮ ঘণ্টা" value={pageData.storyResponseTime || ''} onChange={e => handleFieldChange('storyResponseTime', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-emerald-800" />
+                        <input type="text" placeholder="ঘূর্ণিঝড় ও বন্যা দুর্যোগে সর্বোচ্চ রেসপন্স সময়" value={pageData.storyResponseDesc || ''} onChange={e => handleFieldChange('storyResponseDesc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-600" />
+                      </div>
+                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                        <span className="font-bold text-slate-700 block">সক্রিয় তরুণ স্বেচ্ছাসেবক সংখ্যা (ডিফল্ট: ০)</span>
+                        <input type="text" placeholder="০" value={pageData.storyVolunteerCount || ''} onChange={e => handleFieldChange('storyVolunteerCount', e.target.value)} className="w-full px-2 py-1 bg-white border rounded font-mono font-bold text-emerald-800" />
+                        <input type="text" placeholder="সারাদেশের ৬৪ জেলায় সক্রিয় তরুণ স্বেচ্ছাসেবক" value={pageData.storyVolunteerDesc || ''} onChange={e => handleFieldChange('storyVolunteerDesc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-slate-600" />
+                      </div>
                     </div>
                   </div>
                 </div>
