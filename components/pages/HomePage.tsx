@@ -95,6 +95,9 @@ export default function HomePage() {
     debt: '',
   });
 
+  const currencySymbol = currency === 'BDT' ? '৳' : '$';
+  const nisabThreshold = currency === 'BDT' ? 95000 : NISAB_THRESHOLD_USD;
+
   const { netWealth, zakatDue } = useMemo(() => {
     const toAmount = (value: string) => parseFloat(value) || 0;
     const totalAssets =
@@ -103,13 +106,16 @@ export default function HomePage() {
       toAmount(zakatFields.biz);
     const net = Math.max(0, totalAssets - toAmount(zakatFields.debt));
     const due =
-      net >= NISAB_THRESHOLD_USD ? Math.round(net * 0.025 * 100) / 100 : 0;
+      net >= nisabThreshold ? Math.round(net * 0.025 * 100) / 100 : 0;
 
     return { netWealth: net, zakatDue: due };
-  }, [zakatFields]);
+  }, [zakatFields, nisabThreshold]);
 
   function formatMoney(value: number) {
-    return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    if (currency === 'BDT') {
+      return `৳${Math.round(value).toLocaleString('en-US')}`;
+    }
+    return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
   function handleAmountSelect(value: string) {
@@ -133,20 +139,37 @@ export default function HomePage() {
 
   function payZakatNow() {
     if (zakatDue > 0) {
-      setCustomAmount(String(Math.round(zakatDue)));
-      setAmountChoice('custom');
-      setFund('zakat');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsAmountHighlighted(true);
-      window.setTimeout(() => setIsAmountHighlighted(false), 1500);
+      openPaymentModal({
+        amount: Math.round(zakatDue),
+        currency,
+        cause: isBn ? 'যাকাত তহবিল (Zakat Fund)' : 'General Zakat Fund',
+      });
+      return;
+    }
+
+    if (netWealth > 0 && netWealth < nisabThreshold) {
+      showAlert({
+        title: isBn ? 'নিসাব সীমা বিজ্ঞপ্তি' : 'Nisab Threshold Notice',
+        message: isBn
+          ? `আপনার হিসাবকৃত মোট সম্পদ (${formatMoney(netWealth)}) বর্তমান রৌপ্য নিসাব সীমার (${currency === 'BDT' ? '৳৯৫,০০০' : '$520'}) নিচে রয়েছে, তাই আপনার ওপর যাকাত আবশ্যক নয়। তবে আপনি সাধারণ সদকা হিসেবে যেকোনো পরিমাণ অনুদান প্রদান করতে পারেন।`
+          : `Your net wealth (${formatMoney(netWealth)}) is below the Nisab threshold (${currency === 'BDT' ? '৳95,000' : '$520 USD'}). Zakat is not obligatory, but voluntary Sadaqah is always welcomed.`,
+        type: 'info',
+        confirmText: isBn ? 'সদকা প্রদান করুন' : 'Donate as Sadaqah',
+        onConfirm: () =>
+          openPaymentModal({
+            amount: currency === 'BDT' ? 1000 : 25,
+            currency,
+            cause: isBn ? 'সাধারণ সদকা তহবিল' : 'General Sadaqah Fund',
+          }),
+      });
       return;
     }
 
     showAlert({
-      title: isBn ? 'যাকাত হিসাব বিজ্ঞপ্তি' : 'Zakat Threshold Notice',
-      message: localize(
-        'Your net zakatable wealth is below the Nisab threshold ($520 USD) or currently zero.',
-      ),
+      title: isBn ? 'যাকাত হিসাব' : 'Zakat Calculator',
+      message: isBn
+        ? 'অনুগ্রহ করে আপনার সম্পদের পরিমাণ ইনপুট দিন।'
+        : 'Please enter your asset amounts to calculate your Zakat.',
       type: 'warning',
     });
   }
@@ -934,101 +957,124 @@ export default function HomePage() {
 
         {/* Dedicated Interactive Zakat Calculator Section */}
 
-        <section className="w-full py-16 bg-surface" id="quick-calculator">
+        <section className="w-full py-14 sm:py-16 bg-[#f8faf9]" id="quick-calculator">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
-            <div className="bg-gradient-to-br from-emerald-dark via-[#065A4F] to-oceanic-teal-deep rounded-3xl text-on-primary p-6 sm:p-10 lg:p-12 shadow-2xl border border-white/10">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="bg-gradient-to-br from-[#044E42] via-[#065A4F] to-[#022c22] rounded-3xl text-white p-6 sm:p-10 lg:p-12 shadow-2xl border border-white/10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Zakat Mandate & Policy (5 Cols) */}
 
                 <div className="lg:col-span-5 space-y-5">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-warm/20 text-gold-warm text-xs font-bold border border-gold-warm/30">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-bold border border-amber-400/30">
                     <span className="material-symbols-outlined text-[16px]">
                       balance
                     </span>
-                    <span className="">
-                      100% Shariah Compliant &amp; Independent Oversight
+                    <span>
+                      {isBn
+                        ? '১০০% শরীয়াহ সম্মত ও স্বাধীন পর্যবেক্ষণ'
+                        : '100% Shariah Compliant & Independent Oversight'}
                     </span>
                   </div>
                   <h2 className="font-serif-heading text-3xl sm:text-4xl text-white font-bold leading-tight">
-                    Calculate Your Zakat with{' '}
-                    <span className="text-gold-warm italic">
-                      100% Precision &amp; Confidence
-                    </span>
+                    {isBn ? (
+                      <>
+                        হিসাব করুন আপনার পবিত্র যাকাত —{' '}
+                        <span className="text-amber-400 italic">
+                          পূর্ণ স্বচ্ছতা ও নির্ভুলতায়
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        Calculate Your Zakat with{' '}
+                        <span className="text-amber-400 italic">
+                          100% Precision &amp; Confidence
+                        </span>
+                      </>
+                    )}
                   </h2>
-                  <p className="text-sm sm:text-base text-primary-fixed leading-relaxed">
-                    In strict compliance with Islamic jurisprudence, your Zakat
-                    is segregated into an exclusive treasury. Not a single cent
-                    is deducted for admin or overhead expenses—guaranteeing your
-                    obligation directly lifts the poorest.
+                  <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed">
+                    {isBn
+                      ? 'ইসলামী শরীয়াহ বিধি মোতাবেক আপনার যাকাত সম্পূর্ণ আলাদা সুরক্ষিত তহবিলে জমা রাখা হয়। কোনো রকম প্রশাসনিক বা পরিচালন ব্যয় কর্তন ছাড়া শতভাগ অর্থ সরাসরি উপযুক্ত দরিদ্রদের মাঝে বিতরণ করা হয়।'
+                      : 'In strict compliance with Islamic jurisprudence, your Zakat is segregated into an exclusive treasury. Not a single cent is deducted for admin or overhead expenses—guaranteeing your obligation directly lifts the poorest.'}
                   </p>
                   <div className="space-y-2.5 pt-2 text-xs sm:text-sm">
                     <div className="flex items-center gap-3">
-                      <span className="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">
+                      <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xs shrink-0">
                         ✓
                       </span>
-                      <span className="text-white">
-                        Direct supervision by Certified Shariah Advisory Council
+                      <span className="text-white/95">
+                        {isBn
+                          ? 'যোগ্য শরীয়াহ উপদেষ্টা কাউন্সিলের প্রত্যক্ষ তত্ত্বাবধান'
+                          : 'Direct supervision by Certified Shariah Advisory Council'}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">
+                      <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xs shrink-0">
                         ✓
                       </span>
-                      <span className="text-white">
-                        Independently audited yearly accounting reports
-                        published
+                      <span className="text-white/95">
+                        {isBn
+                          ? 'বাৎসরিক চার্টার্ড একাউন্ট্যান্টস অডিট রিপোর্ট প্রকাশ'
+                          : 'Independently audited yearly accounting reports published'}
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">
+                      <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xs shrink-0">
                         ✓
                       </span>
-                      <span className="text-white">
-                        Instant tax-deductible e-receipts and donor certificates
+                      <span className="text-white/95">
+                        {isBn
+                          ? 'শতভাগ সরাসরি তামলিক (হকদারকে মালিকানা প্রদান)'
+                          : '100% Direct Tamleek to vetted eligible beneficiaries'}
                       </span>
                     </div>
                   </div>
                   <div className="pt-3">
                     <Link
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-secondary-container hover:bg-amber-600 text-slate-900 font-bold text-sm transition-all shadow-md"
-                      href="/appeals"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm transition-all shadow-md"
+                      href="/zakat-calculator"
                     >
                       <span className="material-symbols-outlined text-[18px]">
                         verified_user
                       </span>
-                      <span className="">Review Our Zakat Policy</span>
+                      <span>
+                        {isBn ? 'বিস্তারিত যাকাত নির্দেশিকা ও পলিসি' : 'Review Our Zakat Policy'}
+                      </span>
                     </Link>
                   </div>
                 </div>
 
                 {/* Interactive Zakat Calculator Card (7 Cols) */}
 
-                <div className="lg:col-span-7 bg-surface-clean rounded-3xl p-6 sm:p-8 text-on-surface shadow-2xl border border-border-subtle">
-                  <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
+                <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 text-slate-900 shadow-2xl border border-slate-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
                     <div>
-                      <h3 className="font-serif-heading text-xl sm:text-2xl font-bold text-on-surface">
-                        Zakat Calculator
+                      <h3 className="font-serif-heading text-xl sm:text-2xl font-bold text-slate-900">
+                        {isBn ? 'সহজ যাকাত ক্যালকুলেটর' : 'Zakat Calculator'}
                       </h3>
-                      <p className="text-xs text-text-muted">
-                        Instant calculation based on current Nisab threshold
-                        (2.5%)
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {isBn
+                          ? 'বর্তমান নিসাব সীমার ভিত্তিতে তাৎক্ষণিক হিসাব (২.৫%)'
+                          : 'Instant calculation based on current Nisab threshold (2.5%)'}
                       </p>
                     </div>
-                    <span className="px-3 py-1 bg-surface-subtle-mint text-primary font-bold text-xs rounded-full border border-primary/20">
-                      Silver Nisab: $520 USD
+                    <span className="px-3.5 py-1.5 bg-emerald-50 text-emerald-800 font-bold text-xs rounded-full border border-emerald-300 w-fit shrink-0">
+                      {isBn
+                        ? (currency === 'BDT' ? 'রৌপ্য নিসাব: ৳৯৫,০০০' : 'সিলভার নিসাব: $520 USD')
+                        : (currency === 'BDT' ? 'Silver Nisab: ৳95,000' : 'Silver Nisab: $520 USD')}
                     </span>
                   </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
                     <div>
-                      <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">
-                        Cash in Hand &amp; Bank Accounts ($)
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                        {isBn ? `নগদ টাকা ও ব্যাংক ব্যালেন্স (${currencySymbol})` : `Cash in Hand & Bank Accounts (${currencySymbol})`}
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-2.5 font-bold text-text-muted">
-                          $
+                        <span className="absolute left-3.5 top-2.5 font-bold text-slate-400">
+                          {currencySymbol}
                         </span>
                         <input
-                          className="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary"
+                          className="w-full pl-8 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                           id="calc-cash"
                           placeholder="0"
                           type="number"
@@ -1039,16 +1085,17 @@ export default function HomePage() {
                         />
                       </div>
                     </div>
+
                     <div>
-                      <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">
-                        Gold &amp; Silver Value ($)
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                        {isBn ? `স্বর্ণ ও রূপার বাজারমূল্য (${currencySymbol})` : `Gold & Silver Value (${currencySymbol})`}
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-2.5 font-bold text-text-muted">
-                          $
+                        <span className="absolute left-3.5 top-2.5 font-bold text-slate-400">
+                          {currencySymbol}
                         </span>
                         <input
-                          className="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary"
+                          className="w-full pl-8 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                           id="calc-gold"
                           placeholder="0"
                           type="number"
@@ -1059,16 +1106,17 @@ export default function HomePage() {
                         />
                       </div>
                     </div>
+
                     <div>
-                      <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">
-                        Business Merchandise &amp; Stocks ($)
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                        {isBn ? `ব্যবসায়িক পণ্য ও বিনিয়োগ (${currencySymbol})` : `Business Merchandise & Stocks (${currencySymbol})`}
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-2.5 font-bold text-text-muted">
-                          $
+                        <span className="absolute left-3.5 top-2.5 font-bold text-slate-400">
+                          {currencySymbol}
                         </span>
                         <input
-                          className="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary"
+                          className="w-full pl-8 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                           id="calc-biz"
                           placeholder="0"
                           type="number"
@@ -1079,16 +1127,17 @@ export default function HomePage() {
                         />
                       </div>
                     </div>
+
                     <div>
-                      <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">
-                        Deduct: Immediate Liabilities &amp; Debts ($)
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                        {isBn ? `বাদ: তাৎক্ষণিক দেনা ও ঋণ (${currencySymbol})` : `Deduct: Immediate Liabilities & Debts (${currencySymbol})`}
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-2.5 font-bold text-text-muted">
-                          $
+                        <span className="absolute left-3.5 top-2.5 font-bold text-slate-400">
+                          {currencySymbol}
                         </span>
                         <input
-                          className="w-full pl-8 pr-3 py-2.5 bg-surface border border-border-subtle rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-primary"
+                          className="w-full pl-8 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                           id="calc-debt"
                           placeholder="0"
                           type="number"
@@ -1103,24 +1152,24 @@ export default function HomePage() {
 
                   {/* Instant Calculation Display Strip */}
 
-                  <div className="mt-6 p-4 rounded-2xl bg-surface-subtle-mint border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="mt-6 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
-                      <span className="text-xs text-text-muted font-bold uppercase tracking-wider block">
-                        Net Zakat-Eligible Wealth
+                      <span className="text-xs text-slate-600 font-bold uppercase tracking-wider block">
+                        {isBn ? 'যাকাতযোগ্য মোট সম্পদ' : 'Net Zakat-Eligible Wealth'}
                       </span>
                       <span
-                        className="text-lg font-bold text-on-surface"
+                        className="text-lg font-bold text-slate-900"
                         id="calc-net-assets"
                       >
                         {formatMoney(netWealth)}
                       </span>
                     </div>
-                    <div className="text-right">
-                      <span className="text-xs text-text-muted font-bold uppercase tracking-wider block">
-                        Your Zakat Due (2.5%)
+                    <div className="text-center sm:text-right">
+                      <span className="text-xs text-slate-600 font-bold uppercase tracking-wider block">
+                        {isBn ? 'আপনার প্রদেয় যাকাত (২.৫%)' : 'Your Zakat Due (2.5%)'}
                       </span>
                       <span
-                        className="font-serif-heading text-2xl sm:text-3xl font-extrabold text-primary"
+                        className="font-serif-heading text-2xl sm:text-3xl font-extrabold text-[#0e4d36]"
                         id="calc-zakat-due"
                       >
                         {formatMoney(zakatDue)}
@@ -1132,20 +1181,21 @@ export default function HomePage() {
 
                   <div className="mt-5 flex flex-wrap items-center gap-3">
                     <button
-                      className="flex-grow py-3 rounded-xl bg-primary hover:bg-emerald-dark text-white font-bold text-sm transition-all shadow-md text-center"
+                      className="flex-grow py-3 rounded-xl bg-[#0e4d36] hover:bg-emerald-950 text-white font-bold text-sm transition-all shadow-md text-center cursor-pointer flex items-center justify-center gap-2"
                       id="calc-apply-btn"
                       type="button"
                       onClick={payZakatNow}
                     >
-                      Pay This Zakat Now
+                      <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
+                      <span>{isBn ? 'এখনই এই যাকাত প্রদান করুন' : 'Pay This Zakat Now'}</span>
                     </button>
                     <button
-                      className="px-5 py-3 rounded-xl bg-surface hover:bg-surface-dim text-on-surface font-semibold text-xs border border-border-subtle transition-all"
+                      className="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs border border-slate-300 transition-all cursor-pointer"
                       id="calc-reset-btn"
                       type="button"
                       onClick={resetZakatFields}
                     >
-                      Reset Form
+                      {isBn ? 'রিসেট' : 'Reset Form'}
                     </button>
                   </div>
                 </div>
