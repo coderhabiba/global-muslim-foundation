@@ -5,6 +5,7 @@ import { useDynamicCards, DynamicCampaign, NewsArticle, ProjectTopic } from '@/l
 import { FoundationProject } from '@/components/pages/ImpactPage';
 import { UpcomingProject } from '@/components/pages/UpcomingProjectsPage';
 import { OrphanProfile } from '@/lib/data/orphans';
+import { useSiteSettings } from '@/lib/site-settings';
 import ImageSelectorField from './ImageSelectorField';
 
 type CardTab = 'campaigns' | 'upcoming' | 'foundation' | 'orphans' | 'news' | 'gallery';
@@ -37,6 +38,9 @@ export default function AdminCardManager() {
     deleteGalleryTopic,
     resetAllCards,
   } = useDynamicCards();
+
+  const { language } = useSiteSettings();
+  const isBn = language === 'bn';
 
   const [activeTab, setActiveTab] = useState<CardTab>('campaigns');
   const [searchTerm, setSearchTerm] = useState('');
@@ -312,14 +316,16 @@ export default function AdminCardManager() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-            <span>১০০% ফুল ডাইনামিক কার্ড কন্ট্রোল ম্যানেজার</span>
+            <span>{isBn ? '১০০% ফুল ডাইনামিক কার্ড কন্ট্রোল ম্যানেজার' : '100% Dynamic Card Manager'}</span>
           </div>
           <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
             <span className="material-symbols-outlined text-emerald-700">view_carousel</span>
-            <span>সকল কার্ড, ইভেন্ট ও প্রজেক্ট ম্যানেজমেন্ট (Add, Edit, Delete)</span>
+            <span>{isBn ? 'সকল কার্ড, ইভেন্ট ও প্রজেক্ট ম্যানেজমেন্ট (Add, Edit, Delete)' : 'All Cards, Events & Projects Management (Add, Edit, Delete)'}</span>
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            সাইটের হোমপেইজ ক্যাম্পেইন, আসন্ন প্রজেক্ট, ফাউন্ডেশনের চলমান প্রজেক্ট ও এতিম শিশুদের কার্ড সরাসরি যোগ, এডিট ও ডিলিট করুন।
+            {isBn
+              ? 'সাইটের হোমপেইজ ক্যাম্পেইন, আসন্ন প্রজেক্ট, ফাউন্ডেশনের চলমান প্রজেক্ট ও এতিম শিশুদের কার্ড সরাসরি যোগ, এডিট ও ডিলিট করুন।'
+              : 'Add, edit, or delete homepage campaigns, upcoming projects, active field drives, orphan profiles, news articles, and gallery albums.'}
           </p>
         </div>
 
@@ -330,7 +336,7 @@ export default function AdminCardManager() {
             className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-emerald-900/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <span className="material-symbols-outlined text-[20px]">add_circle</span>
-            <span>নতুন কার্ড / প্রজেক্ট যুক্ত করুন</span>
+            <span>{isBn ? 'নতুন কার্ড / প্রজেক্ট যুক্ত করুন' : 'Add New Card / Project'}</span>
           </button>
         </div>
       </div>
@@ -348,7 +354,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">campaign</span>
-            <span>১. হোমপেইজ ক্যাম্পেইন ({campaigns.length})</span>
+            <span>{isBn ? `১. হোমপেইজ ক্যাম্পেইন (${campaigns.length})` : `1. Homepage Campaigns (${campaigns.length})`}</span>
           </button>
 
           <button
@@ -361,7 +367,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">construction</span>
-            <span>২. আসন্ন প্রকল্প সমূহ ({upcomingProjects.length})</span>
+            <span>{isBn ? `২. আসন্ন প্রকল্প সমূহ (${upcomingProjects.length})` : `2. Upcoming Projects (${upcomingProjects.length})`}</span>
           </button>
 
           <button
@@ -374,7 +380,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
-            <span>৩. আমাদের প্রজেক্ট সমূহ ({foundationProjects.length})</span>
+            <span>{isBn ? `৩. আমাদের প্রজেক্ট সমূহ (${foundationProjects.length})` : `3. Foundation Projects (${foundationProjects.length})`}</span>
           </button>
 
           <button
@@ -387,7 +393,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">child_care</span>
-            <span>৪. এতিম শিশু প্রোফাইল ({orphans.length})</span>
+            <span>{isBn ? `৪. এতিম শিশু প্রোফাইল (${orphans.length})` : `4. Orphan Profiles (${orphans.length})`}</span>
           </button>
 
           <button
@@ -400,7 +406,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">newspaper</span>
-            <span>৫. ফিল্ড নিউজ ও ডিসপ্যাচ ({newsArticles.length})</span>
+            <span>{isBn ? `৫. ফিল্ড নিউজ ও ডিসপ্যাচ (${newsArticles.length})` : `5. Field News & Dispatches (${newsArticles.length})`}</span>
           </button>
 
           <button
@@ -413,7 +419,7 @@ export default function AdminCardManager() {
             }`}
           >
             <span className="material-symbols-outlined text-[18px]">photo_library</span>
-            <span>৬. ফটো গ্যালারি অ্যালবাম ({galleryTopics.length})</span>
+            <span>{isBn ? `৬. ফটো গ্যালারি অ্যালবাম (${galleryTopics.length})` : `6. Photo Gallery Albums (${galleryTopics.length})`}</span>
           </button>
         </div>
 
@@ -423,7 +429,7 @@ export default function AdminCardManager() {
             type="text"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            placeholder="কার্ডের নাম বা ক্যাটাগরি খুঁজুন..."
+            placeholder={isBn ? "কার্ডের নাম বা ক্যাটাগরি খুঁজুন..." : "Search cards or categories..."}
             className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700/20"
           />
           <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">
@@ -448,11 +454,15 @@ export default function AdminCardManager() {
                   </span>
                 </div>
                 <div className="p-4 space-y-2">
-                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{camp.titleBn}</h4>
-                  <p className="text-xs text-slate-500 line-clamp-2">{camp.descriptionBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                    {isBn ? camp.titleBn : (camp.titleEn || camp.titleBn)}
+                  </h4>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    {isBn ? camp.descriptionBn : (camp.descriptionEn || camp.descriptionBn)}
+                  </p>
                   <div className="pt-2 flex items-center justify-between text-xs font-mono font-bold text-emerald-800">
-                    <span>সংগৃহীত: ৳{camp.raisedBDT.toLocaleString()}</span>
-                    <span className="text-slate-500">লক্ষ্য: ৳{camp.goalBDT.toLocaleString()}</span>
+                    <span>{isBn ? 'সংগৃহীত' : 'Raised'}: ৳{camp.raisedBDT.toLocaleString()}</span>
+                    <span className="text-slate-500">{isBn ? 'লক্ষ্য' : 'Goal'}: ৳{camp.goalBDT.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -464,7 +474,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
@@ -472,7 +482,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -489,19 +499,23 @@ export default function AdminCardManager() {
                 <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
                   <img src={p.image} alt={p.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <span className="absolute top-3 left-3 bg-[#144d46] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    {p.categoryBn}
+                    {isBn ? p.categoryBn : (p.categoryEn || p.categoryBn)}
                   </span>
                   <span className="absolute top-3 right-3 bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
-                    {p.statusBn}
+                    {isBn ? p.statusBn : (p.statusEn || p.statusBn)}
                   </span>
                 </div>
                 <div className="p-4 space-y-2">
                   <span className="text-[11px] font-mono font-bold text-amber-700 uppercase">{p.id}</span>
-                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{p.titleBn}</h4>
-                  <p className="text-xs text-slate-500 line-clamp-2">{p.descriptionBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                    {isBn ? p.titleBn : (p.titleEn || p.titleBn)}
+                  </h4>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    {isBn ? p.descriptionBn : (p.descriptionEn || p.descriptionBn)}
+                  </p>
                   <div className="pt-2 flex items-center justify-between text-xs font-mono font-bold text-emerald-800">
-                    <span>বাজেট: ৳{p.estimatedBudgetBDT.toLocaleString()}</span>
-                    <span className="text-slate-500">{p.targetDateBn}</span>
+                    <span>{isBn ? 'বাজেট' : 'Budget'}: ৳{p.estimatedBudgetBDT.toLocaleString()}</span>
+                    <span className="text-slate-500">{isBn ? p.targetDateBn : (p.targetDateEn || p.targetDateBn)}</span>
                   </div>
                 </div>
               </div>
@@ -513,7 +527,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
@@ -521,7 +535,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -538,18 +552,22 @@ export default function AdminCardManager() {
                 <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
                   <img src={f.image} alt={f.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <span className="absolute top-3 left-3 bg-[#0e4d36] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    {f.categoryBn}
+                    {isBn ? f.categoryBn : (f.categoryEn || f.categoryBn)}
                   </span>
                   <span className="absolute top-3 right-3 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                    প্রজেক্ট {f.projectNoBn}
+                    {isBn ? `প্রজেক্ট ${f.projectNoBn}` : `Project ${f.projectNoEn || f.projectNoBn}`}
                   </span>
                 </div>
                 <div className="p-4 space-y-2">
-                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{f.titleBn}</h4>
-                  <p className="text-xs text-slate-500 line-clamp-2">{f.descriptionBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                    {isBn ? f.titleBn : (f.titleEn || f.titleBn)}
+                  </h4>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    {isBn ? f.descriptionBn : (f.descriptionEn || f.descriptionBn)}
+                  </p>
                   <div className="pt-2 flex items-center justify-between text-xs font-mono font-bold text-emerald-800">
-                    <span>সংগৃহীত: ৳{f.raisedBDT.toLocaleString()}</span>
-                    <span className="text-slate-500">লক্ষ্য: ৳{f.goalBDT.toLocaleString()}</span>
+                    <span>{isBn ? 'সংগৃহীত' : 'Raised'}: ৳{f.raisedBDT.toLocaleString()}</span>
+                    <span className="text-slate-500">{isBn ? 'লক্ষ্য' : 'Goal'}: ৳{f.goalBDT.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -561,7 +579,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
@@ -569,7 +587,7 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -586,17 +604,21 @@ export default function AdminCardManager() {
                 <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                   <img src={o.image} alt={o.nameBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <span className={`absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full ${o.isSponsored ? 'bg-slate-700 text-white' : 'bg-emerald-600 text-white'}`}>
-                    {o.isSponsored ? 'স্পনসরকৃত' : 'স্পনসর প্রয়োজন'}
+                    {o.isSponsored ? (isBn ? 'স্পনসরকৃত' : 'Sponsored') : (isBn ? 'স্পনসর প্রয়োজন' : 'Needs Sponsor')}
                   </span>
                   <span className="absolute top-3 right-3 bg-white/90 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded">
-                    বয়স: {o.age} বছর
+                    {isBn ? `বয়স: ${o.age} বছর` : `Age: ${o.age} yrs`}
                   </span>
                 </div>
                 <div className="p-4 space-y-1.5">
                   <p className="text-[11px] font-mono font-bold text-emerald-700">{o.id}</p>
-                  <h4 className="font-bold text-slate-900 text-sm">{o.nameBn} ({o.nameEn})</h4>
-                  <p className="text-xs text-slate-500">{o.classBn} • {o.locationBn}</p>
-                  <p className="text-xs text-slate-600 line-clamp-2 pt-1">স্বপ্ন: {o.dreamBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm">{isBn ? o.nameBn : (o.nameEn || o.nameBn)} ({isBn ? o.nameEn : o.nameBn})</h4>
+                  <p className="text-xs text-slate-500">
+                    {isBn ? o.classBn : (o.classEn || o.classBn)} • {isBn ? o.locationBn : (o.locationEn || o.locationBn)}
+                  </p>
+                  <p className="text-xs text-slate-600 line-clamp-2 pt-1">
+                    {isBn ? 'স্বপ্ন' : 'Dream'}: {isBn ? o.dreamBn : (o.dreamEn || o.dreamBn)}
+                  </p>
                 </div>
               </div>
 
@@ -607,15 +629,15 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setDeleteTarget({ id: o.id, title: o.nameBn, type: 'orphans' })}
+                  onClick={() => setDeleteTarget({ id: o.id, title: isBn ? o.nameBn : (o.nameEn || o.nameBn), type: 'orphans' })}
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -632,22 +654,26 @@ export default function AdminCardManager() {
                 <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                   <img src={article.image} alt={article.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <span className="absolute top-3 left-3 bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    {article.categoryBn}
+                    {isBn ? article.categoryBn : (article.categoryEn || article.categoryBn)}
                   </span>
                   <span className="absolute top-3 right-3 bg-slate-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                    {article.tagBn}
+                    {isBn ? article.tagBn : (article.tagEn || article.tagBn)}
                   </span>
                 </div>
                 <div className="p-4 space-y-2">
                   <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
                     <span className="material-symbols-outlined text-[14px]">calendar_today</span>
-                    <span>{article.dateBn}</span>
+                    <span>{isBn ? article.dateBn : (article.dateEn || article.dateBn)}</span>
                     <span>•</span>
                     <span className="material-symbols-outlined text-[14px]">schedule</span>
-                    <span>{article.readTimeBn}</span>
+                    <span>{isBn ? article.readTimeBn : (article.readTimeEn || article.readTimeBn)}</span>
                   </div>
-                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{article.titleBn}</h4>
-                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">{article.excerptBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                    {isBn ? article.titleBn : (article.titleEn || article.titleBn)}
+                  </h4>
+                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                    {isBn ? article.excerptBn : (article.excerptEn || article.excerptBn)}
+                  </p>
                 </div>
               </div>
 
@@ -666,15 +692,15 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setDeleteTarget({ id: article.id, title: article.titleBn, type: 'news' })}
+                  onClick={() => setDeleteTarget({ id: article.id, title: isBn ? article.titleBn : (article.titleEn || article.titleBn), type: 'news' })}
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -691,22 +717,26 @@ export default function AdminCardManager() {
                 <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                   <img src={topic.images[0] || '/images/drive-food-1.jpg'} alt={topic.titleBn} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <span className="absolute top-3 left-3 bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    {topic.categoryLabelBn}
+                    {isBn ? topic.categoryLabelBn : (topic.categoryLabelEn || topic.categoryLabelBn)}
                   </span>
                   <span className="absolute top-3 right-3 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                     <span className="material-symbols-outlined text-[13px]">photo_library</span>
-                    <span>{topic.images.length} টি ছবি</span>
+                    <span>{isBn ? `${topic.images.length} টি ছবি` : `${topic.images.length} Photos`}</span>
                   </span>
                 </div>
                 <div className="p-4 space-y-2">
                   <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
                     <span className="material-symbols-outlined text-[14px]">location_on</span>
-                    <span className="line-clamp-1">{topic.locationBn}</span>
+                    <span className="line-clamp-1">{isBn ? topic.locationBn : (topic.locationEn || topic.locationBn)}</span>
                     <span>•</span>
-                    <span>{topic.dateBn}</span>
+                    <span>{isBn ? topic.dateBn : (topic.dateEn || topic.dateBn)}</span>
                   </div>
-                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">{topic.titleBn}</h4>
-                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">{topic.descBn}</p>
+                  <h4 className="font-bold text-slate-900 text-sm line-clamp-2 leading-snug">
+                    {isBn ? topic.titleBn : (topic.titleEn || topic.titleBn)}
+                  </h4>
+                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    {isBn ? topic.descBn : (topic.descEn || topic.descBn)}
+                  </p>
                 </div>
               </div>
 
@@ -725,15 +755,15 @@ export default function AdminCardManager() {
                   className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
-                  <span>এডিট</span>
+                  <span>{isBn ? 'এডিট' : 'Edit'}</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setDeleteTarget({ id: topic.id, title: topic.titleBn, type: 'gallery' })}
+                  onClick={() => setDeleteTarget({ id: topic.id, title: isBn ? topic.titleBn : (topic.titleEn || topic.titleBn), type: 'gallery' })}
                   className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[16px]">delete</span>
-                  <span>ডিলিট</span>
+                  <span>{isBn ? 'ডিলিট' : 'Delete'}</span>
                 </button>
               </div>
             </div>
@@ -749,15 +779,15 @@ export default function AdminCardManager() {
               <div>
                 <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <span className="material-symbols-outlined text-emerald-700">edit_note</span>
-                  <span>{editingItem.isNew ? 'নতুন আইটেম / কার্ড যুক্ত করুন' : 'আইটেম / কার্ড এডিট করুন'}</span>
+                  <span>{editingItem.isNew ? (isBn ? 'নতুন আইটেম / কার্ড যুক্ত করুন' : 'Add New Item / Card') : (isBn ? 'আইটেম / কার্ড এডিট করুন' : 'Edit Item / Card')}</span>
                 </h4>
                 <p className="text-[11px] text-slate-500 mt-0.5">
-                  বিভাগ: {
-                    editingItem.type === 'campaigns' ? 'হোমপেইজ ক্যাম্পেইন' :
-                    editingItem.type === 'upcoming' ? 'আসন্ন প্রকল্প' :
-                    editingItem.type === 'foundation' ? 'ফাউন্ডেশনের প্রজেক্ট' :
-                    editingItem.type === 'orphans' ? 'এতিম শিশু প্রোফাইল' :
-                    editingItem.type === 'news' ? 'ফিল্ড নিউজ ও ডিসপ্যাচ' : 'ফটো গ্যালারি অ্যালবাম'
+                  {isBn ? 'বিভাগ: ' : 'Category: '}{
+                    editingItem.type === 'campaigns' ? (isBn ? 'হোমপেইজ ক্যাম্পেইন' : 'Homepage Campaigns') :
+                    editingItem.type === 'upcoming' ? (isBn ? 'আসন্ন প্রকল্প' : 'Upcoming Projects') :
+                    editingItem.type === 'foundation' ? (isBn ? 'ফাউন্ডেশনের প্রজেক্ট' : 'Foundation Projects') :
+                    editingItem.type === 'orphans' ? (isBn ? 'এতিম শিশু প্রোফাইল' : 'Orphan Profiles') :
+                    editingItem.type === 'news' ? (isBn ? 'ফিল্ড নিউজ ও ডিসপ্যাচ' : 'Field News & Dispatches') : (isBn ? 'ফটো গ্যালারি অ্যালবাম' : 'Gallery Albums')
                   }
                 </p>
               </div>
@@ -1210,13 +1240,13 @@ export default function AdminCardManager() {
                   onClick={() => setEditingItem(null)}
                   className="px-4 py-2 border border-slate-300 rounded-xl text-slate-600 font-bold hover:bg-slate-50 cursor-pointer"
                 >
-                  বাতিল
+                  {isBn ? 'বাতিল' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
-                  সংরক্ষণ করুন
+                  {isBn ? 'সংরক্ষণ করুন' : 'Save Changes'}
                 </button>
               </div>
             </form>
@@ -1232,8 +1262,14 @@ export default function AdminCardManager() {
               <span className="material-symbols-outlined text-[28px]">warning</span>
             </div>
             <div className="text-center space-y-1">
-              <h4 className="text-base font-bold text-slate-900">আপনি কি নিশ্চিত এই কার্ডটি মুছে ফেলতে চান?</h4>
-              <p className="text-xs text-slate-500 font-medium">"{deleteTarget.title}" কার্ডটি পার্মানেন্টলি ডিলিট হয়ে যাবে এবং সাথে সাথে ওয়েবসাইট থেকে রিমুভ হবে।</p>
+              <h4 className="text-base font-bold text-slate-900">
+                {isBn ? 'আপনি কি নিশ্চিত এই কার্ডটি মুছে ফেলতে চান?' : 'Are you sure you want to delete this card?'}
+              </h4>
+              <p className="text-xs text-slate-500 font-medium">
+                {isBn
+                  ? `"${deleteTarget.title}" কার্ডটি পার্মানেন্টলি ডিলিট হয়ে যাবে এবং সাথে সাথে ওয়েবসাইট থেকে রিমুভ হবে।`
+                  : `"${deleteTarget.title}" will be permanently removed and disappear from the website immediately.`}
+              </p>
             </div>
             <div className="pt-2 flex items-center justify-center gap-3">
               <button
@@ -1241,14 +1277,14 @@ export default function AdminCardManager() {
                 onClick={() => setDeleteTarget(null)}
                 className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 cursor-pointer"
               >
-                না, ফেরত যান
+                {isBn ? 'না, ফেরত যান' : 'No, Keep Card'}
               </button>
               <button
                 type="button"
                 onClick={handleConfirmDelete}
                 className="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md cursor-pointer"
               >
-                হ্যাঁ, কার্ডটি ডিলিট করুন
+                {isBn ? 'হ্যাঁ, কার্ডটি ডিলিট করুন' : 'Yes, Delete Card'}
               </button>
             </div>
           </div>

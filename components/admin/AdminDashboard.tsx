@@ -22,6 +22,7 @@ import {
 import { useModalState } from '@/lib/modal-context';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
+import { useSiteSettings } from '@/lib/site-settings';
 import AdminCardManager from '@/components/admin/AdminCardManager';
 import AdminSectionEditor from '@/components/admin/AdminSectionEditor';
 import { supabase } from '@/lib/supabase';
@@ -65,6 +66,7 @@ import {
   DollarSign,
   Award,
   Home,
+  Globe,
 } from 'lucide-react';
 
 type DonationRecord = {
@@ -209,6 +211,8 @@ const DEFAULT_MEMBERS: MemberRecord[] = [
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const { language, setLanguage } = useSiteSettings();
+  const isBn = language === 'bn';
   const { openLicenseModal, openPaymentModal } = useModalState();
   const { campaigns } = useDynamicCards();
   const [activeTab, setActiveTab] = useState<'overview' | 'section_editor' | 'donations' | 'members' | 'volunteers' | 'campaigns' | 'settings'>('overview');
@@ -776,49 +780,49 @@ export default function AdminDashboard() {
   const NAV_ITEMS = [
     {
       id: 'overview' as const,
-      label: 'ড্যাশবোর্ড ওভারভিউ',
+      label: isBn ? 'ড্যাশবোর্ড ওভারভিউ' : 'Overview Dashboard',
       icon: LayoutDashboard,
-      badge: 'লাইভ',
+      badge: isBn ? 'লাইভ' : 'LIVE',
       badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
     },
     {
       id: 'section_editor' as const,
-      label: 'সেকশন এডিটর (WP-স্টাইল)',
+      label: isBn ? 'সেকশন এডিটর (WP-স্টাইল)' : 'Section Editor (WP)',
       icon: Layers,
       badge: 'WP-Live',
       badgeColor: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
     },
     {
       id: 'donations' as const,
-      label: 'অনলাইন অনুদান তালিকা',
+      label: isBn ? 'অনলাইন অনুদান তালিকা' : 'Online Donations',
       icon: HeartHandshake,
       badge: donations.length.toString(),
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
     },
     {
       id: 'members' as const,
-      label: 'সদস্য ও ট্রাস্টি বোর্ড',
+      label: isBn ? 'সদস্য ও ট্রাস্টি বোর্ড' : 'Members & Trustees',
       icon: Users,
       badge: members.length.toString(),
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
     },
     {
       id: 'volunteers' as const,
-      label: 'স্বেচ্ছাসেবক আবেদনপত্র',
+      label: isBn ? 'স্বেচ্ছাসেবক আবেদনপত্র' : 'Volunteer Applications',
       icon: HandHeart,
       badge: volunteers.length.toString(),
       badgeColor: 'bg-zinc-800 text-zinc-300 border-zinc-700/60 font-mono',
     },
     {
       id: 'campaigns' as const,
-      label: 'সকল কার্ড ও প্রজেক্ট',
+      label: isBn ? 'সকল কার্ড ও প্রজেক্ট' : 'Cards & Projects',
       icon: FolderKanban,
       badge: 'CRUD',
       badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     },
     {
       id: 'settings' as const,
-      label: 'প্রাতিষ্ঠানিক সেটিংস',
+      label: isBn ? 'প্রাতিষ্ঠানিক সেটিংস' : 'Foundation Settings',
       icon: Settings,
       badge: 'GMCF',
       badgeColor: 'bg-zinc-800 text-zinc-400 border-zinc-700/60',
@@ -828,20 +832,29 @@ export default function AdminDashboard() {
   const currentChartData = useMemo(() => {
     if (donations.length === 0) {
       if (chartTimeframe === '7d') {
-        return ['শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার'].map(label => ({
+        const labels = isBn
+          ? ['শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার']
+          : ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+        return labels.map(label => ({
           label,
           amount: 0,
           donors: 0,
         }));
       }
       if (chartTimeframe === '30d') {
-        return ['১-৭ মে', '৮-১৪ মে', '১৫-২১ মে', '২২-২৮ মে'].map(label => ({
+        const labels = isBn
+          ? ['১-৭ মে', '৮-১৪ মে', '১৫-২১ মে', '২২-২৮ মে']
+          : ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        return labels.map(label => ({
           label,
           amount: 0,
           donors: 0,
         }));
       }
-      return ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'].map(label => ({
+      const labels = isBn
+        ? ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন']
+        : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+      return labels.map(label => ({
         label,
         amount: 0,
         donors: 0,
@@ -939,7 +952,7 @@ export default function AdminDashboard() {
         {/* Sidebar Nav Items */}
         <nav className="p-3 flex-1 space-y-1 overflow-y-auto">
           <div className="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
-            প্রধান মেনু
+            {isBn ? 'প্রধান মেনু' : 'MAIN MENU'}
           </div>
 
           {NAV_ITEMS.map(item => {
@@ -982,12 +995,44 @@ export default function AdminDashboard() {
         </nav>
 
         {/* Locked Footer */}
-        <div className="p-3 border-t border-zinc-800/80 shrink-0 bg-zinc-950/90">
+        <div className="p-3 border-t border-zinc-800/80 shrink-0 bg-zinc-950/90 space-y-2.5">
+          {/* Sidebar Language Switcher */}
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[11px] text-zinc-400 font-medium flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-zinc-400" />
+              <span>{isBn ? 'ভাষা পরিবর্তন:' : 'Language:'}</span>
+            </span>
+            <div className="inline-flex items-center p-0.5 rounded-lg bg-zinc-900 border border-zinc-800">
+              <button
+                type="button"
+                onClick={() => setLanguage('bn')}
+                className={cn(
+                  'px-2 py-0.5 rounded text-[11px] font-bold transition-all cursor-pointer',
+                  isBn ? 'bg-emerald-600 text-white shadow-xs' : 'text-zinc-400 hover:text-zinc-200'
+                )}
+                title="বাংলা ভাষা"
+              >
+                বাং
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={cn(
+                  'px-2 py-0.5 rounded text-[11px] font-bold transition-all cursor-pointer',
+                  !isBn ? 'bg-emerald-600 text-white shadow-xs' : 'text-zinc-400 hover:text-zinc-200'
+                )}
+                title="English"
+              >
+                EN
+              </button>
+            </div>
+          </div>
+
           <div className="rounded-lg bg-zinc-900/80 border border-zinc-800/80 p-3">
             <div className="flex items-center justify-between text-xs text-zinc-400">
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                ক্লাউড সিঙ্ক সক্রিয়
+                {isBn ? 'ক্লাউড সিঙ্ক সক্রিয়' : 'Cloud Sync Active'}
               </span>
               <span className="text-[10px] font-mono text-zinc-500">v2.5.0</span>
             </div>
@@ -997,7 +1042,7 @@ export default function AdminDashboard() {
             >
               <span className="flex items-center gap-1.5">
                 <Home className="w-3.5 h-3.5 text-emerald-400" />
-                <span>ওয়েবসাইট হোমে ফিরুন</span>
+                <span>{isBn ? 'ওয়েবসাইট হোমে ফিরুন' : 'Back to Website'}</span>
               </span>
               <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
             </Link>
@@ -1035,71 +1080,101 @@ export default function AdminDashboard() {
             <div className="min-w-0 flex flex-col justify-center">
               <div className="flex items-center gap-2.5">
                 <div role="heading" aria-level={1} className="text-lg sm:text-xl font-bold text-zinc-900 tracking-tight truncate">
-                  {activeTab === 'overview' && 'ওভারভিউ ড্যাশবোর্ড'}
-                  {activeTab === 'section_editor' && 'সেকশন এডিটর (WordPress-স্টাইল)'}
-                  {activeTab === 'donations' && 'অনলাইন অনুদান ব্যবস্থাপনা'}
-                  {activeTab === 'members' && 'সদস্য ও ট্রাস্টি বোর্ড'}
-                  {activeTab === 'volunteers' && 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম'}
-                  {activeTab === 'campaigns' && 'কার্ড ও প্রজেক্ট ম্যানেজার'}
-                  {activeTab === 'settings' && 'প্রাতিষ্ঠানিক সেটিংস'}
+                  {activeTab === 'overview' && (isBn ? 'ওভারভিউ ড্যাশবোর্ড' : 'Overview Dashboard')}
+                  {activeTab === 'section_editor' && (isBn ? 'সেকশন এডিটর (WordPress-স্টাইল)' : 'Section Editor (WP-Style)')}
+                  {activeTab === 'donations' && (isBn ? 'অনলাইন অনুদান ব্যবস্থাপনা' : 'Online Donation Management')}
+                  {activeTab === 'members' && (isBn ? 'সদস্য ও ট্রাস্টি বোর্ড' : 'Members & Trustee Board')}
+                  {activeTab === 'volunteers' && (isBn ? 'স্বেচ্ছাসেবক আবেদনপত্র ও টিম' : 'Volunteers & Applications')}
+                  {activeTab === 'campaigns' && (isBn ? 'কার্ড ও প্রজেক্ট ম্যানেজার' : 'Card & Project Manager')}
+                  {activeTab === 'settings' && (isBn ? 'প্রাতিষ্ঠানিক সেটিংস' : 'Foundation Settings')}
                 </div>
                 
                 <span className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-mono border border-emerald-200/80 shrink-0 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>রেজি: S-14086/2023</span>
+                  <span>{isBn ? 'রেজি: S-14086/2023' : 'Reg: S-14086/2023'}</span>
                 </span>
               </div>
               <p className="text-xs text-zinc-500 truncate mt-0.5">
-                {activeTab === 'overview' && 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র'}
-                {activeTab === 'section_editor' && 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর'}
-                {activeTab === 'donations' && 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা'}
-                {activeTab === 'members' && 'পরিচালনা পর্ষদ, উপদেষ্টা কমিটি ও ট্রাস্টি সদস্যদের প্রোফাইল'}
-                {activeTab === 'volunteers' && '৬৪ জেলার স্বেচ্ছাসেবকদের আবেদন যাচাই ও স্ট্যাটাস অনুমোদন'}
-                {activeTab === 'campaigns' && 'চলমান ও আসন্ন সকল মানবিক প্রকল্পের ফান্ড ট্র্যাকিং'}
-                {activeTab === 'settings' && 'ফাউন্ডেশনের সাধারণ সেটিংস, লাইসেন্স সনদ ও সিকিউরিটি'}
+                {activeTab === 'overview' && (isBn ? 'লাইভ আর্থিক অ্যানালিটিক্স, অনুদান প্রবাহ ও সামগ্রিক নিয়ন্ত্রণ কেন্দ্র' : 'Live financial analytics, donation flow & unified control center')}
+                {activeTab === 'section_editor' && (isBn ? 'হোমপেইজ ও অন্যান্য পাবলিক পেইজের টেক্সট ও কন্টেন্ট রিয়েলটাইম এডিটর' : 'Real-time text & media editor for homepage and all public pages')}
+                {activeTab === 'donations' && (isBn ? 'EPS পেমেন্ট গেটওয়ে ও মোবাইল ব্যাংকিং ট্রানজেকশন তালিকা' : 'EPS payment gateway & mobile banking transaction records')}
+                {activeTab === 'members' && (isBn ? 'পরিচালনা পর্ষদ, উপদেষ্টা কমিটি ও ট্রাস্টি সদস্যদের প্রোফাইল' : 'Profiles of board members, advisory council & trustees')}
+                {activeTab === 'volunteers' && (isBn ? '৬৪ জেলার স্বেচ্ছাসেবকদের আবেদন যাচাই ও স্ট্যাটাস অনুমোদন' : 'Volunteer application review across 64 districts & approval')}
+                {activeTab === 'campaigns' && (isBn ? 'চলমান ও আসন্ন সকল মানবিক প্রকল্পের ফান্ড ট্র্যাকিং' : 'Fund tracking for active and upcoming humanitarian projects')}
+                {activeTab === 'settings' && (isBn ? 'ফাউন্ডেশনের সাধারণ সেটিংস, লাইসেন্স সনদ ও সিকিউরিটি' : 'General foundation settings, official license & security')}
               </p>
             </div>
           </div>
 
-          {/* Quick Action Buttons */}
+          {/* Quick Action Buttons & 100% Workable Language Switcher */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Dynamic Language Switcher Toggle */}
+            <div className="inline-flex items-center p-0.5 rounded-lg bg-zinc-100 border border-zinc-200/90 shadow-2xs">
+              <button
+                type="button"
+                onClick={() => setLanguage('bn')}
+                className={cn(
+                  'px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1',
+                  isBn
+                    ? 'bg-emerald-700 text-white shadow-xs'
+                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60'
+                )}
+                title="বাংলা ভাষা নির্বাচন করুন"
+              >
+                <span>বাং</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={cn(
+                  'px-2.5 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1',
+                  !isBn
+                    ? 'bg-emerald-700 text-white shadow-xs'
+                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60'
+                )}
+                title="Switch to English"
+              >
+                <span>EN</span>
+              </button>
+            </div>
+
             <Link
               href="/"
               className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-3.5 rounded-lg border border-emerald-200/90 bg-emerald-50/80 hover:bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
-              title="ওয়েবসাইটের মূল হোমপেজে ফিরে যান"
+              title={isBn ? 'ওয়েবসাইটের মূল হোমপেজে ফিরে যান' : 'Back to main website'}
             >
               <Home className="w-4 h-4 text-emerald-700 shrink-0" />
-              <span className="hidden sm:inline">হোমে ফিরুন</span>
+              <span className="hidden sm:inline">{isBn ? 'হোমে ফিরুন' : 'View Site'}</span>
             </Link>
 
             <button
               type="button"
               onClick={() => openLicenseModal()}
               className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-3.5 rounded-lg border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs sm:text-sm font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
-              title="সরকারি লাইসেন্স সনদ দেখুন"
+              title={isBn ? 'সরকারি লাইসেন্স সনদ দেখুন' : 'View Government Charity License'}
             >
               <ShieldCheck className="w-4 h-4 text-zinc-600 shrink-0" />
-              <span className="hidden md:inline">লাইসেন্স</span>
+              <span className="hidden md:inline">{isBn ? 'লাইসেন্স' : 'License'}</span>
             </button>
 
             <button
               type="button"
               onClick={() => openPaymentModal({ amount: 5000, cause: 'Test EPS Gateway Transaction' })}
               className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium shadow-2xs transition-colors cursor-pointer active:scale-95"
-              title="EPS পেমেন্ট টেস্ট করুন"
+              title={isBn ? 'EPS পেমেন্ট টেস্ট করুন' : 'Test EPS Gateway'}
             >
               <CreditCard className="w-4 h-4 text-emerald-100 shrink-0" />
-              <span className="hidden sm:inline">EPS টেস্ট</span>
+              <span className="hidden sm:inline">{isBn ? 'EPS টেস্ট' : 'EPS Test'}</span>
             </button>
 
             <button
               type="button"
               onClick={handleLogout}
               className="inline-flex items-center justify-center gap-1.5 h-9 sm:h-10 px-3 sm:px-3.5 rounded-lg border border-red-200/80 bg-red-50/60 hover:bg-red-100 text-red-700 text-xs sm:text-sm font-medium transition-colors cursor-pointer active:scale-95"
-              title="ড্যাশবোর্ড থেকে লগআউট করুন"
+              title={isBn ? 'ড্যাশবোর্ড থেকে লগআউট করুন' : 'Logout from dashboard'}
             >
               <LogOut className="w-4 h-4 text-red-600 shrink-0" />
-              <span className="hidden sm:inline">লগআউট</span>
+              <span className="hidden sm:inline">{isBn ? 'লগআউট' : 'Logout'}</span>
             </button>
           </div>
         </header>
@@ -1118,7 +1193,7 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between pb-2">
                 <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  সর্বমোট অনুদান সংগ্রহ
+                  {isBn ? 'সর্বমোট অনুদান সংগ্রহ' : 'Total Funds Raised'}
                 </span>
                 <div className="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <HeartHandshake className="w-4.5 h-4.5" />
@@ -1130,9 +1205,9 @@ export default function AdminDashboard() {
               <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
                   <CheckCircle2 className="w-3 h-3" />
-                  {donations.length} টি সফল ট্রানজেকশন
+                  {isBn ? `${donations.length} টি সফল ট্রানজেকশন` : `${donations.length} Successful Gifts`}
                 </span>
-                <span className="text-[11px] text-zinc-500 font-medium">EPS গেটওয়ে</span>
+                <span className="text-[11px] text-zinc-500 font-medium">EPS Gateway</span>
               </div>
             </motion.div>
 
@@ -1144,21 +1219,21 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between pb-2">
                 <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  যাকাত ও তামলিক বণ্টন
+                  {isBn ? 'যাকাত ও তামলিক বণ্টন' : 'Zakat & Tamleek Policy'}
                 </span>
                 <div className="w-9 h-9 rounded-lg bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Award className="w-4.5 h-4.5" />
                 </div>
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                ১০০% নীতি
+                {isBn ? '১০০% নীতি' : '100% Policy'}
               </div>
               <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
                   <CheckCircle2 className="w-3 h-3" />
-                  জিরো এডমিন কস্ট
+                  {isBn ? 'জিরো এডমিন কস্ট' : 'Zero Admin Cost'}
                 </span>
-                <span className="text-[11px] text-zinc-500 font-medium">শরীয়াহ অনুমোদিত</span>
+                <span className="text-[11px] text-zinc-500 font-medium">{isBn ? 'শরীয়াহ অনুমোদিত' : 'Shariah Verified'}</span>
               </div>
             </motion.div>
 
@@ -1170,14 +1245,14 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between pb-2">
                 <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  সদস্য ও ট্রাস্টি বোর্ড
+                  {isBn ? 'সদস্য ও ট্রাস্টি বোর্ড' : 'Board & Trustees'}
                 </span>
                 <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Users className="w-4.5 h-4.5" />
                 </div>
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                {members.length} জন
+                {isBn ? `${members.length} জন` : `${members.length} Members`}
               </div>
               <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
                 <div className="flex items-center -space-x-1.5 overflow-hidden">
@@ -1190,7 +1265,7 @@ export default function AdminDashboard() {
                     />
                   ))}
                 </div>
-                <span className="text-[11px] text-zinc-600 font-medium">৩টি জোনাল সেল</span>
+                <span className="text-[11px] text-zinc-600 font-medium">{isBn ? '৩টি জোনাল সেল' : '3 Global Offices'}</span>
               </div>
             </motion.div>
 
@@ -1202,21 +1277,21 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between pb-2">
                 <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  স্বেচ্ছাসেবক ফিল্ড ফোর্স
+                  {isBn ? 'স্বেচ্ছাসেবক ফিল্ড ফোর্স' : 'Volunteer Field Force'}
                 </span>
                 <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <HandHeart className="w-4.5 h-4.5" />
                 </div>
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                {volunteers.length} জন
+                {isBn ? `${volunteers.length} জন` : `${volunteers.length} Active`}
               </div>
               <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
                   <Clock className="w-3 h-3" />
-                  {pendingVolunteersCount} জন অপেক্ষমান
+                  {isBn ? `${pendingVolunteersCount} জন অপেক্ষমান` : `${pendingVolunteersCount} Pending`}
                 </span>
-                <span className="text-[11px] text-zinc-500 font-medium">৬৪ জেলা</span>
+                <span className="text-[11px] text-zinc-500 font-medium">{isBn ? '৬৪ জেলা' : '64 Districts'}</span>
               </div>
             </motion.div>
           </div>
@@ -1258,13 +1333,15 @@ export default function AdminDashboard() {
                   <div className="relative z-10 max-w-2xl space-y-3">
                     <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300 text-xs font-medium border border-zinc-700/60">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>লাইভ এডমিন কন্ট্রোল সেন্টার ও অ্যানালিটিক্স</span>
+                      <span>{isBn ? 'লাইভ এডমিন কন্ট্রোল সেন্টার ও অ্যানালিটিক্স' : 'Live Admin Control Center & Analytics'}</span>
                     </div>
                     <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-                      স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা
+                      {isBn ? 'স্বাগতম, জনাব মোহাম্মদ আলী মোস্তফা' : 'Welcome, Chairman Mohammad Ali Mostafa'}
                     </h2>
                     <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                      গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের রিয়েলটাইম অনুদান প্রবাহ, প্রকল্প বাস্তবায়ন ও আর্থিক অডিট তথ্যাদি নিচে ইন্টারেক্টিভ চার্টে প্রদর্শিত হচ্ছে।
+                      {isBn
+                        ? 'গ্লোবাল মুসলিম চ্যারিটেবল ফাউন্ডেশনের রিয়েলটাইম অনুদান প্রবাহ, প্রকল্প বাস্তবায়ন ও আর্থিক অডিট তথ্যাদি নিচে ইন্টারেক্টিভ চার্টে প্রদর্শিত হচ্ছে।'
+                        : 'Real-time donation flow, project implementations, and financial audit intelligence for Global Muslim Charitable Foundation.'}
                     </p>
                     <div className="flex flex-wrap items-center gap-2.5 pt-2">
                       <button
@@ -1273,7 +1350,7 @@ export default function AdminDashboard() {
                         className="h-9 px-3.5 bg-white text-zinc-900 hover:bg-zinc-100 rounded-md text-xs font-semibold shadow-xs transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <HeartHandshake className="w-4 h-4 text-zinc-700" />
-                        <span>অনলাইন অনুদান তালিকা ({donations.length})</span>
+                        <span>{isBn ? `অনলাইন অনুদান তালিকা (${donations.length})` : `Online Donations (${donations.length})`}</span>
                       </button>
                       <button
                         type="button"
@@ -1281,7 +1358,7 @@ export default function AdminDashboard() {
                         className="h-9 px-3.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 rounded-md text-xs font-medium transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <Plus className="w-4 h-4" />
-                        <span>নতুন সদস্য যুক্ত করুন</span>
+                        <span>{isBn ? 'নতুন সদস্য যুক্ত করুন' : 'Add New Member'}</span>
                       </button>
                       <a
                         href="/images/permit.pdf"
@@ -1290,7 +1367,7 @@ export default function AdminDashboard() {
                         className="h-9 px-3.5 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border border-zinc-700/80 rounded-md text-xs font-medium transition-colors inline-flex items-center gap-1.5"
                       >
                         <FileText className="w-3.5 h-3.5" />
-                        <span>সরকারি লাইসেন্স সনদ (S-14086/2023)</span>
+                        <span>{isBn ? 'সরকারি লাইসেন্স সনদ (S-14086/2023)' : 'Official Charity License (S-14086/2023)'}</span>
                       </a>
                     </div>
                   </div>
@@ -1308,11 +1385,11 @@ export default function AdminDashboard() {
                           <div className="flex items-center gap-2">
                             <Activity className="w-4 h-4 text-emerald-600" />
                             <h3 className="text-sm font-semibold text-zinc-900">
-                              অনুদান সংগ্রহ ট্রেন্ড ও অ্যানালিটিক্স
+                              {isBn ? 'অনুদান সংগ্রহ ট্রেন্ড ও অ্যানালিটিক্স' : 'Donation Growth & Analytics Trend'}
                             </h3>
                           </div>
                           <p className="text-xs text-zinc-500 mt-0.5">
-                            রিয়েলটাইম সংগ্রহ পরিমাণ ও দাতার সংখ্যার গ্রাফ
+                            {isBn ? 'রিয়েলটাইম সংগ্রহ পরিমাণ ও দাতার সংখ্যার গ্রাফ' : 'Real-time chart of collection volume and donor count'}
                           </p>
                         </div>
 
@@ -1328,7 +1405,7 @@ export default function AdminDashboard() {
                                 : 'text-zinc-600 hover:text-zinc-900'
                             )}
                           >
-                            ৭ দিন
+                            {isBn ? '৭ দিন' : '7 Days'}
                           </button>
                           <button
                             type="button"
@@ -1340,7 +1417,7 @@ export default function AdminDashboard() {
                                 : 'text-zinc-600 hover:text-zinc-900'
                             )}
                           >
-                            ৩০ দিন
+                            {isBn ? '৩০ দিন' : '30 Days'}
                           </button>
                           <button
                             type="button"
@@ -1352,7 +1429,7 @@ export default function AdminDashboard() {
                                 : 'text-zinc-600 hover:text-zinc-900'
                             )}
                           >
-                            মাসিক
+                            {isBn ? 'মাসিক' : 'Monthly'}
                           </button>
                         </div>
                       </div>
@@ -1397,7 +1474,9 @@ export default function AdminDashboard() {
                                         </p>
                                         {payload[0].payload?.donors && (
                                           <p className="text-[11px] text-zinc-400">
-                                            দাতার সংখ্যা: {payload[0].payload.donors} জন
+                                            {isBn
+                                              ? `দাতার সংখ্যা: ${payload[0].payload.donors} জন`
+                                              : `Donors: ${payload[0].payload.donors}`}
                                           </p>
                                         )}
                                       </div>
@@ -1423,10 +1502,10 @@ export default function AdminDashboard() {
                     <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
                       <span className="flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        রিয়েলটাইম ব্যাংক ও EPS ট্রানজেকশন সিঙ্ক
+                        {isBn ? 'রিয়েলটাইম ব্যাংক ও EPS ট্রানজেকশন সিঙ্ক' : 'Real-time Bank & EPS Transaction Sync'}
                       </span>
                       <span className="font-mono font-semibold text-zinc-800">
-                        সর্বশেষ আপডেট: আজ
+                        {isBn ? 'সর্বশেষ আপডেট: আজ' : 'Last update: Today'}
                       </span>
                     </div>
                   </div>
@@ -1437,10 +1516,12 @@ export default function AdminDashboard() {
                       <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
                         <div className="flex items-center gap-2">
                           <PieChart className="w-4 h-4 text-zinc-700" />
-                          <h3 className="text-sm font-semibold text-zinc-900">মানবিক খাত বণ্টন</h3>
+                          <h3 className="text-sm font-semibold text-zinc-900">
+                            {isBn ? 'মানবিক খাত বণ্টন' : 'Sector Fund Distribution'}
+                          </h3>
                         </div>
                         <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
-                          ১০০% যাকাত
+                          {isBn ? '১০০% যাকাত' : '100% Zakat'}
                         </span>
                       </div>
 
@@ -1469,7 +1550,7 @@ export default function AdminDashboard() {
                                     return (
                                       <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-2 text-white shadow-xl text-xs">
                                         <p className="font-semibold">{data.name}</p>
-                                        <p className="font-mono text-emerald-400 font-bold">{data.value}% তহবিল</p>
+                                        <p className="font-mono text-emerald-400 font-bold">{data.value}% {isBn ? 'তহবিল' : 'Funds'}</p>
                                       </div>
                                     );
                                   }
@@ -1481,8 +1562,12 @@ export default function AdminDashboard() {
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center text-center p-3 rounded-lg bg-zinc-50 border border-dashed border-zinc-200">
                             <PieChart className="w-6 h-6 text-zinc-300 mb-1" />
-                            <p className="text-xs font-medium text-zinc-600">খাতভিত্তিক কোনো লেনদেন নেই</p>
-                            <p className="text-[11px] text-zinc-400 mt-0.5">নতুন অনুদান জমা হলে পাই-চার্ট সক্রিয় হবে</p>
+                            <p className="text-xs font-medium text-zinc-600">
+                              {isBn ? 'খাতভিত্তিক কোনো লেনদেন নেই' : 'No sector transactions recorded'}
+                            </p>
+                            <p className="text-[11px] text-zinc-400 mt-0.5">
+                              {isBn ? 'নতুন অনুদান জমা হলে পাই-চার্ট সক্রিয় হবে' : 'Pie chart will activate when donations arrive'}
+                            </p>
                           </div>
                         )}
                       </div>
@@ -1491,7 +1576,7 @@ export default function AdminDashboard() {
                       <div className="space-y-1.5 mt-2 text-xs">
                         {sectorDistribution.length === 0 ? (
                           <div className="py-2 text-center text-[11px] text-zinc-400">
-                            খাতভিত্তিক অনুদান শূন্য (৳০)
+                            {isBn ? 'খাতভিত্তিক অনুদান শূন্য (৳০)' : 'Sector donation total is zero (৳0)'}
                           </div>
                         ) : (
                           sectorDistribution.map((s, idx) => (
@@ -1517,7 +1602,7 @@ export default function AdminDashboard() {
                       onClick={() => setActiveTab('campaigns')}
                       className="mt-4 pt-3 border-t border-zinc-100 text-xs font-semibold text-zinc-800 hover:text-zinc-950 flex items-center justify-between cursor-pointer w-full"
                     >
-                      <span>ক্যাম্পেইন অগ্রগতি দেখুন</span>
+                      <span>{isBn ? 'ক্যাম্পেইন অগ্রগতি দেখুন' : 'View Campaign Progress'}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
