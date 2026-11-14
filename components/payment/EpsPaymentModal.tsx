@@ -144,9 +144,13 @@ export default function EpsPaymentModal() {
           payment_method: newDonation.method,
           transaction_id: generatedTrx,
           status: 'completed',
-        }).then(({ error }) => { if (error) console.error('Supabase insert:', error.message); });
+        }).then(({ error }) => {
+          if (error) {
+            console.warn('[Supabase Sync]:', error.message);
+          }
+        });
       } catch (err) {
-        console.error('Error saving donation', err);
+        console.warn('Error saving donation locally', err);
       }
     }, 700);
   };

@@ -6,17 +6,17 @@
 -- 1. Donations Table (অনুদানের হিসাব)
 CREATE TABLE IF NOT EXISTS public.donations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    donor_name TEXT NOT NULL,
-    donor_email TEXT,
-    donor_phone TEXT NOT NULL,
+    donor_name TEXT NOT NULL DEFAULT 'Anonymous Donor',
+    donor_email TEXT DEFAULT '',
+    donor_phone TEXT DEFAULT '',
     amount NUMERIC(12, 2) NOT NULL,
     currency VARCHAR(10) DEFAULT 'BDT',
-    cause TEXT NOT NULL, -- e.g. 'Project Alo', 'Zakat Fund'
-    payment_method VARCHAR(50) DEFAULT 'EPS Gateway', -- bKash, Nagad, Card
+    cause TEXT NOT NULL DEFAULT 'General Relief',
+    payment_method VARCHAR(50) DEFAULT 'EPS Gateway',
     transaction_id VARCHAR(100),
     is_recurring BOOLEAN DEFAULT FALSE,
-    frequency VARCHAR(20) DEFAULT 'one-time', -- 'monthly', 'one-time'
-    status VARCHAR(30) DEFAULT 'pending', -- 'pending', 'completed', 'failed'
+    frequency VARCHAR(20) DEFAULT 'one-time',
+    status VARCHAR(30) DEFAULT 'completed',
     notes TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
