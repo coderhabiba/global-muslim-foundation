@@ -407,16 +407,7 @@ export default function VolunteerPage() {
           {isSectionVisible('volunteer-stats') && (
           <section className="w-full bg-[#044E42] text-white py-8 sm:py-10 shadow-inner">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
-              {/* Subtle Live Activity Status */}
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300/90">
-                  {isBn ? 'রিয়েল-টাইম লাইভ ফিল্ড ডেটা' : 'Live Real-Time Field Activity'}
-                </span>
-              </div>
+
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
                 <DynamicLiveStatItem
@@ -769,7 +760,10 @@ export default function VolunteerPage() {
                       Enlistment Application
                     </span>
                     <h2 className="font-headline-lg text-headline-lg text-emerald-dark leading-tight">
-                      Join Our Field Taskforce in 4 Simple Steps
+                      Join Our Field Taskforce{' '}
+                      <span className="text-amber-600 dark:text-amber-500">
+                        in 4 Simple Steps
+                      </span>
                     </h2>
                     <p className="font-body-md text-body-md text-text-muted leading-relaxed">
                       Every applicant attends an accredited 3-hour orientation
@@ -1143,7 +1137,10 @@ export default function VolunteerPage() {
                   Got Questions?
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-emerald-dark font-bold">
-                  Volunteer Questions &amp; Clear Answers
+                  Volunteer Questions &amp;{' '}
+                  <span className="text-amber-600 dark:text-amber-500">
+                    Clear Answers
+                  </span>
                 </h2>
                 <p className="font-body-md text-body-md text-text-muted max-w-xl mx-auto">
                   Everything you need to know about safety protocols, required

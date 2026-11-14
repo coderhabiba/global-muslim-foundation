@@ -352,9 +352,14 @@ export default function GalleryPage() {
                   {isBn ? 'নির্দিষ্ট সহায়তাপ্রাপ্ত মানুষের গল্প' : 'Specific Beneficiary Spotlight'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-black text-white mt-2 font-serif-heading">
-                  {isBn
-                    ? 'যাদের জীবনে আপনার দান নতুন আশা ফিরিয়ে দিয়েছে'
-                    : 'Real Individuals Whose Lives You Touched'}
+                  {isBn ? (
+                    'যাদের জীবনে আপনার দান নতুন আশা ফিরিয়ে দিয়েছে'
+                  ) : (
+                    <>
+                      Real Individuals{' '}
+                      <span className="text-amber-400 italic">Whose Lives You Touched</span>
+                    </>
+                  )}
                 </h2>
                 <p className="text-xs sm:text-sm text-emerald-200/90 mt-1 max-w-xl">
                   {isBn
@@ -541,7 +546,14 @@ export default function GalleryPage() {
                 {isBn ? 'প্রকল্পভিত্তিক ফটো অ্যালবাম' : 'Project-Based Visual Albums'}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-heading mt-1">
-                {isBn ? 'আমাদের প্রধান মানবিক খাতের চিত্রশালা' : 'Core Humanitarian Impact Sectors'}
+                {isBn ? (
+                  'আমাদের প্রধান মানবিক খাতের চিত্রশালা'
+                ) : (
+                  <>
+                    Core Humanitarian{' '}
+                    <span className="text-emerald-700 italic">Impact Sectors</span>
+                  </>
+                )}
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
                 {isBn

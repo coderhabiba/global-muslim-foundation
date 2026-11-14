@@ -159,7 +159,10 @@ export default function AboutPage() {
                     FOUNDATIONAL PILLARS
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-emerald-dark mt-2">
-                    The GMCF Covenant of Trust
+                    The GMCF{' '}
+                    <span className="text-amber-600 dark:text-amber-500">
+                      Covenant of Trust
+                    </span>
                   </h2>
                 </div>
                 <p className="font-body-md text-body-md text-text-muted max-w-md">
@@ -301,7 +304,10 @@ export default function AboutPage() {
                   ETHICAL JURISPRUDENCE
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-emerald-dark mt-2 mb-4">
-                  Independent Shariah Advisory Council
+                  Independent{' '}
+                  <span className="text-amber-600 dark:text-amber-500">
+                    Shariah Advisory Council
+                  </span>
                 </h2>
                 <p className="font-body-md text-body-md text-text-muted">
                   Our operations, relief allocation criteria, and donor ledgers
@@ -531,9 +537,16 @@ export default function AboutPage() {
                     {isBn ? 'সরাসরি মাঠ পর্যায়ের কার্যক্রম' : 'ROOTED IN DIRECT ACTION'}
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-emerald-dark leading-tight mb-6">
-                    {isBn
-                      ? 'ঢাকার রেলওয়ে প্ল্যাটফর্ম থেকে বৈশ্বিক মানবিক সহায়তা নেটওয়ার্ক'
-                      : 'From Dhaka Railway Platforms to a Resilient Global Aid Network'}
+                    {isBn ? (
+                      'ঢাকার রেলওয়ে প্ল্যাটফর্ম থেকে বৈশ্বিক মানবিক সহায়তা নেটওয়ার্ক'
+                    ) : (
+                      <>
+                        From Dhaka Railway Platforms to a{' '}
+                        <span className="text-amber-600 dark:text-amber-500">
+                          Resilient Global Aid Network
+                        </span>
+                      </>
+                    )}
                   </h2>
                   <p className="font-body-md text-body-md text-text-muted leading-relaxed mb-6">
                     {isBn
@@ -635,7 +648,10 @@ export default function AboutPage() {
                     STATUTORY JURISDICTIONS
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-emerald-dark mt-2">
-                    Registered Global Headquarters &amp; Offices
+                    Registered Global{' '}
+                    <span className="text-amber-600 dark:text-amber-500">
+                      Headquarters &amp; Offices
+                    </span>
                   </h2>
                 </div>
                 <a

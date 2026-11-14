@@ -633,7 +633,18 @@ export default function ImpactPage() {
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-black font-serif-heading leading-snug tracking-tight text-white">
-                {isBn ? (cmsImpact.videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি') : (cmsImpact.videoTitleEn || 'Serving Warm Meals & Clean Water to Dhaka Street Destitute at Midnight')}
+                {isBn ? (
+                  cmsImpact.videoTitle || 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি'
+                ) : (
+                  cmsImpact.videoTitleEn || (
+                    <>
+                      Serving Warm Meals &amp;{' '}
+                      <span className="text-amber-400 italic">
+                        Clean Water to Dhaka Street Destitute
+                      </span>
+                    </>
+                  )
+                )}
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">

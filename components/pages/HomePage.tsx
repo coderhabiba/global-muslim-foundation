@@ -755,7 +755,16 @@ export default function HomePage() {
                   {isBn ? 'জরুরি মানবিক আবেদন' : 'Emergency Humanitarian Appeals'}
                 </div>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                  {isBn ? (cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ') : (cms.home.appealTitleEn || 'Active Emergency Appeals & Dedicated Funds')}
+                  {isBn ? (
+                    cms.home.appealTitle || 'চলমান জরুরি মানবিক আবেদনসমূহ'
+                  ) : (
+                    cms.home.appealTitleEn || (
+                      <>
+                        Active Emergency Appeals &amp;{' '}
+                        <span className="text-primary italic">Dedicated Funds</span>
+                      </>
+                    )
+                  )}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant max-w-2xl mt-1.5">
                   {isBn ? (cms.home.appealSubtitle || 'তাত্ক্ষণিক ত্রাণ ও স্থায়ী পুনর্বাসনে আপনার হাত বাড়িয়ে দিন।') : (cms.home.appealSubtitleEn || 'Extend your hand towards immediate relief, permanent shelter, clean water, and orphan guardianship.')}
@@ -918,7 +927,16 @@ export default function HomePage() {
                 {isBn ? (cms.home.storySectionBadge || 'মাঠপর্যায়ের বাস্তব রূপান্তরের গল্প') : (cms.home.storySectionBadgeEn || 'Documented Field Impact')}
               </span>
               <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface mt-1.5">
-                {isBn ? (cms.home.storySectionTitle || 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন') : (cms.home.storySectionTitleEn || 'Real Life Transformations: A Mother & Child Reunited')}
+                {isBn ? (
+                  cms.home.storySectionTitle || 'বাস্তব জীবন রূপান্তর: মা ও সন্তানের পুনর্মিলন'
+                ) : (
+                  cms.home.storySectionTitleEn || (
+                    <>
+                      Real Life Transformations:{' '}
+                      <span className="text-primary italic">A Mother &amp; Child Reunited</span>
+                    </>
+                  )
+                )}
               </h2>
               <p className="text-sm sm:text-base text-on-surface-variant mt-2 leading-relaxed">
                 {isBn ? (cms.home.storySectionSubtitle || 'আপনার প্রতিটি অনুদান শুধু একটি পরিসংখ্যান নয়—এটি জীবন বাঁচায়, হারিয়ে যাওয়া শিশুদের ঘরে ফেরায় এবং অসহায় পরিবারগুলোকে আশার আলো দেখায়।') : (cms.home.storySectionSubtitleEn || 'Every donation is more than a metric—it saves lives, rescues lost children, and restores hope to destitute families.')}
@@ -1345,7 +1363,16 @@ export default function HomePage() {
                   {isBn ? (cms.home.volunteerSectionBadge || 'কমিউনিটি ও সমাজকল্যাণ') : (cms.home.volunteerSectionBadgeEn || 'Community Action & Stewardship')}
                 </span>
                 <h2 className="font-serif-heading text-3xl sm:text-4xl font-bold text-on-surface leading-tight">
-                  {isBn ? (cms.home.volunteerSectionTitle || 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন') : (cms.home.volunteerSectionTitleEn || 'Join Our Dedicated Youth Volunteers')}
+                  {isBn ? (
+                    cms.home.volunteerSectionTitle || 'আমাদের নিবেদিত তরুণ স্বেচ্ছাসেবক পরিবারে যুক্ত হোন'
+                  ) : (
+                    cms.home.volunteerSectionTitleEn || (
+                      <>
+                        Join Our Dedicated{' '}
+                        <span className="text-primary italic">Youth Volunteers</span>
+                      </>
+                    )
+                  )}
                 </h2>
                 <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed">
                   Whether distributing emergency winter blankets, supporting

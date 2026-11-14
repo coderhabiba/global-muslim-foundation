@@ -131,8 +131,10 @@ export default function CampaignDetailsPage() {
                     </span>
                   </div>
                   <h1 className="font-serif font-bold text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                    One Meal One Hope — Nourishing Vulnerable Lives Across
-                    Railway Communities
+                    One Meal One Hope —{' '}
+                    <span className="text-amber-600 dark:text-amber-500">
+                      Nourishing Vulnerable Lives Across Railway Communities
+                    </span>
                   </h1>
                   <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                     Partnered with{' '}
@@ -1481,7 +1483,10 @@ export default function CampaignDetailsPage() {
                     Comprehensive Relief
                   </span>
                   <h2 className="font-serif font-bold text-headline-lg text-emerald-dark mt-2">
-                    Other Active Emergency Appeals
+                    Other Active{' '}
+                    <span className="text-amber-600 dark:text-amber-500">
+                      Emergency Appeals
+                    </span>
                   </h2>
                   <p className="font-body-md text-body-md text-on-surface-variant">
                     Support companion humanitarian operations serving vulnerable

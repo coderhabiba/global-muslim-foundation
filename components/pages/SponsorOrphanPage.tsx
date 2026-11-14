@@ -264,7 +264,14 @@ export default function SponsorOrphanPage() {
             {isBn ? 'শিশুদের সার্বিক অবস্থা ও প্রোফাইল' : 'Sponsorship Directory'}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-heading">
-            {isBn ? 'যাদের জন্য অভিভাবকত্ব প্রয়োজন' : 'Children Awaiting Compassionate Guardians'}
+            {isBn ? (
+              'যাদের জন্য অভিভাবকত্ব প্রয়োজন'
+            ) : (
+              <>
+                Children Awaiting{' '}
+                <span className="text-emerald-700 italic">Compassionate Guardians</span>
+              </>
+            )}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
             {isBn
@@ -677,7 +684,14 @@ export default function SponsorOrphanPage() {
               {isBn ? 'স্বচ্ছ ও শতভাগ যাকাত উপযুক্ত প্যাকেজ' : 'Transparent Monthly & Yearly Plans'}
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold font-serif-heading">
-              {isBn ? 'একটি শিশুর দায়িত্ব নিতে প্যাকেজ নির্বাচন করুন' : 'Choose Your Child Sponsorship Tier'}
+              {isBn ? (
+                'একটি শিশুর দায়িত্ব নিতে প্যাকেজ নির্বাচন করুন'
+              ) : (
+                <>
+                  Choose Your{' '}
+                  <span className="text-amber-400 italic">Child Sponsorship Tier</span>
+                </>
+              )}
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 mt-2">
               {isBn

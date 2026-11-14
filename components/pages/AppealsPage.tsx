@@ -278,9 +278,18 @@ export default function AppealsPage() {
                     </span>
                   </div>
                   <h1 className="font-serif text-headline-xl text-emerald-dark tracking-tight leading-tight">
-                    {isBn
-                      ? (cms.appeals?.pageTitle || 'আমাদের চলমান মানবিক আবেদন ও জরুরি ফান্ডসমূহ')
-                      : (cms.appeals?.pageTitleEn || 'Our Ongoing Appeals & Humanitarian Causes')}
+                    {isBn ? (
+                      cms.appeals?.pageTitle || 'আমাদের চলমান মানবিক আবেদন ও জরুরি ফান্ডসমূহ'
+                    ) : (
+                      cms.appeals?.pageTitleEn || (
+                        <>
+                          Our Ongoing Appeals &amp;{' '}
+                          <span className="text-amber-600 dark:text-amber-500">
+                            Humanitarian Causes
+                          </span>
+                        </>
+                      )
+                    )}
                   </h1>
                   <p className="font-body-lg text-on-surface-variant leading-relaxed max-w-2xl">
                     {isBn
@@ -1265,7 +1274,10 @@ export default function AppealsPage() {
                   </span>
                 </div>
                 <h2 className="font-serif text-headline-lg text-emerald-dark leading-tight">
-                  Create a Dedicated Fundraiser in Honor of a Loved One
+                  Create a Dedicated Fundraiser{' '}
+                  <span className="text-amber-600 dark:text-amber-500">
+                    in Honor of a Loved One
+                  </span>
                 </h2>
                 <p className="font-body-md text-on-surface-variant leading-relaxed">
                   Rally your friends, family, and local community. Launch a

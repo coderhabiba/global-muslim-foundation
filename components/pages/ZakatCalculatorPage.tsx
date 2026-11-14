@@ -422,7 +422,8 @@ export default function ZakatCalculatorPage() {
                   5-Category Shariah Matrix
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface">
-                  Calculate Your Annual Zakat Obligation
+                  Calculate Your Annual{' '}
+                  <span className="text-emerald-700 italic">Zakat Obligation</span>
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-2">
                   Enter all assets possessed over one lunar year (Hawl). Debts
@@ -944,7 +945,8 @@ export default function ZakatCalculatorPage() {
                     Strict Institutional Governance
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-on-surface">
-                    How We Safeguard Your Sacred Obligation
+                    How We Safeguard{' '}
+                    <span className="text-emerald-700 italic">Your Sacred Obligation</span>
                   </h2>
                   <p className="font-body-md text-body-md text-on-surface-variant">
                     Zakat is not a voluntary gift; it is a divinely ordained
@@ -1031,7 +1033,8 @@ export default function ZakatCalculatorPage() {
                   Knowledge Hub
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
-                  Frequently Asked Questions on Zakat
+                  Frequently Asked{' '}
+                  <span className="text-emerald-700 italic">Questions on Zakat</span>
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-2">
                   Clear rulings based on standard consensus to help you

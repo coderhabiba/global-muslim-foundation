@@ -485,9 +485,16 @@ export default function MembersVolunteersPage() {
               </span>
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-emerald-950 font-serif-heading">
-              {isBn
-                ? 'আপনিও আমাদের স্বেচ্ছাসেবী পরিবারের সদস্য হতে চান?'
-                : 'Become an Honored GMCF Humanitarian Volunteer'}
+              {isBn ? (
+                'আপনিও আমাদের স্বেচ্ছাসেবী পরিবারের সদস্য হতে চান?'
+              ) : (
+                <>
+                  Become an Honored{' '}
+                  <span className="text-amber-600">
+                    GMCF Humanitarian Volunteer
+                  </span>
+                </>
+              )}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
               {isBn

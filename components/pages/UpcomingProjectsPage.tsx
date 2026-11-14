@@ -289,7 +289,14 @@ export default function UpcomingProjectsPage() {
               {isBn ? 'বাস্তবায়নাধীন ও পরিকল্পিত রূপরেখা' : 'Strategic Pipeline'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-heading">
-              {isBn ? 'শীঘ্রই শুরু হতে যাওয়া বৃহৎ কার্যক্রম' : 'Major Projects Awaiting Launch'}
+              {isBn ? (
+                'শীঘ্রই শুরু হতে যাওয়া বৃহৎ কার্যক্রম'
+              ) : (
+                <>
+                  Major Projects{' '}
+                  <span className="text-emerald-700 italic">Awaiting Launch</span>
+                </>
+              )}
             </h2>
           </div>
 
