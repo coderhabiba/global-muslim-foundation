@@ -190,6 +190,19 @@ export interface SiteCMSContent {
     pageBadge: string;
     pageTitle: string;
     pageSubtitle: string;
+    // Live Metric Bar (4 Stats)
+    stat1Value?: string;
+    stat1Title?: string;
+    stat1Desc?: string;
+    stat2Value?: string;
+    stat2Title?: string;
+    stat2Desc?: string;
+    stat3Value?: string;
+    stat3Title?: string;
+    stat3Desc?: string;
+    stat4Value?: string;
+    stat4Title?: string;
+    stat4Desc?: string;
     formHeading: string;
     formSubheading: string;
     joinRequirement: string;
@@ -377,6 +390,18 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     pageBadge: 'সম্মুখসারির মানবিক কাজ • 850+ তরুণের সাথে যোগ দিন',
     pageTitle: 'সংকটে থাকা জনগোষ্ঠীর পথপ্রদর্শক আলো হয়ে উঠুন',
     pageSubtitle: 'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।',
+    stat1Value: '850+',
+    stat1Title: 'সক্রিয় তরুণ স্বেচ্ছাসেবক',
+    stat1Desc: 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব',
+    stat2Value: '45',
+    stat2Title: 'মাঠ মোতায়েন',
+    stat2Desc: 'সক্রিয় ত্রাণ অভিযান (2024-25)',
+    stat3Value: '12',
+    stat3Title: 'আঞ্চলিক বিতরণ কেন্দ্র',
+    stat3Desc: 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে',
+    stat4Value: '100%',
+    stat4Title: 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ',
+    stat4Desc: 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড',
     formHeading: 'স্বেচ্ছাসেবক নিবন্ধন ফরম',
     formSubheading: 'নিচের প্রয়োজনীয় তথ্যসমূহ পূরণ করে আজই যুক্ত হোন আমাদের দেশব্যাপী স্বেচ্ছাসেবী টিমে।',
     joinRequirement: 'ন্যূনতম বয়স ১৮ বছর, সততা ও মানবিক সেবায় নিবেদিতপ্রাণ মনোভাব।',
@@ -589,6 +614,18 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
             parsed.volunteer.pageSubtitle =
               'ব্যস্ত রেল প্ল্যাটফর্মে পুষ্টিকর গরম খাবার পরিবেশন, বন্যাপ্রবণ এলাকায় জরুরি কম্বল বিতরণ বা শিশু চক্ষু ক্যাম্প সার্জনদের সহায়তা—আপনার সময় ও শ্রম বিশ্বাসকে বাস্তব উদ্ধারে রূপান্তরিত করে।';
           }
+          if (!parsed.volunteer.stat1Value) parsed.volunteer.stat1Value = '850+';
+          if (!parsed.volunteer.stat1Title) parsed.volunteer.stat1Title = 'সক্রিয় তরুণ স্বেচ্ছাসেবক';
+          if (!parsed.volunteer.stat1Desc) parsed.volunteer.stat1Desc = 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব';
+          if (!parsed.volunteer.stat2Value) parsed.volunteer.stat2Value = '45';
+          if (!parsed.volunteer.stat2Title) parsed.volunteer.stat2Title = 'মাঠ মোতায়েন';
+          if (!parsed.volunteer.stat2Desc) parsed.volunteer.stat2Desc = 'সক্রিয় ত্রাণ অভিযান (2024-25)';
+          if (!parsed.volunteer.stat3Value) parsed.volunteer.stat3Value = '12';
+          if (!parsed.volunteer.stat3Title) parsed.volunteer.stat3Title = 'আঞ্চলিক বিতরণ কেন্দ্র';
+          if (!parsed.volunteer.stat3Desc) parsed.volunteer.stat3Desc = 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে';
+          if (!parsed.volunteer.stat4Value) parsed.volunteer.stat4Value = '100%';
+          if (!parsed.volunteer.stat4Title) parsed.volunteer.stat4Title = 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ';
+          if (!parsed.volunteer.stat4Desc) parsed.volunteer.stat4Desc = 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড';
         }
         setCms(prev => ({
           ...DEFAULT_CMS_CONTENT,

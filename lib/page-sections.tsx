@@ -665,6 +665,31 @@ export const PAGE_SECTIONS_SCHEMA: PageConfig[] = [
         ],
       },
       {
+        id: 'volunteer-stats',
+        label: 'স্বেচ্ছাসেবক ফিল্ড পরিসংখ্যান (৪টি লাইভ মেট্রিক)',
+        icon: 'analytics',
+        isCore: true,
+        isVisible: true,
+        order: 2,
+        fields: [
+          { key: 'stat1Value', label: '১ম মেট্রিক সংখ্যা (যেমন: 850+)', type: 'text', placeholder: '850+' },
+          { key: 'stat1Title', label: '১ম মেট্রিক শিরোনাম', type: 'text', placeholder: 'সক্রিয় তরুণ স্বেচ্ছাসেবক' },
+          { key: 'stat1Desc', label: '১ম মেট্রিক সাব-টাইটেল', type: 'text', placeholder: 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব' },
+
+          { key: 'stat2Value', label: '২য় মেট্রিক সংখ্যা (যেমন: 45)', type: 'text', placeholder: '45' },
+          { key: 'stat2Title', label: '২য় মেট্রিক শিরোনাম', type: 'text', placeholder: 'মাঠ মোতায়েন' },
+          { key: 'stat2Desc', label: '২য় মেট্রিক সাব-টাইটেল', type: 'text', placeholder: 'সক্রিয় ত্রাণ অভিযান (2024-25)' },
+
+          { key: 'stat3Value', label: '৩য় মেট্রিক সংখ্যা (যেমন: 12)', type: 'text', placeholder: '12' },
+          { key: 'stat3Title', label: '৩য় মেট্রিক শিরোনাম', type: 'text', placeholder: 'আঞ্চলিক বিতরণ কেন্দ্র' },
+          { key: 'stat3Desc', label: '৩য় মেট্রিক সাব-টাইটেল', type: 'text', placeholder: 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে' },
+
+          { key: 'stat4Value', label: '৪র্থ মেট্রিক সংখ্যা (যেমন: 100%)', type: 'text', placeholder: '100%' },
+          { key: 'stat4Title', label: '৪র্থ মেট্রিক শিরোনাম', type: 'text', placeholder: 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ' },
+          { key: 'stat4Desc', label: '৪র্থ মেট্রিক সাব-টাইটেল', type: 'text', placeholder: 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড' },
+        ],
+      },
+      {
         id: 'volunteer-form',
         label: 'নিবন্ধন ফরম টেক্সট',
         icon: 'assignment_ind',

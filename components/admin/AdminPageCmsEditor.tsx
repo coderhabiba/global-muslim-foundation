@@ -937,6 +937,83 @@ export default function AdminPageCmsEditor() {
                     <input type="text" value={pageData.contactNotice || ''} onChange={e => handleFieldChange('contactNotice', e.target.value)} className="w-full px-3 py-2 bg-white border rounded-xl text-sm" />
                   </div>
                 </div>
+
+                {/* 4 Live Metrics Section */}
+                <div className="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200 space-y-3">
+                  <h5 className="text-xs font-bold uppercase tracking-wider text-emerald-950 flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[16px] text-emerald-700">analytics</span>
+                    <span>স্বেচ্ছাসেবক ফিল্ড পরিসংখ্যান (৪টি লাইভ মেট্রিক)</span>
+                  </h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    {/* Stat 1 */}
+                    <div className="bg-white p-3 rounded-lg border border-emerald-200/80 space-y-1.5">
+                      <span className="font-bold text-emerald-900 block">১ম মেট্রিক</span>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
+                        <input type="text" placeholder="850+" value={pageData.stat1Value || ''} onChange={e => handleFieldChange('stat1Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
+                        <input type="text" placeholder="সক্রিয় তরুণ স্বেচ্ছাসেবক" value={pageData.stat1Title || ''} onChange={e => handleFieldChange('stat1Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সাব-টাইটেল</label>
+                        <input type="text" placeholder="বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব" value={pageData.stat1Desc || ''} onChange={e => handleFieldChange('stat1Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-[11px] text-slate-600" />
+                      </div>
+                    </div>
+
+                    {/* Stat 2 */}
+                    <div className="bg-white p-3 rounded-lg border border-emerald-200/80 space-y-1.5">
+                      <span className="font-bold text-emerald-900 block">২য় মেট্রিক</span>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
+                        <input type="text" placeholder="45" value={pageData.stat2Value || ''} onChange={e => handleFieldChange('stat2Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
+                        <input type="text" placeholder="মাঠ মোতায়েন" value={pageData.stat2Title || ''} onChange={e => handleFieldChange('stat2Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সাব-টাইটেল</label>
+                        <input type="text" placeholder="সক্রিয় ত্রাণ অভিযান (2024-25)" value={pageData.stat2Desc || ''} onChange={e => handleFieldChange('stat2Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-[11px] text-slate-600" />
+                      </div>
+                    </div>
+
+                    {/* Stat 3 */}
+                    <div className="bg-white p-3 rounded-lg border border-emerald-200/80 space-y-1.5">
+                      <span className="font-bold text-emerald-900 block">৩য় মেট্রিক</span>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
+                        <input type="text" placeholder="12" value={pageData.stat3Value || ''} onChange={e => handleFieldChange('stat3Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
+                        <input type="text" placeholder="আঞ্চলিক বিতরণ কেন্দ্র" value={pageData.stat3Title || ''} onChange={e => handleFieldChange('stat3Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সাব-টাইটেল</label>
+                        <input type="text" placeholder="বাংলাদেশের 64 জেলায় ছড়িয়ে আছে" value={pageData.stat3Desc || ''} onChange={e => handleFieldChange('stat3Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-[11px] text-slate-600" />
+                      </div>
+                    </div>
+
+                    {/* Stat 4 */}
+                    <div className="bg-white p-3 rounded-lg border border-emerald-200/80 space-y-1.5">
+                      <span className="font-bold text-emerald-900 block">৪র্থ মেট্রিক</span>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সংখ্যা</label>
+                        <input type="text" placeholder="100%" value={pageData.stat4Value || ''} onChange={e => handleFieldChange('stat4Value', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs font-bold text-emerald-900" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">শিরোনাম</label>
+                        <input type="text" placeholder="প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ" value={pageData.stat4Title || ''} onChange={e => handleFieldChange('stat4Title', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-xs" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 block">সাব-টাইটেল</label>
+                        <input type="text" placeholder="শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড" value={pageData.stat4Desc || ''} onChange={e => handleFieldChange('stat4Desc', e.target.value)} className="w-full px-2 py-1 bg-white border rounded text-[11px] text-slate-600" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 

@@ -297,65 +297,128 @@ export default function VolunteerPage() {
 
           {/* High-Contrast Live Metric Bar */}
 
-          <section className="w-full bg-primary-container text-on-primary py-8 px-4 sm:px-8 shadow-md">
-            <div className="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="flex flex-col items-center justify-center p-3">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">
-                    850
+          <section className="w-full bg-[#044E42] text-white py-8 sm:py-10 shadow-inner">
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+                <div className="flex flex-col items-center justify-center p-3">
+                  {(() => {
+                    const clean = (cmsVolunteer.stat1Value || '850+').trim();
+                    const hasPlus = clean.endsWith('+');
+                    const num = hasPlus ? clean.slice(0, -1) : clean;
+                    return (
+                      <div className="flex items-baseline justify-center gap-0.5">
+                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
+                          {num}
+                        </span>
+                        {hasPlus && (
+                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
+                            +
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
+                    {isBn
+                      ? (cmsVolunteer.stat1Title || 'সক্রিয় তরুণ স্বেচ্ছাসেবক')
+                      : 'Active Youth Volunteers'}
                   </span>
-                  <span className="font-headline-md text-headline-md text-gold-warm font-bold">
-                    +
-                  </span>
-                </div>
-                <span className="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
-                  Active Youth Volunteers
-                </span>
-                <span className="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
-                  Universities &amp; Local Youth Clubs
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-3">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">
-                    45
-                  </span>
-                </div>
-                <span className="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
-                  Field Deployments
-                </span>
-                <span className="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
-                  Active Relief Operations (2024-25)
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-3">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">
-                    12
+                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
+                    {isBn
+                      ? (cmsVolunteer.stat1Desc || 'বিশ্ববিদ্যালয় ও স্থানীয় যুব ক্লাব')
+                      : 'Universities & Local Youth Clubs'}
                   </span>
                 </div>
-                <span className="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
-                  Regional Dispatch Hubs
-                </span>
-                <span className="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
-                  Covering 64 Districts Across Bangladesh
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-3">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-headline-lg text-headline-lg text-primary-fixed font-bold tracking-tight">
-                    100
+
+                <div className="flex flex-col items-center justify-center p-3">
+                  {(() => {
+                    const clean = (cmsVolunteer.stat2Value || '45').trim();
+                    const hasPlus = clean.endsWith('+');
+                    const num = hasPlus ? clean.slice(0, -1) : clean;
+                    return (
+                      <div className="flex items-baseline justify-center gap-0.5">
+                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
+                          {num}
+                        </span>
+                        {hasPlus && (
+                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
+                            +
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
+                    {isBn
+                      ? (cmsVolunteer.stat2Title || 'মাঠ মোতায়েন')
+                      : 'Field Deployments'}
                   </span>
-                  <span className="font-headline-md text-headline-md text-gold-warm font-bold">
-                    %
+                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
+                    {isBn
+                      ? (cmsVolunteer.stat2Desc || 'সক্রিয় ত্রাণ অভিযান (2024-25)')
+                      : 'Active Relief Operations (2024-25)'}
                   </span>
                 </div>
-                <span className="font-label-md text-label-md text-surface-container-high uppercase tracking-wider mt-1">
-                  Certified Safety Training
-                </span>
-                <span className="font-body-sm text-body-sm text-primary-fixed-dim/90 text-xs mt-0.5">
-                  Shariah Volunteer Ethics &amp; First Aid
-                </span>
+
+                <div className="flex flex-col items-center justify-center p-3">
+                  {(() => {
+                    const clean = (cmsVolunteer.stat3Value || '12').trim();
+                    const hasPlus = clean.endsWith('+');
+                    const num = hasPlus ? clean.slice(0, -1) : clean;
+                    return (
+                      <div className="flex items-baseline justify-center gap-0.5">
+                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
+                          {num}
+                        </span>
+                        {hasPlus && (
+                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
+                            +
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
+                    {isBn
+                      ? (cmsVolunteer.stat3Title || 'আঞ্চলিক বিতরণ কেন্দ্র')
+                      : 'Regional Dispatch Hubs'}
+                  </span>
+                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
+                    {isBn
+                      ? (cmsVolunteer.stat3Desc || 'বাংলাদেশের 64 জেলায় ছড়িয়ে আছে')
+                      : 'Covering 64 Districts Across Bangladesh'}
+                  </span>
+                </div>
+
+                <div className="flex flex-col items-center justify-center p-3">
+                  {(() => {
+                    const clean = (cmsVolunteer.stat4Value || '100%').trim();
+                    const hasPercent = clean.endsWith('%');
+                    const num = hasPercent ? clean.slice(0, -1) : clean;
+                    return (
+                      <div className="flex items-baseline justify-center gap-0.5">
+                        <span className="text-3xl sm:text-4xl text-[#E5A93C] font-black tracking-tight font-mono leading-none">
+                          {num}
+                        </span>
+                        {hasPercent && (
+                          <span className="text-2xl sm:text-3xl text-[#E5A93C] font-black leading-none">
+                            %
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
+                  <span className="text-sm sm:text-base font-bold text-white mt-2 leading-snug">
+                    {isBn
+                      ? (cmsVolunteer.stat4Title || 'প্রত্যয়িত নিরাপত্তা প্রশিক্ষণ')
+                      : 'Certified Safety Training'}
+                  </span>
+                  <span className="text-xs sm:text-[13px] text-emerald-200/80 mt-1 leading-normal">
+                    {isBn
+                      ? (cmsVolunteer.stat4Desc || 'শরীয়াহ স্বেচ্ছাসেবী নীতি ও ফার্স্ট এইড')
+                      : 'Shariah Volunteer Ethics & First Aid'}
+                  </span>
+                </div>
               </div>
             </div>
           </section>
