@@ -6,6 +6,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
+import { useSectionVisibility } from '@/lib/section-visibility';
 
 export type UpcomingProject = {
   id: string;
@@ -176,6 +177,7 @@ export default function UpcomingProjectsPage() {
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
   const { upcomingProjects } = useDynamicCards();
+  const { isSectionVisible } = useSectionVisibility();
   const cmsUpcoming = cms.upcoming_projects;
   const isBn = language === 'bn';
 
@@ -196,6 +198,7 @@ export default function UpcomingProjectsPage() {
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       {/* Hero Header */}
+      {isSectionVisible('upcoming-header') && (
       <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-10 pb-14 border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold tracking-wide shadow-2xs">
@@ -275,8 +278,10 @@ export default function UpcomingProjectsPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Projects Grid Section */}
+      {isSectionVisible('upcoming-featured') && (
       <section id="project-grid" className="w-full px-4 sm:px-8 py-12 max-w-[1280px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-4 border-b border-slate-200">
           <div>
@@ -497,8 +502,10 @@ export default function UpcomingProjectsPage() {
           })}
         </div>
       </section>
+      )}
 
       {/* Trust & Guarantee Banner */}
+      {isSectionVisible('upcoming-project2') && (
       <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 pb-16">
         <div className="bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-emerald-800/40">
           <div className="space-y-3 max-w-2xl text-center lg:text-left">
@@ -537,6 +544,7 @@ export default function UpcomingProjectsPage() {
           </div>
         </div>
       </section>
+      )}
     </main>
   );
 }

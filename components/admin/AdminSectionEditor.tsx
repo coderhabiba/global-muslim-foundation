@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS, SitePageKey, DEFAULT_CMS_CONTENT_EN } from '@/lib/site-cms';
 import { PAGE_SECTIONS_SCHEMA, PageConfig, PageSection, SectionField, useCustomSections, CustomSection } from '@/lib/page-sections';
+import { useSectionVisibility } from '@/lib/section-visibility';
 import ImageSelectorField from './ImageSelectorField';
 
 // =========================================================
@@ -629,11 +630,11 @@ export default function AdminSectionEditor() {
   const isBn = language === 'bn';
   const { cms, updatePageContent, isSaving } = useSiteCMS();
   const { getPageCustomSections, addCustomSection, updateCustomSection, deleteCustomSection } = useCustomSections();
+  const { isSectionVisible, toggleSectionVisibility } = useSectionVisibility();
 
   const [selectedPageKey, setSelectedPageKey] = useState<string>('home');
   const [editorLang, setEditorLang] = useState<'bn' | 'en' | 'both'>('bn');
   const [localData, setLocalData] = useState<Record<string, string>>({});
-  const [sectionVisibility, setSectionVisibility] = useState<Record<string, boolean>>({});
   const [showAddModal, setShowAddModal] = useState(false);
   const [saveToast, setSaveToast] = useState<{
     show: boolean;
@@ -683,13 +684,12 @@ export default function AdminSectionEditor() {
   };
 
   const handleToggleSectionVisibility = (sectionId: string, currentVal: boolean) => {
-    const newVal = !currentVal;
-    setSectionVisibility(prev => ({ ...prev, [sectionId]: newVal }));
+    const newVal = toggleSectionVisibility(sectionId, currentVal);
     triggerSuccessToast(
       isBn ? 'দৃশ্যমানতা আপডেট হয়েছে' : 'Visibility Updated',
       newVal
         ? (isBn ? 'সেকশনটি এখন মূল ওয়েবসাইটে দৃশ্যমান।' : 'Section is now visible on the website.')
-        : (isBn ? 'সেকশনটি ওয়েবসাইট থেকে সাময়িকভাবে লুকানো হয়েছে।' : 'Section is temporarily hidden from the website.')
+        : (isBn ? 'সেকশনটি ওয়েবসাইট থেকে সফলভাবে লুকানো হয়েছে।' : 'Section has been hidden from the website.')
     );
   };
 
@@ -927,7 +927,7 @@ export default function AdminSectionEditor() {
 
           {/* Core Sections List */}
           {coreSections.map(section => {
-            const visibility = sectionVisibility[section.id] ?? (section.isVisible !== false);
+            const visibility = isSectionVisible(section.id, section.isVisible !== false);
             return (
               <SectionAccordion
                 key={section.id}

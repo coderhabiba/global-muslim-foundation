@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useSectionVisibility } from '@/lib/section-visibility';
 import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 const FILTER_PILLS = [
@@ -70,6 +71,7 @@ export default function AppealsPage() {
   const isBn = language === 'bn';
   const { openPaymentModal, showAlert } = useModalState();
   const { cms } = useSiteCMS();
+  const { isSectionVisible } = useSectionVisibility();
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -262,7 +264,7 @@ export default function AppealsPage() {
           </div>
 
           {/* Hero Header Section */}
-
+          {isSectionVisible('appeals-header') && (
           <section className="relative bg-gradient-to-b from-surface-subtle-mint via-surface to-surface px-4 sm:px-8 pt-10 pb-16 overflow-hidden">
             <div className="max-w-[1280px] mx-auto">
               <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 pb-10">
@@ -392,6 +394,7 @@ export default function AppealsPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Campaigns Grid Section */}
 

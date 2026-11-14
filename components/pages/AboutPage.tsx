@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useModalState } from '@/lib/modal-context';
+import { useSectionVisibility } from '@/lib/section-visibility';
 import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
 export default function AboutPage() {
   const { localize, language } = useSiteSettings();
   const { showAlert, openLicenseModal } = useModalState();
   const { cms } = useSiteCMS();
+  const { isSectionVisible } = useSectionVisibility();
   const isBn = language === 'bn';
 
   return (
@@ -18,7 +20,7 @@ export default function AboutPage() {
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Top Trust & Mission Banner */}
-
+          {isSectionVisible('about-header') && (
           <section className="w-full bg-gradient-to-b from-surface-subtle-mint via-surface to-background px-4 sm:px-8 py-16">
             <div className="max-w-[1280px] mx-auto flex flex-col items-center text-center">
               {/* Sacred Trust Badge */}
@@ -145,9 +147,10 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* 4 Pillars of Sacred Stewardship */}
-
+          {isSectionVisible('about-pillars') && (
           <section className="w-full bg-surface-clean py-20 px-4 sm:px-8">
             <div className="max-w-[1280px] mx-auto">
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
@@ -287,9 +290,10 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Governance & Shariah Advisory Council */}
-
+          {isSectionVisible('about-mission-vision') && (
           <section className="w-full bg-surface py-20 px-4 sm:px-8">
             <div className="max-w-[1280px] mx-auto">
               <div className="text-center max-w-2xl mx-auto mb-16">
@@ -513,9 +517,10 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Our Story & Ground Truth Field Operations */}
-
+          {isSectionVisible('about-registration') && (
           <section className="w-full bg-surface-clean py-20 px-4 sm:px-8">
             <div className="max-w-[1280px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -618,9 +623,10 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Global Offices & Statutory Registration Grid */}
-
+          {isSectionVisible('about-board') && (
           <section className="w-full bg-surface-subtle-mint/40 py-20 px-4 sm:px-8">
             <div className="max-w-[1280px] mx-auto">
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -772,6 +778,7 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+          )}
         </div>
       </main>
     </>

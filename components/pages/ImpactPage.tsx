@@ -6,6 +6,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
+import { useSectionVisibility } from '@/lib/section-visibility';
 import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 import ProjectDocumentaryPlayer from '@/components/impact/ProjectDocumentaryPlayer';
 
@@ -382,6 +383,7 @@ export default function ImpactPage() {
   const { foundationProjects } = useDynamicCards();
   const cmsImpact = cms.impact;
   const isBn = language === 'bn';
+  const { isSectionVisible } = useSectionVisibility();
 
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -494,6 +496,7 @@ export default function ImpactPage() {
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       {/* Editorial Hero Banner */}
+      {isSectionVisible('impact-header') && (
       <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-10 pb-12 border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold tracking-wide shadow-2xs">
@@ -612,8 +615,10 @@ export default function ImpactPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Featured Project Field Video Showcase (CMS Driven) */}
+      {isSectionVisible('impact-stats') && (
       <section className="w-full px-4 sm:px-8 pt-8 pb-4 max-w-[1280px] mx-auto">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-[#0a3525] to-slate-950 border border-emerald-800/40 shadow-2xl text-white">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -698,8 +703,11 @@ export default function ImpactPage() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* Filter and Search Bar */}
+      {/* Filter and Search Bar + Projects Grid */}
+      {isSectionVisible('impact-summary') && (
+      <>
       <section className="w-full px-4 sm:px-8 py-8 max-w-[1280px] mx-auto">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
           {/* Category Filter Chips */}
@@ -1004,8 +1012,11 @@ export default function ImpactPage() {
           </div>
         </div>
       )}
+      </>
+      )}
 
       {/* Trust & Dedication Plaque Banner */}
+      {isSectionVisible('impact-video') && (
       <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 pb-16">
         <div className="bg-gradient-to-br from-emerald-950 via-[#0e4d36] to-slate-950 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-emerald-800/40">
           <div className="space-y-3 max-w-2xl text-center lg:text-left">
@@ -1044,6 +1055,7 @@ export default function ImpactPage() {
           </div>
         </div>
       </section>
+      )}
     </main>
   );
 }

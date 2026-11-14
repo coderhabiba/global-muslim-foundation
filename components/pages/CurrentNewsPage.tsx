@@ -6,6 +6,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
+import { useSectionVisibility } from '@/lib/section-visibility';
 
 export type NewsArticle = {
   id: string;
@@ -132,6 +133,7 @@ export default function CurrentNewsPage() {
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
   const { newsArticles } = useDynamicCards();
+  const { isSectionVisible } = useSectionVisibility();
   const isBn = language === 'bn';
 
   const [activeTab, setActiveTab] = useState<'all' | 'relief' | 'water' | 'orphan'>('all');
@@ -147,6 +149,7 @@ export default function CurrentNewsPage() {
   return (
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       {/* Hero Section */}
+      {isSectionVisible('news-header') && (
       <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-900 text-xs font-bold tracking-wide shadow-xs">
@@ -185,6 +188,7 @@ export default function CurrentNewsPage() {
           </p>
         </div>
       </section>
+      )}
 
       {/* Main Content Area */}
       <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-8 py-12">

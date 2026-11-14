@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useSiteSettings, CURRENCIES, CurrencyCode } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
+import { useSectionVisibility } from '@/lib/section-visibility';
 
 const NISAB_SILVER_USD = 581.75;
 
@@ -38,6 +39,7 @@ export default function ZakatCalculatorPage() {
   const { localize, currency, language } = useSiteSettings();
   const { openPaymentModal, showAlert } = useModalState();
   const { cms } = useSiteCMS();
+  const { isSectionVisible } = useSectionVisibility();
   const cmsZakat = cms.zakat_calculator;
   const isBn = language === 'bn';
   const currentCurrency = CURRENCIES[currency] || CURRENCIES.BDT;
@@ -139,7 +141,7 @@ export default function ZakatCalculatorPage() {
       <main suppressHydrationWarning className="w-full bg-surface-container-low pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Section 1: Hero Banner & Trust Foundation */}
-
+          {isSectionVisible('zakat-header') && (
           <section className="relative w-full bg-surface-container-low overflow-hidden py-16 lg:py-24">
             {/* Ambient Islamic Motif Decorative Layers */}
 
@@ -310,9 +312,10 @@ export default function ZakatCalculatorPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Section 2: Live Nisab Benchmark Ticker */}
-
+          {isSectionVisible('zakat-nisab') && (
           <section className="w-full bg-emerald-dark text-on-primary py-8">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -408,9 +411,10 @@ export default function ZakatCalculatorPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Section 3: Interactive 5-Step Comprehensive Zakat Calculator */}
-
+          {isSectionVisible('quick-calculator') && (
           <section className="w-full bg-surface py-16" id="quick-calculator">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
               <div className="text-center max-w-3xl mx-auto mb-12 flex flex-col items-center">
@@ -886,9 +890,10 @@ export default function ZakatCalculatorPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Section 4: Governance, Shariah Integrity & Ring-Fenced Stewardship */}
-
+          {isSectionVisible('zakat-policy') && (
           <section
             className="w-full bg-surface-container-low py-16 lg:py-24"
             id="governance"
@@ -1015,9 +1020,10 @@ export default function ZakatCalculatorPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Section 5: Common Zakat Questions & Downloadable Reports */}
-
+          {isSectionVisible('zakat-faq') && (
           <section className="w-full bg-surface py-16 lg:py-24">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
               <div className="text-center max-w-3xl mx-auto mb-12">
@@ -1236,6 +1242,7 @@ export default function ZakatCalculatorPage() {
               </div>
             </div>
           </section>
+          )}
         </div>
       </main>
     </>

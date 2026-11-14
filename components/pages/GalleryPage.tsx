@@ -6,6 +6,7 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
+import { useSectionVisibility } from '@/lib/section-visibility';
 
 // Import Swiper React components and modules
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -203,6 +204,7 @@ export default function GalleryPage() {
   const { openPaymentModal } = useModalState();
   const { cms } = useSiteCMS();
   const { galleryTopics } = useDynamicCards();
+  const { isSectionVisible } = useSectionVisibility();
   const cmsGallery = cms.gallery;
   const isBn = language === 'bn';
 
@@ -217,6 +219,8 @@ export default function GalleryPage() {
     <main data-l10n="off" className="w-full bg-[#f8faf9] pt-[64px] sm:pt-[80px] min-h-screen">
       <div className="flex flex-col w-full">
         {/* Gallery Header / Breadcrumb Hero */}
+        {isSectionVisible('gallery-header') && (
+        <>
         <section className="relative w-full bg-gradient-to-b from-[#eef8f2] via-white to-[#f8faf9] overflow-hidden pt-8 pb-12 lg:pt-10 lg:pb-14 border-b border-slate-200">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-4">
@@ -525,8 +529,11 @@ export default function GalleryPage() {
             </div>
           </div>
         </section>
+        </>
+        )}
 
         {/* Project-Based Gallery Section (1 Single Consolidated Card Per Project Topic) */}
+        {isSectionVisible('gallery-filters') && (
         <section className="w-full px-4 sm:px-8 py-14">
           <div className="max-w-[1280px] mx-auto">
             <div className="mb-8">
@@ -695,6 +702,7 @@ export default function GalleryPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Interactive Lightbox Modal */}
         {lightboxImage && (

@@ -8,6 +8,8 @@ import { useSiteSettings } from '@/lib/site-settings';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { useModalState } from '@/lib/modal-context';
+import { useSectionVisibility } from '@/lib/section-visibility';
+import { useCustomSections } from '@/lib/page-sections';
 import { getProjectAmounts } from '@/components/payment/EpsPaymentModal';
 import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
 
@@ -78,6 +80,9 @@ export default function HomePage() {
   const { openPaymentModal, openLicenseModal, showAlert } = useModalState();
   const { cms } = useSiteCMS();
   const { campaigns } = useDynamicCards();
+  const { isSectionVisible } = useSectionVisibility();
+  const { getPageCustomSections } = useCustomSections();
+  const pageCustomSections = getPageCustomSections('home');
   const isBn = language === 'bn';
   const [campaignTab, setCampaignTab] = useState<'all' | 'food' | 'healthcare' | 'water'>('all');
 
@@ -209,7 +214,7 @@ export default function HomePage() {
 
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         {/* Hero Section with Dual Column & Floating Interactive Donation Card */}
-
+        {isSectionVisible('home-hero') && (
         <section className="relative w-full bg-gradient-to-b from-surface-subtle-mint/50 via-surface to-surface overflow-hidden py-12 lg:py-16">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -657,11 +662,12 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Impact Statistics & Transparency Ribbon */}
 
         {/* Dynamic Impact Banner - 4 Pillars (Screenshot 2 Style) */}
-
+        {isSectionVisible('home-stats') && (
         <section className="w-full bg-[#044E42] text-on-primary py-6 sm:py-8 shadow-inner">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x divide-white/10 text-center">
@@ -734,9 +740,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Urgent Appeals & Active Campaigns Grid */}
-
+        {isSectionVisible('home-appeals') && (
         <section className="w-full py-16 bg-surface" id="active-appeals">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             {/* Section Header */}
@@ -897,9 +904,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Real Stories Spotlight: Reconnection & Rehabilitation */}
-
+        {isSectionVisible('home-water') && (
         <section
           className="w-full py-16 bg-surface-subtle-mint/60 border-y border-border-subtle"
           id="story-spotlight"
@@ -1038,9 +1046,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Dedicated Interactive Zakat Calculator Section */}
-
+        {isSectionVisible('home-food') && (
         <section className="w-full py-14 sm:py-16 bg-[#f8faf9]" id="quick-calculator">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="bg-gradient-to-br from-[#044E42] via-[#065A4F] to-[#022c22] rounded-3xl text-white p-6 sm:p-10 lg:p-12 shadow-2xl border border-white/10">
@@ -1287,9 +1296,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Volunteer & Youth Engagement */}
-
+        {isSectionVisible('home-cta') && (
         <section className="w-full py-16 bg-surface-subtle-mint/40 border-t border-border-subtle">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -1411,9 +1421,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Governance, Shariah Board & Annual Audit Report Assurance */}
-
+        {isSectionVisible('home-governance') && (
         <section
           className="w-full py-14 bg-surface border-t border-border-subtle"
           id="governance"
@@ -1470,6 +1481,34 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        )}
+
+        {/* User-added Custom Sections for Home Page */}
+        {pageCustomSections
+          .filter(cs => isSectionVisible(cs.id, cs.isVisible !== false))
+          .map(cs => (
+            <section key={cs.id} className="w-full py-16 bg-surface border-t border-border-subtle">
+              <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+                <div className="text-center max-w-2xl mx-auto mb-8">
+                  <h3 className="font-serif-heading text-2xl sm:text-3xl font-bold text-on-surface">
+                    {isBn ? cs.label : (cs.labelEn || cs.label)}
+                  </h3>
+                </div>
+                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-border-subtle shadow-xs space-y-4">
+                  {cs.fields.map(f => (
+                    <div key={f.key}>
+                      <span className="text-xs font-bold text-slate-500 uppercase block mb-1">
+                        {isBn ? f.label : (f.labelEn || f.label)}
+                      </span>
+                      <p className="text-sm text-slate-800">
+                        {cs.data[f.key] || '—'}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ))}
       </main>
     </>
   );

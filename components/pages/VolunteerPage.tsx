@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useSiteSettings } from '@/lib/site-settings';
+import { useSectionVisibility } from '@/lib/section-visibility';
 
 const BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 
@@ -120,6 +121,7 @@ export default function VolunteerPage() {
   const { language } = useSiteSettings();
   const isBn = language === 'bn';
   const { cms } = useSiteCMS();
+  const { isSectionVisible } = useSectionVisibility();
   const cmsVolunteer = cms.volunteer;
   const successMsgRef = useRef<HTMLDivElement | null>(null);
   const [sector, setSector] = useState('Emergency Relief');
@@ -173,7 +175,8 @@ export default function VolunteerPage() {
       <main suppressHydrationWarning className="w-full bg-surface-subtle-mint pt-[64px] sm:pt-[80px]">
         <div className="flex flex-col w-full">
           {/* Top Ambient Banner / Breadcrumb & Motivation Ribbon */}
-
+          {isSectionVisible('volunteer-header') && (
+          <>
           <section className="w-full bg-surface-subtle-mint px-4 sm:px-8 py-4">
             <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-emerald-dark">
               <div className="flex items-center gap-2">
@@ -397,9 +400,11 @@ export default function VolunteerPage() {
               </div>
             </div>
           </section>
+          </>
+          )}
 
           {/* High-Contrast Live Metric Bar (Fully Dynamic + Real-time Subtle Fluctuation) */}
-
+          {isSectionVisible('volunteer-stats') && (
           <section className="w-full bg-[#044E42] text-white py-8 sm:py-10 shadow-inner">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
               {/* Subtle Live Activity Status */}
@@ -452,9 +457,10 @@ export default function VolunteerPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Interactive Volunteer Role Pathways */}
-
+          {isSectionVisible('volunteer-benefits') && (
           <section className="w-full bg-surface-container-low px-4 sm:px-8 py-16">
             <div className="max-w-[1280px] mx-auto space-y-10">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -745,9 +751,10 @@ export default function VolunteerPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Interactive Volunteer Application & Onboarding Section */}
-
+          {isSectionVisible('volunteer-form') && (
           <section
             className="w-full bg-surface px-4 sm:px-8 py-16"
             id="volunteer-application"
@@ -1125,6 +1132,7 @@ export default function VolunteerPage() {
               </div>
             </div>
           </section>
+          )}
 
           {/* Interactive FAQ Accordion */}
 
