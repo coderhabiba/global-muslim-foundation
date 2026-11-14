@@ -200,18 +200,46 @@ export default function UpcomingProjectsPage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold tracking-wide shadow-2xs">
             <span className="material-symbols-outlined text-[16px] text-emerald-700">
-              construction
+              build
             </span>
             <span>
               {isBn
-                ? (cmsUpcoming.pageBadge || 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা')
+                ? (cmsUpcoming.pageBadge || 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা')
                 : 'Sustainable Sadaqah Jariyah & Future Vision'}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-emerald-950 font-serif-heading tracking-tight leading-tight max-w-4xl mx-auto">
             {isBn ? (
-              <span>{cmsUpcoming.pageTitle || 'আমাদের আসন্ন প্রকল্পসমূহ — চিরস্থায়ী কল্যাণের পথে অংশীদার হোন'}</span>
+              (() => {
+                const title = (
+                  cmsUpcoming.pageTitle ||
+                  'আমাদের আসন্ন প্রকল্পসমূহ — চিরস্থায়ী কল্যাণের পথে অংশীদার হোন'
+                ).trim();
+                if (title.includes('—')) {
+                  const parts = title.split('—');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join('—').trim();
+                  return (
+                    <>
+                      {first} —{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                if (title.includes(',')) {
+                  const parts = title.split(',');
+                  const first = parts[0];
+                  const rest = parts.slice(1).join(',').trim();
+                  return (
+                    <>
+                      {first},{' '}
+                      <span className="text-amber-600 dark:text-amber-500">{rest}</span>
+                    </>
+                  );
+                }
+                return title;
+              })()
             ) : (
               <>
                 Upcoming Strategic Projects —{' '}
@@ -220,7 +248,7 @@ export default function UpcomingProjectsPage() {
             )}
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {isBn
               ? (cmsUpcoming.pageSubtitle || 'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।')
               : 'Beyond emergency relief, GMCF is committed to enduring institutional infrastructure. Join hands as a founding sponsor and build permanent sources of continuous reward.'}
@@ -229,7 +257,7 @@ export default function UpcomingProjectsPage() {
           <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#project-grid"
-              className="px-6 py-3 rounded-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-[#0e4d36] hover:bg-emerald-950 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">explore</span>
               <span>{isBn ? 'প্রকল্পগুলো দেখুন' : 'Explore Projects'}</span>
@@ -237,7 +265,7 @@ export default function UpcomingProjectsPage() {
             <button
               type="button"
               onClick={() => handlePledgeClick('General Upcoming Projects Fund')}
-              className="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <span className="material-symbols-outlined text-[18px]">volunteer_activism</span>
               <span>{isBn ? 'প্রকল্পে অনুদান দিন' : 'Support A Project'}</span>

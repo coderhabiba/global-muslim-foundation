@@ -315,9 +315,9 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     ctaSubheading: 'আপনার অনুদানের প্রতিটি পয়সা শিশুর উজ্জ্বল ভবিষ্যতের জন্য ব্যয় করা হয়।',
   },
   upcoming_projects: {
-    pageBadge: 'STRATEGIC EXPANSION & SUSTAINABLE INFRASTRUCTURE',
-    pageTitle: 'আসন্ন ও ভবিষ্যত মানবিক প্রকল্পসমূহ',
-    pageSubtitle: 'দূরদর্শী পরিকল্পনার মাধ্যমে দীর্ঘমেয়াদী সামাজিক পরিবর্তন ও স্থায়ী অবকাঠামো নির্মাণ।',
+    pageBadge: 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা',
+    pageTitle: 'আমাদের আসন্ন প্রকল্পসমূহ — চিরস্থায়ী কল্যাণের পথে অংশীদার হোন',
+    pageSubtitle: 'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।',
     featuredProjectTitle: 'প্রজেক্ট নূর — অত্যাধুনিক হিফজখানা ও কারিগরি শিক্ষা কমপ্লেক্স',
     featuredProjectTarget: '৫০,০০,০০০',
     featuredProjectDesc: 'সুবিধাবঞ্চিত শিশুদের দ্বীনি শিক্ষা ও আধুনিক আইটি কারিগরি প্রশিক্ষণ প্রদানের লক্ষ্যে স্থায়ী কমপ্লেক্স নির্মাণ।',
@@ -460,6 +460,27 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
           if (!parsed.sponsor_orphan.pageSubtitle || parsed.sponsor_orphan.pageSubtitle === 'আপনার সামান্য ভালোবাসায় বদলে যেতে পারে একজন এতিম শিশুর ভবিষ্যৎ ও আখিরাত।') {
             parsed.sponsor_orphan.pageSubtitle =
               'হাদিস শরিফে এসেছে: "আমি এবং এতিমের প্রতিপালনকারী জান্নাতে এভাবে থাকব" (তর্জনী ও মধ্যমা আঙুল একত্র করে দেখালেন) — সহিহ বুখারি। আপনার সামান্য মাসিক সহায়তা একটি অসহায় শিশুর সমগ্র ভবিষ্যৎ বদলে দিতে পারে।';
+          }
+        }
+        if (parsed.upcoming_projects) {
+          if (
+            !parsed.upcoming_projects.pageBadge ||
+            parsed.upcoming_projects.pageBadge === 'STRATEGIC EXPANSION & SUSTAINABLE INFRASTRUCTURE'
+          ) {
+            parsed.upcoming_projects.pageBadge = 'স্থায়ী সদকায়ে জারিয়াহ ও ভবিষ্যৎ মানবিক কর্মপরিকল্পনা';
+          }
+          if (
+            !parsed.upcoming_projects.pageTitle ||
+            parsed.upcoming_projects.pageTitle === 'আসন্ন ও ভবিষ্যত মানবিক প্রকল্পসমূহ'
+          ) {
+            parsed.upcoming_projects.pageTitle = 'আমাদের আসন্ন প্রকল্পসমূহ — চিরস্থায়ী কল্যাণের পথে অংশীদার হোন';
+          }
+          if (
+            !parsed.upcoming_projects.pageSubtitle ||
+            parsed.upcoming_projects.pageSubtitle === 'দূরদর্শী পরিকল্পনার মাধ্যমে দীর্ঘমেয়াদী সামাজিক পরিবর্তন ও স্থায়ী অবকাঠামো নির্মাণ।'
+          ) {
+            parsed.upcoming_projects.pageSubtitle =
+              'সাময়িক ত্রাণের পাশাপাশি প্রান্তিক মানুষের ভাগ্য চিরতরে বদলে দিতে GMCF গ্রহণ করেছে দীর্ঘমেয়াদী স্থায়ী অবকাঠামো প্রকল্প। আপনার যাকাত, দান ও সদকায়ে জারিয়াহ দিয়ে এই মহতী উদ্যোগগুলোতে শরিক হোন।';
           }
         }
         setCms(prev => ({
