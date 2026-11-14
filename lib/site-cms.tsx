@@ -491,7 +491,7 @@ export const DEFAULT_CMS_CONTENT: SiteCMSContent = {
     videoBadge: 'ফিল্ড ডকুমেন্টারি • মাসিক কার্যক্রমের ভিডিও',
     videoTitle: 'রাতের আঁধারে ক্ষুধার্ত মানুষের মুখে এক প্যাকেট গরম খাবার ও নিরাপদ পানি',
     videoSubtitle: 'ঢাকা শহরের বিভিন্ন পয়েন্টে মধ্যরাতে অনাহারী পথমানুষদের মাঝে বিরিয়ানি ও সুপেয় পানি বিতরণের সরাসরি মাঠপর্যায়ের চিত্র।',
-    videoUrl: 'https://www.youtube.com/embed/ScMzIvxBSi4',
+    videoUrl: '',
     videoCoverImage: '/images/volunteers-cooking-pots.jpg',
     videoDuration: '৩ মিনিট ৩৫ সেকেন্ড',
   },

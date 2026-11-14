@@ -7,6 +7,7 @@ import { useModalState } from '@/lib/modal-context';
 import { useSiteCMS } from '@/lib/site-cms';
 import { useDynamicCards } from '@/lib/dynamic-cards';
 import { DynamicLiveCounter } from '@/components/system/DynamicLiveCounter';
+import ProjectDocumentaryPlayer from '@/components/impact/ProjectDocumentaryPlayer';
 
 export type FoundationProject = {
   id: string;
@@ -374,16 +375,6 @@ export const FOUNDATION_PROJECTS: FoundationProject[] = [
   }
 ];
 
-function formatVideoEmbedUrl(url?: string): string {
-  if (!url) return 'https://www.youtube.com/embed/ScMzIvxBSi4';
-  const trimmed = url.trim();
-  const ytMatch = trimmed.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-  if (ytMatch && ytMatch[1]) {
-    return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
-  }
-  return trimmed;
-}
-
 export default function ImpactPage() {
   const { language, currency } = useSiteSettings();
   const { openPaymentModal } = useModalState();
@@ -395,8 +386,6 @@ export default function ImpactPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedProjectForModal, setSelectedProjectForModal] = useState<FoundationProject | null>(null);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState<boolean>(false);
-  const [isPlayingInline, setIsPlayingInline] = useState<boolean>(false);
 
   const categories = [
     { key: 'all', labelBn: 'সকল প্রজেক্ট', labelEn: 'All Projects' },
@@ -678,67 +667,31 @@ export default function ImpactPage() {
                   <span>{isBn ? '১০০ টাকায় খাবার অনুদান দিন' : 'Donate 1 Meal (100 BDT)'}</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => setIsPlayingInline(prev => !prev)}
-                  className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[18px] text-emerald-400">
-                    {isPlayingInline ? 'pause_circle' : 'play_circle'}
-                  </span>
-                  <span>{isPlayingInline ? (isBn ? 'ভিডিও বন্ধ করুন' : 'Stop Video') : (isBn ? 'ভিডিওটি দেখুন' : 'Watch Video')}</span>
-                </button>
+                <div className="inline-flex items-center gap-1.5 text-xs text-emerald-300 bg-white/10 px-3.5 py-2.5 rounded-xl border border-white/15">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>{isBn ? '৪ পর্বে সম্পূর্ণ ফিল্ড চিত্র' : '4-Part Field Footage'}</span>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Video Player / Cover */}
+            {/* Right Column: Custom Interactive Documentary Player */}
             <div className="lg:col-span-7">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black/60 border border-emerald-700/50 shadow-2xl group">
-                {isPlayingInline ? (
-                  <iframe
-                    src={formatVideoEmbedUrl(cmsImpact.videoUrl)}
-                    title="GMCF Field Documentary"
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : (
-                  <div
-                    className="relative w-full h-full cursor-pointer group"
-                    onClick={() => setIsPlayingInline(true)}
-                  >
-                    <img
-                      src={cmsImpact.videoCoverImage || '/images/volunteers-cooking-pots.jpg'}
-                      alt="Project Documentary"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-
-                    {/* Top Right Duration Pill */}
-                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-xs text-[11px] font-mono font-bold text-amber-300 flex items-center gap-1 border border-white/15">
-                      <span className="material-symbols-outlined text-[14px]">schedule</span>
-                      <span>{cmsImpact.videoDuration || (isBn ? '৩ মিনিট ৩৫ সেকেন্ড' : '3m 35s')}</span>
-                    </div>
-
-                    {/* Center Animated Play Button */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <div className="relative flex items-center justify-center">
-                        <span className="absolute w-20 h-20 rounded-full bg-emerald-400/30 animate-ping pointer-events-none" />
-                        <span className="absolute w-16 h-16 rounded-full bg-amber-400/40 blur-xs pointer-events-none" />
-                        <button
-                          type="button"
-                          className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
-                        >
-                          <span className="material-symbols-outlined text-[32px] ml-1">play_arrow</span>
-                        </button>
-                      </div>
-                      <span className="mt-3 text-xs font-bold text-white tracking-wide drop-shadow-md bg-black/60 px-3 py-1 rounded-full border border-white/10">
-                        {isBn ? 'ভিডিও চালু করতে ক্লিক করুন' : 'Click to Play Field Documentary'}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <ProjectDocumentaryPlayer
+                videoUrl={cmsImpact.videoUrl}
+                coverImage={cmsImpact.videoCoverImage}
+                videoDuration={cmsImpact.videoDuration}
+                videoTitle={cmsImpact.videoTitle}
+                videoSubtitle={cmsImpact.videoSubtitle}
+                videoBadge={cmsImpact.videoBadge}
+                isBn={isBn}
+                onDonateClick={() =>
+                  openPaymentModal({
+                    amount: currency === 'BDT' ? 100 : 1,
+                    currency,
+                    cause: 'Monthly Food Distribution — 1 Box Biryani & 500ml Water (মাসিক খাবার বিতরণ)',
+                  })
+                }
+              />
             </div>
           </div>
         </div>
