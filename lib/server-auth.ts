@@ -62,16 +62,17 @@ export async function setCustomAdminPassword(email: string, newPlainPassword: st
 
 export async function verifyAdminPassword(plainInput: string, email: string, envFallbackPassword?: string): Promise<boolean> {
   const customHash = getCustomAdminHash(email);
+  // If user has explicitly changed password, ONLY accept the new bcrypt password!
   if (customHash) {
     try {
-      const match = await bcrypt.compare(plainInput, customHash);
-      if (match) return true;
+      return await bcrypt.compare(plainInput, customHash);
     } catch (e) {
       console.error('Bcrypt compare error:', e);
+      return false;
     }
   }
 
-  // Fallback to environment variable / default password
+  // Fallback to environment variable / default password ONLY if no custom password was set
   if (envFallbackPassword) {
     return timingSafeCompare(plainInput, envFallbackPassword);
   }
