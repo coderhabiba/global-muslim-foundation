@@ -25,6 +25,7 @@ import { useSiteCMS, SitePageKey, SiteCMSContent } from '@/lib/site-cms';
 import { useSiteSettings } from '@/lib/site-settings';
 import AdminCardManager from '@/components/admin/AdminCardManager';
 import AdminSectionEditor from '@/components/admin/AdminSectionEditor';
+import { ChangePasswordCard } from '@/components/admin/ChangePasswordCard';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import {
@@ -2347,6 +2348,11 @@ export default function AdminDashboard() {
                       <span>{isBn ? 'অফিসিয়াল পারমিট লাইসেন্স ডাউনলোড করুন' : 'Download Official Permit License'}</span>
                     </a>
                   </div>
+                </div>
+
+                {/* Password Change Card with Bcrypt Hashing */}
+                <div className="lg:col-span-2">
+                  <ChangePasswordCard isBn={isBn} />
                 </div>
               </div>
             )}

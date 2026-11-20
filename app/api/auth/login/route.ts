@@ -5,6 +5,7 @@ import {
   resetLoginAttempts,
   timingSafeCompare,
   createSessionToken,
+  verifyAdminPassword,
 } from '@/lib/server-auth';
 
 export async function POST(req: NextRequest) {
@@ -51,10 +52,17 @@ export async function POST(req: NextRequest) {
       },
     ];
 
-    // Find user
-    const matchedUser = validUsers.find(
-      u => u.email === email && timingSafeCompare(password, u.password)
-    );
+    // Find user and verify password (supports bcrypt hash and fallback)
+    let matchedUser = null;
+    for (const u of validUsers) {
+      if (u.email === email) {
+        const isPasswordCorrect = await verifyAdminPassword(password, u.email, u.password);
+        if (isPasswordCorrect) {
+          matchedUser = u;
+          break;
+        }
+      }
+    }
 
     if (!matchedUser) {
       recordFailedAttempt(ip);

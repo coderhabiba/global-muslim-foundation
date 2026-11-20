@@ -1,6 +1,82 @@
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import bcrypt from 'bcryptjs';
 
 const AUTH_SECRET = process.env.AUTH_SECRET || 'gmcf_fallback_secret_auth_token_key_2025';
+
+// Path for server-side persistent custom admin credentials store
+const CREDENTIALS_FILE = path.join(process.cwd(), 'data', 'admin-credentials.json');
+
+interface StoredCredentials {
+  [email: string]: {
+    hash: string;
+    updatedAt: string;
+  };
+}
+
+function ensureDataDir(): void {
+  const dir = path.dirname(CREDENTIALS_FILE);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+}
+
+export function getCustomAdminHash(email: string): string | null {
+  try {
+    if (!fs.existsSync(CREDENTIALS_FILE)) return null;
+    const raw = fs.readFileSync(CREDENTIALS_FILE, 'utf8');
+    const data: StoredCredentials = JSON.parse(raw);
+    const key = email.toLowerCase().trim();
+    return data[key]?.hash || null;
+  } catch {
+    return null;
+  }
+}
+
+export async function setCustomAdminPassword(email: string, newPlainPassword: string): Promise<boolean> {
+  try {
+    ensureDataDir();
+    let data: StoredCredentials = {};
+    if (fs.existsSync(CREDENTIALS_FILE)) {
+      try {
+        data = JSON.parse(fs.readFileSync(CREDENTIALS_FILE, 'utf8'));
+      } catch {
+        data = {};
+      }
+    }
+    const salt = await bcrypt.genSalt(12);
+    const hash = await bcrypt.hash(newPlainPassword, salt);
+    const key = email.toLowerCase().trim();
+    data[key] = {
+      hash,
+      updatedAt: new Date().toISOString(),
+    };
+    fs.writeFileSync(CREDENTIALS_FILE, JSON.stringify(data, null, 2), 'utf8');
+    return true;
+  } catch (err) {
+    console.error('Failed to set custom admin password:', err);
+    return false;
+  }
+}
+
+export async function verifyAdminPassword(plainInput: string, email: string, envFallbackPassword?: string): Promise<boolean> {
+  const customHash = getCustomAdminHash(email);
+  if (customHash) {
+    try {
+      const match = await bcrypt.compare(plainInput, customHash);
+      if (match) return true;
+    } catch (e) {
+      console.error('Bcrypt compare error:', e);
+    }
+  }
+
+  // Fallback to environment variable / default password
+  if (envFallbackPassword) {
+    return timingSafeCompare(plainInput, envFallbackPassword);
+  }
+  return false;
+}
 
 // Rate limiting in-memory store: IP -> { attempts: number, lockUntil: number }
 const loginAttempts = new Map<string, { attempts: number; lockUntil: number }>();
@@ -106,4 +182,3 @@ export function verifySessionToken(token: string): AdminSession | null {
     return null;
   }
 }
-
