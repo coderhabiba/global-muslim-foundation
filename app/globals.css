@@ -40,6 +40,33 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* Custom Visible Scrollbar for Media Library & scrollable containers */
+.custom-visible-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #9333ea #f3e8ff !important;
+}
+
+.custom-visible-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.custom-visible-scrollbar::-webkit-scrollbar-track {
+  background: #f3e8ff !important;
+  border-radius: 9999px !important;
+}
+
+.custom-visible-scrollbar::-webkit-scrollbar-thumb {
+  background: #9333ea !important;
+  border-radius: 9999px !important;
+  border: 2px solid #f3e8ff !important;
+}
+
+.custom-visible-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7e22ce !important;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

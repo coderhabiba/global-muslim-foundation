@@ -134,7 +134,7 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
               {isBn ? 'বন্ধ করুন ✕' : 'Close ✕'}
             </button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-72 overflow-y-auto p-1 border border-purple-200/50 rounded-xl bg-white shadow-inner">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-72 overflow-y-scroll custom-visible-scrollbar p-2.5 border-2 border-purple-300 rounded-xl bg-white shadow-inner">
             {PRESET_LIBRARY_IMAGES.map((img, idx) => (
               <button
                 key={idx}
