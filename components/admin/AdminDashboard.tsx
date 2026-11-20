@@ -1253,119 +1253,121 @@ export default function AdminDashboard() {
         {/* Main Content View (Full width, balanced margins) */}
         <main className="p-3.5 sm:p-5 lg:p-6 flex-1 flex flex-col gap-5 w-full">
           {/* ========================================================== */}
-          {/* 4 Premium Animated Executive KPI Cards with Framer Motion */}
+          {/* 4 Premium Animated Executive KPI Cards (ONLY in Overview Tab) */}
           {/* ========================================================== */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* KPI Card 1: Total Funds */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.2 }}
-              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {isBn ? 'সর্বমোট অনুদান সংগ্রহ' : 'Total Funds Raised'}
-                </span>
-                <div className="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <HeartHandshake className="w-4.5 h-4.5" />
+          {activeTab === 'overview' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* KPI Card 1: Total Funds */}
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center justify-between pb-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    {isBn ? 'সর্বমোট অনুদান সংগ্রহ' : 'Total Funds Raised'}
+                  </span>
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <HeartHandshake className="w-4.5 h-4.5" />
+                  </div>
                 </div>
-              </div>
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                ৳{totalDonationsBdt.toLocaleString()}
-              </div>
-              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
-                  <CheckCircle2 className="w-3 h-3" />
-                  {isBn ? `${donations.length} টি সফল ট্রানজেকশন` : `${donations.length} Successful Gifts`}
-                </span>
-                <span className="text-[11px] text-zinc-500 font-medium">EPS Gateway</span>
-              </div>
-            </motion.div>
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
+                  ৳{totalDonationsBdt.toLocaleString()}
+                </div>
+                <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                    <CheckCircle2 className="w-3 h-3" />
+                    {isBn ? `${donations.length} টি সফল ট্রানজেকশন` : `${donations.length} Successful Gifts`}
+                  </span>
+                  <span className="text-[11px] text-zinc-500 font-medium">EPS Gateway</span>
+                </div>
+              </motion.div>
 
-            {/* KPI Card 2: Zakat Compliance */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.2 }}
-              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {isBn ? 'যাকাত ও তামলিক বণ্টন' : 'Zakat & Tamleek Policy'}
-                </span>
-                <div className="w-9 h-9 rounded-lg bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Award className="w-4.5 h-4.5" />
+              {/* KPI Card 2: Zakat Compliance */}
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center justify-between pb-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    {isBn ? 'যাকাত ও তামলিক বণ্টন' : 'Zakat & Tamleek Policy'}
+                  </span>
+                  <div className="w-9 h-9 rounded-lg bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Award className="w-4.5 h-4.5" />
+                  </div>
                 </div>
-              </div>
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                {isBn ? '১০০% নীতি' : '100% Policy'}
-              </div>
-              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
-                  <CheckCircle2 className="w-3 h-3" />
-                  {isBn ? 'জিরো এডমিন কস্ট' : 'Zero Admin Cost'}
-                </span>
-                <span className="text-[11px] text-zinc-500 font-medium">{isBn ? 'শরীয়াহ অনুমোদিত' : 'Shariah Verified'}</span>
-              </div>
-            </motion.div>
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
+                  {isBn ? '১০০% নীতি' : '100% Policy'}
+                </div>
+                <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
+                    <CheckCircle2 className="w-3 h-3" />
+                    {isBn ? 'জিরো এডমিন কস্ট' : 'Zero Admin Cost'}
+                  </span>
+                  <span className="text-[11px] text-zinc-500 font-medium">{isBn ? 'শরীয়াহ অনুমোদিত' : 'Shariah Verified'}</span>
+                </div>
+              </motion.div>
 
-            {/* KPI Card 3: Board & Members */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.2 }}
-              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {isBn ? 'সদস্য ও ট্রাস্টি বোর্ড' : 'Board & Trustees'}
-                </span>
-                <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Users className="w-4.5 h-4.5" />
+              {/* KPI Card 3: Board & Members */}
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center justify-between pb-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    {isBn ? 'সদস্য ও ট্রাস্টি বোর্ড' : 'Board & Trustees'}
+                  </span>
+                  <div className="w-9 h-9 rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Users className="w-4.5 h-4.5" />
+                  </div>
                 </div>
-              </div>
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                {isBn ? `${members.length} জন` : `${members.length} Members`}
-              </div>
-              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
-                <div className="flex items-center -space-x-1.5 overflow-hidden">
-                  {members.slice(0, 3).map((m, idx) => (
-                    <img
-                      key={idx}
-                      src={m.image}
-                      alt={m.nameBn}
-                      className="inline-block h-5 w-5 rounded-full ring-2 ring-white object-cover"
-                    />
-                  ))}
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
+                  {isBn ? `${members.length} জন` : `${members.length} Members`}
                 </div>
-                <span className="text-[11px] text-zinc-600 font-medium">{isBn ? '৩টি জোনাল সেল' : '3 Global Offices'}</span>
-              </div>
-            </motion.div>
+                <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                  <div className="flex items-center -space-x-1.5 overflow-hidden">
+                    {members.slice(0, 3).map((m, idx) => (
+                      <img
+                        key={idx}
+                        src={m.image}
+                        alt={m.nameBn}
+                        className="inline-block h-5 w-5 rounded-full ring-2 ring-white object-cover"
+                      />
+                    ))}
+                  </div>
+                  <span className="text-[11px] text-zinc-600 font-medium">{isBn ? '৩টি জোনাল সেল' : '3 Global Offices'}</span>
+                </div>
+              </motion.div>
 
-            {/* KPI Card 4: Volunteers & Ground Force */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.2 }}
-              className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center justify-between pb-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {isBn ? 'স্বেচ্ছাসেবক ফিল্ড ফোর্স' : 'Volunteer Field Force'}
-                </span>
-                <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <HandHeart className="w-4.5 h-4.5" />
+              {/* KPI Card 4: Volunteers & Ground Force */}
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className="relative overflow-hidden rounded-xl border border-zinc-200/80 bg-white p-5 shadow-xs hover:border-zinc-300 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center justify-between pb-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    {isBn ? 'স্বেচ্ছাসেবক ফিল্ড ফোর্স' : 'Volunteer Field Force'}
+                  </span>
+                  <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <HandHeart className="w-4.5 h-4.5" />
+                  </div>
                 </div>
-              </div>
-              <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
-                {isBn ? `${volunteers.length} জন` : `${volunteers.length} Active`}
-              </div>
-              <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
-                  <Clock className="w-3 h-3" />
-                  {isBn ? `${pendingVolunteersCount} জন অপেক্ষমান` : `${pendingVolunteersCount} Pending`}
-                </span>
-                <span className="text-[11px] text-zinc-500 font-medium">{isBn ? '৬৪ জেলা' : '64 Districts'}</span>
-              </div>
-            </motion.div>
-          </div>
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 font-mono">
+                  {isBn ? `${volunteers.length} জন` : `${volunteers.length} Active`}
+                </div>
+                <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-100">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+                    <Clock className="w-3 h-3" />
+                    {isBn ? `${pendingVolunteersCount} জন অপেক্ষমান` : `${pendingVolunteersCount} Pending`}
+                  </span>
+                  <span className="text-[11px] text-zinc-500 font-medium">{isBn ? '৬৪ জেলা' : '64 Districts'}</span>
+                </div>
+              </motion.div>
+            </div>
+          )}
 
           {/* Main Card with Segmented Tabs Header */}
           <div className="rounded-xl border border-zinc-200/80 bg-white shadow-xs overflow-hidden flex-1 flex flex-col">
