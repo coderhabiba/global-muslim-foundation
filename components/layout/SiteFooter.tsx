@@ -424,7 +424,7 @@ export default function SiteFooter() {
                 className="h-6 w-auto object-contain"
               />
               <img
-                src="/images/eps_extracted/image003.png"
+                src="/images/pci-dss-compliant.png"
                 alt="PCI DSS Compliant"
                 className="h-5 w-auto object-contain"
               />
@@ -456,7 +456,7 @@ export default function SiteFooter() {
             </a>
             <div className="flex items-center gap-2 text-[10px] text-text-muted flex-wrap justify-center">
               <img src="/images/payment/eps-pso-licensed.png" alt="PSO Licensed" className="h-5 w-auto object-contain" />
-              <img src="/images/eps_extracted/image003.png" alt="PCI DSS Compliant" className="h-4 w-auto object-contain" />
+              <img src="/images/pci-dss-compliant.png" alt="PCI DSS Compliant" className="h-4 w-auto object-contain" />
               <span>PSO Licensed &amp; PCI-DSS · Bangladesh Bank</span>
             </div>
           </div>
