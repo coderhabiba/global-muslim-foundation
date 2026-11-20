@@ -177,7 +177,7 @@ export function ChangePasswordCard({ isBn }: ChangePasswordCardProps) {
             ) : (
               <>
                 <Lock className="w-3.5 h-3.5" />
-                <span>{isBn ? 'পাসওয়ার্ড পরিবর্তন সংরক্ষণ করুন' : 'Save New Password'}</span>
+                <span>{isBn ? 'পাসওয়ার্ড পরিবর্তন সেভ করুন (Save)' : 'Save New Password'}</span>
               </>
             )}
           </button>

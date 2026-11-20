@@ -1312,7 +1312,7 @@ export default function AdminCardManager() {
                   type="submit"
                   className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold shadow-sm cursor-pointer"
                 >
-                  {isBn ? 'সংরক্ষণ করুন' : 'Save Changes'}
+                  {isBn ? 'সেভ করুন (Save)' : 'Save Changes'}
                 </button>
               </div>
             </form>

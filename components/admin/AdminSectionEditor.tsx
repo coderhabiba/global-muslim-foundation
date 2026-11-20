@@ -415,7 +415,7 @@ function SectionAccordion({
               <span>
                 {editorLang === 'en'
                   ? 'Changes apply to the live site when saved.'
-                  : 'সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে পরিবর্তন সক্রিয় হবে।'}
+                  : 'সেভ করলে সাথে সাথে মূল ওয়েবসাইটে পরিবর্তন সক্রিয় হবে।'}
               </span>
             </span>
             {onSave && (
@@ -425,7 +425,7 @@ function SectionAccordion({
                 className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all self-end sm:self-auto"
               >
                 <span className="material-symbols-outlined text-[16px]">save</span>
-                <span>{editorLang === 'en' ? 'Save This Section' : 'এই সেকশনটি সংরক্ষণ করুন'}</span>
+                <span>{editorLang === 'en' ? 'Save This Section' : 'এই সেকশনটি সেভ করুন (Save)'}</span>
               </button>
             )}
           </div>
@@ -646,7 +646,7 @@ export default function AdminSectionEditor() {
   const triggerSuccessToast = (title?: string, description?: string) => {
     setSaveToast({
       show: true,
-      title: title || (isBn ? 'সফলভাবে সংরক্ষণ সম্পন্ন হয়েছে!' : 'Saved Successfully!'),
+      title: title || (isBn ? 'সফলভাবে সেভ সম্পন্ন হয়েছে!' : 'Saved Successfully!'),
       description:
         description ||
         (isBn
@@ -801,7 +801,7 @@ export default function AdminSectionEditor() {
               className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-900/20 flex items-center gap-2 cursor-pointer transition-all active:scale-95 disabled:opacity-60"
             >
               <span className="material-symbols-outlined text-[18px]">save</span>
-              <span>{isSaving ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সংরক্ষণ করুন' : 'Save Changes')}</span>
+              <span>{isSaving ? (isBn ? 'সেভ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সেভ করুন (Save)' : 'Save Changes')}</span>
             </button>
           </div>
         </div>
@@ -1005,8 +1005,8 @@ export default function AdminSectionEditor() {
                   onDelete={() => setPendingDeleteId(cs.id)}
                   onSave={() => {
                     triggerSuccessToast(
-                      isBn ? 'কাস্টম সেকশন সংরক্ষিত হয়েছে!' : 'Custom Section Saved!',
-                      isBn ? 'কাস্টম সেকশনের তথ্য সফলভাবে সংরক্ষণ করা হয়েছে।' : 'Custom section data successfully saved.'
+                      isBn ? 'কাস্টম সেকশন সেভ হয়েছে!' : 'Custom Section Saved!',
+                      isBn ? 'কাস্টম সেকশনের তথ্য সফলভাবে সেভ করা হয়েছে।' : 'Custom section data successfully saved.'
                     );
                   }}
                 />
@@ -1032,7 +1032,7 @@ export default function AdminSectionEditor() {
           {/* Bottom Save Bar */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
             <span className="text-xs text-slate-500">
-              {isBn ? 'পরিবর্তন সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।' : 'Saving changes immediately reflects on live website.'}
+              {isBn ? 'পরিবর্তন সেভ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।' : 'Saving changes immediately reflects on live website.'}
             </span>
             <button
               type="button"
@@ -1041,7 +1041,7 @@ export default function AdminSectionEditor() {
               className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-900/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-60"
             >
               <span className="material-symbols-outlined text-[18px]">save</span>
-              <span>{isSaving ? (isBn ? 'সংরক্ষণ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সংরক্ষণ করুন' : 'Save Changes')}</span>
+              <span>{isSaving ? (isBn ? 'সেভ হচ্ছে...' : 'Saving...') : (isBn ? 'পরিবর্তন সেভ করুন (Save)' : 'Save Changes')}</span>
             </button>
           </div>
         </div>

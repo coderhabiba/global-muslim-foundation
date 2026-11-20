@@ -77,7 +77,7 @@ export default function AdminPageCmsEditor() {
           {saveToast && (
             <div className="px-3.5 py-2 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in">
               <span className="material-symbols-outlined text-[18px]">check_circle</span>
-              <span>সফলভাবে সংরক্ষণ হয়েছে!</span>
+              <span>সফলভাবে সেভ হয়েছে!</span>
             </div>
           )}
         </div>
@@ -1289,7 +1289,7 @@ export default function AdminPageCmsEditor() {
             {/* Submit Action Buttons */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
               <span className="text-xs text-slate-500">
-                পরিবর্তন সংরক্ষণ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।
+                পরিবর্তন সেভ করলে সাথে সাথে মূল ওয়েবসাইটে প্রতিফলিত হবে।
               </span>
               <button
                 type="submit"
@@ -1297,7 +1297,7 @@ export default function AdminPageCmsEditor() {
                 className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-900/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-60"
               >
                 <span className="material-symbols-outlined text-[18px]">save</span>
-                <span>{isSaving ? 'সংরক্ষণ হচ্ছে...' : 'পরিবর্তন সংরক্ষণ করুন'}</span>
+                <span>{isSaving ? 'সেভ হচ্ছে...' : 'পরিবর্তন সেভ করুন (Save)'}</span>
               </button>
             </div>
           </form>

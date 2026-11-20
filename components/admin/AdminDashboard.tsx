@@ -2549,7 +2549,7 @@ export default function AdminDashboard() {
                   type="submit"
                   className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
-                  {editingMemberId ? (isBn ? 'হালনাগাদ সংরক্ষণ করুন' : 'Update Member') : (isBn ? 'সদস্য যোগ করুন' : 'Save Member')}
+                  {editingMemberId ? (isBn ? 'হালনাগাদ সেভ করুন' : 'Update Member') : (isBn ? 'সদস্য সেভ করুন' : 'Save Member')}
                 </button>
               </div>
             </form>
@@ -2733,7 +2733,7 @@ export default function AdminDashboard() {
                   type="submit"
                   className="h-9 px-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium shadow-2xs cursor-pointer"
                 >
-                  {editingVolunteerId ? (isBn ? 'হালনাগাদ সংরক্ষণ করুন' : 'Update Volunteer') : (isBn ? 'স্বেচ্ছাসেবক যোগ করুন' : 'Add Volunteer')}
+                  {editingVolunteerId ? (isBn ? 'হালনাগাদ সেভ করুন' : 'Update Volunteer') : (isBn ? 'স্বেচ্ছাসেবক যোগ করুন' : 'Add Volunteer')}
                 </button>
               </div>
             </form>

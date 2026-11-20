@@ -4,22 +4,36 @@ import React, { useState } from 'react';
 import { useSiteSettings } from '@/lib/site-settings';
 
 const PRESET_LIBRARY_IMAGES = [
-  { url: '/images/hero-relief.jpg', label: 'হিরো ব্যানার (Relief Food)' },
-  { url: '/images/humanitarian-volunteers.jpg', label: 'স্বেচ্ছাসেবক টিম (Volunteers)' },
-  { url: '/images/one-meal-one-hope.jpg', label: 'ওয়ান মিল ওয়ান হোপ (Meal Distribution)' },
-  { url: '/images/clean-water-well.jpg', label: 'বিশুদ্ধ খাবার পানি (Tube Well)' },
+  { url: '/images/hero-relief.jpg', label: 'হিরো রিলিফ ব্যানার' },
+  { url: '/images/humanitarian-volunteers.jpg', label: 'স্বেচ্ছাসেবক টিম' },
+  { url: '/images/one-meal-one-hope.jpg', label: 'ওয়ান মিল ওয়ান হোপ' },
+  { url: '/images/clean-water-well.jpg', label: 'বিশুদ্ধ নলকূপ' },
   { url: '/images/drive-food-1.jpg', label: 'খাদ্য বিতরণ ১' },
   { url: '/images/drive-food-2.jpg', label: 'খাদ্য বিতরণ ২' },
   { url: '/images/drive-food-3.jpg', label: 'খাদ্য বিতরণ ৩' },
   { url: '/images/drive-water-1.jpg', label: 'নলকূপ প্রকল্প ১' },
   { url: '/images/drive-water-2.jpg', label: 'নলকূপ প্রকল্প ২' },
+  { url: '/images/drive-water-3.jpg', label: 'নলকূপ প্রকল্প ৩' },
   { url: '/images/drive-house-1.jpg', label: 'ঘর নির্মাণ ১' },
   { url: '/images/drive-house-2.jpg', label: 'ঘর নির্মাণ ২' },
-  { url: '/images/drive-orphan-1.jpg', label: 'এতিম শিশু কল্যাণ ১' },
-  { url: '/images/drive-orphan-2.jpg', label: 'এতিম শিশু কল্যাণ ২' },
-  { url: '/images/pediatric-hope-saifan.jpg', label: 'শিশু চিকিৎসা সহায়তা' },
-  { url: '/images/project-alo-eye-care.jpg', label: 'প্রজেক্ট আলো (চক্ষু সেবা)' },
+  { url: '/images/drive-house-3.jpg', label: 'ঘর নির্মাণ ৩' },
+  { url: '/images/drive-orphan-1.jpg', label: 'এতিম শিশু ১' },
+  { url: '/images/drive-orphan-2.jpg', label: 'এতিম শিশু ২' },
+  { url: '/images/drive-orphan-3.jpg', label: 'এতিম শিশু ৩' },
+  { url: '/images/drive-orphan-4.jpg', label: 'এতিম শিশু ৪' },
+  { url: '/images/pediatric-hope-saifan.jpg', label: 'শিশু চিকিৎসা' },
+  { url: '/images/project-alo-eye-care.jpg', label: 'প্রজেক্ট আলো চক্ষু সেবা' },
   { url: '/images/project-sheetolota-blankets.jpg', label: 'শীতবস্ত্র বিতরণ' },
+  { url: '/images/winter-blanket-distribution.jpg', label: 'শীতের কম্বল বিতরণ' },
+  { url: '/images/street-children-hot-meals.jpg', label: 'পথশিশু খাদ্য সেবা' },
+  { url: '/images/street-children-meal-line.jpg', label: 'শিশু আহার সারি' },
+  { url: '/images/youth-volunteers.jpg', label: 'যুব স্বেচ্ছাসেবক' },
+  { url: '/images/youth-volunteer-group.jpg', label: 'স্বেচ্ছাসেবক গ্রুপ' },
+  { url: '/images/rural-madrasa-children.jpg', label: 'মাদ্রাসা শিক্ষার্থী' },
+  { url: '/images/rural-sanitation-block.jpg', label: 'স্যানিটেশন প্রকল্প' },
+  { url: '/images/special-care-therapy.jpg', label: 'বিশেষ থেরাপি সেবা' },
+  { url: '/images/special-children-joy.jpg', label: 'বিশেষ শিশুদের আনন্দ' },
+  { url: '/images/village-water-pump.jpg', label: 'গ্রামের পানির পাম্প' },
   { url: '/images/gmcf-logo-full.png', label: 'GMCF ফুল লোগো' },
   { url: '/images/gmcf-logo-emblem.png', label: 'GMCF প্রতীক লোগো' },
 ];
@@ -120,7 +134,7 @@ export default function ImageSelectorField({ label, value, onChange, helpText }:
               {isBn ? 'বন্ধ করুন ✕' : 'Close ✕'}
             </button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-72 overflow-y-auto p-1 border border-purple-200/50 rounded-xl bg-white shadow-inner">
             {PRESET_LIBRARY_IMAGES.map((img, idx) => (
               <button
                 key={idx}
