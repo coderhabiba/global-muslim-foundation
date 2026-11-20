@@ -43,6 +43,13 @@ const callbackUrl = (status: string, txId: string) =>
     ? `${process.env[`EPS_${status.toUpperCase()}_URL`]}&txId=${txId}`
     : `${siteUrl()}/api/payment/eps/callback?status=${status}&txId=${txId}`;
 
+// ─── Validation helpers ───────────────────────────────────────────────────────
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email ?? '');
+
+const isValidBDPhone = (phone: string) =>
+  /^01[0-9]{9}$/.test((phone ?? '').replace(/[^0-9]/g, ''));
+
 // ─── Route handler ────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
@@ -98,9 +105,9 @@ export async function POST(req: NextRequest) {
       failUrl:    callbackUrl('fail',    merchantTransactionId),
       cancelUrl:  callbackUrl('cancel',  merchantTransactionId),
 
-      customerName:     donorName,
-      customerEmail:    donorEmail,
-      customerPhone:    donorPhone || '01000000000',
+      customerName:     donorName || 'Anonymous Donor',
+      customerEmail:    isValidEmail(donorEmail) ? donorEmail : 'donor@gmcfoundation.com',
+      customerPhone:    isValidBDPhone(donorPhone) ? donorPhone : '01000000000',
       customerAddress:  donorAddress || 'Dhaka, Bangladesh',
       customerCity:     'Dhaka',
       customerState:    'Dhaka',
@@ -147,7 +154,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      redirectUrl: payment.RedirectURL,
+      // Append &tab=mfs so EPS checkout opens on the MFS (Mobile Banking) tab by default
+      redirectUrl: payment.RedirectURL + '&tab=mfs',
       merchantTransactionId,
       epsTransactionId: payment.TransactionId,
     });

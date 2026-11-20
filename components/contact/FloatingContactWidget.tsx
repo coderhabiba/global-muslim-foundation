@@ -205,13 +205,13 @@ export default function FloatingContactWidget() {
         </div>
       )}
 
-      {/* Main Floating Trigger Button */}
+      {/* Main Floating Trigger Button (Compact Floating Action Button) */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-label={isBn ? 'সরাসরি যোগাযোগ ও সহায়তা বাটন' : 'Contact and Support Button'}
-        className={`group relative flex items-center gap-2 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-full shadow-2xl transition-all duration-300 cursor-pointer active:scale-95 ${
+        className={`group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl transition-all duration-300 cursor-pointer active:scale-95 ${
           isOpen
             ? 'bg-slate-900 text-white border border-slate-700'
             : 'bg-gradient-to-r from-emerald-800 via-[#0e4d36] to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-white border border-emerald-400/40 shadow-emerald-900/40'
@@ -230,24 +230,13 @@ export default function FloatingContactWidget() {
         {/* Dynamic Icon */}
         <div className="relative w-6 h-6 flex items-center justify-center">
           <span
-            className={`material-symbols-outlined text-[24px] transition-transform duration-300 ${
+            className={`material-symbols-outlined text-[26px] sm:text-[28px] transition-transform duration-300 ${
               isOpen ? 'rotate-90 text-rose-400' : 'rotate-0 text-amber-300'
             }`}
           >
             {isOpen ? 'close' : 'support_agent'}
           </span>
         </div>
-
-        {/* Label */}
-        <span className="font-bold text-xs sm:text-sm tracking-wide">
-          {isOpen
-            ? isBn
-              ? 'বন্ধ করুন'
-              : 'Close'
-            : isBn
-            ? 'যোগাযোগ করুন'
-            : 'Get in Touch'}
-        </span>
       </button>
     </div>
   );
