@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export type SitePageKey =
   | 'header_footer'
@@ -1129,6 +1130,30 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error('Failed to load CMS content from localStorage:', e);
     }
+
+    // 2. Load latest CMS content from Supabase to ensure all visitor devices see the edits
+    supabase
+      .from('site_cms')
+      .select('page_key, content')
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          setCms(prev => {
+            const merged = { ...prev };
+            data.forEach((row: { page_key: string; content: any }) => {
+              if (row.page_key && row.content) {
+                (merged as any)[row.page_key] = {
+                  ...(merged as any)[row.page_key],
+                  ...row.content,
+                };
+              }
+            });
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+            } catch (e) {}
+            return merged;
+          });
+        }
+      });
   }, []);
 
   const updatePageContent = <K extends SitePageKey>(pageKey: K, newContent: Partial<SiteCMSContent[K]>) => {
@@ -1149,6 +1174,22 @@ export function SiteCMSProvider({ children }: { children: React.ReactNode }) {
       } catch (e) {
         console.error('Failed to save CMS content:', e);
       }
+
+      // Synchronize with Supabase database for global visibility
+      supabase
+        .from('site_cms')
+        .upsert(
+          {
+            page_key: pageKey,
+            content: updated[pageKey],
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'page_key' }
+        )
+        .then(({ error }) => {
+          if (error) console.error('Supabase site_cms sync error:', error.message);
+        });
+
       return updated;
     });
     setTimeout(() => setIsSaving(false), 500);

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 import { FOUNDATION_PROJECTS, FoundationProject } from '@/components/pages/ImpactPage';
 import { UPCOMING_PROJECTS, UpcomingProject } from '@/components/pages/UpcomingProjectsPage';
 import { ORPHAN_PROFILES, OrphanProfile } from '@/lib/data/orphans';
@@ -239,7 +240,86 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error('Error loading card records from localStorage:', e);
     }
+
+    // Load and sync dynamic cards from Supabase
+    supabase
+      .from('dynamic_cards')
+      .select('id, category, data')
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const camps: DynamicCampaign[] = [];
+          const upcomings: UpcomingProject[] = [];
+          const founds: FoundationProject[] = [];
+          const orphs: OrphanProfile[] = [];
+          const newsList: NewsArticle[] = [];
+          const galleries: ProjectTopic[] = [];
+
+          data.forEach(row => {
+            if (row.category === 'campaigns') camps.push(row.data);
+            else if (row.category === 'upcoming') upcomings.push(row.data);
+            else if (row.category === 'foundation') founds.push(row.data);
+            else if (row.category === 'orphans') orphs.push(row.data);
+            else if (row.category === 'news') newsList.push(row.data);
+            else if (row.category === 'gallery') galleries.push(row.data);
+          });
+
+          if (camps.length > 0) {
+            setCampaigns(camps);
+            try { localStorage.setItem(STORAGE_KEYS.campaigns, JSON.stringify(camps)); } catch (e) {}
+          }
+          if (upcomings.length > 0) {
+            setUpcomingProjects(upcomings);
+            try { localStorage.setItem(STORAGE_KEYS.upcoming, JSON.stringify(upcomings)); } catch (e) {}
+          }
+          if (founds.length > 0) {
+            setFoundationProjects(founds);
+            try { localStorage.setItem(STORAGE_KEYS.foundation, JSON.stringify(founds)); } catch (e) {}
+          }
+          if (orphs.length > 0) {
+            setOrphans(orphs);
+            try { localStorage.setItem(STORAGE_KEYS.orphans, JSON.stringify(orphs)); } catch (e) {}
+          }
+          if (newsList.length > 0) {
+            setNewsArticles(newsList);
+            try { localStorage.setItem(STORAGE_KEYS.news, JSON.stringify(newsList)); } catch (e) {}
+          }
+          if (galleries.length > 0) {
+            setGalleryTopics(galleries);
+            try { localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(galleries)); } catch (e) {}
+          }
+        }
+      });
   }, []);
+
+  // Sync a single card category to Supabase
+  const syncCategoryToSupabase = (category: string, list: any[]) => {
+    // Upsert items into Supabase
+    const rows = list.map(item => ({
+      id: `${category}-${item.id}`,
+      category,
+      data: item,
+      updated_at: new Date().toISOString(),
+    }));
+
+    if (rows.length > 0) {
+      supabase
+        .from('dynamic_cards')
+        .upsert(rows, { onConflict: 'id' })
+        .then(({ error }) => {
+          if (error) console.error(`Supabase sync ${category} error:`, error.message);
+        });
+    }
+  };
+
+  const deleteCardFromSupabase = (category: string, itemId: string) => {
+    supabase
+      .from('dynamic_cards')
+      .delete()
+      .eq('id', `${category}-${itemId}`)
+      .then(({ error }) => {
+        if (error) console.error(`Supabase delete ${category} error:`, error.message);
+      });
+  };
 
   // Save Helpers
   const persistCampaigns = (list: DynamicCampaign[]) => {
@@ -250,6 +330,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('campaigns', list);
   };
 
   const persistUpcoming = (list: UpcomingProject[]) => {
@@ -260,6 +341,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('upcoming', list);
   };
 
   const persistFoundation = (list: FoundationProject[]) => {
@@ -270,6 +352,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('foundation', list);
   };
 
   const persistOrphans = (list: OrphanProfile[]) => {
@@ -280,6 +363,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('orphans', list);
   };
 
   const persistNews = (list: NewsArticle[]) => {
@@ -290,6 +374,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('news', list);
   };
 
   const persistGallery = (list: ProjectTopic[]) => {
@@ -300,6 +385,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
     } catch (e) {
       console.error(e);
     }
+    syncCategoryToSupabase('gallery', list);
   };
 
   // Campaigns Actions
@@ -317,6 +403,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteCampaign = (id: string) => {
     persistCampaigns(campaigns.filter(c => c.id !== id));
+    deleteCardFromSupabase('campaigns', id);
   };
 
   // Upcoming Actions
@@ -334,6 +421,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteUpcomingProject = (id: string) => {
     persistUpcoming(upcomingProjects.filter(p => p.id !== id));
+    deleteCardFromSupabase('upcoming', id);
   };
 
   // Foundation Actions
@@ -351,6 +439,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteFoundationProject = (id: string) => {
     persistFoundation(foundationProjects.filter(p => p.id !== id));
+    deleteCardFromSupabase('foundation', id);
   };
 
   // Orphan Actions
@@ -368,6 +457,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteOrphan = (id: string) => {
     persistOrphans(orphans.filter(o => o.id !== id));
+    deleteCardFromSupabase('orphans', id);
   };
 
   // News Actions
@@ -385,6 +475,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteNewsArticle = (id: string) => {
     persistNews(newsArticles.filter(n => n.id !== id));
+    deleteCardFromSupabase('news', id);
   };
 
   // Gallery Actions
@@ -402,6 +493,7 @@ export function DynamicCardProvider({ children }: { children: React.ReactNode })
 
   const deleteGalleryTopic = (id: string) => {
     persistGallery(galleryTopics.filter(g => g.id !== id));
+    deleteCardFromSupabase('gallery', id);
   };
 
   const resetAllCards = () => {

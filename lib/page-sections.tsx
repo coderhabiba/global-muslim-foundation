@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 // =========================================================
 // TYPE DEFINITIONS
@@ -838,6 +839,24 @@ export function CustomSectionsProvider({ children }: { children: React.ReactNode
     } catch (e) {
       console.error(e);
     }
+
+    // Load custom dynamic sections from Supabase
+    supabase
+      .from('custom_sections')
+      .select('id, page_key, section_data')
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const list: CustomSection[] = data.map(row => ({
+            ...(row.section_data as any),
+            id: row.id,
+            pageKey: row.page_key,
+          }));
+          setCustomSections(list);
+          try {
+            localStorage.setItem(CUSTOM_SECTIONS_KEY, JSON.stringify(list));
+          } catch (e) {}
+        }
+      });
   }, []);
 
   const save = (sections: CustomSection[]) => {
@@ -852,16 +871,54 @@ export function CustomSectionsProvider({ children }: { children: React.ReactNode
   const addCustomSection = (section: Omit<CustomSection, 'id'>) => {
     const id = `custom-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
     const newSection: CustomSection = { ...section, id };
-    save([...customSections, newSection]);
+    const updated = [...customSections, newSection];
+    save(updated);
+
+    // Save to Supabase
+    supabase
+      .from('custom_sections')
+      .insert({
+        id,
+        page_key: section.pageKey,
+        section_data: newSection,
+        updated_at: new Date().toISOString(),
+      })
+      .then(({ error }) => {
+        if (error) console.error('Supabase add section error:', error.message);
+      });
+
     return id;
   };
 
   const updateCustomSection = (id: string, updates: Partial<CustomSection>) => {
-    save(customSections.map(s => s.id === id ? { ...s, ...updates } : s));
+    const target = customSections.find(s => s.id === id);
+    const updatedSection = target ? { ...target, ...updates } : null;
+    save(customSections.map(s => (s.id === id ? (updatedSection as CustomSection) : s)));
+
+    if (updatedSection) {
+      supabase
+        .from('custom_sections')
+        .upsert({
+          id,
+          page_key: updatedSection.pageKey,
+          section_data: updatedSection,
+          updated_at: new Date().toISOString(),
+        })
+        .then(({ error }) => {
+          if (error) console.error('Supabase update section error:', error.message);
+        });
+    }
   };
 
   const deleteCustomSection = (id: string) => {
     save(customSections.filter(s => s.id !== id));
+    supabase
+      .from('custom_sections')
+      .delete()
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) console.error('Supabase delete section error:', error.message);
+      });
   };
 
   const getPageCustomSections = (pageKey: string) =>
